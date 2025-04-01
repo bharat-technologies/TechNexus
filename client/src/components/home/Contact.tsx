@@ -84,7 +84,7 @@ const Contact = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Email Us</h3>
                 <p className="text-gray-600 mb-4 flex-grow">Send us a detailed message and we'll respond promptly</p>
-                <div className="mt-auto pt-4">
+                <div className="mt-auto pt-4 text-center">
                   <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
                     contact@bharattechnologies.com
                   </div>
@@ -101,7 +101,7 @@ const Contact = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Call Us</h3>
                 <p className="text-gray-600 mb-4 flex-grow">Speak directly with our specialists during business hours</p>
-                <div className="mt-auto pt-4">
+                <div className="mt-auto pt-4 text-center">
                   <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
                     +123 456 7890
                   </div>
@@ -118,7 +118,7 @@ const Contact = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">AI Assistant</h3>
                 <p className="text-gray-600 mb-4 flex-grow">Get immediate answers from our AI-powered assistant</p>
-                <div className="mt-auto pt-4">
+                <div className="mt-auto pt-4 text-center">
                   <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
                     Chat Now
                   </div>
