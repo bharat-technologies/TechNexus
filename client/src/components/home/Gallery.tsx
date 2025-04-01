@@ -89,11 +89,13 @@ const Gallery = () => {
               />
             </div>
             
-            <div className="gallery-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <h3 className="font-poppins font-semibold text-xl mb-2">AI in Agriculture</h3>
-              <p className="text-center">Revolutionizing farming with AI technology</p>
-              <div className="mt-4 pt-2 border-t border-white border-opacity-20 w-16"></div>
-              <p className="mt-2 text-sm opacity-80">Explore Solutions →</p>
+            <div className="gallery-overlay absolute inset-0 bg-gradient-to-b from-transparent via-green-50/30 to-green-100/50 flex flex-col justify-center items-center text-gray-800 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm">
+              <div className="bg-white/80 px-6 py-4 rounded-lg shadow-lg">
+                <h3 className="font-poppins font-semibold text-xl mb-2 text-green-800">AI in Agriculture</h3>
+                <p className="text-center text-gray-700">Revolutionizing farming with AI technology</p>
+                <div className="mt-4 pt-2 border-t border-green-200 w-16 mx-auto"></div>
+                <p className="mt-2 text-sm text-green-600 font-medium">Explore Solutions →</p>
+              </div>
             </div>
           </motion.div>
           
@@ -181,11 +183,13 @@ const Gallery = () => {
               />
             </div>
             
-            <div className="gallery-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <h3 className="font-poppins font-semibold text-xl mb-2">Smart Solutions</h3>
-              <p className="text-center">Intelligent systems for modern businesses</p>
-              <div className="mt-4 pt-2 border-t border-white border-opacity-20 w-16"></div>
-              <p className="mt-2 text-sm opacity-80">Explore Solutions →</p>
+            <div className="gallery-overlay absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 to-blue-100/50 flex flex-col justify-center items-center text-gray-800 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm">
+              <div className="bg-white/80 px-6 py-4 rounded-lg shadow-lg">
+                <h3 className="font-poppins font-semibold text-xl mb-2 text-blue-800">Smart Solutions</h3>
+                <p className="text-center text-gray-700">Intelligent systems for modern businesses</p>
+                <div className="mt-4 pt-2 border-t border-blue-200 w-16 mx-auto"></div>
+                <p className="mt-2 text-sm text-blue-600 font-medium">Explore Solutions →</p>
+              </div>
             </div>
           </motion.div>
           
@@ -290,11 +294,13 @@ const Gallery = () => {
               />
             </div>
             
-            <div className="gallery-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <h3 className="font-poppins font-semibold text-xl mb-2">Future Tech</h3>
-              <p className="text-center">Pioneering the future of technology</p>
-              <div className="mt-4 pt-2 border-t border-white border-opacity-20 w-16"></div>
-              <p className="mt-2 text-sm opacity-80">Explore Solutions →</p>
+            <div className="gallery-overlay absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/30 to-purple-100/50 flex flex-col justify-center items-center text-gray-800 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm">
+              <div className="bg-white/80 px-6 py-4 rounded-lg shadow-lg">
+                <h3 className="font-poppins font-semibold text-xl mb-2 text-purple-800">Future Tech</h3>
+                <p className="text-center text-gray-700">Pioneering the future of technology</p>
+                <div className="mt-4 pt-2 border-t border-purple-200 w-16 mx-auto"></div>
+                <p className="mt-2 text-sm text-purple-600 font-medium">Explore Solutions →</p>
+              </div>
             </div>
           </motion.div>
           
