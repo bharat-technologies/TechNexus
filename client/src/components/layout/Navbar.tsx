@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'wouter';
 import MobileMenu from './MobileMenu';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,9 +14,24 @@ const Navbar = () => {
       setIsScrolled(scrollTop > 50);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
+
+  const toggleDropdown = (dropdown: string) => {
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -45,14 +62,17 @@ const Navbar = () => {
             </Link>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-6" ref={dropdownRef}>
               {/* Company Dropdown */}
-              <div className="dropdown relative group">
-                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+              <div className="dropdown relative">
+                <button 
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  onClick={() => toggleDropdown('company')}
+                >
                   <span className="relative z-10">The Company</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className="dropdown-content mt-1">
+                <div className={`dropdown-content ${activeDropdown === 'company' ? 'active' : ''}`}>
                   <Link href="/about-us">
                     <a className="block px-4 py-3">
                       <i className="fas fa-building mr-2"></i>
@@ -75,12 +95,15 @@ const Navbar = () => {
               </div>
               
               {/* Technology Dropdown */}
-              <div className="dropdown relative group">
-                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+              <div className="dropdown relative">
+                <button 
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  onClick={() => toggleDropdown('technology')}
+                >
                   <span className="relative z-10">Technology</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className="dropdown-content mt-1">
+                <div className={`dropdown-content ${activeDropdown === 'technology' ? 'active' : ''}`}>
                   <Link href="/ai-intelligence">
                     <a className="block px-4 py-3">
                       <i className="fas fa-robot mr-2"></i>
@@ -121,12 +144,15 @@ const Navbar = () => {
               </div>
               
               {/* Products Dropdown */}
-              <div className="dropdown relative group">
-                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+              <div className="dropdown relative">
+                <button 
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  onClick={() => toggleDropdown('products')}
+                >
                   <span className="relative z-10">Products</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className="dropdown-content mt-1">
+                <div className={`dropdown-content ${activeDropdown === 'products' ? 'active' : ''}`}>
                   <Link href="/product1">
                     <a className="block px-4 py-3">
                       <i className="fas fa-box mr-2"></i>
@@ -149,12 +175,15 @@ const Navbar = () => {
               </div>
               
               {/* Solutions Dropdown */}
-              <div className="dropdown relative group">
-                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+              <div className="dropdown relative">
+                <button 
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  onClick={() => toggleDropdown('solutions')}
+                >
                   <span className="relative z-10">Solutions</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className="dropdown-content mt-1">
+                <div className={`dropdown-content ${activeDropdown === 'solutions' ? 'active' : ''}`}>
                   <Link href="/enterprise-solutions">
                     <a className="block px-4 py-3">
                       <i className="fas fa-building mr-2"></i>
@@ -177,12 +206,15 @@ const Navbar = () => {
               </div>
               
               {/* Support & Services Dropdown */}
-              <div className="dropdown relative group">
-                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+              <div className="dropdown relative">
+                <button 
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  onClick={() => toggleDropdown('services')}
+                >
                   <span className="relative z-10">Support & Services</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className="dropdown-content mt-1">
+                <div className={`dropdown-content ${activeDropdown === 'services' ? 'active' : ''}`}>
                   <Link href="/consulting">
                     <a className="block px-4 py-3">
                       <i className="fas fa-comments mr-2"></i>
@@ -205,12 +237,15 @@ const Navbar = () => {
               </div>
               
               {/* Contact Dropdown */}
-              <div className="dropdown relative group">
-                <button className="bg-primary text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center shadow-sm hover:shadow-md relative">
+              <div className="dropdown relative">
+                <button 
+                  className="bg-primary text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center shadow-sm hover:shadow-md relative"
+                  onClick={() => toggleDropdown('contact')}
+                >
                   <span className="relative z-10">Contact</span>
-                  <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-white z-0 opacity-0 hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
-                <div className="dropdown-content mt-1 right-0">
+                <div className={`dropdown-content ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
                   <a href="tel:+1234567890" className="block px-4 py-3">
                     <i className="fas fa-phone mr-2"></i>
                     <span>Call Us</span>
