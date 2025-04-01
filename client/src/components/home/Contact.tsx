@@ -85,7 +85,7 @@ const Contact = () => {
                 <h3 className="text-xl font-bold mb-3 text-center">Email Us</h3>
                 <p className="text-gray-600 mb-4 flex-grow text-center">Send us a detailed message and we'll respond promptly</p>
                 <div className="mt-auto pt-4 text-center">
-                  <button className="w-full bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
+                  <button className="w-full bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300 text-center">
                     contact@bharattechnologies.com
                   </button>
                 </div>
@@ -102,7 +102,7 @@ const Contact = () => {
                 <h3 className="text-xl font-bold mb-3 text-center">Call Us</h3>
                 <p className="text-gray-600 mb-4 flex-grow text-center">Speak directly with our specialists during business hours</p>
                 <div className="mt-auto pt-4 text-center">
-                  <button className="w-full bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
+                  <button className="w-full bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300 text-center">
                     +123 456 7890
                   </button>
                 </div>
@@ -119,7 +119,7 @@ const Contact = () => {
                 <h3 className="text-xl font-bold mb-3 text-center">AI Assistant</h3>
                 <p className="text-gray-600 mb-4 flex-grow text-center">Get immediate answers from our AI-powered assistant</p>
                 <div className="mt-auto pt-4 text-center">
-                  <button className="w-full bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
+                  <button className="w-full bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300 text-center">
                     Chat Now
                   </button>
                 </div>
