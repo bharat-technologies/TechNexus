@@ -169,7 +169,7 @@
 
 /* Technology dropdown */
 .technology-dropdown {
-  min-width: 250px;
+  min-width: 300px;
   max-width: 90vw;
   display: none;
   left: 0;
@@ -230,7 +230,7 @@
   }
   
   .technology-dropdown {
-    min-width: 280px;
+    min-width: 320px;
   }
   
   .products-dropdown {
@@ -474,6 +474,16 @@
 /* Heartbeat Icons */
 .dropdown-content a:hover i.fa-heartbeat {
   color: #e53935; /* Red */
+}
+
+/* Leaf Icons */
+.dropdown-content a:hover i.fa-leaf {
+  color: #43a047; /* Green */
+}
+
+/* User Shield Icons */
+.dropdown-content a:hover i.fa-user-shield {
+  color: #039be5; /* Blue */
 }
 
 /* Oil Can Icons */
@@ -781,6 +791,14 @@
 
 .mobile-menu-links a:hover i.fa-heartbeat {
   color: #e53935; /* Red */
+}
+
+.mobile-menu-links a:hover i.fa-leaf {
+  color: #43a047; /* Green */
+}
+
+.mobile-menu-links a:hover i.fa-user-shield {
+  color: #039be5; /* Blue */
 }
 
 .mobile-menu-links a:hover i.fa-oil-can {

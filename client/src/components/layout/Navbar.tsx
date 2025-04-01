@@ -132,6 +132,22 @@ const Navbar = () => {
                       <span>Space</span>
                     </a>
                   </div>
+
+                  <div className="solution-section mt-2">
+                    <div className="font-bold mb-1">Specialized Technologies</div>
+                    <a href="/technology/agriculture-farming" className="block py-1">
+                      <i className="fas fa-leaf mr-2"></i>
+                      <span>Agriculture & Farming</span>
+                    </a>
+                    <a href="/technology/healthcare" className="block py-1">
+                      <i className="fas fa-heartbeat mr-2"></i>
+                      <span>Health Care</span>
+                    </a>
+                    <a href="/technology/life-support" className="block py-1">
+                      <i className="fas fa-user-shield mr-2"></i>
+                      <span>Life Support</span>
+                    </a>
+                  </div>
                 </div>
               </div>
               

@@ -51,6 +51,14 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       ]
     },
     {
+      title: 'Specialized Technologies',
+      links: [
+        { path: '/technology/agriculture-farming', icon: 'fas fa-leaf', text: 'Agriculture & Farming' },
+        { path: '/technology/healthcare', icon: 'fas fa-heartbeat', text: 'Health Care' },
+        { path: '/technology/life-support', icon: 'fas fa-user-shield', text: 'Life Support' },
+      ]
+    },
+    {
       title: 'Products',
       links: [
         { path: '/products/analytics-cloud', icon: 'fas fa-chart-line', text: 'Analytics Cloud' },
