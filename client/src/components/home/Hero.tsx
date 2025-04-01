@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import TechIcon from './TechIcon';
+import HumanAICollaboration from './HumanAICollaboration';
 
 const Hero = () => {
   return (
@@ -20,7 +20,7 @@ const Hero = () => {
           </div>
           <div className="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
             <div className="w-full max-w-lg">
-              <TechIcon size={400} className="w-full h-auto" />
+              <HumanAICollaboration size={600} className="w-full h-auto" />
             </div>
           </div>
         </div>
