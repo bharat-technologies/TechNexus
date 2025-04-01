@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import HumanAICollaboration from './HumanAICollaboration';
+import AITechSVG from './AITechSVG';
 
 const Hero = () => {
   return (
@@ -19,8 +19,8 @@ const Hero = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
-            <div className="w-full max-w-lg">
-              <HumanAICollaboration size={600} className="w-full h-auto" />
+            <div className="w-full max-w-lg p-4 bg-white rounded-lg shadow">
+              <AITechSVG width={700} height={500} className="w-full h-auto" />
             </div>
           </div>
         </div>
