@@ -18,6 +18,7 @@ import MultiCloud from "@/pages/multi-cloud";
 import CyberSecurity from "@/pages/cyber-security";
 import Defence from "@/pages/defence";
 import Space from "@/pages/space";
+import SpaceSolutions from "@/pages/solutions/space";
 import Product1 from "@/pages/product1";
 import Product2 from "@/pages/product2";
 import Product3 from "@/pages/product3";
@@ -49,6 +50,7 @@ function Router() {
       <Route path="/cyber-security" component={CyberSecurity} />
       <Route path="/defence" component={Defence} />
       <Route path="/space" component={Space} />
+      <Route path="/solutions/space" component={SpaceSolutions} />
       <Route path="/product1" component={Product1} />
       <Route path="/product2" component={Product2} />
       <Route path="/product3" component={Product3} />
