@@ -1,4 +1,7 @@
 import React from 'react';
+import PrecisionFarmingIllustration from '@/components/agriculture/PrecisionFarmingIllustration';
+import DataAnalyticsIllustration from '@/components/agriculture/DataAnalyticsIllustration';
+import SmartIrrigationIllustration from '@/components/agriculture/SmartIrrigationIllustration';
 
 export default function AgricultureFarmingPage() {
   return (
@@ -22,6 +25,16 @@ export default function AgricultureFarmingPage() {
               Explore Our Solutions
             </a>
           </div>
+        </div>
+      </div>
+      
+      {/* Precision Farming Illustration */}
+      <div className="mb-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <PrecisionFarmingIllustration />
+          </div>
+          <p className="text-sm text-center text-gray-500 mt-3">Precision farming uses GPS-guided equipment and satellite imagery to optimize farm operations</p>
         </div>
       </div>
 
@@ -91,6 +104,16 @@ export default function AgricultureFarmingPage() {
         </div>
       </div>
 
+      {/* Data Analytics Illustration */}
+      <div className="mb-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <DataAnalyticsIllustration />
+          </div>
+          <p className="text-sm text-center text-gray-500 mt-3">Farm analytics dashboard providing real-time insights and predictive models</p>
+        </div>
+      </div>
+
       {/* Our Solutions Section */}
       <div className="mb-16" id="solutions">
         <h2 className="text-3xl font-bold mb-10 text-center">Our Agricultural Technology Solutions</h2>
@@ -149,6 +172,16 @@ export default function AgricultureFarmingPage() {
         </div>
       </div>
 
+      {/* Smart Irrigation Illustration */}
+      <div className="mb-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <SmartIrrigationIllustration />
+          </div>
+          <p className="text-sm text-center text-gray-500 mt-3">Smart irrigation systems minimize water usage while optimizing crop health</p>
+        </div>
+      </div>
+        
       {/* Benefits Section */}
       <div className="mb-16">
         <h2 className="text-3xl font-bold mb-10 text-center">Benefits for Farmers</h2>
