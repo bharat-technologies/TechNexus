@@ -62,11 +62,11 @@ const Navbar = () => {
             </Link>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6" ref={dropdownRef}>
+            <div className="hidden md:flex items-center space-x-3" ref={dropdownRef}>
               {/* Company Dropdown */}
               <div className="dropdown relative group">
                 <button 
-                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-1 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('company')}
                 >
                   <span className="relative z-10">The Company</span>
@@ -97,7 +97,7 @@ const Navbar = () => {
               {/* Technology Dropdown */}
               <div className="dropdown relative group">
                 <button 
-                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-1 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('technology')}
                 >
                   <span className="relative z-10">Technology</span>
@@ -146,7 +146,7 @@ const Navbar = () => {
               {/* Products Dropdown */}
               <div className="dropdown relative group">
                 <button 
-                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-1 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('products')}
                 >
                   <span className="relative z-10">Products</span>
@@ -161,14 +161,14 @@ const Navbar = () => {
                     <a href="/products/cybersecurity-cloud" className="block py-1">Cybersecurity Cloud</a>
                   </div>
                   
-                  <div className="solution-section mt-4">
+                  <div className="solution-section mt-2">
                     <div className="font-bold mb-1">Platform</div>
                     <a href="/products/devops-cloud" className="block py-1">DevOps Cloud</a>
                     <a href="/products/experience-cloud" className="block py-1">Experience Cloud</a>
-                    <a href="/products/observability-service-management" className="block py-1">Observability and Service Management</a>
+                    <a href="/products/observability-service-management" className="block py-1">Observability and Service</a>
                   </div>
                   
-                  <div className="solution-section mt-4">
+                  <div className="solution-section mt-2">
                     <div className="font-bold mb-1">Resources</div>
                     <a href="/products/a-z-listing" className="block py-1">A-Z Product Listing</a>
                     <a href="/products/name-changes" className="block py-1">Product Name Changes</a>
@@ -179,7 +179,7 @@ const Navbar = () => {
               {/* Solutions Dropdown */}
               <div className="dropdown relative group">
                 <button 
-                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-1 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('solutions')}
                 >
                   <span className="relative z-10">Solutions</span>
@@ -201,7 +201,7 @@ const Navbar = () => {
               {/* Support & Services Dropdown */}
               <div className="dropdown relative group">
                 <button 
-                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
+                  className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-1 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('services')}
                 >
                   <span className="relative z-10">Support & Services</span>
