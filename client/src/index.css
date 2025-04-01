@@ -132,7 +132,7 @@
 }
 
 .dropdown-content a:hover {
-  background: #dedede;
+  background: #e8e8e8;
   color: #000000;
   opacity: 1;
 }
@@ -262,7 +262,7 @@
 
 .mobile-menu-links a:hover {
   color: #000;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.05);
 }
 
 .mobile-dropdown-content {
@@ -285,7 +285,7 @@
 }
 
 .mobile-dropdown-content a:hover {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.05);
 }
 
 @keyframes fadeIn {
