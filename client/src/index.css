@@ -135,7 +135,6 @@
   background: #f8f8f8;
   color: #000000;
   opacity: 1;
-  box-shadow: inset 4px 0 0 #000;
 }
 
 .dropdown-content a:hover i {
