@@ -50,7 +50,6 @@ const Navbar = () => {
               <div className="dropdown relative group">
                 <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
                   <span className="relative z-10">The Company</span>
-                  <i className="fas fa-chevron-down ml-1 text-xs"></i>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
@@ -79,7 +78,6 @@ const Navbar = () => {
               <div className="dropdown relative group">
                 <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
                   <span className="relative z-10">Technology</span>
-                  <i className="fas fa-chevron-down ml-1 text-xs"></i>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
@@ -126,7 +124,6 @@ const Navbar = () => {
               <div className="dropdown relative group">
                 <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
                   <span className="relative z-10">Products</span>
-                  <i className="fas fa-chevron-down ml-1 text-xs"></i>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
@@ -155,7 +152,6 @@ const Navbar = () => {
               <div className="dropdown relative group">
                 <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
                   <span className="relative z-10">Services</span>
-                  <i className="fas fa-chevron-down ml-1 text-xs"></i>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
