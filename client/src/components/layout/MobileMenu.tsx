@@ -54,7 +54,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       ]
     },
     {
-      title: 'Services',
+      title: 'Support & Services',
       links: [
         { path: '/consulting', icon: 'fas fa-comments', text: 'Consulting' },
         { path: '/development', icon: 'fas fa-code', text: 'Development' },
