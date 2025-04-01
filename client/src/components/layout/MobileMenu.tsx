@@ -27,19 +27,24 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
   const menuSections: DropdownSection[] = [
     {
-      title: 'The Company',
+      title: 'About Us',
       links: [
-        { path: '/about-us', icon: 'fas fa-building', text: 'About Us' },
+        { path: '/about-us', icon: 'fas fa-building', text: 'Company Overview' },
         { path: '/our-team', icon: 'fas fa-users', text: 'Our Team' },
         { path: '/careers', icon: 'fas fa-briefcase', text: 'Careers' },
       ]
     },
     {
-      title: 'Technology',
+      title: 'Core Technologies',
       links: [
-        { path: '/ai-intelligence', icon: 'fas fa-robot', text: 'Artificial Human Intelligence' },
+        { path: '/ai-intelligence', icon: 'fas fa-robot', text: 'Artificial Intelligence' },
         { path: '/cloud-stack', icon: 'fas fa-cloud', text: 'Cloud Stack' },
         { path: '/multi-cloud', icon: 'fas fa-server', text: 'Multi Cloud' },
+      ]
+    },
+    {
+      title: 'Security & Defense',
+      links: [
         { path: '/cyber-security', icon: 'fas fa-shield-alt', text: 'Cyber Security' },
         { path: '/defence', icon: 'fas fa-satellite', text: 'Defence' },
         { path: '/space', icon: 'fas fa-rocket', text: 'Space' },

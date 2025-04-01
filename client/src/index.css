@@ -155,6 +155,30 @@
   color: #000;
 }
 
+/* Company dropdown */
+.company-dropdown {
+  min-width: 220px;
+  max-width: 90vw;
+  display: none;
+  left: 0;
+}
+
+.company-dropdown.active {
+  display: block;
+}
+
+/* Technology dropdown */
+.technology-dropdown {
+  min-width: 250px;
+  max-width: 90vw;
+  display: none;
+  left: 0;
+}
+
+.technology-dropdown.active {
+  display: block;
+}
+
 /* Products dropdown in horizontal grid */
 .products-dropdown {
   min-width: 300px;
@@ -201,6 +225,14 @@
 
 /* Responsive adjustments for dropdowns */
 @media (max-width: 1024px) {
+  .company-dropdown {
+    min-width: 240px;
+  }
+  
+  .technology-dropdown {
+    min-width: 280px;
+  }
+  
   .products-dropdown {
     grid-template-columns: repeat(3, 1fr);
     min-width: 540px;
@@ -220,6 +252,18 @@
 }
 
 @media (max-width: 768px) {
+  .company-dropdown {
+    min-width: 220px;
+    left: auto;
+    transform: none;
+  }
+  
+  .technology-dropdown {
+    min-width: 260px;
+    left: auto;
+    transform: none;
+  }
+  
   .products-dropdown {
     grid-template-columns: repeat(2, 1fr);
     min-width: 420px;

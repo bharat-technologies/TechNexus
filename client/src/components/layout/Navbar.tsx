@@ -73,24 +73,21 @@ const Navbar = () => {
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content company-dropdown ${activeDropdown === 'company' ? 'active' : ''}`}>
-                  <Link href="/about-us">
-                    <a className="block px-4 py-3">
+                  <div className="solution-section">
+                    <div className="font-bold mb-1">About Us</div>
+                    <a href="/about-us" className="block py-1">
                       <i className="fas fa-building mr-2"></i>
-                      <span>About Us</span>
+                      <span>Company Overview</span>
                     </a>
-                  </Link>
-                  <Link href="/our-team">
-                    <a className="block px-4 py-3">
+                    <a href="/our-team" className="block py-1">
                       <i className="fas fa-users mr-2"></i>
                       <span>Our Team</span>
                     </a>
-                  </Link>
-                  <Link href="/careers">
-                    <a className="block px-4 py-3">
+                    <a href="/careers" className="block py-1">
                       <i className="fas fa-briefcase mr-2"></i>
                       <span>Careers</span>
                     </a>
-                  </Link>
+                  </div>
                 </div>
               </div>
               
@@ -104,42 +101,37 @@ const Navbar = () => {
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content technology-dropdown ${activeDropdown === 'technology' ? 'active' : ''}`}>
-                  <Link href="/ai-intelligence">
-                    <a className="block px-4 py-3">
+                  <div className="solution-section">
+                    <div className="font-bold mb-1">Core Technologies</div>
+                    <a href="/ai-intelligence" className="block py-1">
                       <i className="fas fa-robot mr-2"></i>
-                      <span>Artificial Human Intelligence</span>
+                      <span>Artificial Intelligence</span>
                     </a>
-                  </Link>
-                  <Link href="/cloud-stack">
-                    <a className="block px-4 py-3">
+                    <a href="/cloud-stack" className="block py-1">
                       <i className="fas fa-cloud mr-2"></i>
                       <span>Cloud Stack</span>
                     </a>
-                  </Link>
-                  <Link href="/multi-cloud">
-                    <a className="block px-4 py-3">
+                    <a href="/multi-cloud" className="block py-1">
                       <i className="fas fa-server mr-2"></i>
                       <span>Multi Cloud</span>
                     </a>
-                  </Link>
-                  <Link href="/cyber-security">
-                    <a className="block px-4 py-3">
+                  </div>
+                  
+                  <div className="solution-section mt-2">
+                    <div className="font-bold mb-1">Security & Defense</div>
+                    <a href="/cyber-security" className="block py-1">
                       <i className="fas fa-shield-alt mr-2"></i>
                       <span>Cyber Security</span>
                     </a>
-                  </Link>
-                  <Link href="/defence">
-                    <a className="block px-4 py-3">
+                    <a href="/defence" className="block py-1">
                       <i className="fas fa-satellite mr-2"></i>
                       <span>Defence</span>
                     </a>
-                  </Link>
-                  <Link href="/space">
-                    <a className="block px-4 py-3">
+                    <a href="/space" className="block py-1">
                       <i className="fas fa-rocket mr-2"></i>
                       <span>Space</span>
                     </a>
-                  </Link>
+                  </div>
                 </div>
               </div>
               
