@@ -148,6 +148,34 @@ const Navbar = () => {
                 </div>
               </div>
               
+              {/* Solutions Dropdown */}
+              <div className="dropdown relative group">
+                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+                  <span className="relative z-10">Solutions</span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
+                </button>
+                <div className="dropdown-content mt-1">
+                  <Link href="/enterprise-solutions">
+                    <a className="block px-4 py-3">
+                      <i className="fas fa-building mr-2"></i>
+                      <span>Enterprise Solutions</span>
+                    </a>
+                  </Link>
+                  <Link href="/cloud-solutions">
+                    <a className="block px-4 py-3">
+                      <i className="fas fa-cloud mr-2"></i>
+                      <span>Cloud Solutions</span>
+                    </a>
+                  </Link>
+                  <Link href="/security-solutions">
+                    <a className="block px-4 py-3">
+                      <i className="fas fa-shield-alt mr-2"></i>
+                      <span>Security Solutions</span>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              
               {/* Support & Services Dropdown */}
               <div className="dropdown relative group">
                 <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">

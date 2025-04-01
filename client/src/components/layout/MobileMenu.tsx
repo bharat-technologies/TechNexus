@@ -54,6 +54,14 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       ]
     },
     {
+      title: 'Solutions',
+      links: [
+        { path: '/enterprise-solutions', icon: 'fas fa-building', text: 'Enterprise Solutions' },
+        { path: '/cloud-solutions', icon: 'fas fa-cloud', text: 'Cloud Solutions' },
+        { path: '/security-solutions', icon: 'fas fa-shield-alt', text: 'Security Solutions' },
+      ]
+    },
+    {
       title: 'Support & Services',
       links: [
         { path: '/consulting', icon: 'fas fa-comments', text: 'Consulting' },
