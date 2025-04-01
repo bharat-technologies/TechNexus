@@ -153,72 +153,94 @@ const Navbar = () => {
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''}`}>
-                  <Link href="/products/analytics-cloud">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-chart-line mr-2"></i>
-                      <span>Analytics Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/business-network-cloud">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-network-wired mr-2"></i>
-                      <span>Business Network Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/content-cloud">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-file-alt mr-2"></i>
-                      <span>Content Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/cybersecurity-cloud">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-shield-alt mr-2"></i>
-                      <span>Cybersecurity Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/devops-cloud">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-code-branch mr-2"></i>
-                      <span>DevOps Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/experience-cloud">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-laptop mr-2"></i>
-                      <span>Experience Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/observability-service-management">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-eye mr-2"></i>
-                      <span>Observability and Service Management Cloud</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/opentext-thrust">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-rocket mr-2"></i>
-                      <span>OpenText™ Thrust</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/portfolio">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-briefcase mr-2"></i>
-                      <span>Portfolio</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/a-z-listing">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-list-alt mr-2"></i>
-                      <span>A-Z Product Listing</span>
-                    </a>
-                  </Link>
-                  <Link href="/products/name-changes">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-exchange-alt mr-2"></i>
-                      <span>Product Name Changes</span>
-                    </a>
-                  </Link>
+                  <div className="px-3 py-2">
+                    <Link href="/products/analytics-cloud">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-chart-line mr-2"></i>
+                        <span>Analytics Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/business-network-cloud">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-network-wired mr-2"></i>
+                        <span>Business Network Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/content-cloud">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-file-alt mr-2"></i>
+                        <span>Content Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/cybersecurity-cloud">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-shield-alt mr-2"></i>
+                        <span>Cybersecurity Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/devops-cloud">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-code-branch mr-2"></i>
+                        <span>DevOps Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/experience-cloud">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-laptop mr-2"></i>
+                        <span>Experience Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/observability-service-management">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-eye mr-2"></i>
+                        <span>Observability and Service Management Cloud</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/opentext-thrust">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-rocket mr-2"></i>
+                        <span>OpenText™ Thrust</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/portfolio">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-briefcase mr-2"></i>
+                        <span>Portfolio</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/a-z-listing">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-list-alt mr-2"></i>
+                        <span>A-Z Product Listing</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-3 py-2">
+                    <Link href="/products/name-changes">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-exchange-alt mr-2"></i>
+                        <span>Product Name Changes</span>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
               
@@ -407,25 +429,31 @@ const Navbar = () => {
                   <span className="relative z-10">Support & Services</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''}`}>
-                  <Link href="/consulting">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-comments mr-2"></i>
-                      <span>Consulting</span>
-                    </a>
-                  </Link>
-                  <Link href="/development">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-code mr-2"></i>
-                      <span>Development</span>
-                    </a>
-                  </Link>
-                  <Link href="/support">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-headset mr-2"></i>
-                      <span>Support</span>
-                    </a>
-                  </Link>
+                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''} grid grid-cols-3 gap-2 p-3`}>
+                  <div className="px-2 py-1">
+                    <Link href="/consulting">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-comments mr-2"></i>
+                        <span>Consulting</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-2 py-1">
+                    <Link href="/development">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-code mr-2"></i>
+                        <span>Development</span>
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="px-2 py-1">
+                    <Link href="/support">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-headset mr-2"></i>
+                        <span>Support</span>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
               
@@ -438,21 +466,27 @@ const Navbar = () => {
                   <span className="relative z-10">Contact</span>
                   <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
-                  <a href="tel:+1234567890" className="block px-4 py-3">
-                    <i className="fas fa-phone mr-2"></i>
-                    <span>Call Us</span>
-                  </a>
-                  <a href="mailto:contact@bharattechnologies.com" className="block px-4 py-3">
-                    <i className="fas fa-envelope mr-2"></i>
-                    <span>Email Us</span>
-                  </a>
-                  <Link href="/ai-chat">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-robot mr-2"></i>
-                      <span>AI Assistant</span>
+                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0 grid grid-cols-3 gap-2 p-3`}>
+                  <div className="px-2 py-1">
+                    <a href="tel:+1234567890" className="block px-4 py-3">
+                      <i className="fas fa-phone mr-2"></i>
+                      <span>Call Us</span>
                     </a>
-                  </Link>
+                  </div>
+                  <div className="px-2 py-1">
+                    <a href="mailto:contact@bharattechnologies.com" className="block px-4 py-3">
+                      <i className="fas fa-envelope mr-2"></i>
+                      <span>Email Us</span>
+                    </a>
+                  </div>
+                  <div className="px-2 py-1">
+                    <Link href="/ai-chat">
+                      <a className="block px-4 py-3">
+                        <i className="fas fa-robot mr-2"></i>
+                        <span>AI Assistant</span>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
