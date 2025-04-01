@@ -269,6 +269,76 @@
   color: #ff7043; /* Deep Orange */
 }
 
+/* Brain Icons */
+.dropdown-content a:hover i.fa-brain {
+  color: #7e57c2; /* Purple */
+}
+
+/* Balance Scale Icons */
+.dropdown-content a:hover i.fa-balance-scale {
+  color: #26a69a; /* Teal */
+}
+
+/* Cogs Icons */
+.dropdown-content a:hover i.fa-cogs {
+  color: #5d4037; /* Brown */
+}
+
+/* Concierge Bell Icons */
+.dropdown-content a:hover i.fa-concierge-bell {
+  color: #00acc1; /* Cyan */
+}
+
+/* Lock Icons */
+.dropdown-content a:hover i.fa-lock {
+  color: #e53935; /* Red */
+}
+
+/* University Icons */
+.dropdown-content a:hover i.fa-university {
+  color: #0288d1; /* Blue */
+}
+
+/* File Contract Icons */
+.dropdown-content a:hover i.fa-file-contract {
+  color: #00897b; /* Teal */
+}
+
+/* Heartbeat Icons */
+.dropdown-content a:hover i.fa-heartbeat {
+  color: #e53935; /* Red */
+}
+
+/* Oil Can Icons */
+.dropdown-content a:hover i.fa-oil-can {
+  color: #ff7043; /* Deep Orange */
+}
+
+/* Industry Icons */
+.dropdown-content a:hover i.fa-industry {
+  color: #455a64; /* Blue Grey */
+}
+
+/* Landmark Icons */
+.dropdown-content a:hover i.fa-landmark {
+  color: #0277bd; /* Blue */
+}
+
+/* Bolt Icons */
+.dropdown-content a:hover i.fa-bolt {
+  color: #fdd835; /* Yellow */
+}
+
+/* Th Large Icons */
+.dropdown-content a:hover i.fa-th-large {
+  color: #7cb342; /* Light Green */
+}
+
+/* Sitemap Icons */
+.dropdown-content a:hover i.fa-sitemap {
+  color: #5e35b1; /* Deep Purple */
+}
+
 @keyframes dropdownShow {
   0% {
     opacity: 0;
@@ -507,6 +577,79 @@
 
 .mobile-menu-links a:hover i.fa-exchange-alt {
   color: #ff7043; /* Deep Orange */
+}
+
+/* Mobile Menu - Solutions specific icon colors */
+.mobile-menu-links a:hover i.fa-brain {
+  color: #7e57c2; /* Purple */
+}
+
+.mobile-menu-links a:hover i.fa-cloud-upload-alt {
+  color: #29b6f6; /* Light Blue */
+}
+
+.mobile-menu-links a:hover i.fa-balance-scale {
+  color: #26a69a; /* Teal */
+}
+
+.mobile-menu-links a:hover i.fa-cogs {
+  color: #5d4037; /* Brown */
+}
+
+.mobile-menu-links a:hover i.fa-concierge-bell {
+  color: #00acc1; /* Cyan */
+}
+
+.mobile-menu-links a:hover i.fa-lock {
+  color: #e53935; /* Red */
+}
+
+.mobile-menu-links a:hover i.fa-university {
+  color: #0288d1; /* Blue */
+}
+
+.mobile-menu-links a:hover i.fa-file-contract {
+  color: #00897b; /* Teal */
+}
+
+.mobile-menu-links a:hover i.fa-heartbeat {
+  color: #e53935; /* Red */
+}
+
+.mobile-menu-links a:hover i.fa-oil-can {
+  color: #ff7043; /* Deep Orange */
+}
+
+.mobile-menu-links a:hover i.fa-industry {
+  color: #455a64; /* Blue Grey */
+}
+
+.mobile-menu-links a:hover i.fa-landmark {
+  color: #0277bd; /* Blue */
+}
+
+.mobile-menu-links a:hover i.fa-bolt {
+  color: #fdd835; /* Yellow */
+}
+
+.mobile-menu-links a:hover i.fa-th-large {
+  color: #7cb342; /* Light Green */
+}
+
+.mobile-menu-links a:hover i.fa-sitemap {
+  color: #5e35b1; /* Deep Purple */
+}
+
+.mobile-menu-links a:hover i.fa-database {
+  color: #f44336; /* Red */
+}
+
+.mobile-menu-links a:hover i.fa-microsoft {
+  color: #0078d7; /* Microsoft Blue */
+}
+
+.mobile-menu-links a:hover i.fa-salesforce {
+  color: #00a1e0; /* Salesforce Blue */
 }
 
 .mobile-dropdown-content a:hover {

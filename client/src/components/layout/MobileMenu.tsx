@@ -62,11 +62,47 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       ]
     },
     {
-      title: 'Solutions',
+      title: 'Solutions - Information Reimagined',
       links: [
-        { path: '/enterprise-solutions', icon: 'fas fa-building', text: 'Enterprise Solutions' },
-        { path: '/cloud-solutions', icon: 'fas fa-cloud', text: 'Cloud Solutions' },
-        { path: '/security-solutions', icon: 'fas fa-shield-alt', text: 'Security Solutions' },
+        { path: '/solutions/knowledge-reimagined', icon: 'fas fa-brain', text: 'Knowledge Reimagined' },
+        { path: '/solutions/cloudops-reimagined', icon: 'fas fa-cloud-upload-alt', text: 'CloudOps Reimagined' },
+        { path: '/solutions/connections-reimagined', icon: 'fas fa-network-wired', text: 'Connections Reimagined' },
+        { path: '/solutions/conversations-reimagined', icon: 'fas fa-comments', text: 'Conversations Reimagined' },
+        { path: '/solutions/decisions-reimagined', icon: 'fas fa-balance-scale', text: 'Decisions Reimagined' },
+        { path: '/solutions/engineering-reimagined', icon: 'fas fa-cogs', text: 'Engineering Reimagined' },
+        { path: '/solutions/security-reimagined', icon: 'fas fa-shield-alt', text: 'Security Reimagined' },
+      ]
+    },
+    {
+      title: 'Solutions - Artificial Intelligence',
+      links: [
+        { path: '/solutions/service-management-aviator', icon: 'fas fa-concierge-bell', text: 'Service Management Aviator' },
+        { path: '/solutions/devops-aviator', icon: 'fas fa-code-branch', text: 'DevOps Aviator' },
+        { path: '/solutions/experience-aviator', icon: 'fas fa-laptop', text: 'Experience Aviator' },
+        { path: '/solutions/content-aviator', icon: 'fas fa-file-alt', text: 'Content Aviator' },
+        { path: '/solutions/business-network-aviator', icon: 'fas fa-sitemap', text: 'Business Network Aviator' },
+        { path: '/solutions/cybersecurity-aviator', icon: 'fas fa-lock', text: 'Cybersecurity Aviator' },
+      ]
+    },
+    {
+      title: 'Solutions - Industry',
+      links: [
+        { path: '/solutions/banking', icon: 'fas fa-university', text: 'Banking' },
+        { path: '/solutions/insurance', icon: 'fas fa-file-contract', text: 'Insurance' },
+        { path: '/solutions/healthcare', icon: 'fas fa-heartbeat', text: 'Healthcare' },
+        { path: '/solutions/oil-gas', icon: 'fas fa-oil-can', text: 'Oil & Gas' },
+        { path: '/solutions/industrial-manufacturing', icon: 'fas fa-industry', text: 'Industrial Manufacturing' },
+        { path: '/solutions/public-sector', icon: 'fas fa-landmark', text: 'Public Sector' },
+        { path: '/solutions/utilities', icon: 'fas fa-bolt', text: 'Utilities' },
+        { path: '/solutions/all-industries', icon: 'fas fa-th-large', text: 'View All Industries' },
+      ]
+    },
+    {
+      title: 'Solutions - Enterprise Applications',
+      links: [
+        { path: '/solutions/sap', icon: 'fas fa-database', text: 'SAP®' },
+        { path: '/solutions/microsoft', icon: 'fab fa-microsoft', text: 'Microsoft®' },
+        { path: '/solutions/salesforce', icon: 'fab fa-salesforce', text: 'Salesforce®' },
       ]
     },
     {

@@ -231,25 +231,170 @@ const Navbar = () => {
                   <span className="relative z-10">Solutions</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''}`}>
-                  <Link href="/enterprise-solutions">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-building mr-2"></i>
-                      <span>Enterprise Solutions</span>
-                    </a>
-                  </Link>
-                  <Link href="/cloud-solutions">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-cloud mr-2"></i>
-                      <span>Cloud Solutions</span>
-                    </a>
-                  </Link>
-                  <Link href="/security-solutions">
-                    <a className="block px-4 py-3">
-                      <i className="fas fa-shield-alt mr-2"></i>
-                      <span>Security Solutions</span>
-                    </a>
-                  </Link>
+                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''} grid grid-cols-4 gap-4 w-max p-4`}>
+                  {/* Information Reimagined */}
+                  <div className="solution-section">
+                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Information Reimagined</div>
+                    <Link href="/solutions/knowledge-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-brain mr-2"></i>
+                        <span>Knowledge Reimagined</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/cloudops-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-cloud-upload-alt mr-2"></i>
+                        <span>CloudOps Reimagined</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/connections-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-network-wired mr-2"></i>
+                        <span>Connections Reimagined</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/conversations-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-comments mr-2"></i>
+                        <span>Conversations Reimagined</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/decisions-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-balance-scale mr-2"></i>
+                        <span>Decisions Reimagined</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/engineering-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-cogs mr-2"></i>
+                        <span>Engineering Reimagined</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/security-reimagined">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-shield-alt mr-2"></i>
+                        <span>Security Reimagined</span>
+                      </a>
+                    </Link>
+                  </div>
+                  
+                  {/* Artificial Intelligence */}
+                  <div className="solution-section">
+                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Artificial Intelligence</div>
+                    <Link href="/solutions/service-management-aviator">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-concierge-bell mr-2"></i>
+                        <span>Service Management Aviator</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/devops-aviator">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-code-branch mr-2"></i>
+                        <span>DevOps Aviator</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/experience-aviator">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-laptop mr-2"></i>
+                        <span>Experience Aviator</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/content-aviator">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-file-alt mr-2"></i>
+                        <span>Content Aviator</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/business-network-aviator">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-sitemap mr-2"></i>
+                        <span>Business Network Aviator</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/cybersecurity-aviator">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-lock mr-2"></i>
+                        <span>Cybersecurity Aviator</span>
+                      </a>
+                    </Link>
+                  </div>
+                  
+                  {/* Industry */}
+                  <div className="solution-section">
+                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Industry</div>
+                    <Link href="/solutions/banking">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-university mr-2"></i>
+                        <span>Banking</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/insurance">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-file-contract mr-2"></i>
+                        <span>Insurance</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/healthcare">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-heartbeat mr-2"></i>
+                        <span>Healthcare</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/oil-gas">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-oil-can mr-2"></i>
+                        <span>Oil & Gas</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/industrial-manufacturing">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-industry mr-2"></i>
+                        <span>Industrial Manufacturing</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/public-sector">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-landmark mr-2"></i>
+                        <span>Public Sector</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/utilities">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-bolt mr-2"></i>
+                        <span>Utilities</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/all-industries">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-th-large mr-2"></i>
+                        <span>View All Industries</span>
+                      </a>
+                    </Link>
+                  </div>
+                  
+                  {/* Enterprise Applications */}
+                  <div className="solution-section">
+                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Enterprise Applications</div>
+                    <Link href="/solutions/sap">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fas fa-database mr-2"></i>
+                        <span>SAP®</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/microsoft">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fab fa-microsoft mr-2"></i>
+                        <span>Microsoft®</span>
+                      </a>
+                    </Link>
+                    <Link href="/solutions/salesforce">
+                      <a className="block px-3 py-2 text-sm">
+                        <i className="fab fa-salesforce mr-2"></i>
+                        <span>Salesforce®</span>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
               
