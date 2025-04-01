@@ -152,94 +152,62 @@ const Navbar = () => {
                   <span className="relative z-10">Products</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''}`}>
-                  <div className="px-3 py-2">
-                    <Link href="/products/analytics-cloud">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-chart-line mr-2"></i>
-                        <span>Analytics Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/business-network-cloud">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-network-wired mr-2"></i>
-                        <span>Business Network Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/content-cloud">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-file-alt mr-2"></i>
-                        <span>Content Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/cybersecurity-cloud">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-shield-alt mr-2"></i>
-                        <span>Cybersecurity Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/devops-cloud">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-code-branch mr-2"></i>
-                        <span>DevOps Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/experience-cloud">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-laptop mr-2"></i>
-                        <span>Experience Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/observability-service-management">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-eye mr-2"></i>
-                        <span>Observability and Service Management Cloud</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/opentext-thrust">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-rocket mr-2"></i>
-                        <span>OpenText™ Thrust</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/portfolio">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-briefcase mr-2"></i>
-                        <span>Portfolio</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/a-z-listing">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-list-alt mr-2"></i>
-                        <span>A-Z Product Listing</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-3 py-2">
-                    <Link href="/products/name-changes">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-exchange-alt mr-2"></i>
-                        <span>Product Name Changes</span>
-                      </a>
-                    </Link>
+                <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''} p-4`}>
+                  <div className="grid grid-cols-4 gap-1">
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Cloud Products</div>
+                      <div className="mt-1">
+                        <a href="/products/analytics-cloud" className="block px-1 py-1 text-sm">Analytics Cloud</a>
+                        <Link href="/products/business-network-cloud">
+                          <a className="block px-1 py-1 text-sm">Business Network Cloud</a>
+                        </Link>
+                        <Link href="/products/content-cloud">
+                          <a className="block px-1 py-1 text-sm">Content Cloud</a>
+                        </Link>
+                        <Link href="/products/cybersecurity-cloud">
+                          <a className="block px-1 py-1 text-sm">Cybersecurity Cloud</a>
+                        </Link>
+                      </div>
+                    </div>
+                    
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Platform</div>
+                      <div className="mt-1">
+                        <Link href="/products/devops-cloud">
+                          <a className="block px-1 py-1 text-sm">DevOps Cloud</a>
+                        </Link>
+                        <Link href="/products/experience-cloud">
+                          <a className="block px-1 py-1 text-sm">Experience Cloud</a>
+                        </Link>
+                        <Link href="/products/observability-service-management">
+                          <a className="block px-1 py-1 text-sm">Observability and Service Management</a>
+                        </Link>
+                      </div>
+                    </div>
+                    
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Solutions</div>
+                      <div className="mt-1">
+                        <Link href="/products/opentext-thrust">
+                          <a className="block px-1 py-1 text-sm">OpenText™ Thrust</a>
+                        </Link>
+                        <Link href="/products/portfolio">
+                          <a className="block px-1 py-1 text-sm">Portfolio</a>
+                        </Link>
+                      </div>
+                    </div>
+                    
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Resources</div>
+                      <div className="mt-1">
+                        <Link href="/products/a-z-listing">
+                          <a className="block px-1 py-1 text-sm">A-Z Product Listing</a>
+                        </Link>
+                        <Link href="/products/name-changes">
+                          <a className="block px-1 py-1 text-sm">Product Name Changes</a>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -253,169 +221,105 @@ const Navbar = () => {
                   <span className="relative z-10">Solutions</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''} grid grid-cols-4 gap-4 w-max p-4`}>
+                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''} grid grid-cols-4 gap-1 w-max p-4`}>
                   {/* Information Reimagined */}
                   <div className="solution-section">
-                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Information Reimagined</div>
-                    <Link href="/solutions/knowledge-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-brain mr-2"></i>
-                        <span>Knowledge Reimagined</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/cloudops-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-cloud-upload-alt mr-2"></i>
-                        <span>CloudOps Reimagined</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/connections-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-network-wired mr-2"></i>
-                        <span>Connections Reimagined</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/conversations-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-comments mr-2"></i>
-                        <span>Conversations Reimagined</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/decisions-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-balance-scale mr-2"></i>
-                        <span>Decisions Reimagined</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/engineering-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-cogs mr-2"></i>
-                        <span>Engineering Reimagined</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/security-reimagined">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-shield-alt mr-2"></i>
-                        <span>Security Reimagined</span>
-                      </a>
-                    </Link>
+                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Information Reimagined</div>
+                    <div className="mt-1">
+                      <Link href="/solutions/knowledge-reimagined">
+                        <a className="block px-1 py-1 text-sm">Knowledge Reimagined</a>
+                      </Link>
+                      <Link href="/solutions/cloudops-reimagined">
+                        <a className="block px-1 py-1 text-sm">CloudOps Reimagined</a>
+                      </Link>
+                      <Link href="/solutions/connections-reimagined">
+                        <a className="block px-1 py-1 text-sm">Connections Reimagined</a>
+                      </Link>
+                      <Link href="/solutions/conversations-reimagined">
+                        <a className="block px-1 py-1 text-sm">Conversations Reimagined</a>
+                      </Link>
+                      <Link href="/solutions/decisions-reimagined">
+                        <a className="block px-1 py-1 text-sm">Decisions Reimagined</a>
+                      </Link>
+                      <Link href="/solutions/engineering-reimagined">
+                        <a className="block px-1 py-1 text-sm">Engineering Reimagined</a>
+                      </Link>
+                      <Link href="/solutions/security-reimagined">
+                        <a className="block px-1 py-1 text-sm">Security Reimagined</a>
+                      </Link>
+                    </div>
                   </div>
                   
                   {/* Artificial Intelligence */}
                   <div className="solution-section">
-                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Artificial Intelligence</div>
-                    <Link href="/solutions/service-management-aviator">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-concierge-bell mr-2"></i>
-                        <span>Service Management Aviator</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/devops-aviator">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-code-branch mr-2"></i>
-                        <span>DevOps Aviator</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/experience-aviator">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-laptop mr-2"></i>
-                        <span>Experience Aviator</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/content-aviator">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-file-alt mr-2"></i>
-                        <span>Content Aviator</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/business-network-aviator">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-sitemap mr-2"></i>
-                        <span>Business Network Aviator</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/cybersecurity-aviator">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-lock mr-2"></i>
-                        <span>Cybersecurity Aviator</span>
-                      </a>
-                    </Link>
+                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Artificial Intelligence</div>
+                    <div className="mt-1">
+                      <Link href="/solutions/service-management-aviator">
+                        <a className="block px-1 py-1 text-sm">Service Management Aviator</a>
+                      </Link>
+                      <Link href="/solutions/devops-aviator">
+                        <a className="block px-1 py-1 text-sm">DevOps Aviator</a>
+                      </Link>
+                      <Link href="/solutions/experience-aviator">
+                        <a className="block px-1 py-1 text-sm">Experience Aviator</a>
+                      </Link>
+                      <Link href="/solutions/content-aviator">
+                        <a className="block px-1 py-1 text-sm">Content Aviator</a>
+                      </Link>
+                      <Link href="/solutions/business-network-aviator">
+                        <a className="block px-1 py-1 text-sm">Business Network Aviator</a>
+                      </Link>
+                      <Link href="/solutions/cybersecurity-aviator">
+                        <a className="block px-1 py-1 text-sm">Cybersecurity Aviator</a>
+                      </Link>
+                    </div>
                   </div>
                   
                   {/* Industry */}
                   <div className="solution-section">
-                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Industry</div>
-                    <Link href="/solutions/banking">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-university mr-2"></i>
-                        <span>Banking</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/insurance">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-file-contract mr-2"></i>
-                        <span>Insurance</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/healthcare">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-heartbeat mr-2"></i>
-                        <span>Healthcare</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/oil-gas">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-oil-can mr-2"></i>
-                        <span>Oil & Gas</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/industrial-manufacturing">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-industry mr-2"></i>
-                        <span>Industrial Manufacturing</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/public-sector">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-landmark mr-2"></i>
-                        <span>Public Sector</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/utilities">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-bolt mr-2"></i>
-                        <span>Utilities</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/all-industries">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-th-large mr-2"></i>
-                        <span>View All Industries</span>
-                      </a>
-                    </Link>
+                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Industry</div>
+                    <div className="mt-1">
+                      <Link href="/solutions/banking">
+                        <a className="block px-1 py-1 text-sm">Banking</a>
+                      </Link>
+                      <Link href="/solutions/insurance">
+                        <a className="block px-1 py-1 text-sm">Insurance</a>
+                      </Link>
+                      <Link href="/solutions/healthcare">
+                        <a className="block px-1 py-1 text-sm">Healthcare</a>
+                      </Link>
+                      <Link href="/solutions/oil-gas">
+                        <a className="block px-1 py-1 text-sm">Oil & Gas</a>
+                      </Link>
+                      <Link href="/solutions/industrial-manufacturing">
+                        <a className="block px-1 py-1 text-sm">Industrial Manufacturing</a>
+                      </Link>
+                      <Link href="/solutions/public-sector">
+                        <a className="block px-1 py-1 text-sm">Public Sector</a>
+                      </Link>
+                      <Link href="/solutions/utilities">
+                        <a className="block px-1 py-1 text-sm">Utilities</a>
+                      </Link>
+                      <Link href="/solutions/all-industries">
+                        <a className="block px-1 py-1 text-sm">View All Industries</a>
+                      </Link>
+                    </div>
                   </div>
                   
                   {/* Enterprise Applications */}
                   <div className="solution-section">
-                    <div className="font-bold text-sm mb-2 pb-1 border-b border-gray-200">Enterprise Applications</div>
-                    <Link href="/solutions/sap">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fas fa-database mr-2"></i>
-                        <span>SAP®</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/microsoft">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fab fa-microsoft mr-2"></i>
-                        <span>Microsoft®</span>
-                      </a>
-                    </Link>
-                    <Link href="/solutions/salesforce">
-                      <a className="block px-3 py-2 text-sm">
-                        <i className="fab fa-salesforce mr-2"></i>
-                        <span>Salesforce®</span>
-                      </a>
-                    </Link>
+                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Enterprise Applications</div>
+                    <div className="mt-1">
+                      <Link href="/solutions/sap">
+                        <a className="block px-1 py-1 text-sm">SAP®</a>
+                      </Link>
+                      <Link href="/solutions/microsoft">
+                        <a className="block px-1 py-1 text-sm">Microsoft®</a>
+                      </Link>
+                      <Link href="/solutions/salesforce">
+                        <a className="block px-1 py-1 text-sm">Salesforce®</a>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -429,30 +333,20 @@ const Navbar = () => {
                   <span className="relative z-10">Support & Services</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''} grid grid-cols-3 gap-2 p-3`}>
-                  <div className="px-2 py-1">
-                    <Link href="/consulting">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-comments mr-2"></i>
-                        <span>Consulting</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-2 py-1">
-                    <Link href="/development">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-code mr-2"></i>
-                        <span>Development</span>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="px-2 py-1">
-                    <Link href="/support">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-headset mr-2"></i>
-                        <span>Support</span>
-                      </a>
-                    </Link>
+                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''} p-4`}>
+                  <div className="solution-section">
+                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Support & Services</div>
+                    <div className="mt-1">
+                      <Link href="/consulting">
+                        <a className="block px-1 py-1 text-sm">Consulting</a>
+                      </Link>
+                      <Link href="/development">
+                        <a className="block px-1 py-1 text-sm">Development</a>
+                      </Link>
+                      <Link href="/support">
+                        <a className="block px-1 py-1 text-sm">Support</a>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -466,26 +360,16 @@ const Navbar = () => {
                   <span className="relative z-10">Contact</span>
                   <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0 grid grid-cols-3 gap-2 p-3`}>
-                  <div className="px-2 py-1">
-                    <a href="tel:+1234567890" className="block px-4 py-3">
-                      <i className="fas fa-phone mr-2"></i>
-                      <span>Call Us</span>
-                    </a>
-                  </div>
-                  <div className="px-2 py-1">
-                    <a href="mailto:contact@bharattechnologies.com" className="block px-4 py-3">
-                      <i className="fas fa-envelope mr-2"></i>
-                      <span>Email Us</span>
-                    </a>
-                  </div>
-                  <div className="px-2 py-1">
-                    <Link href="/ai-chat">
-                      <a className="block px-4 py-3">
-                        <i className="fas fa-robot mr-2"></i>
-                        <span>AI Assistant</span>
-                      </a>
-                    </Link>
+                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0 p-4`}>
+                  <div className="solution-section">
+                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Get in Touch</div>
+                    <div className="mt-1">
+                      <a href="tel:+1234567890" className="block px-1 py-1 text-sm">Call Us</a>
+                      <a href="mailto:contact@bharattechnologies.com" className="block px-1 py-1 text-sm">Email Us</a>
+                      <Link href="/ai-chat">
+                        <a className="block px-1 py-1 text-sm">AI Assistant</a>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
