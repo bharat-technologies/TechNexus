@@ -147,34 +147,40 @@
   text-align: center;
 }
 
-/* Color-coded icons for different dropdown categories */
+/* Color transitions for icons */
+.dropdown-content a i {
+  transition: color 0.2s ease;
+  color: #000000;
+}
+
+/* Color-coded icons for different dropdown categories on hover */
 /* Company section - Blue */
-.company-dropdown a i {
+.company-dropdown a:hover i {
   color: #3498db;
 }
 
 /* Technology section - Purple */
-.technology-dropdown a i {
+.technology-dropdown a:hover i {
   color: #9b59b6;
 }
 
 /* Products section - Orange */
-.products-dropdown a i {
+.products-dropdown a:hover i {
   color: #e67e22;
 }
 
 /* Solutions section - Green */
-.solutions-dropdown a i {
+.solutions-dropdown a:hover i {
   color: #27ae60;
 }
 
 /* Support & Services section - Red */
-.services-dropdown a i {
+.services-dropdown a:hover i {
   color: #e74c3c;
 }
 
 /* Contact section - Teal */
-.contact-dropdown a i {
+.contact-dropdown a:hover i {
   color: #16a085;
 }
 
@@ -320,30 +326,32 @@
   margin-right: 10px;
   width: 20px;
   text-align: center;
+  color: #000000;
+  transition: color 0.2s ease;
 }
 
-/* Mobile-specific color classes */
-.mobile-company i {
+/* Mobile-specific color classes on hover */
+.mobile-company:hover i {
   color: #3498db;  /* Blue */
 }
 
-.mobile-technology i {
+.mobile-technology:hover i {
   color: #9b59b6;  /* Purple */
 }
 
-.mobile-products i {
+.mobile-products:hover i {
   color: #e67e22;  /* Orange */
 }
 
-.mobile-solutions i {
+.mobile-solutions:hover i {
   color: #27ae60;  /* Green */
 }
 
-.mobile-services i {
+.mobile-services:hover i {
   color: #e74c3c;  /* Red */
 }
 
-.mobile-contact i {
+.mobile-contact:hover i {
   color: #16a085;  /* Teal */
 }
 
