@@ -153,35 +153,80 @@
   color: #000000;
 }
 
-/* Color-coded icons for different dropdown categories on hover */
-/* Company section - Blue */
-.company-dropdown a:hover i {
-  color: #3498db;
+/* Icon-specific colors on hover based on meaning */
+/* Building, Company Icons */
+.dropdown-content a:hover i.fa-building {
+  color: #3949ab; /* Deep Blue */
 }
 
-/* Technology section - Purple */
-.technology-dropdown a:hover i {
-  color: #9b59b6;
+/* User Team Icons */
+.dropdown-content a:hover i.fa-users {
+  color: #5e35b1; /* Purple */
 }
 
-/* Products section - Orange */
-.products-dropdown a:hover i {
-  color: #e67e22;
+/* Career Icons */
+.dropdown-content a:hover i.fa-briefcase {
+  color: #546e7a; /* Blue Grey */
 }
 
-/* Solutions section - Green */
-.solutions-dropdown a:hover i {
-  color: #27ae60;
+/* Robot, AI Icons */
+.dropdown-content a:hover i.fa-robot {
+  color: #00897b; /* Teal */
 }
 
-/* Support & Services section - Red */
-.services-dropdown a:hover i {
-  color: #e74c3c;
+/* Cloud Icons */
+.dropdown-content a:hover i.fa-cloud {
+  color: #29b6f6; /* Light Blue */
 }
 
-/* Contact section - Teal */
-.contact-dropdown a:hover i {
-  color: #16a085;
+/* Server Icons */
+.dropdown-content a:hover i.fa-server {
+  color: #039be5; /* Blue */
+}
+
+/* Security Icons */
+.dropdown-content a:hover i.fa-shield-alt {
+  color: #d32f2f; /* Red */
+}
+
+/* Defense Icons */
+.dropdown-content a:hover i.fa-satellite {
+  color: #455a64; /* Dark Blue Grey */
+}
+
+/* Space Icons */
+.dropdown-content a:hover i.fa-rocket {
+  color: #7e57c2; /* Purple */
+}
+
+/* Product Icons */
+.dropdown-content a:hover i.fa-box {
+  color: #ff7043; /* Deep Orange */
+}
+
+/* Consulting Icons */
+.dropdown-content a:hover i.fa-comments {
+  color: #66bb6a; /* Green */
+}
+
+/* Code Icons */
+.dropdown-content a:hover i.fa-code {
+  color: #5c6bc0; /* Indigo */
+}
+
+/* Support Icons */
+.dropdown-content a:hover i.fa-headset {
+  color: #ec407a; /* Pink */
+}
+
+/* Phone Icons */
+.dropdown-content a:hover i.fa-phone {
+  color: #43a047; /* Green */
+}
+
+/* Email Icons */
+.dropdown-content a:hover i.fa-envelope {
+  color: #e53935; /* Red */
 }
 
 @keyframes dropdownShow {
@@ -330,29 +375,65 @@
   transition: color 0.2s ease;
 }
 
-/* Mobile-specific color classes on hover */
-.mobile-company:hover i {
-  color: #3498db;  /* Blue */
+/* Mobile icon-specific colors on hover */
+.mobile-menu-links a:hover i.fa-building {
+  color: #3949ab; /* Deep Blue */
 }
 
-.mobile-technology:hover i {
-  color: #9b59b6;  /* Purple */
+.mobile-menu-links a:hover i.fa-users {
+  color: #5e35b1; /* Purple */
 }
 
-.mobile-products:hover i {
-  color: #e67e22;  /* Orange */
+.mobile-menu-links a:hover i.fa-briefcase {
+  color: #546e7a; /* Blue Grey */
 }
 
-.mobile-solutions:hover i {
-  color: #27ae60;  /* Green */
+.mobile-menu-links a:hover i.fa-robot {
+  color: #00897b; /* Teal */
 }
 
-.mobile-services:hover i {
-  color: #e74c3c;  /* Red */
+.mobile-menu-links a:hover i.fa-cloud {
+  color: #29b6f6; /* Light Blue */
 }
 
-.mobile-contact:hover i {
-  color: #16a085;  /* Teal */
+.mobile-menu-links a:hover i.fa-server {
+  color: #039be5; /* Blue */
+}
+
+.mobile-menu-links a:hover i.fa-shield-alt {
+  color: #d32f2f; /* Red */
+}
+
+.mobile-menu-links a:hover i.fa-satellite {
+  color: #455a64; /* Dark Blue Grey */
+}
+
+.mobile-menu-links a:hover i.fa-rocket {
+  color: #7e57c2; /* Purple */
+}
+
+.mobile-menu-links a:hover i.fa-box {
+  color: #ff7043; /* Deep Orange */
+}
+
+.mobile-menu-links a:hover i.fa-comments {
+  color: #66bb6a; /* Green */
+}
+
+.mobile-menu-links a:hover i.fa-code {
+  color: #5c6bc0; /* Indigo */
+}
+
+.mobile-menu-links a:hover i.fa-headset {
+  color: #ec407a; /* Pink */
+}
+
+.mobile-menu-links a:hover i.fa-phone {
+  color: #43a047; /* Green */
+}
+
+.mobile-menu-links a:hover i.fa-envelope {
+  color: #e53935; /* Red */
 }
 
 .mobile-dropdown-content a:hover {
