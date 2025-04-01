@@ -64,13 +64,13 @@ const Navbar = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6" ref={dropdownRef}>
               {/* Company Dropdown */}
-              <div className="dropdown relative">
+              <div className="dropdown relative group">
                 <button 
                   className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('company')}
                 >
                   <span className="relative z-10">The Company</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content ${activeDropdown === 'company' ? 'active' : ''}`}>
                   <Link href="/about-us">
@@ -95,13 +95,13 @@ const Navbar = () => {
               </div>
               
               {/* Technology Dropdown */}
-              <div className="dropdown relative">
+              <div className="dropdown relative group">
                 <button 
                   className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('technology')}
                 >
                   <span className="relative z-10">Technology</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content ${activeDropdown === 'technology' ? 'active' : ''}`}>
                   <Link href="/ai-intelligence">
@@ -144,13 +144,13 @@ const Navbar = () => {
               </div>
               
               {/* Products Dropdown */}
-              <div className="dropdown relative">
+              <div className="dropdown relative group">
                 <button 
                   className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('products')}
                 >
                   <span className="relative z-10">Products</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content ${activeDropdown === 'products' ? 'active' : ''}`}>
                   <Link href="/product1">
@@ -175,13 +175,13 @@ const Navbar = () => {
               </div>
               
               {/* Solutions Dropdown */}
-              <div className="dropdown relative">
+              <div className="dropdown relative group">
                 <button 
                   className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('solutions')}
                 >
                   <span className="relative z-10">Solutions</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content ${activeDropdown === 'solutions' ? 'active' : ''}`}>
                   <Link href="/enterprise-solutions">
@@ -206,13 +206,13 @@ const Navbar = () => {
               </div>
               
               {/* Support & Services Dropdown */}
-              <div className="dropdown relative">
+              <div className="dropdown relative group">
                 <button 
                   className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden"
                   onClick={() => toggleDropdown('services')}
                 >
                   <span className="relative z-10">Support & Services</span>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 hover:opacity-5 rounded transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content ${activeDropdown === 'services' ? 'active' : ''}`}>
                   <Link href="/consulting">
@@ -237,13 +237,13 @@ const Navbar = () => {
               </div>
               
               {/* Contact Dropdown */}
-              <div className="dropdown relative">
+              <div className="dropdown relative group">
                 <button 
                   className="bg-primary text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center shadow-sm hover:shadow-md relative"
                   onClick={() => toggleDropdown('contact')}
                 >
                   <span className="relative z-10">Contact</span>
-                  <span className="absolute inset-0 bg-white z-0 opacity-0 hover:opacity-5 rounded-full transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
                 <div className={`dropdown-content ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
                   <a href="tel:+1234567890" className="block px-4 py-3">
