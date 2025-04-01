@@ -76,46 +76,52 @@ const Contact = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Email Option */}
               <div 
-                className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-8 text-center transition-all duration-300 cursor-pointer"
+                className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-8 text-center transition-all duration-300 cursor-pointer flex flex-col h-full"
                 onClick={() => openContactModal('email')}
               >
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <i className="fas fa-envelope text-2xl text-blue-600"></i>
                 </div>
                 <h3 className="text-xl font-bold mb-3">Email Us</h3>
-                <p className="text-gray-600 mb-4">Send us a detailed message and we'll respond promptly</p>
-                <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
-                  contact@bharattechnologies.com
+                <p className="text-gray-600 mb-4 flex-grow">Send us a detailed message and we'll respond promptly</p>
+                <div className="mt-auto pt-4">
+                  <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
+                    contact@bharattechnologies.com
+                  </div>
                 </div>
               </div>
               
               {/* Call Option */}
               <div 
-                className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-8 text-center transition-all duration-300 cursor-pointer"
+                className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-8 text-center transition-all duration-300 cursor-pointer flex flex-col h-full"
                 onClick={() => openContactModal('call')}
               >
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <i className="fas fa-phone text-2xl text-green-600"></i>
                 </div>
                 <h3 className="text-xl font-bold mb-3">Call Us</h3>
-                <p className="text-gray-600 mb-4">Speak directly with our specialists during business hours</p>
-                <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
-                  +123 456 7890
+                <p className="text-gray-600 mb-4 flex-grow">Speak directly with our specialists during business hours</p>
+                <div className="mt-auto pt-4">
+                  <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
+                    +123 456 7890
+                  </div>
                 </div>
               </div>
               
               {/* AI Assistant Option */}
               <div 
-                className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-8 text-center transition-all duration-300 cursor-pointer"
+                className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-8 text-center transition-all duration-300 cursor-pointer flex flex-col h-full"
                 onClick={() => openContactModal('ai')}
               >
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <i className="fas fa-robot text-2xl text-purple-600"></i>
                 </div>
                 <h3 className="text-xl font-bold mb-3">AI Assistant</h3>
-                <p className="text-gray-600 mb-4">Get immediate answers from our AI-powered assistant</p>
-                <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
-                  Chat Now
+                <p className="text-gray-600 mb-4 flex-grow">Get immediate answers from our AI-powered assistant</p>
+                <div className="mt-auto pt-4">
+                  <div className="inline-block bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors duration-300">
+                    Chat Now
+                  </div>
                 </div>
               </div>
             </div>
