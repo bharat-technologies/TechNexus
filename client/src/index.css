@@ -118,7 +118,6 @@
 
 .dropdown-content.active {
   display: block;
-  animation: dropdownShow 0.3s ease;
 }
 
 .dropdown-content a {
@@ -136,17 +135,14 @@
   background: #f8f8f8;
   color: #000000;
   opacity: 1;
-  transform: translateX(5px);
   box-shadow: inset 4px 0 0 #000;
 }
 
 .dropdown-content a:hover i {
-  transform: scale(1.2);
   color: #000000;
 }
 
 .dropdown-content a i {
-  transition: transform 0.3s ease;
   margin-right: 10px;
   width: 20px;
   text-align: center;
@@ -220,7 +216,6 @@
 
 .mobile-menu.active {
   display: block;
-  animation: fadeIn 0.3s ease;
 }
 
 .mobile-menu-header {
@@ -268,8 +263,7 @@
 
 .mobile-menu-links a:hover {
   color: #000;
-  background-color: rgba(0,0,0,0.02);
-  padding-left: 8px;
+  background-color: rgba(0,0,0,0.05);
 }
 
 .mobile-dropdown-content {
@@ -282,7 +276,6 @@
 
 .mobile-dropdown-content.active {
   display: block;
-  animation: slideDown 0.3s ease;
 }
 
 .mobile-dropdown-content a {
