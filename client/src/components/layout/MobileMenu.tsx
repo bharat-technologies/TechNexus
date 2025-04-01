@@ -48,9 +48,17 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     {
       title: 'Products',
       links: [
-        { path: '/product1', icon: 'fas fa-box', text: 'Product 1' },
-        { path: '/product2', icon: 'fas fa-box', text: 'Product 2' },
-        { path: '/product3', icon: 'fas fa-box', text: 'Product 3' },
+        { path: '/products/analytics-cloud', icon: 'fas fa-chart-line', text: 'Analytics Cloud' },
+        { path: '/products/business-network-cloud', icon: 'fas fa-network-wired', text: 'Business Network Cloud' },
+        { path: '/products/content-cloud', icon: 'fas fa-file-alt', text: 'Content Cloud' },
+        { path: '/products/cybersecurity-cloud', icon: 'fas fa-shield-alt', text: 'Cybersecurity Cloud' },
+        { path: '/products/devops-cloud', icon: 'fas fa-code-branch', text: 'DevOps Cloud' },
+        { path: '/products/experience-cloud', icon: 'fas fa-laptop', text: 'Experience Cloud' },
+        { path: '/products/observability-service-management', icon: 'fas fa-eye', text: 'Observability and Service Management Cloud' },
+        { path: '/products/opentext-thrust', icon: 'fas fa-rocket', text: 'OpenText™ Thrust' },
+        { path: '/products/portfolio', icon: 'fas fa-briefcase', text: 'Portfolio' },
+        { path: '/products/a-z-listing', icon: 'fas fa-list-alt', text: 'A-Z Product Listing' },
+        { path: '/products/name-changes', icon: 'fas fa-exchange-alt', text: 'Product Name Changes' },
       ]
     },
     {

@@ -229,6 +229,46 @@
   color: #e53935; /* Red */
 }
 
+/* Analytics Icons */
+.dropdown-content a:hover i.fa-chart-line {
+  color: #00acc1; /* Cyan */
+}
+
+/* Network Icons */
+.dropdown-content a:hover i.fa-network-wired {
+  color: #0277bd; /* Blue */
+}
+
+/* File/Content Icons */
+.dropdown-content a:hover i.fa-file-alt {
+  color: #ffca28; /* Amber */
+}
+
+/* Code Branch Icons */
+.dropdown-content a:hover i.fa-code-branch {
+  color: #7cb342; /* Light Green */
+}
+
+/* Laptop/Experience Icons */
+.dropdown-content a:hover i.fa-laptop {
+  color: #5c6bc0; /* Indigo */
+}
+
+/* Eye/Observability Icons */
+.dropdown-content a:hover i.fa-eye {
+  color: #26a69a; /* Teal */
+}
+
+/* List Icons */
+.dropdown-content a:hover i.fa-list-alt {
+  color: #8d6e63; /* Brown */
+}
+
+/* Exchange Icons */
+.dropdown-content a:hover i.fa-exchange-alt {
+  color: #ff7043; /* Deep Orange */
+}
+
 @keyframes dropdownShow {
   0% {
     opacity: 0;
@@ -434,6 +474,39 @@
 
 .mobile-menu-links a:hover i.fa-envelope {
   color: #e53935; /* Red */
+}
+
+/* Mobile Menu - New icon colors */
+.mobile-menu-links a:hover i.fa-chart-line {
+  color: #00acc1; /* Cyan */
+}
+
+.mobile-menu-links a:hover i.fa-network-wired {
+  color: #0277bd; /* Blue */
+}
+
+.mobile-menu-links a:hover i.fa-file-alt {
+  color: #ffca28; /* Amber */
+}
+
+.mobile-menu-links a:hover i.fa-code-branch {
+  color: #7cb342; /* Light Green */
+}
+
+.mobile-menu-links a:hover i.fa-laptop {
+  color: #5c6bc0; /* Indigo */
+}
+
+.mobile-menu-links a:hover i.fa-eye {
+  color: #26a69a; /* Teal */
+}
+
+.mobile-menu-links a:hover i.fa-list-alt {
+  color: #8d6e63; /* Brown */
+}
+
+.mobile-menu-links a:hover i.fa-exchange-alt {
+  color: #ff7043; /* Deep Orange */
 }
 
 .mobile-dropdown-content a:hover {
