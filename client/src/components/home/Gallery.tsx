@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 const Gallery = () => {
   return (
     <section className="py-20 bg-gray-100">
@@ -8,11 +6,7 @@ const Gallery = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
           
           {/* AI in Agriculture Card */}
-          <motion.div 
-            className="gallery-item overflow-hidden rounded-lg shadow-lg relative group bg-white"
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 300, damping: 10 }}
-          >
+          <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 relative">
               <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background with subtle pattern */}
@@ -59,52 +53,21 @@ const Gallery = () => {
                 <circle cx="310" cy="190" r="5" fill="#aed581"/>
                 <circle cx="300" cy="200" r="4" fill="#aed581"/>
               </svg>
-              
-              {/* Animated particle effects */}
-              <motion.div 
-                className="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-green-500"
-                animate={{ 
-                  y: [0, 10, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
-              
-              <motion.div 
-                className="absolute bottom-1/3 left-1/3 w-2 h-2 rounded-full bg-teal-500"
-                animate={{ 
-                  y: [0, -8, 0],
-                  opacity: [0.2, 0.6, 0.2],
-                }}
-                transition={{ 
-                  duration: 2.5,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 0.5
-                }}
-              />
             </div>
             
-            <div className="gallery-overlay absolute inset-0 bg-gradient-to-b from-transparent via-green-50/30 to-green-100/50 flex flex-col justify-center items-center text-gray-800 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm">
-              <div className="bg-white/80 px-6 py-4 rounded-lg shadow-lg">
-                <h3 className="font-poppins font-semibold text-xl mb-2 text-green-800">AI in Agriculture</h3>
-                <p className="text-center text-gray-700">Revolutionizing farming with AI technology</p>
-                <div className="mt-4 pt-2 border-t border-green-200 w-16 mx-auto"></div>
-                <p className="mt-2 text-sm text-green-600 font-medium">Explore Solutions →</p>
+            <div className="p-6 bg-white">
+              <h3 className="font-poppins font-semibold text-xl mb-2 text-green-800">AI in Agriculture</h3>
+              <p className="text-gray-700">Revolutionizing farming with AI technology</p>
+              <div className="mt-4">
+                <a href="/technology/agriculture-farming" className="text-green-600 font-medium text-sm inline-flex items-center">
+                  Explore Solutions <span className="ml-1">→</span>
+                </a>
               </div>
             </div>
-          </motion.div>
+          </div>
           
           {/* Smart Solutions Card */}
-          <motion.div 
-            className="gallery-item overflow-hidden rounded-lg shadow-lg relative group bg-white"
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 300, damping: 10 }}
-          >
+          <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 relative">
               <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background with subtle pattern */}
@@ -153,52 +116,21 @@ const Gallery = () => {
                 <path d="M55 200L65 200" stroke="#01579b" strokeWidth="1"/>
                 <path d="M325 200L335 200" stroke="#01579b" strokeWidth="1"/>
               </svg>
-              
-              {/* Animated particle effects */}
-              <motion.div 
-                className="absolute top-1/3 right-1/3 w-3 h-3 rounded-full bg-blue-400"
-                animate={{ 
-                  x: [0, 10, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                }}
-                transition={{ 
-                  duration: 3.5,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
-              
-              <motion.div 
-                className="absolute bottom-1/4 left-1/4 w-2 h-2 rounded-full bg-cyan-500"
-                animate={{ 
-                  x: [0, -8, 0],
-                  opacity: [0.2, 0.6, 0.2],
-                }}
-                transition={{ 
-                  duration: 2.8,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 0.7
-                }}
-              />
             </div>
             
-            <div className="gallery-overlay absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 to-blue-100/50 flex flex-col justify-center items-center text-gray-800 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm">
-              <div className="bg-white/80 px-6 py-4 rounded-lg shadow-lg">
-                <h3 className="font-poppins font-semibold text-xl mb-2 text-blue-800">Smart Solutions</h3>
-                <p className="text-center text-gray-700">Intelligent systems for modern businesses</p>
-                <div className="mt-4 pt-2 border-t border-blue-200 w-16 mx-auto"></div>
-                <p className="mt-2 text-sm text-blue-600 font-medium">Explore Solutions →</p>
+            <div className="p-6 bg-white">
+              <h3 className="font-poppins font-semibold text-xl mb-2 text-blue-800">Smart Solutions</h3>
+              <p className="text-gray-700">Intelligent systems for modern businesses</p>
+              <div className="mt-4">
+                <a href="/ai-intelligence" className="text-blue-600 font-medium text-sm inline-flex items-center">
+                  Explore Solutions <span className="ml-1">→</span>
+                </a>
               </div>
             </div>
-          </motion.div>
+          </div>
           
           {/* Future Tech Card */}
-          <motion.div 
-            className="gallery-item overflow-hidden rounded-lg shadow-lg relative group bg-white"
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 300, damping: 10 }}
-          >
+          <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 relative">
               <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background with subtle pattern */}
@@ -251,58 +183,18 @@ const Gallery = () => {
                 <path d="M200 25L200 35" stroke="#6a1b9a" strokeWidth="1.5"/>
                 <path d="M195 270H205" stroke="#6a1b9a" strokeWidth="1.5"/>
               </svg>
-              
-              {/* Animated particle effects */}
-              <motion.div 
-                className="absolute top-2/3 right-1/5 w-2 h-2 rounded-full bg-purple-500"
-                animate={{ 
-                  y: [0, -15, 0],
-                  opacity: [0.2, 0.7, 0.2],
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
-              
-              <motion.div 
-                className="absolute top-1/5 left-1/5 w-3 h-3 rounded-full bg-indigo-400"
-                animate={{ 
-                  x: [0, 10, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 1
-                }}
-              />
-              
-              <motion.div 
-                className="absolute top-1/2 left-1/2 w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-300"
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.1, 0.2, 0.1],
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
             </div>
             
-            <div className="gallery-overlay absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/30 to-purple-100/50 flex flex-col justify-center items-center text-gray-800 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm">
-              <div className="bg-white/80 px-6 py-4 rounded-lg shadow-lg">
-                <h3 className="font-poppins font-semibold text-xl mb-2 text-purple-800">Future Tech</h3>
-                <p className="text-center text-gray-700">Pioneering the future of technology</p>
-                <div className="mt-4 pt-2 border-t border-purple-200 w-16 mx-auto"></div>
-                <p className="mt-2 text-sm text-purple-600 font-medium">Explore Solutions →</p>
+            <div className="p-6 bg-white">
+              <h3 className="font-poppins font-semibold text-xl mb-2 text-purple-800">Future Tech</h3>
+              <p className="text-gray-700">Pioneering the future of technology</p>
+              <div className="mt-4">
+                <a href="/development" className="text-purple-600 font-medium text-sm inline-flex items-center">
+                  Explore Solutions <span className="ml-1">→</span>
+                </a>
               </div>
             </div>
-          </motion.div>
+          </div>
           
         </div>
       </div>
