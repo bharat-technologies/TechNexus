@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import TechIcon from './TechIcon';
 
 const Hero = () => {
   return (
@@ -17,26 +18,10 @@ const Hero = () => {
               </Link>
             </div>
           </div>
-          <div className="md:w-1/2" data-aos="fade-left" data-aos-delay="200">
-            <svg 
-              className="w-full h-auto" 
-              viewBox="0 0 400 300" 
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="400" height="300" rx="10" fill="#101010"/>
-              <circle cx="200" cy="150" r="80" fill="#151515"/>
-              <path d="M170 100V200M230 100V200" stroke="white" strokeWidth="2"/>
-              <path d="M150 150H250" stroke="white" strokeWidth="2"/>
-              <circle cx="170" cy="130" r="5" fill="white"/>
-              <circle cx="170" cy="170" r="5" fill="white"/>
-              <circle cx="230" cy="130" r="5" fill="white"/>
-              <circle cx="230" cy="170" r="5" fill="white"/>
-              <path d="M250 120C270 130 270 170 250 180" stroke="white" strokeWidth="2"/>
-              <path d="M150 120C130 130 130 170 150 180" stroke="white" strokeWidth="2"/>
-              <path d="M180 90C190 80 210 80 220 90" stroke="white" strokeWidth="2"/>
-              <path d="M180 210C190 220 210 220 220 210" stroke="white" strokeWidth="2"/>
-            </svg>
+          <div className="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
+            <div className="w-full max-w-lg">
+              <TechIcon size={400} className="w-full h-auto" />
+            </div>
           </div>
         </div>
       </div>
