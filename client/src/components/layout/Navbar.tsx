@@ -152,60 +152,40 @@ const Navbar = () => {
                   <span className="relative z-10">Products</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''} p-4`}>
-                  <div className="grid grid-cols-4 gap-1">
+                <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''}`}>
+                  <div className="grid grid-cols-4 gap-4">
                     <div className="solution-section">
                       <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Cloud Products</div>
                       <div className="mt-1">
-                        <a href="/products/analytics-cloud" className="block px-1 py-1 text-sm">Analytics Cloud</a>
-                        <Link href="/products/business-network-cloud">
-                          <a className="block px-1 py-1 text-sm">Business Network Cloud</a>
-                        </Link>
-                        <Link href="/products/content-cloud">
-                          <a className="block px-1 py-1 text-sm">Content Cloud</a>
-                        </Link>
-                        <Link href="/products/cybersecurity-cloud">
-                          <a className="block px-1 py-1 text-sm">Cybersecurity Cloud</a>
-                        </Link>
+                        <a href="/products/analytics-cloud" className="block px-0 py-1 text-sm">Analytics Cloud</a>
+                        <a href="/products/business-network-cloud" className="block px-0 py-1 text-sm">Business Network Cloud</a>
+                        <a href="/products/content-cloud" className="block px-0 py-1 text-sm">Content Cloud</a>
+                        <a href="/products/cybersecurity-cloud" className="block px-0 py-1 text-sm">Cybersecurity Cloud</a>
                       </div>
                     </div>
                     
                     <div className="solution-section">
                       <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Platform</div>
                       <div className="mt-1">
-                        <Link href="/products/devops-cloud">
-                          <a className="block px-1 py-1 text-sm">DevOps Cloud</a>
-                        </Link>
-                        <Link href="/products/experience-cloud">
-                          <a className="block px-1 py-1 text-sm">Experience Cloud</a>
-                        </Link>
-                        <Link href="/products/observability-service-management">
-                          <a className="block px-1 py-1 text-sm">Observability and Service Management</a>
-                        </Link>
+                        <a href="/products/devops-cloud" className="block px-0 py-1 text-sm">DevOps Cloud</a>
+                        <a href="/products/experience-cloud" className="block px-0 py-1 text-sm">Experience Cloud</a>
+                        <a href="/products/observability-service-management" className="block px-0 py-1 text-sm">Observability and Service Management</a>
                       </div>
                     </div>
                     
                     <div className="solution-section">
                       <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Solutions</div>
                       <div className="mt-1">
-                        <Link href="/products/opentext-thrust">
-                          <a className="block px-1 py-1 text-sm">OpenText™ Thrust</a>
-                        </Link>
-                        <Link href="/products/portfolio">
-                          <a className="block px-1 py-1 text-sm">Portfolio</a>
-                        </Link>
+                        <a href="/products/opentext-thrust" className="block px-0 py-1 text-sm">OpenText™ Thrust</a>
+                        <a href="/products/portfolio" className="block px-0 py-1 text-sm">Portfolio</a>
                       </div>
                     </div>
                     
                     <div className="solution-section">
                       <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Resources</div>
                       <div className="mt-1">
-                        <Link href="/products/a-z-listing">
-                          <a className="block px-1 py-1 text-sm">A-Z Product Listing</a>
-                        </Link>
-                        <Link href="/products/name-changes">
-                          <a className="block px-1 py-1 text-sm">Product Name Changes</a>
-                        </Link>
+                        <a href="/products/a-z-listing" className="block px-0 py-1 text-sm">A-Z Product Listing</a>
+                        <a href="/products/name-changes" className="block px-0 py-1 text-sm">Product Name Changes</a>
                       </div>
                     </div>
                   </div>
@@ -221,104 +201,58 @@ const Navbar = () => {
                   <span className="relative z-10">Solutions</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''} grid grid-cols-4 gap-1 w-max p-4`}>
-                  {/* Information Reimagined */}
-                  <div className="solution-section">
-                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Information Reimagined</div>
-                    <div className="mt-1">
-                      <Link href="/solutions/knowledge-reimagined">
-                        <a className="block px-1 py-1 text-sm">Knowledge Reimagined</a>
-                      </Link>
-                      <Link href="/solutions/cloudops-reimagined">
-                        <a className="block px-1 py-1 text-sm">CloudOps Reimagined</a>
-                      </Link>
-                      <Link href="/solutions/connections-reimagined">
-                        <a className="block px-1 py-1 text-sm">Connections Reimagined</a>
-                      </Link>
-                      <Link href="/solutions/conversations-reimagined">
-                        <a className="block px-1 py-1 text-sm">Conversations Reimagined</a>
-                      </Link>
-                      <Link href="/solutions/decisions-reimagined">
-                        <a className="block px-1 py-1 text-sm">Decisions Reimagined</a>
-                      </Link>
-                      <Link href="/solutions/engineering-reimagined">
-                        <a className="block px-1 py-1 text-sm">Engineering Reimagined</a>
-                      </Link>
-                      <Link href="/solutions/security-reimagined">
-                        <a className="block px-1 py-1 text-sm">Security Reimagined</a>
-                      </Link>
+                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''}`}>
+                  <div className="grid grid-cols-4 gap-4">
+                    {/* Information Reimagined */}
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Information Reimagined</div>
+                      <div className="mt-1">
+                        <a href="/solutions/knowledge-reimagined" className="block px-0 py-1 text-sm">Knowledge Reimagined</a>
+                        <a href="/solutions/cloudops-reimagined" className="block px-0 py-1 text-sm">CloudOps Reimagined</a>
+                        <a href="/solutions/connections-reimagined" className="block px-0 py-1 text-sm">Connections Reimagined</a>
+                        <a href="/solutions/conversations-reimagined" className="block px-0 py-1 text-sm">Conversations Reimagined</a>
+                        <a href="/solutions/decisions-reimagined" className="block px-0 py-1 text-sm">Decisions Reimagined</a>
+                        <a href="/solutions/engineering-reimagined" className="block px-0 py-1 text-sm">Engineering Reimagined</a>
+                        <a href="/solutions/security-reimagined" className="block px-0 py-1 text-sm">Security Reimagined</a>
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Artificial Intelligence */}
-                  <div className="solution-section">
-                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Artificial Intelligence</div>
-                    <div className="mt-1">
-                      <Link href="/solutions/service-management-aviator">
-                        <a className="block px-1 py-1 text-sm">Service Management Aviator</a>
-                      </Link>
-                      <Link href="/solutions/devops-aviator">
-                        <a className="block px-1 py-1 text-sm">DevOps Aviator</a>
-                      </Link>
-                      <Link href="/solutions/experience-aviator">
-                        <a className="block px-1 py-1 text-sm">Experience Aviator</a>
-                      </Link>
-                      <Link href="/solutions/content-aviator">
-                        <a className="block px-1 py-1 text-sm">Content Aviator</a>
-                      </Link>
-                      <Link href="/solutions/business-network-aviator">
-                        <a className="block px-1 py-1 text-sm">Business Network Aviator</a>
-                      </Link>
-                      <Link href="/solutions/cybersecurity-aviator">
-                        <a className="block px-1 py-1 text-sm">Cybersecurity Aviator</a>
-                      </Link>
+                    
+                    {/* Artificial Intelligence */}
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Artificial Intelligence</div>
+                      <div className="mt-1">
+                        <a href="/solutions/service-management-aviator" className="block px-0 py-1 text-sm">Service Management Aviator</a>
+                        <a href="/solutions/devops-aviator" className="block px-0 py-1 text-sm">DevOps Aviator</a>
+                        <a href="/solutions/experience-aviator" className="block px-0 py-1 text-sm">Experience Aviator</a>
+                        <a href="/solutions/content-aviator" className="block px-0 py-1 text-sm">Content Aviator</a>
+                        <a href="/solutions/business-network-aviator" className="block px-0 py-1 text-sm">Business Network Aviator</a>
+                        <a href="/solutions/cybersecurity-aviator" className="block px-0 py-1 text-sm">Cybersecurity Aviator</a>
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Industry */}
-                  <div className="solution-section">
-                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Industry</div>
-                    <div className="mt-1">
-                      <Link href="/solutions/banking">
-                        <a className="block px-1 py-1 text-sm">Banking</a>
-                      </Link>
-                      <Link href="/solutions/insurance">
-                        <a className="block px-1 py-1 text-sm">Insurance</a>
-                      </Link>
-                      <Link href="/solutions/healthcare">
-                        <a className="block px-1 py-1 text-sm">Healthcare</a>
-                      </Link>
-                      <Link href="/solutions/oil-gas">
-                        <a className="block px-1 py-1 text-sm">Oil & Gas</a>
-                      </Link>
-                      <Link href="/solutions/industrial-manufacturing">
-                        <a className="block px-1 py-1 text-sm">Industrial Manufacturing</a>
-                      </Link>
-                      <Link href="/solutions/public-sector">
-                        <a className="block px-1 py-1 text-sm">Public Sector</a>
-                      </Link>
-                      <Link href="/solutions/utilities">
-                        <a className="block px-1 py-1 text-sm">Utilities</a>
-                      </Link>
-                      <Link href="/solutions/all-industries">
-                        <a className="block px-1 py-1 text-sm">View All Industries</a>
-                      </Link>
+                    
+                    {/* Industry */}
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Industry</div>
+                      <div className="mt-1">
+                        <a href="/solutions/banking" className="block px-0 py-1 text-sm">Banking</a>
+                        <a href="/solutions/insurance" className="block px-0 py-1 text-sm">Insurance</a>
+                        <a href="/solutions/healthcare" className="block px-0 py-1 text-sm">Healthcare</a>
+                        <a href="/solutions/oil-gas" className="block px-0 py-1 text-sm">Oil & Gas</a>
+                        <a href="/solutions/industrial-manufacturing" className="block px-0 py-1 text-sm">Industrial Manufacturing</a>
+                        <a href="/solutions/public-sector" className="block px-0 py-1 text-sm">Public Sector</a>
+                        <a href="/solutions/utilities" className="block px-0 py-1 text-sm">Utilities</a>
+                        <a href="/solutions/all-industries" className="block px-0 py-1 text-sm">View All Industries</a>
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Enterprise Applications */}
-                  <div className="solution-section">
-                    <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Enterprise Applications</div>
-                    <div className="mt-1">
-                      <Link href="/solutions/sap">
-                        <a className="block px-1 py-1 text-sm">SAP®</a>
-                      </Link>
-                      <Link href="/solutions/microsoft">
-                        <a className="block px-1 py-1 text-sm">Microsoft®</a>
-                      </Link>
-                      <Link href="/solutions/salesforce">
-                        <a className="block px-1 py-1 text-sm">Salesforce®</a>
-                      </Link>
+                    
+                    {/* Enterprise Applications */}
+                    <div className="solution-section">
+                      <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Enterprise Applications</div>
+                      <div className="mt-1">
+                        <a href="/solutions/sap" className="block px-0 py-1 text-sm">SAP®</a>
+                        <a href="/solutions/microsoft" className="block px-0 py-1 text-sm">Microsoft®</a>
+                        <a href="/solutions/salesforce" className="block px-0 py-1 text-sm">Salesforce®</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -333,19 +267,13 @@ const Navbar = () => {
                   <span className="relative z-10">Support & Services</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''} p-4`}>
+                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Support & Services</div>
                     <div className="mt-1">
-                      <Link href="/consulting">
-                        <a className="block px-1 py-1 text-sm">Consulting</a>
-                      </Link>
-                      <Link href="/development">
-                        <a className="block px-1 py-1 text-sm">Development</a>
-                      </Link>
-                      <Link href="/support">
-                        <a className="block px-1 py-1 text-sm">Support</a>
-                      </Link>
+                      <a href="/consulting" className="block px-0 py-1 text-sm">Consulting</a>
+                      <a href="/development" className="block px-0 py-1 text-sm">Development</a>
+                      <a href="/support" className="block px-0 py-1 text-sm">Support</a>
                     </div>
                   </div>
                 </div>
@@ -360,15 +288,13 @@ const Navbar = () => {
                   <span className="relative z-10">Contact</span>
                   <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0 p-4`}>
+                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
                   <div className="solution-section">
                     <div className="font-bold text-sm mb-1 pb-1 border-b border-gray-200">Get in Touch</div>
                     <div className="mt-1">
-                      <a href="tel:+1234567890" className="block px-1 py-1 text-sm">Call Us</a>
-                      <a href="mailto:contact@bharattechnologies.com" className="block px-1 py-1 text-sm">Email Us</a>
-                      <Link href="/ai-chat">
-                        <a className="block px-1 py-1 text-sm">AI Assistant</a>
-                      </Link>
+                      <a href="tel:+1234567890" className="block px-0 py-1 text-sm">Call Us</a>
+                      <a href="mailto:contact@bharattechnologies.com" className="block px-0 py-1 text-sm">Email Us</a>
+                      <a href="/ai-chat" className="block px-0 py-1 text-sm">AI Assistant</a>
                     </div>
                   </div>
                 </div>

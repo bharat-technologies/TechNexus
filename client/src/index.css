@@ -120,14 +120,41 @@
   display: block;
 }
 
+/* Dropdown Styles - All */
+.dropdown-content {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+/* Section Headers */
+.solution-section .font-bold {
+  font-size: 13px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Link items */
+.solution-section a {
+  font-size: 13px;
+  padding: 4px 0;
+  display: block;
+  margin: 0;
+  line-height: 1.4;
+}
+
 /* Products dropdown in horizontal grid */
 .products-dropdown {
   min-width: 720px;
   max-width: 90vw;
   display: none;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  padding: 1rem;
+  gap: 20px;
+  padding: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -142,29 +169,35 @@
   max-width: 90vw;
   left: 50%;
   transform: translateX(-50%);
+  gap: 20px;
+  padding: 20px;
 }
 
 .solutions-dropdown.active {
   display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 /* Services dropdown in horizontal grid */
 .services-dropdown {
-  min-width: 520px;
+  min-width: 240px;
   right: auto;
+  padding: 15px 20px;
 }
 
 .services-dropdown.active {
-  display: grid;
+  display: block;
 }
 
 /* Contact dropdown in horizontal grid */
 .contact-dropdown {
-  min-width: 520px;
+  min-width: 240px;
+  right: 0;
+  padding: 15px 20px;
 }
 
 .contact-dropdown.active {
-  display: grid;
+  display: block;
 }
 
 /* Responsive adjustments for dropdowns */
