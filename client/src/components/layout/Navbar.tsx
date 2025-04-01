@@ -48,10 +48,10 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-6">
               {/* Company Dropdown */}
               <div className="dropdown relative group">
-                <button className="font-inter font-medium hover:text-accent transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden group-hover:font-semibold">
                   <span className="relative z-10">The Company</span>
                   <i className="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform ease-out duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
                   <Link href="/about-us">
@@ -77,10 +77,10 @@ const Navbar = () => {
               
               {/* Technology Dropdown */}
               <div className="dropdown relative group">
-                <button className="font-inter font-medium hover:text-accent transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden group-hover:font-semibold">
                   <span className="relative z-10">Technology</span>
                   <i className="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform ease-out duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
                   <Link href="/ai-intelligence">
@@ -124,10 +124,10 @@ const Navbar = () => {
               
               {/* Products Dropdown */}
               <div className="dropdown relative group">
-                <button className="font-inter font-medium hover:text-accent transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden group-hover:font-semibold">
                   <span className="relative z-10">Products</span>
                   <i className="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform ease-out duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
                   <Link href="/product1">
@@ -153,10 +153,10 @@ const Navbar = () => {
               
               {/* Services Dropdown */}
               <div className="dropdown relative group">
-                <button className="font-inter font-medium hover:text-accent transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden">
+                <button className="font-inter font-medium text-gray-800 hover:text-black transition-all duration-300 flex items-center relative px-2 py-1 overflow-hidden group-hover:font-semibold">
                   <span className="relative z-10">Services</span>
                   <i className="fas fa-chevron-down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
-                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform ease-out duration-300"></span>
+                  <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1">
                   <Link href="/consulting">
@@ -182,9 +182,9 @@ const Navbar = () => {
               
               {/* Contact Dropdown */}
               <div className="dropdown relative group">
-                <button className="bg-primary text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center shadow-sm hover:shadow-md overflow-hidden relative">
+                <button className="bg-primary text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center shadow-sm hover:shadow-md relative group-hover:font-semibold">
                   <span className="relative z-10">Contact</span>
-                  <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-10 rounded-full transform origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform ease-out duration-500"></span>
+                  <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
                 <div className="dropdown-content mt-1 right-0">
                   <a href="tel:+1234567890" className="block px-4 py-3">
