@@ -25,6 +25,7 @@ export interface IStorage {
   // Newsletter operations
   createNewsletterSubscription(email: string): Promise<any>;
   isEmailSubscribed(email: string): Promise<boolean>;
+  getNewsletterSubscriptions(): Promise<any[]>;
 }
 
 export class PostgresStorage implements IStorage {
@@ -63,6 +64,10 @@ export class PostgresStorage implements IStorage {
       .from(newsletterSubscriptions)
       .where(eq(newsletterSubscriptions.email, email));
     return result.length > 0;
+  }
+  
+  async getNewsletterSubscriptions(): Promise<any[]> {
+    return await db.select().from(newsletterSubscriptions).orderBy(newsletterSubscriptions.createdAt);
   }
 }
 

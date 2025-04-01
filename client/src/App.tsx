@@ -25,6 +25,7 @@ import Consulting from "@/pages/consulting";
 import Development from "@/pages/development";
 import Support from "@/pages/support";
 import AiChat from "@/pages/ai-chat";
+import Admin from "@/pages/admin";
 
 function Router() {
   const [location] = useLocation();
@@ -55,6 +56,7 @@ function Router() {
       <Route path="/development" component={Development} />
       <Route path="/support" component={Support} />
       <Route path="/ai-chat" component={AiChat} />
+      <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
   );

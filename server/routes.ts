@@ -71,6 +71,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // Admin routes to view data
+  
+  // Get all contact submissions
+  app.get('/api/admin/contacts', async (req, res) => {
+    try {
+      const submissions = await storage.getContactSubmissions();
+      res.status(200).json({ 
+        success: true,
+        data: submissions
+      });
+    } catch (error) {
+      console.error('Error fetching contact submissions:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'An error occurred while fetching contact submissions.' 
+      });
+    }
+  });
+  
+  // Get all newsletter subscriptions
+  app.get('/api/admin/subscriptions', async (req, res) => {
+    try {
+      const subscriptions = await storage.getNewsletterSubscriptions();
+      res.status(200).json({ 
+        success: true,
+        data: subscriptions
+      });
+    } catch (error) {
+      console.error('Error fetching newsletter subscriptions:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'An error occurred while fetching newsletter subscriptions.' 
+      });
+    }
+  });
 
   const httpServer = createServer(app);
 
