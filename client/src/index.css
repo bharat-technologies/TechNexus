@@ -145,6 +145,7 @@
   margin-right: 10px;
   width: 20px;
   text-align: center;
+  color: #000000;
 }
 
 @keyframes dropdownShow {
@@ -282,6 +283,11 @@
   padding: 0.8rem 1rem;
   font-size: 1rem;
   color: #333;
+}
+
+.mobile-dropdown-content a i,
+.mobile-menu-links a i {
+  color: #000000;
 }
 
 .mobile-dropdown-content a:hover {
