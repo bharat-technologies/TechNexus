@@ -72,7 +72,7 @@ const Navbar = () => {
                   <span className="relative z-10">The Company</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content ${activeDropdown === 'company' ? 'active' : ''}`}>
+                <div className={`dropdown-content company-dropdown ${activeDropdown === 'company' ? 'active' : ''}`}>
                   <Link href="/about-us">
                     <a className="block px-4 py-3">
                       <i className="fas fa-building mr-2"></i>
@@ -103,7 +103,7 @@ const Navbar = () => {
                   <span className="relative z-10">Technology</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content ${activeDropdown === 'technology' ? 'active' : ''}`}>
+                <div className={`dropdown-content technology-dropdown ${activeDropdown === 'technology' ? 'active' : ''}`}>
                   <Link href="/ai-intelligence">
                     <a className="block px-4 py-3">
                       <i className="fas fa-robot mr-2"></i>
@@ -152,7 +152,7 @@ const Navbar = () => {
                   <span className="relative z-10">Products</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content ${activeDropdown === 'products' ? 'active' : ''}`}>
+                <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''}`}>
                   <Link href="/product1">
                     <a className="block px-4 py-3">
                       <i className="fas fa-box mr-2"></i>
@@ -183,7 +183,7 @@ const Navbar = () => {
                   <span className="relative z-10">Solutions</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content ${activeDropdown === 'solutions' ? 'active' : ''}`}>
+                <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''}`}>
                   <Link href="/enterprise-solutions">
                     <a className="block px-4 py-3">
                       <i className="fas fa-building mr-2"></i>
@@ -214,7 +214,7 @@ const Navbar = () => {
                   <span className="relative z-10">Support & Services</span>
                   <span className="absolute inset-0 bg-black z-0 opacity-0 group-hover:opacity-5 rounded transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content ${activeDropdown === 'services' ? 'active' : ''}`}>
+                <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''}`}>
                   <Link href="/consulting">
                     <a className="block px-4 py-3">
                       <i className="fas fa-comments mr-2"></i>
@@ -245,7 +245,7 @@ const Navbar = () => {
                   <span className="relative z-10">Contact</span>
                   <span className="absolute inset-0 bg-white z-0 opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-300"></span>
                 </button>
-                <div className={`dropdown-content ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
+                <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
                   <a href="tel:+1234567890" className="block px-4 py-3">
                     <i className="fas fa-phone mr-2"></i>
                     <span>Call Us</span>

@@ -117,7 +117,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               {section.links.map((link, linkIndex) => (
                 <Link key={linkIndex} href={link.path}>
                   <a 
-                    className="block py-2 hover:text-gray-300 transition-colors duration-300"
+                    className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')}`}
                     onClick={handleLinkClick}
                   >
                     <i className={`${link.icon} mr-2`}></i>
