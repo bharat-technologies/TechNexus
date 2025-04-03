@@ -98,9 +98,9 @@ const AgentAIModal = () => {
               </button>
               <button
                 onClick={() => {
-                  // Instead of closing completely, keep minimized
+                  // Close completely - hide both the modal and the minimized bubble
                   setIsOpen(false);
-                  setIsMinimized(true);
+                  setIsMinimized(false);
                 }}
                 className="text-gray-500 hover:text-gray-700 transition-colors p-1 agent-ai-button"
                 aria-label="Close"

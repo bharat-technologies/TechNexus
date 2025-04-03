@@ -73,13 +73,8 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
     };
   }, [isOpen]);
   
-  // Keep the chat minimized until explicitly closed
-  useEffect(() => {
-    if (!isOpen && !isMinimized) {
-      // When chat is closed (not open and not minimized), make sure it stays minimized
-      setIsMinimized(true);
-    }
-  }, [isOpen, isMinimized]);
+  // We're now allowing the chat to be completely closed, so we removed the effect
+  // that was keeping it minimized
 
   return (
     <AgentAIContext.Provider
