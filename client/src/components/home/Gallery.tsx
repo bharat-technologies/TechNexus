@@ -8,50 +8,32 @@ const Gallery = () => {
           {/* AI in Agriculture Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 relative">
-              <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                {/* Background with subtle pattern */}
-                <rect width="400" height="300" fill="#f8faf7" />
-                <pattern id="agriculturePattern" patternUnits="userSpaceOnUse" width="30" height="30" patternTransform="rotate(45)">
-                  <rect width="30" height="30" fill="#f8faf7"/>
-                  <path d="M0,15 L30,15" stroke="#e8f5e9" strokeWidth="2"/>
-                  <path d="M15,0 L15,30" stroke="#e8f5e9" strokeWidth="2"/>
-                </pattern>
-                <rect width="400" height="300" fill="url(#agriculturePattern)" opacity="0.4"/>
+              <svg viewBox="0 0 800 600" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                {/* Background */}
+                <rect width="800" height="600" fill="#87CEEB" />
                 
-                {/* AI Icon with multi-color elements */}
-                <circle cx="200" cy="150" r="80" fill="#f0f9f0" stroke="#a5d6a7" strokeWidth="2"/>
+                {/* Sun */}
+                <circle cx="700" cy="100" r="50" fill="yellow" />
                 
-                {/* Face features - multi-color */}
-                <path d="M160 180C180 200 220 200 240 180" stroke="#43a047" strokeWidth="3"/>
-                <circle cx="160" cy="120" r="10" fill="#00bfa5"/>
-                <circle cx="240" cy="120" r="10" fill="#4caf50"/>
+                {/* Fields */}
+                <rect x="0" y="400" width="800" height="200" fill="#228B22" />
                 
-                {/* Additional details - multi-color */}
-                <path d="M140 220C160 240 240 240 260 220" stroke="#00796b" strokeWidth="3"/>
-                <path d="M120 100L160 120" stroke="#26a69a" strokeWidth="2"/>
-                <path d="M280 100L240 120" stroke="#26a69a" strokeWidth="2"/>
-                <rect x="150" y="60" width="100" height="30" rx="5" fill="#81c784" fillOpacity="0.7"/>
-                <rect x="170" y="30" width="60" height="30" rx="5" fill="#66bb6a" fillOpacity="0.8"/>
+                {/* Farmer */}
+                <circle cx="250" cy="320" r="40" fill="#F4A460" /> {/* Head */}
+                <rect x="230" y="360" width="40" height="80" fill="#8B4513" /> {/* Body */}
+                <line x1="230" y1="400" x2="200" y2="450" stroke="#8B4513" strokeWidth="10" /> {/* Left Leg */}
+                <line x1="270" y1="400" x2="300" y2="450" stroke="#8B4513" strokeWidth="10" /> {/* Right Leg */}
+                <line x1="230" y1="370" x2="190" y2="330" stroke="#8B4513" strokeWidth="10" /> {/* Left Arm */}
+                <line x1="270" y1="370" x2="310" y2="330" stroke="#8B4513" strokeWidth="10" /> {/* Right Arm */}
                 
-                {/* Circuit elements - lighter colors */}
-                <circle cx="120" cy="80" r="5" fill="#9ccc65"/>
-                <circle cx="280" cy="80" r="5" fill="#9ccc65"/>
-                <circle cx="140" cy="240" r="5" fill="#26a69a"/>
-                <circle cx="260" cy="240" r="5" fill="#26a69a"/>
-                <path d="M120 80L90 80" stroke="#81c784" strokeWidth="1.5"/>
-                <path d="M280 80L310 80" stroke="#81c784" strokeWidth="1.5"/>
-                <path d="M140 240L110 240" stroke="#26a69a" strokeWidth="1.5"/>
-                <path d="M260 240L290 240" stroke="#26a69a" strokeWidth="1.5"/>
+                {/* Laptop */}
+                <rect x="280" y="310" width="60" height="40" fill="#808080" />
+                <rect x="290" y="320" width="40" height="20" fill="#000" />
                 
-                {/* Plant elements */}
-                <path d="M100 260C120 240 120 220 100 200" stroke="#7cb342" strokeWidth="2" fill="none"/>
-                <path d="M90 230C110 220 120 210 120 190" stroke="#7cb342" strokeWidth="2" fill="none"/>
-                <circle cx="90" cy="190" r="5" fill="#aed581"/>
-                <circle cx="100" cy="200" r="4" fill="#aed581"/>
-                <path d="M300 260C280 240 280 220 300 200" stroke="#7cb342" strokeWidth="2" fill="none"/>
-                <path d="M310 230C290 220 280 210 280 190" stroke="#7cb342" strokeWidth="2" fill="none"/>
-                <circle cx="310" cy="190" r="5" fill="#aed581"/>
-                <circle cx="300" cy="200" r="4" fill="#aed581"/>
+                {/* Solar Panel */}
+                <rect x="500" y="350" width="100" height="50" fill="#666" />
+                <line x1="500" y1="350" x2="550" y2="300" stroke="#666" strokeWidth="5" />
+                <line x1="600" y1="350" x2="550" y2="300" stroke="#666" strokeWidth="5" />
               </svg>
             </div>
             
