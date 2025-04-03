@@ -239,7 +239,7 @@ const Navbar = () => {
                     <div className="font-bold mb-1">Get in Touch</div>
                     <a href="tel:+1234567890" className="block py-1">Call Us</a>
                     <a href="mailto:contact@bharattechnologies.com" className="block py-1">Email Us</a>
-                    <a href="/ai-chat" className="block py-1">AI Assistant</a>
+                    <a href="/ai-chat" className="block py-1">Agent AI</a>
                   </div>
                 </div>
               </div>

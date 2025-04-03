@@ -11,7 +11,7 @@ const AiChat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hello! I'm Bharat AI Assistant. How can I help you today?",
+      text: "Hello! I'm Bharat Agent AI. How can I help you today?",
       sender: 'ai',
       timestamp: new Date()
     }
@@ -21,7 +21,7 @@ const AiChat = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
-    document.title = 'AI Assistant - Bharat Technologies';
+    document.title = 'Agent AI - Bharat Technologies';
     scrollToBottom();
   }, []);
 
@@ -81,9 +81,9 @@ const AiChat = () => {
     <main>
       <div className="bg-black text-white py-16">
         <div className="container mx-auto px-4">
-          <h1 className="font-poppins font-bold text-4xl md:text-5xl text-center" data-aos="fade-up">AI Assistant</h1>
+          <h1 className="font-poppins font-bold text-4xl md:text-5xl text-center" data-aos="fade-up">Agent AI</h1>
           <p className="text-lg text-center mt-4 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-            Get instant answers and support through our artificial intelligence assistant
+            Get instant answers and support through our artificial intelligence agent
           </p>
         </div>
       </div>
@@ -97,7 +97,7 @@ const AiChat = () => {
                   <i className="fas fa-robot text-black"></i>
                 </div>
                 <div>
-                  <h3 className="font-poppins font-semibold">Bharat AI Assistant</h3>
+                  <h3 className="font-poppins font-semibold">Bharat Agent AI</h3>
                   <p className="text-sm text-gray-300">Online</p>
                 </div>
               </div>
@@ -158,7 +158,7 @@ const AiChat = () => {
             </div>
             
             <div className="mt-12 bg-gray-100 p-6 rounded-lg" data-aos="fade-up">
-              <h3 className="font-poppins font-semibold text-xl mb-4">How Can Our AI Assistant Help You?</h3>
+              <h3 className="font-poppins font-semibold text-xl mb-4">How Can Our Agent AI Help You?</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-white p-4 rounded-lg shadow flex items-start">
                   <div className="text-xl text-black mr-3 mt-1">
