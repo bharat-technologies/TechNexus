@@ -131,7 +131,11 @@ const Gallery = () => {
                 >
                   <div className="gallery-item h-full overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105 flex flex-col">
                     <div className={`w-full h-96 px-0 py-0 ${card.bgColor} overflow-hidden`}>
-                      <img src={card.image} alt={card.alt} className="w-full h-full object-cover" />
+                      <img 
+                        src={card.image} 
+                        alt={card.alt} 
+                        className="w-full h-full object-contain object-center p-4"
+                      />
                     </div>
                     
                     <div className="p-6 bg-white flex flex-col h-[180px]">
