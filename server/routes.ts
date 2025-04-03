@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { contactFormSchema } from "@shared/schema";
 import { z } from "zod";
+import { generateAgentResponse } from "./services/openai";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes with /api prefix
@@ -104,6 +105,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: 'An error occurred while fetching newsletter subscriptions.' 
+      });
+    }
+  });
+
+  // Agent AI message endpoint
+  app.post('/api/agent-ai', async (req, res) => {
+    try {
+      // Validate request
+      const agentRequest = z.object({
+        message: z.string().min(1),
+        conversationHistory: z.array(
+          z.object({
+            text: z.string(),
+            sender: z.enum(['user', 'ai']),
+            timestamp: z.string().optional() // Optional as we don't need it for OpenAI
+          })
+        ).optional().default([])
+      }).parse(req.body);
+
+      // Generate AI response
+      const response = await generateAgentResponse({
+        message: agentRequest.message,
+        conversationHistory: agentRequest.conversationHistory
+      });
+
+      res.status(200).json({
+        success: true,
+        message: response
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid request format',
+          errors: error.errors
+        });
+      }
+
+      console.error('Agent AI error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'An error occurred while processing your request.'
       });
     }
   });
