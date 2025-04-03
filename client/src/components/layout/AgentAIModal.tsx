@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { X, Minimize } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useAgentAI } from '@/contexts/AgentAIContext';
 
 // No longer need component props as we use context
@@ -94,7 +94,7 @@ const AgentAIModal = () => {
                 className="text-gray-500 hover:text-gray-700 transition-colors p-1 agent-ai-button"
                 aria-label="Minimize"
               >
-                <Minimize size={18} />
+                <span className="font-bold">-</span>
               </button>
               <button
                 onClick={() => {

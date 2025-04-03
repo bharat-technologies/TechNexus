@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { apiRequest } from '@/lib/queryClient';
 import { useState, useRef, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useAgentAI } from '@/contexts/AgentAIContext';
 import {
   Dialog,
   DialogContent,
@@ -34,23 +35,8 @@ type ContactModalType = 'email' | 'call' | 'ai' | null;
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactModal, setContactModal] = useState<ContactModalType>(null);
-  const [userInput, setUserInput] = useState('');
-  const [chatMessages, setChatMessages] = useState<Message[]>([
-    {
-      id: 1,
-      text: "Hello! I'm BharatAI, your virtual assistant. How can I help you today?",
-      sender: 'ai',
-      timestamp: new Date()
-    },
-    {
-      id: 2,
-      text: "I can answer questions about our products, services, or schedule a call with one of our human experts.",
-      sender: 'ai',
-      timestamp: new Date()
-    }
-  ]);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { setIsOpen } = useAgentAI();
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -84,71 +70,15 @@ const Contact = () => {
     }
   };
 
-  // Auto-scroll chat to bottom when new messages are added
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [chatMessages]);
 
-  const handleSendMessage = () => {
-    if (!userInput.trim()) return;
-    
-    // Add user message
-    const userMessage: Message = {
-      id: chatMessages.length + 1,
-      text: userInput,
-      sender: 'user',
-      timestamp: new Date()
-    };
-    
-    setChatMessages(prev => [...prev, userMessage]);
-    setUserInput('');
-    
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse = getAIResponse(userInput);
-      const aiMessage: Message = {
-        id: chatMessages.length + 2,
-        text: aiResponse,
-        sender: 'ai',
-        timestamp: new Date()
-      };
-      
-      setChatMessages(prev => [...prev, aiMessage]);
-    }, 1000);
-  };
-  
-  const getAIResponse = (message: string) => {
-    // Simple responses based on keywords
-    const messageLC = message.toLowerCase();
-    
-    if (messageLC.includes('product') || messageLC.includes('service')) {
-      return "We offer a range of AI, cloud computing, and cybersecurity solutions. Would you like to know more about a specific product or service?";
-    } else if (messageLC.includes('price') || messageLC.includes('cost') || messageLC.includes('pricing')) {
-      return "Our pricing varies based on specific requirements. I'd be happy to connect you with our sales team who can provide a detailed quote.";
-    } else if (messageLC.includes('contact') || messageLC.includes('human') || messageLC.includes('speak')) {
-      return "You can reach our team at +123 456 7890 or email us at contact@bharattechnologies.com. Would you like me to schedule a call for you?";
-    } else if (messageLC.includes('location') || messageLC.includes('address') || messageLC.includes('office')) {
-      return "Our headquarters is located at 123 Tech Street, Innovation City. We also have regional offices in major tech hubs.";
-    } else {
-      return "Thank you for your message. For more specific information, please contact our team directly via email or phone.";
-    }
-  };
-  
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-  
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
 
   const openContactModal = (type: ContactModalType) => {
-    setContactModal(type);
+    if (type === 'ai') {
+      // Use the global AgentAI instead of the local dialog
+      setIsOpen(true);
+    } else {
+      setContactModal(type);
+    }
   };
 
   return (
@@ -350,62 +280,7 @@ const Contact = () => {
         </DialogContent>
       </Dialog>
       
-      {/* Agent AI Dialog */}
-      <Dialog open={contactModal === 'ai'} onOpenChange={() => setContactModal(null)}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Agent AI</DialogTitle>
-            <DialogDescription>
-              Get immediate answers from our AI-powered virtual assistant.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="bg-gray-100 rounded-lg p-4 h-80 overflow-y-auto mb-4" ref={chatContainerRef}>
-            <div className="flex flex-col space-y-4">
-              {chatMessages.map((message) => (
-                <div key={message.id} className={`flex items-start ${message.sender === 'user' ? 'justify-end' : ''}`}>
-                  {message.sender === 'ai' && (
-                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-2">
-                      <i className="fas fa-robot text-purple-600 text-sm"></i>
-                    </div>
-                  )}
-                  
-                  <div className={`p-3 rounded-lg max-w-[80%] ${message.sender === 'user' ? 'bg-black text-white ml-2' : 'bg-white'}`}>
-                    <p className={message.sender === 'user' ? 'text-white' : 'text-gray-800'}>
-                      {message.text}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">{formatTime(message.timestamp)}</p>
-                  </div>
-                  
-                  {message.sender === 'user' && (
-                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center ml-2">
-                      <i className="fas fa-user text-gray-600 text-sm"></i>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="text"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black"
-            />
-            <button 
-              onClick={handleSendMessage}
-              className="bg-black text-white px-4 py-3 rounded-r-lg hover:bg-gray-800 transition-colors duration-300"
-            >
-              <i className="fas fa-paper-plane"></i>
-            </button>
-          </div>
-          <div className="text-xs text-gray-500 mt-2 text-center">
-            This is a simulated Agent AI. For complex inquiries, please use email or phone options.
-          </div>
-        </DialogContent>
-      </Dialog>
+
     </>
   );
 };
