@@ -7,7 +7,7 @@ import futureTechImage from '../../assets/Future-Tech_01.png';
 import cybersecurityImage from '@assets/Cyber-Security_02.png';
 import healthcareImage from '../../assets/healthcare.png';
 import defenceImage from '../../assets/defence.png';
-import bankingTechImage from '@assets/Banking-Tech_02.png';
+import bankingTechImage from '@assets/Banking-Tech_01.png';
 
 const Gallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);

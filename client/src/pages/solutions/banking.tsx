@@ -2,7 +2,7 @@ import { ArrowRight, Banknote, CreditCard, Lock, Smartphone, TrendingUp, Globe, 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect } from 'react';
-import bankingTechImage from '../../assets/banking_tech.png';
+import bankingTechImage from '@assets/Banking-Tech_01.png';
 import bankingTechDetailImage from '../../assets/banking_tech_detail.png';
 
 const BankingPaymentsPage = () => {
