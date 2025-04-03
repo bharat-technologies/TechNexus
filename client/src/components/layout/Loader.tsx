@@ -6,7 +6,7 @@ const Loader = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 500); // Reduced loading time to 500ms
 
     return () => clearTimeout(timer);
   }, []);
@@ -14,8 +14,7 @@ const Loader = () => {
   return (
     <div className={`loader ${!isLoading ? 'loader-hidden' : ''}`}>
       <div className="flex flex-col items-center">
-        <div className="spinner"></div>
-        <p className="text-white mt-3">Loading...</p>
+        {/* No spinner or text displayed */}
       </div>
     </div>
   );
