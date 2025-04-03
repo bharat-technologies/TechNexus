@@ -11,7 +11,7 @@ const Gallery = () => {
           {/* AI in Agriculture Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 px-0 py-0 bg-cyan-50 overflow-hidden">
-              <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-full h-full object-cover" style={{ objectPosition: '50% 30%', transform: 'scale(1.05)' }} />
+              <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-full h-full object-cover" style={{ objectPosition: '50% 25%', transform: 'scale(1.1)' }} />
             </div>
             
             <div className="p-6 bg-white">
