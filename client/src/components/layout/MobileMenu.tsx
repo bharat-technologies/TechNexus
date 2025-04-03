@@ -6,6 +6,7 @@ interface MobileMenuProps {
   onClose: () => void;
   onOpenAgentAI?: () => void;
   onOpenCallUs?: () => void;
+  onOpenEmailUs?: () => void;
 }
 
 interface DropdownSection {
@@ -17,7 +18,7 @@ interface DropdownSection {
   }[];
 }
 
-const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs }: MobileMenuProps) => {
+const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailUs }: MobileMenuProps) => {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
 
   const toggleSection = (section: string) => {
@@ -201,6 +202,23 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs }: MobileMenu
                         onClose();
                         document.body.style.overflow = 'auto';
                         if (onOpenCallUs) onOpenCallUs();
+                      }}
+                    >
+                      <i className={`${link.icon} mr-2`}></i>
+                      <span>{link.text}</span>
+                    </div>
+                  );
+                }
+                // Handle Email Us modal
+                else if (link.text === 'Email Us' && section.title === 'Contact') {
+                  return (
+                    <div 
+                      key={linkIndex}
+                      className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')} cursor-pointer`}
+                      onClick={() => {
+                        onClose();
+                        document.body.style.overflow = 'auto';
+                        if (onOpenEmailUs) onOpenEmailUs();
                       }}
                     >
                       <i className={`${link.icon} mr-2`}></i>
