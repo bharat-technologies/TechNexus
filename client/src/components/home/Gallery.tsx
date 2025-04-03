@@ -76,9 +76,9 @@ const Gallery = () => {
     },
     {
       image: bankingTechImage,
-      alt: "Banking technology and payment systems",
+      alt: "Banking and payment systems",
       bgColor: "bg-blue-50",
-      title: "Banking Technology",
+      title: "Banking and Payments",
       titleColor: "text-blue-800",
       description: "Digital solutions for finance and payment systems",
       link: "/solutions/banking",
