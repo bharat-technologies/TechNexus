@@ -18,7 +18,13 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hello! I'm Bharat Agent AI. How can I help you today?",
+      text: "Hello! I'm BharatAI, your virtual assistant. How can I help you today?",
+      sender: 'ai',
+      timestamp: new Date()
+    },
+    {
+      id: 2,
+      text: "I can answer questions about our products, services, or schedule a call with one of our human experts.",
       sender: 'ai',
       timestamp: new Date()
     }
@@ -34,12 +40,20 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
   // Reset chat when modal is opened
   useEffect(() => {
     if (isOpen) {
-      setMessages([{
-        id: 1,
-        text: "Hello! I'm Bharat Agent AI. How can I help you today?",
-        sender: 'ai',
-        timestamp: new Date()
-      }]);
+      setMessages([
+        {
+          id: 1,
+          text: "Hello! I'm BharatAI, your virtual assistant. How can I help you today?",
+          sender: 'ai',
+          timestamp: new Date()
+        },
+        {
+          id: 2,
+          text: "I can answer questions about our products, services, or schedule a call with one of our human experts.",
+          sender: 'ai',
+          timestamp: new Date()
+        }
+      ]);
       setInput('');
       setIsTyping(false);
     }
@@ -98,73 +112,76 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm" />
         <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
-          <div className="bg-black text-white p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
-                <i className="fas fa-robot text-black"></i>
-              </div>
-              <div>
-                <h3 className="font-poppins font-semibold">Bharat Agent AI</h3>
-                <p className="text-sm text-gray-300">Online</p>
-              </div>
-            </div>
-            <button onClick={onClose} className="text-white hover:text-gray-300 transition-colors">
-              <X className="h-5 w-5" />
-            </button>
-          </div>
+          <Dialog.Title className="text-lg font-semibold pt-4 px-6">AI Assistant</Dialog.Title>
+          <Dialog.Description className="text-sm text-gray-500 pb-2 px-6">
+            Get immediate answers from our AI-powered virtual assistant.
+          </Dialog.Description>
           
-          <div className="flex-grow h-[350px] p-4 overflow-y-auto bg-gray-50">
-            {messages.map((message) => (
-              <div 
-                key={message.id} 
-                className={`mb-4 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+          <div className="bg-gray-100 rounded-lg mx-6 p-4 h-80 overflow-y-auto mb-4">
+            <div className="flex flex-col space-y-4">
+              {messages.map((message) => (
                 <div 
-                  className={`max-w-3/4 rounded-lg p-3 ${
-                    message.sender === 'user' 
-                      ? 'bg-black text-white rounded-br-none' 
-                      : 'bg-gray-200 text-black rounded-bl-none'
-                  }`}
+                  key={message.id} 
+                  className={`flex items-start ${message.sender === 'user' ? 'justify-end' : ''}`}
                 >
-                  <p>{message.text}</p>
-                  <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-gray-300' : 'text-gray-500'}`}>
-                    {formatTime(message.timestamp)}
-                  </p>
-                </div>
-              </div>
-            ))}
-            
-            {isTyping && (
-              <div className="flex justify-start mb-4">
-                <div className="bg-gray-200 text-black rounded-lg rounded-bl-none p-3">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                  {message.sender === 'ai' && (
+                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-2">
+                      <i className="fas fa-robot text-purple-600 text-sm"></i>
+                    </div>
+                  )}
+                  <div 
+                    className={`p-3 rounded-lg max-w-[80%] ${
+                      message.sender === 'user' 
+                        ? 'bg-black text-white ml-auto' 
+                        : 'bg-white text-gray-800'
+                    }`}
+                  >
+                    <p>{message.text}</p>
+                    <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-gray-300' : 'text-gray-500'}`}>
+                      {formatTime(message.timestamp)}
+                    </p>
                   </div>
                 </div>
-              </div>
-            )}
-            
-            <div ref={messagesEndRef} />
+              ))}
+              
+              {isTyping && (
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-2">
+                    <i className="fas fa-robot text-purple-600 text-sm"></i>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              <div ref={messagesEndRef} />
+            </div>
           </div>
           
-          <form onSubmit={handleSubmit} className="p-4 border-t">
-            <div className="flex">
+          <form onSubmit={handleSubmit} className="px-6 pb-6">
+            <div className="flex items-center">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black"
                 placeholder="Type your message..."
                 autoFocus
               />
               <button 
                 type="submit" 
-                className="bg-black text-white px-4 py-2 rounded-r-lg hover:bg-gray-800 transition-colors duration-300"
+                className="bg-black text-white px-4 py-3 rounded-r-lg hover:bg-gray-800 transition-colors duration-300"
               >
                 <i className="fas fa-paper-plane"></i>
               </button>
+            </div>
+            <div className="text-xs text-gray-500 mt-2 text-center">
+              This is a simulated AI assistant. For complex inquiries, please use email or phone options.
             </div>
           </form>
         </Dialog.Content>
