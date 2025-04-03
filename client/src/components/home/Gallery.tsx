@@ -1,12 +1,4 @@
-import { useState, useRef } from 'react';
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious 
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import farmerTechImage from '../../assets/farmer_tech.png';
@@ -18,11 +10,7 @@ import defenceImage from '../../assets/defence.png';
 import spaceImage from '../../assets/space.png';
 
 const Gallery = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const totalItems = 7; // total number of cards
-  const itemsPerPage = 3; // show 3 cards per page
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Card data for easy mapping
   const cards = [
@@ -98,24 +86,49 @@ const Gallery = () => {
     }
   ];
 
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: -scrollContainerRef.current.offsetWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: scrollContainerRef.current.offsetWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <section className="py-24 bg-gray-100">
       <div className="container mx-auto px-4">
         <h2 className="font-poppins font-bold text-3xl md:text-4xl text-center mb-16 mt-4" data-aos="fade-up">Our AI Solutions</h2>
         
         <div className="relative" data-aos="fade-up" data-aos-delay="200">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-            ref={carouselRef}
-            onSelect={(index) => setCurrentPage(Math.floor(index / itemsPerPage))}
-          >
-            <CarouselContent className="-ml-4">
+          <div className="overflow-hidden">
+            <div 
+              ref={scrollContainerRef}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4" 
+              style={{ 
+                scrollbarWidth: 'none', 
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch'
+              }}
+              onScroll={(e) => {
+                // This prevents the parent container from scrolling while this element is being scrolled
+                e.stopPropagation();
+              }}
+            >
               {cards.map((card, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/3">
+                <div 
+                  key={index}
+                  className="flex-none w-full md:w-[calc(33.333%-21px)] snap-center"
+                >
                   <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
                     <div className={`w-full h-96 px-0 py-0 ${card.bgColor} overflow-hidden`}>
                       <img src={card.image} alt={card.alt} className="w-full h-full object-fill" />
@@ -131,29 +144,26 @@ const Gallery = () => {
                       </div>
                     </div>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            
-            <div className="absolute -left-10 top-1/2 transform -translate-y-1/2">
-              <CarouselPrevious className="h-12 w-12 border-2 border-gray-300 shadow-md hover:bg-gray-100" />
-            </div>
-            
-            <div className="absolute -right-10 top-1/2 transform -translate-y-1/2">
-              <CarouselNext className="h-12 w-12 border-2 border-gray-300 shadow-md hover:bg-gray-100" />
-            </div>
-          </Carousel>
-          
-          <div className="flex justify-center mt-8">
-            <div className="flex space-x-2">
-              {[...Array(totalPages)].map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-2 w-2 rounded-full transition-all duration-300 ${currentPage === i ? 'bg-blue-600 w-4' : 'bg-gray-300'}`}
-                />
+                </div>
               ))}
             </div>
           </div>
+          
+          <button 
+            onClick={scrollLeft}
+            className="absolute -left-5 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 rounded-full h-12 w-12 shadow-md flex items-center justify-center hover:bg-gray-100 border-2 border-gray-200 focus:outline-none"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="h-6 w-6 text-gray-600" />
+          </button>
+          
+          <button 
+            onClick={scrollRight}
+            className="absolute -right-5 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 rounded-full h-12 w-12 shadow-md flex items-center justify-center hover:bg-gray-100 border-2 border-gray-200 focus:outline-none"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="h-6 w-6 text-gray-600" />
+          </button>
         </div>
       </div>
     </section>

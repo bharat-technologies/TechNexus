@@ -856,6 +856,16 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hide scrollbars but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 /* Hero Section Enhancements */
 .hero-content h1 {
   font-size: 3.5rem;
