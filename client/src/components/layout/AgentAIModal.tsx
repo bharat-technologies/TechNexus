@@ -181,7 +181,7 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
               </button>
             </div>
             <div className="text-xs text-gray-500 mt-2 text-center">
-              This is a simulated AI assistant. For complex inquiries, please use email or phone options.
+              This is a simulated Agent AI. For complex inquiries, please use email or phone options.
             </div>
           </form>
         </Dialog.Content>
