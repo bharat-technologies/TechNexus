@@ -1,34 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
+import { X, Minimize } from 'lucide-react';
+import { useAgentAI } from '@/contexts/AgentAIContext';
 
-interface Message {
-  id: number;
-  text: string;
-  sender: 'user' | 'ai';
-  timestamp: Date;
-}
-
-interface AgentAIModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      text: "Hello! I'm BharatAI, your virtual assistant. How can I help you today?",
-      sender: 'ai',
-      timestamp: new Date()
-    },
-    {
-      id: 2,
-      text: "I can answer questions about our products, services, or schedule a call with one of our human experts.",
-      sender: 'ai',
-      timestamp: new Date()
-    }
-  ]);
+// No longer need component props as we use context
+const AgentAIModal = () => {
+  const { isOpen, isMinimized, messages, toggleChat, setIsOpen, setIsMinimized, addMessage } = useAgentAI();
+  
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -36,28 +14,6 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  // Reset chat when modal is opened
-  useEffect(() => {
-    if (isOpen) {
-      setMessages([
-        {
-          id: 1,
-          text: "Hello! I'm BharatAI, your virtual assistant. How can I help you today?",
-          sender: 'ai',
-          timestamp: new Date()
-        },
-        {
-          id: 2,
-          text: "I can answer questions about our products, services, or schedule a call with one of our human experts.",
-          sender: 'ai',
-          timestamp: new Date()
-        }
-      ]);
-      setInput('');
-      setIsTyping(false);
-    }
-  }, [isOpen]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -67,15 +23,13 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Add user message
-    const userMessage: Message = {
-      id: messages.length + 1,
+    // Add user message through the context
+    addMessage({
       text: input,
       sender: 'user',
       timestamp: new Date()
-    };
+    });
     
-    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
 
@@ -91,14 +45,12 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
       
       const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
       
-      const aiMessage: Message = {
-        id: messages.length + 2,
+      addMessage({
         text: randomResponse,
         sender: 'ai',
         timestamp: new Date()
-      };
+      });
       
-      setMessages(prev => [...prev, aiMessage]);
       setIsTyping(false);
     }, 1500);
   };
@@ -107,12 +59,55 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  // Render minimized chat bubble if minimized
+  if (isMinimized) {
+    return (
+      <div 
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-purple-600 text-white rounded-full 
+                   shadow-lg flex items-center justify-center cursor-pointer 
+                   hover:bg-purple-700 transition-colors duration-300 minimized-chat"
+        onClick={toggleChat}
+      >
+        <span className="text-xl font-bold">AI</span>
+      </div>
+    );
+  }
+
+  // If not open or minimized, render nothing
+  if (!isOpen) {
+    return null;
+  }
+
   return (
-    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
-          <Dialog.Title className="text-lg font-semibold pt-4 px-6">Agent AI</Dialog.Title>
+        <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm agent-ai-modal" />
+        <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden agent-ai-modal">
+          <div className="flex items-center justify-between pt-4 px-6">
+            <Dialog.Title className="text-lg font-semibold">Agent AI</Dialog.Title>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => {
+                  setIsMinimized(true);
+                  setIsOpen(false);
+                }}
+                className="text-gray-500 hover:text-gray-700 transition-colors p-1 agent-ai-button"
+                aria-label="Minimize"
+              >
+                <Minimize size={18} />
+              </button>
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  setIsMinimized(false);
+                }}
+                className="text-gray-500 hover:text-gray-700 transition-colors p-1 agent-ai-button"
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          </div>
           <Dialog.Description className="text-sm text-gray-500 pb-2 px-6">
             Get immediate answers from our AI-powered virtual assistant.
           </Dialog.Description>

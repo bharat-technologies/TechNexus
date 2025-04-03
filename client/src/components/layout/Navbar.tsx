@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'wouter';
+import { useAgentAI } from '@/contexts/AgentAIContext';
 import MobileMenu from './MobileMenu';
-import AgentAIModal from './AgentAIModal';
 import CallUsModal from './CallUsModal';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [isAgentAIOpen, setIsAgentAIOpen] = useState(false);
   const [isCallUsOpen, setIsCallUsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  // Use the global Agent AI context
+  const { setIsOpen: setIsAgentAIOpen } = useAgentAI();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -268,11 +270,6 @@ const Navbar = () => {
         onClose={toggleMobileMenu} 
         onOpenAgentAI={() => setIsAgentAIOpen(true)}
         onOpenCallUs={() => setIsCallUsOpen(true)}
-      />
-      
-      <AgentAIModal 
-        isOpen={isAgentAIOpen} 
-        onClose={() => setIsAgentAIOpen(false)} 
       />
       
       <CallUsModal
