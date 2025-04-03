@@ -12,7 +12,7 @@ const Navbar = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   // Use the global Agent AI context
-  const { setIsOpen: setIsAgentAIOpen } = useAgentAI();
+  const { setIsOpen: setIsAgentAIOpen, setIsMinimized } = useAgentAI();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -245,7 +245,12 @@ const Navbar = () => {
                     <div className="font-bold mb-1">Get in Touch</div>
                     <a onClick={() => { setActiveDropdown(null); setIsCallUsOpen(true); }} className="block py-1 cursor-pointer">Call Us</a>
                     <a href="mailto:contact@bharattechnologies.com" className="block py-1">Email Us</a>
-                    <a onClick={() => { setActiveDropdown(null); setIsAgentAIOpen(true); }} className="block py-1 cursor-pointer">Agent AI</a>
+                    <a onClick={() => { 
+                        setActiveDropdown(null); 
+                        setIsAgentAIOpen(true);
+                        setIsMinimized(false); // Make sure it opens as full dialog
+                      }} 
+                      className="block py-1 cursor-pointer">Agent AI</a>
                   </div>
                 </div>
               </div>
@@ -268,7 +273,10 @@ const Navbar = () => {
       <MobileMenu 
         isOpen={isMobileMenuOpen} 
         onClose={toggleMobileMenu} 
-        onOpenAgentAI={() => setIsAgentAIOpen(true)}
+        onOpenAgentAI={() => {
+          setIsAgentAIOpen(true);
+          setIsMinimized(false); // Make sure it opens as full dialog
+        }}
         onOpenCallUs={() => setIsCallUsOpen(true)}
       />
       

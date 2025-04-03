@@ -28,7 +28,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactModal, setContactModal] = useState<ContactModalType>(null);
   const { toast } = useToast();
-  const { setIsOpen } = useAgentAI();
+  const { setIsOpen, setIsMinimized } = useAgentAI();
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -65,7 +65,9 @@ const Contact = () => {
   const openContactModal = (type: ContactModalType) => {
     if (type === 'ai') {
       // Use the global AgentAI instead of the local dialog
+      // Ensure it opens as a full dialog (not minimized)
       setIsOpen(true);
+      setIsMinimized(false); // Make sure it's not minimized
     } else {
       setContactModal(type);
     }
