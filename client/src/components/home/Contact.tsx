@@ -264,11 +264,11 @@ const Contact = () => {
         </DialogContent>
       </Dialog>
       
-      {/* AI Assistant Dialog */}
+      {/* Agent AI Dialog */}
       <Dialog open={contactModal === 'ai'} onOpenChange={() => setContactModal(null)}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>AI Assistant</DialogTitle>
+            <DialogTitle>Agent AI</DialogTitle>
             <DialogDescription>
               Get immediate answers from our AI-powered virtual assistant.
             </DialogDescription>

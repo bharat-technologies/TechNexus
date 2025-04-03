@@ -112,7 +112,7 @@ const AgentAIModal = ({ isOpen, onClose }: AgentAIModalProps) => {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm" />
         <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
-          <Dialog.Title className="text-lg font-semibold pt-4 px-6">AI Assistant</Dialog.Title>
+          <Dialog.Title className="text-lg font-semibold pt-4 px-6">Agent AI</Dialog.Title>
           <Dialog.Description className="text-sm text-gray-500 pb-2 px-6">
             Get immediate answers from our AI-powered virtual assistant.
           </Dialog.Description>
