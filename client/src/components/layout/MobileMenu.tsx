@@ -39,13 +39,13 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       links: [
         { path: '/ai-intelligence', icon: 'fas fa-robot', text: 'Artificial Intelligence' },
         { path: '/cloud-stack', icon: 'fas fa-cloud', text: 'Cloud Stack' },
-        { path: '/multi-cloud', icon: 'fas fa-server', text: 'Multi Cloud' },
+        { path: '/cyber-security', icon: 'fas fa-shield-alt', text: 'Cyber Security' },
       ]
     },
     {
       title: 'Security & Defense',
       links: [
-        { path: '/cyber-security', icon: 'fas fa-shield-alt', text: 'Cyber Security' },
+        { path: '/multi-cloud', icon: 'fas fa-server', text: 'Multi Cloud' },
         { path: '/defence', icon: 'fas fa-satellite', text: 'Defence' },
         { path: '/space', icon: 'fas fa-rocket', text: 'Space' },
       ]

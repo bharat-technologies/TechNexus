@@ -199,8 +199,8 @@ const Navbar = () => {
                     <a href="/solutions/ai-intelligence" className="block py-1">AI Intelligence</a>
                     <a href="/solutions/cloud-stack" className="block py-1">Cloud Stack</a>
                     <a href="/solutions/cyber-security" className="block py-1">Cyber Security</a>
-                    <a href="/solutions/defence" className="block py-1">Defence</a>
                     <a href="/solutions/multi-cloud" className="block py-1">Multi-Cloud</a>
+                    <a href="/solutions/defence" className="block py-1">Defence</a>
                     <a href="/solutions/space" className="block py-1">Space</a>
                   </div>
                 </div>
