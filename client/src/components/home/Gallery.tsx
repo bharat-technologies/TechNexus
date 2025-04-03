@@ -11,7 +11,7 @@ const Gallery = () => {
           {/* AI in Agriculture Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 px-8 py-0 bg-cyan-50 overflow-hidden">
-              <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-full h-full object-contain" />
+              <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-full h-full object-contain" style={{ width: '100%' }} />
             </div>
             
             <div className="p-6 bg-white">
@@ -28,7 +28,7 @@ const Gallery = () => {
           {/* Smart Solutions Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
             <div className="w-full h-80 px-8 py-0 bg-blue-50 overflow-hidden">
-              <img src={smartSolutionsImage} alt="Business professional using smart solutions" className="w-full h-full object-contain" />
+              <img src={smartSolutionsImage} alt="Business professional using smart solutions" className="w-full h-full object-contain" style={{ width: '100%' }} />
             </div>
             
             <div className="p-6 bg-white">
