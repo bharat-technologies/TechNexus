@@ -18,6 +18,8 @@ type AgentAIState = {
   toggleChat: () => void;
   sendMessage: (text: string) => Promise<void>;
   isLoading: boolean;
+  usingFallback: boolean;
+  fallbackInfo: string | null;
 };
 
 const AgentAIContext = createContext<AgentAIState | undefined>(undefined);
@@ -26,6 +28,8 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [usingFallback, setUsingFallback] = useState(false);
+  const [fallbackInfo, setFallbackInfo] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -91,6 +95,15 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
         };
         
         addMessage(aiMessage);
+        
+        // Check if we're using fallback responses
+        if (data.usingFallback) {
+          setUsingFallback(true);
+          setFallbackInfo(data.fallbackInfo || "Using simplified responses due to service limitations.");
+        } else {
+          setUsingFallback(false);
+          setFallbackInfo(null);
+        }
       } else {
         // Handle error
         const errorMessage: Omit<Message, 'id'> = {
@@ -149,7 +162,9 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
         addMessage,
         toggleChat,
         sendMessage,
-        isLoading
+        isLoading,
+        usingFallback,
+        fallbackInfo
       }}
     >
       {children}

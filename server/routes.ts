@@ -130,10 +130,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         conversationHistory: agentRequest.conversationHistory
       });
 
-      res.status(200).json({
-        success: true,
-        message: response
-      });
+      // Check if we're using fallback responses due to API quota issues
+      if (process.env.OPENAI_API_QUOTA_EXCEEDED === 'true') {
+        res.status(200).json({
+          success: true,
+          message: response,
+          usingFallback: true,
+          fallbackInfo: "Using predefined responses due to API limitations. For full AI capabilities, please check back later."
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: response
+        });
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({

@@ -13,7 +13,9 @@ const AgentAIModal = () => {
     setIsOpen, 
     setIsMinimized, 
     sendMessage,
-    isLoading 
+    isLoading,
+    usingFallback,
+    fallbackInfo
   } = useAgentAI();
   
   const [input, setInput] = useState('');
@@ -169,9 +171,20 @@ const AgentAIModal = () => {
                 <Send size={18} />
               </button>
             </div>
-            <div className="text-xs text-gray-500 mt-2 text-center">
-              Our AI assistant has knowledge about Bharat Technologies. For complex inquiries, please use email or phone options.
-            </div>
+            {usingFallback && fallbackInfo ? (
+              <div className="bg-amber-50 border border-amber-200 text-amber-800 px-3 py-2 mt-2 text-xs rounded-md">
+                <div className="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mt-0.5 mr-1.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{fallbackInfo}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="text-xs text-gray-500 mt-2 text-center">
+                Our AI assistant has knowledge about Bharat Technologies. For complex inquiries, please use email or phone options.
+              </div>
+            )}
           </form>
         </Dialog.Content>
       </Dialog.Portal>

@@ -1,10 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
+import { apiRequest } from '@/lib/queryClient';
+import { AlertCircle } from 'lucide-react';
 
 interface Message {
   id: number;
   text: string;
   sender: 'user' | 'ai';
   timestamp: Date;
+}
+
+interface ApiResponse {
+  success: boolean;
+  message: string;
+  usingFallback?: boolean;
+  fallbackInfo?: string;
 }
 
 const AiChat = () => {
@@ -18,6 +27,8 @@ const AiChat = () => {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [usingFallback, setUsingFallback] = useState(false);
+  const [fallbackInfo, setFallbackInfo] = useState<string | null>(null);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,28 +60,74 @@ const AiChat = () => {
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response (in a real app, this would call an API)
-    setTimeout(() => {
-      const aiResponses = [
-        "I understand your question. Let me provide you with more information about our cloud services.",
-        "Thank you for your interest in Bharat Technologies. Our team specializes in that area and can help you implement a custom solution.",
-        "That's a great question about our AI capabilities. We offer a range of intelligent solutions that can be tailored to your specific needs.",
-        "I'd be happy to connect you with one of our specialists who can provide more detailed information about that topic.",
-        "Our security protocols are designed to offer maximum protection while maintaining performance. Would you like me to explain more about our approach?"
-      ];
+    try {
+      // Prepare conversation history for API
+      const conversationHistory = messages.map(msg => ({
+        text: msg.text,
+        sender: msg.sender,
+        timestamp: msg.timestamp.toISOString()
+      }));
       
-      const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+      // Add current message
+      conversationHistory.push({
+        text: userMessage.text,
+        sender: 'user',
+        timestamp: new Date().toISOString()
+      });
       
-      const aiMessage: Message = {
+      // Call the Agent AI API
+      const response = await apiRequest('POST', '/api/agent-ai', {
+        message: userMessage.text,
+        conversationHistory
+      });
+      
+      const data = await response.json() as ApiResponse;
+      
+      if (data.success) {
+        // Add AI response to the chat
+        const aiMessage: Message = {
+          id: messages.length + 2,
+          text: data.message,
+          sender: 'ai',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, aiMessage]);
+        
+        // Check for fallback notifications
+        if (data.usingFallback) {
+          setUsingFallback(true);
+          setFallbackInfo(data.fallbackInfo || "Using simplified responses due to service limitations.");
+        } else {
+          setUsingFallback(false);
+          setFallbackInfo(null);
+        }
+      } else {
+        // Handle API error
+        const errorMessage: Message = {
+          id: messages.length + 2,
+          text: "I'm sorry, I encountered an error. Please try again later.",
+          sender: 'ai',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, errorMessage]);
+      }
+    } catch (error) {
+      console.error("Error communicating with Agent AI API:", error);
+      
+      // Add error message to chat
+      const errorMessage: Message = {
         id: messages.length + 2,
-        text: randomResponse,
+        text: "I'm sorry, I'm having trouble connecting to my knowledge base. Please try again later.",
         sender: 'ai',
         timestamp: new Date()
       };
       
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const formatTime = (date: Date) => {
@@ -150,10 +207,20 @@ const AiChat = () => {
                   <button 
                     type="submit" 
                     className="bg-black text-white px-4 py-2 rounded-r-lg hover:bg-gray-800 transition-colors duration-300"
+                    disabled={isTyping}
                   >
                     <i className="fas fa-paper-plane"></i>
                   </button>
                 </div>
+                
+                {usingFallback && fallbackInfo && (
+                  <div className="mt-3 bg-amber-50 border border-amber-200 text-amber-800 p-2 rounded-md text-sm">
+                    <div className="flex items-start">
+                      <AlertCircle className="h-4 w-4 mt-0.5 mr-1.5 flex-shrink-0" />
+                      <span>{fallbackInfo}</span>
+                    </div>
+                  </div>
+                )}
               </form>
             </div>
             

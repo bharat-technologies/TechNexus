@@ -68,19 +68,77 @@ export async function generateAgentResponse(request: AgentAIRequest): Promise<st
       content: request.message
     });
 
-    // Call OpenAI API
-    console.log('Calling OpenAI API with messages:', JSON.stringify(messages, null, 2));
-    
-    const response = await openai.chat.completions.create({
-      model: OPENAI_MODEL,
-      messages,
-      temperature: 0.7,
-      max_tokens: 500
-    });
-    
-    console.log('OpenAI API response:', JSON.stringify(response.choices[0].message, null, 2));
-
-    return response.choices[0].message.content || "I'm sorry, I couldn't generate a response. Please try again.";
+    try {
+      // Call OpenAI API
+      console.log('Calling OpenAI API with messages:', JSON.stringify(messages, null, 2));
+      
+      const response = await openai.chat.completions.create({
+        model: OPENAI_MODEL,
+        messages,
+        temperature: 0.7,
+        max_tokens: 500
+      });
+      
+      console.log('OpenAI API response:', JSON.stringify(response.choices[0].message, null, 2));
+      
+      return response.choices[0].message.content || "I'm sorry, I couldn't generate a response. Please try again.";
+    } catch (error: any) {
+      // Check for rate limit or quota errors
+      if (error.status === 429 || (error.error && error.error.type === 'insufficient_quota')) {
+        console.log('OpenAI API quota exceeded or rate limited. Using fallback responses.');
+        // Set a flag for routes to check
+        process.env.OPENAI_API_QUOTA_EXCEEDED = 'true';
+        
+        // Use predefined responses based on user's message
+        const userMessage = request.message.toLowerCase();
+        
+        if (userMessage.includes('hello') || userMessage.includes('hi') || userMessage.includes('hey')) {
+          return "Hello! I'm Agent AI from Bharat Technologies. How can I assist you today?";
+        }
+        
+        if (userMessage.includes('cloud') || userMessage.includes('cloud computing') || userMessage.includes('cloud services')) {
+          return "Bharat Technologies offers comprehensive cloud computing services, including multi-cloud infrastructure, cloud migration, and cloud-native application development. Would you like me to connect you with a specialist to discuss your specific needs?";
+        }
+        
+        if (userMessage.includes('ai') || userMessage.includes('artificial intelligence') || userMessage.includes('machine learning')) {
+          return "At Bharat Technologies, we specialize in advanced AI solutions and human-AI collaboration tools. Our AI expertise extends across computer vision, natural language processing, and predictive analytics. Would you like to learn more about how our AI solutions can benefit your business?";
+        }
+        
+        if (userMessage.includes('security') || userMessage.includes('cyber') || userMessage.includes('cybersecurity')) {
+          return "Cybersecurity is a core focus area at Bharat Technologies. We offer comprehensive security solutions including threat detection, vulnerability assessment, and secure network architecture. Would you like to speak with one of our security experts?";
+        }
+        
+        if (userMessage.includes('contact') || userMessage.includes('speak') || userMessage.includes('email') || userMessage.includes('call')) {
+          return "You can contact our team using the 'Email Us' or 'Call Us' options in the navigation menu. Alternatively, fill out the contact form at the bottom of the homepage, and one of our representatives will get back to you promptly.";
+        }
+        
+        if (userMessage.includes('defence') || userMessage.includes('defense') || userMessage.includes('military')) {
+          return "Bharat Technologies provides advanced defense and military technology solutions, including secure communications systems, intelligence tools, and specialized hardware for defense applications. For detailed information on our defense technologies, I recommend scheduling a consultation with our defense sector specialists.";
+        }
+        
+        if (userMessage.includes('space') || userMessage.includes('satellite') || userMessage.includes('aerospace')) {
+          return "Our space technology division at Bharat Technologies develops cutting-edge solutions for satellite communications, space-based monitoring systems, and aerospace applications. We work with both government and private space agencies to advance space exploration and satellite technology.";
+        }
+        
+        if (userMessage.includes('agriculture') || userMessage.includes('farming') || userMessage.includes('farm')) {
+          return "Bharat Technologies offers specialized agriculture technology solutions including precision farming tools, smart irrigation systems, crop monitoring with AI, and data analytics for yield optimization. Would you like to learn more about how our agricultural solutions can improve efficiency and productivity?";
+        }
+        
+        if (userMessage.includes('banking') || userMessage.includes('finance') || userMessage.includes('payment')) {
+          return "Our banking and financial technology solutions include secure payment systems, fraud detection, regulatory compliance tools, and digital banking platforms. Bharat Technologies helps financial institutions modernize their infrastructure while maintaining the highest security standards.";
+        }
+        
+        if (userMessage.includes('healthcare') || userMessage.includes('medical') || userMessage.includes('health')) {
+          return "Bharat Technologies' healthcare solutions combine AI diagnostics, secure patient data management, telemedicine platforms, and advanced medical imaging systems. We're committed to improving patient outcomes through innovative technology while ensuring data privacy and security.";
+        }
+        
+        // Default fallback response
+        return "Thank you for your interest in Bharat Technologies. We offer cutting-edge solutions in AI, cloud computing, cybersecurity, defense technologies, and more. To provide you with the most accurate information, I'd recommend speaking with one of our specialists. Would you like me to help connect you with someone from our team?";
+      } else {
+        // Forward other API errors
+        throw error;
+      }
+    }
   } catch (error) {
     console.error('Error generating AI response:', error);
     // Log more detailed error information
@@ -88,6 +146,6 @@ export async function generateAgentResponse(request: AgentAIRequest): Promise<st
       console.error('Error message:', error.message);
       console.error('Error stack:', error.stack);
     }
-    return "I apologize, but I'm having trouble connecting to my knowledge base right now. Please try again later or contact our support team for immediate assistance.";
+    return "I apologize, but I'm having trouble processing your request right now. Please try again later or contact our support team for immediate assistance.";
   }
 }
