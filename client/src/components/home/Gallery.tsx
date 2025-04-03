@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import farmerTechImage from '../../assets/farmer_tech.png';
 import smartSolutionsImage from '../../assets/Smart_Solutions_01.png';
 import futureTechImage from '../../assets/Future-Tech_01.png';
-import cybersecurityImage from '../../assets/cybersecurity.png';
+import cybersecurityImage from '@assets/Cyber-Security_02.png';
 import healthcareImage from '../../assets/healthcare.png';
 import defenceImage from '../../assets/defence.png';
 import bankingTechImage from '@assets/Banking-Tech_02.png';
@@ -46,13 +46,13 @@ const Gallery = () => {
     },
     {
       image: cybersecurityImage,
-      alt: "Cybersecurity technology with robot hand",
-      bgColor: "bg-red-50",
+      alt: "Cybersecurity professional with shield protecting against threats",
+      bgColor: "bg-blue-50",
       title: "Cyber Security",
-      titleColor: "text-red-800",
+      titleColor: "text-blue-800",
       description: "Advanced protection for critical data and systems",
       link: "/cyber-security",
-      linkColor: "text-red-600"
+      linkColor: "text-blue-600"
     },
     {
       image: healthcareImage,
