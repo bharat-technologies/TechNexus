@@ -32,6 +32,17 @@ import Support from "@/pages/support";
 import AiChat from "@/pages/ai-chat";
 import Admin from "@/pages/admin";
 
+// Product Pages
+import AnalyticsCloud from "@/pages/products/analytics-cloud";
+import BusinessNetworkCloud from "@/pages/products/business-network-cloud";
+import ContentCloud from "@/pages/products/content-cloud";
+import CybersecurityCloud from "@/pages/products/cybersecurity-cloud";
+import DevOpsCloud from "@/pages/products/devops-cloud";
+import ExperienceCloud from "@/pages/products/experience-cloud";
+import ObservabilityServiceManagement from "@/pages/products/observability-service-management";
+import ProductListing from "@/pages/products/a-z-listing";
+import ProductNameChanges from "@/pages/products/name-changes";
+
 function Router() {
   const [location] = useLocation();
 
@@ -67,6 +78,18 @@ function Router() {
       <Route path="/support" component={Support} />
       <Route path="/ai-chat" component={AiChat} />
       <Route path="/admin" component={Admin} />
+      
+      {/* Product Routes */}
+      <Route path="/products/analytics-cloud" component={AnalyticsCloud} />
+      <Route path="/products/business-network-cloud" component={BusinessNetworkCloud} />
+      <Route path="/products/content-cloud" component={ContentCloud} />
+      <Route path="/products/cybersecurity-cloud" component={CybersecurityCloud} />
+      <Route path="/products/devops-cloud" component={DevOpsCloud} />
+      <Route path="/products/experience-cloud" component={ExperienceCloud} />
+      <Route path="/products/observability-service-management" component={ObservabilityServiceManagement} />
+      <Route path="/products/a-z-listing" component={ProductListing} />
+      <Route path="/products/name-changes" component={ProductNameChanges} />
+      
       <Route component={NotFound} />
     </Switch>
   );
