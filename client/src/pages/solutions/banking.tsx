@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect } from 'react';
 import bankingTechImage from '@assets/Banking-Tech_01.png';
-import bankingTechDetailImage from '../../assets/banking_tech_detail.png';
+import bankingTechDetailImage from '@assets/Banking-Tech_01.png';
 
 const BankingPaymentsPage = () => {
   useEffect(() => {
