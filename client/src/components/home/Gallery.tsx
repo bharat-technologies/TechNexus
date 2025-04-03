@@ -66,9 +66,9 @@ const Gallery = () => {
     },
     {
       image: defenceImage,
-      alt: "Defence technology with AI integration",
+      alt: "Defence and Space technology with AI integration",
       bgColor: "bg-gray-50",
-      title: "Defence",
+      title: "Defence and Space",
       titleColor: "text-gray-800",
       description: "Intelligent systems for national security",
       link: "/defence",
