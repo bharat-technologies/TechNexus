@@ -7,7 +7,7 @@ import futureTechImage from '../../assets/Future-Tech_01.png';
 import cybersecurityImage from '../../assets/cybersecurity.png';
 import healthcareImage from '../../assets/healthcare.png';
 import defenceImage from '../../assets/defence.png';
-import bankingTechImage from '../../assets/banking_tech.png';
+import bankingTechImage from '@assets/Banking-Tech_02.png';
 
 const Gallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -76,13 +76,13 @@ const Gallery = () => {
     },
     {
       image: bankingTechImage,
-      alt: "Banking and payment systems",
-      bgColor: "bg-blue-50",
+      alt: "Mobile banking and UPI payment systems with digital transactions",
+      bgColor: "bg-sky-50",
       title: "Banking and Payments",
-      titleColor: "text-blue-800",
+      titleColor: "text-sky-800",
       description: "Digital solutions for finance and payment systems",
       link: "/solutions/banking",
-      linkColor: "text-blue-600"
+      linkColor: "text-sky-600"
     }
   ];
 
@@ -131,7 +131,7 @@ const Gallery = () => {
                 >
                   <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
                     <div className={`w-full h-96 px-0 py-0 ${card.bgColor} overflow-hidden`}>
-                      <img src={card.image} alt={card.alt} className="w-full h-full object-fill" />
+                      <img src={card.image} alt={card.alt} className="w-full h-full object-cover" />
                     </div>
                     
                     <div className="p-6 bg-white">
