@@ -1,4 +1,5 @@
 import farmerTechImage from '../../assets/farmer_tech.png';
+import smartSolutionsImage from '../../assets/Smart_Solutions_01.png';
 
 const Gallery = () => {
   return (
@@ -26,54 +27,8 @@ const Gallery = () => {
           
           {/* Smart Solutions Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
-            <div className="w-full h-80 relative">
-              <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                {/* Background with subtle pattern */}
-                <rect width="400" height="300" fill="#f5f9ff" />
-                <pattern id="smartPattern" patternUnits="userSpaceOnUse" width="20" height="20">
-                  <rect width="20" height="20" fill="#f5f9ff"/>
-                  <path d="M0,10 L20,10" stroke="#e3f2fd" strokeWidth="1"/>
-                  <path d="M10,0 L10,20" stroke="#e3f2fd" strokeWidth="1"/>
-                </pattern>
-                <rect width="400" height="300" fill="url(#smartPattern)" opacity="0.4"/>
-                
-                {/* Computer/Device - multi-color */}
-                <rect x="100" y="80" width="200" height="140" rx="10" fill="#e3f2fd" stroke="#64b5f6" strokeWidth="2"/>
-                <rect x="120" y="100" width="160" height="100" rx="5" fill="#bbdefb" stroke="#2196f3" strokeWidth="2"/>
-                
-                {/* Base/Stand */}
-                <circle cx="200" cy="240" r="10" fill="#42a5f5"/>
-                <rect x="195" y="230" width="10" height="20" fill="#42a5f5"/>
-                
-                {/* Code/UI Elements - multi-color */}
-                <path d="M140 120L160 140L140 160" stroke="#1976d2" strokeWidth="3"/>
-                <path d="M180 140H220" stroke="#0d47a1" strokeWidth="3"/>
-                <path d="M260 120L240 140L260 160" stroke="#1976d2" strokeWidth="3"/>
-                
-                {/* Circuit elements - colorful */}
-                <circle cx="90" cy="100" r="5" fill="#29b6f6"/>
-                <circle cx="310" cy="100" r="5" fill="#29b6f6"/>
-                <circle cx="90" cy="200" r="5" fill="#0288d1"/>
-                <circle cx="310" cy="200" r="5" fill="#0288d1"/>
-                <path d="M90 100L90 200" stroke="#4fc3f7" strokeWidth="1.5"/>
-                <path d="M310 100L310 200" stroke="#4fc3f7" strokeWidth="1.5"/>
-                <path d="M90 100L60 100" stroke="#4fc3f7" strokeWidth="1.5"/>
-                <path d="M310 100L340 100" stroke="#4fc3f7" strokeWidth="1.5"/>
-                <path d="M90 200L60 200" stroke="#03a9f4" strokeWidth="1.5"/>
-                <path d="M310 200L340 200" stroke="#03a9f4" strokeWidth="1.5"/>
-                
-                {/* Digital elements */}
-                <rect x="60" y="90" width="20" height="20" rx="2" fill="#b3e5fc" stroke="#0277bd" strokeWidth="1"/>
-                <rect x="50" y="190" width="20" height="20" rx="2" fill="#b3e5fc" stroke="#0277bd" strokeWidth="1"/>
-                <rect x="320" y="90" width="20" height="20" rx="2" fill="#b3e5fc" stroke="#0277bd" strokeWidth="1"/>
-                <rect x="320" y="190" width="20" height="20" rx="2" fill="#b3e5fc" stroke="#0277bd" strokeWidth="1"/>
-                <path d="M65 100L75 100" stroke="#01579b" strokeWidth="1"/>
-                <path d="M70 95L70 105" stroke="#01579b" strokeWidth="1"/>
-                <path d="M325 100L335 100" stroke="#01579b" strokeWidth="1"/>
-                <path d="M330 95L330 105" stroke="#01579b" strokeWidth="1"/>
-                <path d="M55 200L65 200" stroke="#01579b" strokeWidth="1"/>
-                <path d="M325 200L335 200" stroke="#01579b" strokeWidth="1"/>
-              </svg>
+            <div className="w-full h-80 px-4 pt-3 pb-0 bg-blue-50 overflow-hidden">
+              <img src={smartSolutionsImage} alt="Business professional using smart solutions" className="w-full h-full object-contain" />
             </div>
             
             <div className="p-6 bg-white">
