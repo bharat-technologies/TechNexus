@@ -69,16 +69,25 @@ export async function generateAgentResponse(request: AgentAIRequest): Promise<st
     });
 
     // Call OpenAI API
+    console.log('Calling OpenAI API with messages:', JSON.stringify(messages, null, 2));
+    
     const response = await openai.chat.completions.create({
       model: OPENAI_MODEL,
       messages,
       temperature: 0.7,
       max_tokens: 500
     });
+    
+    console.log('OpenAI API response:', JSON.stringify(response.choices[0].message, null, 2));
 
     return response.choices[0].message.content || "I'm sorry, I couldn't generate a response. Please try again.";
   } catch (error) {
     console.error('Error generating AI response:', error);
+    // Log more detailed error information
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
     return "I apologize, but I'm having trouble connecting to my knowledge base right now. Please try again later or contact our support team for immediate assistance.";
   }
 }

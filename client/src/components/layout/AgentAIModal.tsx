@@ -1,14 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { X, Minus } from 'lucide-react';
+import { X, Minus, Send } from 'lucide-react';
 import { useAgentAI } from '@/contexts/AgentAIContext';
 
 // No longer need component props as we use context
 const AgentAIModal = () => {
-  const { isOpen, isMinimized, messages, toggleChat, setIsOpen, setIsMinimized, addMessage } = useAgentAI();
+  const { 
+    isOpen, 
+    isMinimized, 
+    messages, 
+    toggleChat, 
+    setIsOpen, 
+    setIsMinimized, 
+    sendMessage,
+    isLoading 
+  } = useAgentAI();
   
   const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,38 +29,13 @@ const AgentAIModal = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
-    // Add user message through the context
-    addMessage({
-      text: input,
-      sender: 'user',
-      timestamp: new Date()
-    });
-    
+    const currentInput = input;
     setInput('');
-    setIsTyping(true);
-
-    // Simulate AI response (in a real app, this would call an API)
-    setTimeout(() => {
-      const aiResponses = [
-        "I understand your question. Let me provide you with more information about our cloud services.",
-        "Thank you for your interest in Bharat Technologies. Our team specializes in that area and can help you implement a custom solution.",
-        "That's a great question about our AI capabilities. We offer a range of intelligent solutions that can be tailored to your specific needs.",
-        "I'd be happy to connect you with one of our specialists who can provide more detailed information about that topic.",
-        "Our security protocols are designed to offer maximum protection while maintaining performance. Would you like me to explain more about our approach?"
-      ];
-      
-      const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-      
-      addMessage({
-        text: randomResponse,
-        sender: 'ai',
-        timestamp: new Date()
-      });
-      
-      setIsTyping(false);
-    }, 1500);
+    
+    // Send the message using our AI service
+    await sendMessage(currentInput);
   };
 
   const formatTime = (date: Date) => {
@@ -149,7 +132,7 @@ const AgentAIModal = () => {
                 </div>
               ))}
               
-              {isTyping && (
+              {isLoading && (
                 <div className="flex items-start">
                   <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-2">
                     <i className="fas fa-robot text-purple-600 text-sm"></i>
@@ -181,12 +164,13 @@ const AgentAIModal = () => {
               <button 
                 type="submit" 
                 className="bg-black text-white px-4 py-3 rounded-r-lg hover:bg-gray-800 transition-colors duration-300"
+                disabled={isLoading}
               >
-                <i className="fas fa-paper-plane"></i>
+                <Send size={18} />
               </button>
             </div>
             <div className="text-xs text-gray-500 mt-2 text-center">
-              This is a simulated Agent AI. For complex inquiries, please use email or phone options.
+              Our AI assistant has knowledge about Bharat Technologies. For complex inquiries, please use email or phone options.
             </div>
           </form>
         </Dialog.Content>

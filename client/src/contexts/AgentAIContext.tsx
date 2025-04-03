@@ -71,12 +71,16 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
       });
       
       // Call the AI API
+      console.log('Sending to Agent AI API:', { message: text, conversationHistory });
+      
       const response = await apiRequest('POST', '/api/agent-ai', {
         message: text,
         conversationHistory
       });
       
+      console.log('Agent AI API response status:', response.status);
       const data = await response.json();
+      console.log('Agent AI API response data:', data);
       
       if (data.success) {
         // Add AI response to chat
@@ -99,6 +103,11 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
       }
     } catch (error) {
       console.error("Error sending message to AI:", error);
+      
+      if (error instanceof Error) {
+        console.error("Error message:", error.message);
+        console.error("Error stack:", error.stack);
+      }
       
       // Add error message
       const errorMessage: Omit<Message, 'id'> = {
@@ -138,7 +147,9 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setIsOpen,
         setIsMinimized,
         addMessage,
-        toggleChat
+        toggleChat,
+        sendMessage,
+        isLoading
       }}
     >
       {children}
