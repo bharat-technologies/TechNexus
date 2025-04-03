@@ -3,14 +3,14 @@ import smartSolutionsImage from '../../assets/Smart_Solutions_01.png';
 
 const Gallery = () => {
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-24 bg-gray-100">
       <div className="container mx-auto px-4">
-        <h2 className="font-poppins font-bold text-3xl md:text-4xl text-center mb-16" data-aos="fade-up">Our AI Solutions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4" data-aos="fade-up" data-aos-delay="200">
+        <h2 className="font-poppins font-bold text-3xl md:text-4xl text-center mb-16 mt-4" data-aos="fade-up">Our AI Solutions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
           
           {/* AI in Agriculture Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
-            <div className="w-full h-80 px-0 py-0 bg-cyan-50 overflow-hidden">
+            <div className="w-full h-96 px-0 py-0 bg-cyan-50 overflow-hidden">
               <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-full h-full object-fill" />
             </div>
             
@@ -27,7 +27,7 @@ const Gallery = () => {
           
           {/* Smart Solutions Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
-            <div className="w-full h-80 px-0 py-0 bg-blue-50 overflow-hidden">
+            <div className="w-full h-96 px-0 py-0 bg-blue-50 overflow-hidden">
               <img src={smartSolutionsImage} alt="Business professional using smart solutions" className="w-full h-full object-fill" />
             </div>
             
@@ -44,7 +44,7 @@ const Gallery = () => {
           
           {/* Future Tech Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
-            <div className="w-full h-80 relative">
+            <div className="w-full h-96 relative">
               <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Background with subtle pattern */}
                 <rect width="400" height="300" fill="#f9f5ff" />
