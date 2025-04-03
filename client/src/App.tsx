@@ -65,6 +65,11 @@ function Router() {
       <Route path="/cyber-security" component={CyberSecurity} />
       <Route path="/defence" component={Defence} />
       <Route path="/space" component={Space} />
+      <Route path="/solutions/ai-intelligence" component={AiIntelligence} />
+      <Route path="/solutions/cloud-stack" component={CloudStack} />
+      <Route path="/solutions/cyber-security" component={CyberSecurity} />
+      <Route path="/solutions/defence" component={Defence} />
+      <Route path="/solutions/multi-cloud" component={MultiCloud} />
       <Route path="/solutions/space" component={SpaceSolutions} />
       <Route path="/solutions/banking" component={BankingSolutions} />
       <Route path="/technology/agriculture-farming" component={AgricultureFarming} />
