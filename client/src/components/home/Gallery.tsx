@@ -50,7 +50,7 @@ const Gallery = () => {
       bgColor: "bg-blue-50",
       title: "Cyber Security",
       titleColor: "text-blue-800",
-      description: "Advanced protection for critical data and systems",
+      description: "Advanced protection for critical data systems and infrastructure",
       link: "/cyber-security",
       linkColor: "text-blue-600"
     },
@@ -60,7 +60,7 @@ const Gallery = () => {
       bgColor: "bg-indigo-50",
       title: "Healthcare",
       titleColor: "text-indigo-800",
-      description: "AI-powered solutions for better patient care",
+      description: "AI-powered solutions for better patient care and diagnostics",
       link: "/technology/healthcare",
       linkColor: "text-indigo-600"
     },
@@ -70,7 +70,7 @@ const Gallery = () => {
       bgColor: "bg-gray-50",
       title: "Defence and Space",
       titleColor: "text-gray-800",
-      description: "Intelligent systems for national security",
+      description: "Intelligent systems for national security and space exploration",
       link: "/defence",
       linkColor: "text-gray-600"
     },
@@ -80,7 +80,7 @@ const Gallery = () => {
       bgColor: "bg-sky-50",
       title: "Banking and Payments",
       titleColor: "text-sky-800",
-      description: "Digital solutions for finance and payment systems",
+      description: "Digital solutions for finance and secure payment systems",
       link: "/solutions/banking",
       linkColor: "text-sky-600"
     }
@@ -129,14 +129,14 @@ const Gallery = () => {
                   key={index}
                   className="flex-none w-full md:w-[calc(33.333%-21px)] snap-center"
                 >
-                  <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
+                  <div className="gallery-item h-full overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105 flex flex-col">
                     <div className={`w-full h-96 px-0 py-0 ${card.bgColor} overflow-hidden`}>
                       <img src={card.image} alt={card.alt} className="w-full h-full object-cover" />
                     </div>
                     
-                    <div className="p-6 bg-white">
+                    <div className="p-6 bg-white flex flex-col h-[180px]">
                       <h3 className={`font-poppins font-semibold text-xl mb-2 ${card.titleColor}`}>{card.title}</h3>
-                      <p className="text-gray-700">{card.description}</p>
+                      <p className="text-gray-700 flex-grow">{card.description}</p>
                       <div className="mt-4">
                         <a href={card.link} className={`${card.linkColor} font-medium text-sm inline-flex items-center`}>
                           Explore Solutions <span className="ml-1">→</span>
