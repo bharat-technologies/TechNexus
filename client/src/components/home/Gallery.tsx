@@ -5,12 +5,12 @@ const Gallery = () => {
     <section className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
         <h2 className="font-poppins font-bold text-3xl md:text-4xl text-center mb-16" data-aos="fade-up">Our AI Solutions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4" data-aos="fade-up" data-aos-delay="200">
           
           {/* AI in Agriculture Card */}
           <div className="gallery-item overflow-hidden rounded-lg shadow-lg bg-white transition-transform duration-300 hover:transform hover:scale-105">
-            <div className="w-full h-56 px-6 pt-4 pb-0 bg-cyan-50 overflow-hidden flex items-center justify-center">
-              <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-auto h-full object-contain max-w-full" style={{ maxHeight: '220px' }} />
+            <div className="w-full h-52 px-4 pt-3 pb-0 bg-cyan-50 overflow-hidden">
+              <img src={farmerTechImage} alt="Farmer using technology in a field" className="w-full object-contain" />
             </div>
             
             <div className="p-6 bg-white">
