@@ -3,8 +3,18 @@ import OpenAI from "openai";
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
 const OPENAI_MODEL = "gpt-4o";
 
-// Initialize the OpenAI client
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Initialize the OpenAI client with fallback handling
+const openai = new OpenAI({ 
+  apiKey: process.env.OPENAI_API_KEY || 'dummy',
+  defaultQuery: { timeout: 30000 },
+  defaultHeaders: { 'OpenAI-Beta': 'assistants=v1' }
+});
+
+// Set fallback mode if API key is missing
+if (!process.env.OPENAI_API_KEY) {
+  console.warn('Warning: OPENAI_API_KEY not found. AI responses will be limited to basic responses.');
+  process.env.OPENAI_API_QUOTA_EXCEEDED = 'true';
+}
 
 // Website information for context
 const websiteContext = `
