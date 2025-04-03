@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { apiRequest } from '@/lib/queryClient';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useAgentAI } from '@/contexts/AgentAIContext';
 import {
@@ -22,14 +22,6 @@ const contactSchema = z.object({
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
-
-interface Message {
-  id: number;
-  text: string;
-  sender: 'user' | 'ai';
-  timestamp: Date;
-}
-
 type ContactModalType = 'email' | 'call' | 'ai' | null;
 
 const Contact = () => {
@@ -69,8 +61,6 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-
-
 
   const openContactModal = (type: ContactModalType) => {
     if (type === 'ai') {
@@ -279,8 +269,6 @@ const Contact = () => {
           </div>
         </DialogContent>
       </Dialog>
-      
-
     </>
   );
 };
