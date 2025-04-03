@@ -136,7 +136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           success: true,
           message: response,
           usingFallback: true,
-          fallbackInfo: "Using predefined responses due to API limitations. For full AI capabilities, please check back later."
+          fallbackInfo: "I'm a basic agent currently due to technical issues at our end. Please come back later to connect with our super agent if I'm unable to answer your queries over the chat."
         });
       } else {
         res.status(200).json({

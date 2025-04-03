@@ -85,7 +85,7 @@ export async function generateAgentResponse(request: AgentAIRequest): Promise<st
     } catch (error: any) {
       // Check for rate limit or quota errors
       if (error.status === 429 || (error.error && error.error.type === 'insufficient_quota')) {
-        console.log('OpenAI API quota exceeded or rate limited. Using fallback responses.');
+        console.log('OpenAI API quota exceeded or rate limited. Switching to basic agent mode.');
         // Set a flag for routes to check
         process.env.OPENAI_API_QUOTA_EXCEEDED = 'true';
         

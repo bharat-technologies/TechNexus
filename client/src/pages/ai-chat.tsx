@@ -97,7 +97,7 @@ const AiChat = () => {
         // Check for fallback notifications
         if (data.usingFallback) {
           setUsingFallback(true);
-          setFallbackInfo(data.fallbackInfo || "Using simplified responses due to service limitations.");
+          setFallbackInfo(data.fallbackInfo || "I'm a basic agent currently due to technical issues at our end. Please come back later to connect with our super agent if I'm unable to answer your queries over the chat.");
         } else {
           setUsingFallback(false);
           setFallbackInfo(null);
