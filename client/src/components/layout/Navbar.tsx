@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'wouter';
 import MobileMenu from './MobileMenu';
+import AgentAIModal from './AgentAIModal';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isAgentAIOpen, setIsAgentAIOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -239,7 +241,7 @@ const Navbar = () => {
                     <div className="font-bold mb-1">Get in Touch</div>
                     <a href="tel:+1234567890" className="block py-1">Call Us</a>
                     <a href="mailto:contact@bharattechnologies.com" className="block py-1">Email Us</a>
-                    <a href="/ai-chat" className="block py-1">Agent AI</a>
+                    <a onClick={() => { setActiveDropdown(null); setIsAgentAIOpen(true); }} className="block py-1 cursor-pointer">Agent AI</a>
                   </div>
                 </div>
               </div>
@@ -259,7 +261,16 @@ const Navbar = () => {
         </div>
       </nav>
       
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} />
+      <MobileMenu 
+        isOpen={isMobileMenuOpen} 
+        onClose={toggleMobileMenu} 
+        onOpenAgentAI={() => setIsAgentAIOpen(true)} 
+      />
+      
+      <AgentAIModal 
+        isOpen={isAgentAIOpen} 
+        onClose={() => setIsAgentAIOpen(false)} 
+      />
     </>
   );
 };

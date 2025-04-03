@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenAgentAI?: () => void;
 }
 
 interface DropdownSection {
@@ -15,7 +16,7 @@ interface DropdownSection {
   }[];
 }
 
-const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
+const MobileMenu = ({ isOpen, onClose, onOpenAgentAI }: MobileMenuProps) => {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
 
   const toggleSection = (section: string) => {
@@ -131,7 +132,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       links: [
         { path: 'tel:+1234567890', icon: 'fas fa-phone', text: 'Call Us' },
         { path: 'mailto:contact@bharattechnologies.com', icon: 'fas fa-envelope', text: 'Email Us' },
-        { path: '/ai-chat', icon: 'fas fa-robot', text: 'Agent AI' },
+        { path: '#', icon: 'fas fa-robot', text: 'Agent AI' },
       ]
     }
   ];
@@ -172,15 +173,30 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               style={{ display: expandedSections[section.title] ? 'block' : 'none' }}
             >
               {section.links.map((link, linkIndex) => (
-                <Link key={linkIndex} href={link.path}>
-                  <a 
-                    className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')}`}
-                    onClick={handleLinkClick}
+                link.text === 'Agent AI' ? (
+                  <div 
+                    key={linkIndex}
+                    className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')} cursor-pointer`}
+                    onClick={() => {
+                      onClose();
+                      document.body.style.overflow = 'auto';
+                      if (onOpenAgentAI) onOpenAgentAI();
+                    }}
                   >
                     <i className={`${link.icon} mr-2`}></i>
                     <span>{link.text}</span>
-                  </a>
-                </Link>
+                  </div>
+                ) : (
+                  <Link key={linkIndex} href={link.path}>
+                    <a 
+                      className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')}`}
+                      onClick={handleLinkClick}
+                    >
+                      <i className={`${link.icon} mr-2`}></i>
+                      <span>{link.text}</span>
+                    </a>
+                  </Link>
+                )
               ))}
             </div>
           </div>
