@@ -79,7 +79,16 @@ const AgentAIModal = () => {
   }
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
+    <Dialog.Root 
+      open={isOpen} 
+      onOpenChange={(open) => {
+        if (!open) {
+          // When dialog is closed by clicking outside
+          setIsOpen(false);
+          setIsMinimized(true); // Minimize instead of completely closing
+        }
+      }}
+    >
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm agent-ai-modal" />
         <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden agent-ai-modal">

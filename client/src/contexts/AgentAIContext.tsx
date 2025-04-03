@@ -51,32 +51,8 @@ export const AgentAIProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   };
 
-  // The outside click handler is implemented below
-  
-  // Handle the behavior when clicking outside the chat
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      
-      // If the click is outside the modal, and not on a button that interacts with the modal,
-      // and the modal is open, then minimize it instead of closing it
-      if (isOpen && 
-          !target.closest('.agent-ai-modal') && 
-          !target.closest('.agent-ai-button') && 
-          !target.closest('.minimized-chat')) {
-        setIsMinimized(true);
-        setIsOpen(false);
-      }
-    };
-    
-    // Add the event listener
-    document.addEventListener('mousedown', handleOutsideClick);
-    
-    // Clean up the event listener when the component unmounts
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [isOpen]);
+  // No outside click handler needed here. 
+  // The Dialog component in AgentAIModal.tsx has onOpenChange that handles this behavior.
 
   return (
     <AgentAIContext.Provider
