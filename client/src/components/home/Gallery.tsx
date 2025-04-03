@@ -7,7 +7,7 @@ import futureTechImage from '../../assets/Future-Tech_01.png';
 import cybersecurityImage from '../../assets/cybersecurity.png';
 import healthcareImage from '../../assets/healthcare.png';
 import defenceImage from '../../assets/defence.png';
-import spaceImage from '../../assets/space.png';
+import bankingTechImage from '../../assets/banking_tech.png';
 
 const Gallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -75,13 +75,13 @@ const Gallery = () => {
       linkColor: "text-gray-600"
     },
     {
-      image: spaceImage,
-      alt: "Space technology with data analysis",
+      image: bankingTechImage,
+      alt: "Banking technology and payment systems",
       bgColor: "bg-blue-50",
-      title: "Space",
+      title: "Banking Technology",
       titleColor: "text-blue-800",
-      description: "Advanced data analysis for space exploration",
-      link: "/solutions/space",
+      description: "Digital solutions for finance and payment systems",
+      link: "/solutions/banking",
       linkColor: "text-blue-600"
     }
   ];
