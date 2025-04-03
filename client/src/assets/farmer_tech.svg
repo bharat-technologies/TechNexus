@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky background -->
+  <rect width="800" height="400" fill="#78C4E6"/>
+  
+  <!-- Clouds -->
+  <path d="M680,140 Q710,100 750,130 Q790,150 770,190 Q750,220 710,210 Q680,210 670,180 Q660,150 680,140" fill="#F6F6E3"/>
+  <path d="M580,90 Q620,60 660,90 Q690,110 670,140 Q640,160 610,150 Q580,140 580,110 Q570,80 580,90" fill="#F6F6E3"/>
+  <path d="M730,70 Q760,40 790,60 Q810,80 800,110 Q780,140 750,120 Q720,110 730,70" fill="#F6F6E3"/>
+  
+  <!-- Green fields -->
+  <rect x="0" y="400" width="800" height="400" fill="#65A84F"/>
+  
+  <!-- Distant mountains -->
+  <path d="M0,400 Q100,350 200,380 Q300,340 400,370 Q500,330 600,380 Q700,340 800,400" fill="#46785D" opacity="0.5"/>
+  
+  <!-- Tree -->
+  <rect x="90" y="200" width="35" height="200" fill="#8E6244"/>
+  <ellipse cx="110" cy="180" rx="80" ry="70" fill="#538236"/>
+  <ellipse cx="150" cy="210" rx="60" ry="50" fill="#538236"/>
+  <ellipse cx="70" cy="210" rx="60" ry="50" fill="#538236"/>
+  
+  <!-- Power lines -->
+  <line x1="250" y1="150" x2="240" y2="300" stroke="#888" strokeWidth="5"/>
+  <line x1="250" y1="150" x2="260" y2="300" stroke="#888" strokeWidth="5"/>
+  <line x1="200" y1="180" x2="300" y2="180" stroke="#888" strokeWidth="3"/>
+  <line x1="210" y1="220" x2="290" y2="220" stroke="#888" strokeWidth="3"/>
+  <line x1="220" y1="260" x2="280" y2="260" stroke="#888" strokeWidth="3"/>
+  
+  <!-- Crop rows -->
+  <g transform="translate(0, 600)">
+    <path d="M0,-50 C100,-60 200,-35 300,-55 C400,-60 500,-40 600,-50 C700,-60 800,-45 800,-45 L800,200 L0,200 Z" fill="#3A6D28" fillOpacity="0.8"/>
+    
+    <!-- Small plants - scattered across fields -->
+    <g opacity="0.9">
+      <path d="M50,-100 C55,-110 60,-105 65,-115 C70,-105 75,-110 80,-100 Z" fill="#3D6D29"/>
+      <path d="M150,-90 C155,-100 160,-95 165,-105 C170,-95 175,-100 180,-90 Z" fill="#3D6D29"/>
+      <path d="M250,-100 C255,-110 260,-105 265,-115 C270,-105 275,-110 280,-100 Z" fill="#3D6D29"/>
+      <path d="M350,-95 C355,-105 360,-100 365,-110 C370,-100 375,-105 380,-95 Z" fill="#3D6D29"/>
+      <path d="M450,-100 C455,-110 460,-105 465,-115 C470,-105 475,-110 480,-100 Z" fill="#3D6D29"/>
+      <path d="M550,-90 C555,-100 560,-95 565,-105 C570,-95 575,-100 580,-90 Z" fill="#3D6D29"/>
+      <path d="M650,-95 C655,-105 660,-100 665,-110 C670,-100 675,-105 680,-95 Z" fill="#3D6D29"/>
+      <path d="M750,-100 C755,-110 760,-105 765,-115 C770,-105 775,-110 780,-100 Z" fill="#3D6D29"/>
+    </g>
+    
+    <g opacity="0.8" transform="translate(0, -30)">
+      <path d="M100,-100 C105,-110 110,-105 115,-115 C120,-105 125,-110 130,-100 Z" fill="#3D6D29"/>
+      <path d="M200,-90 C205,-100 210,-95 215,-105 C220,-95 225,-100 230,-90 Z" fill="#3D6D29"/>
+      <path d="M300,-100 C305,-110 310,-105 315,-115 C320,-105 325,-110 330,-100 Z" fill="#3D6D29"/>
+      <path d="M400,-95 C405,-105 410,-100 415,-110 C420,-100 425,-105 430,-95 Z" fill="#3D6D29"/>
+      <path d="M500,-100 C505,-110 510,-105 515,-115 C520,-105 525,-110 530,-100 Z" fill="#3D6D29"/>
+      <path d="M600,-90 C605,-100 610,-95 615,-105 C620,-95 625,-100 630,-90 Z" fill="#3D6D29"/>
+      <path d="M700,-95 C705,-105 710,-100 715,-110 C720,-100 725,-105 730,-95 Z" fill="#3D6D29"/>
+    </g>
+  </g>
+  
+  <!-- Indian Farmer -->
+  <g transform="translate(400, 500)">
+    <!-- Body -->
+    <path d="M-60,-20 L-40,50 L40,50 L60,-20 Z" fill="#7F5A38"/> <!-- Shorts/bottom -->
+    <rect x="-60" y="-120" width="120" height="100" rx="10" fill="#FFFFFF"/> <!-- White kurta -->
+    
+    <!-- Head with turban -->
+    <circle cx="0" cy="-155" r="35" fill="#D4A37A"/> <!-- Face -->
+    <path d="M-20,-155 L-10,-150 L10,-150 L20,-155" stroke="black" strokeWidth="2" fill="none"/> <!-- Eyebrows -->
+    <ellipse cx="-15" cy="-145" rx="4" ry="3" fill="black"/> <!-- Left eye -->
+    <ellipse cx="15" cy="-145" rx="4" ry="3" fill="black"/> <!-- Right eye -->
+    <path d="M0,-135 L-5,-125 L5,-125 Z" fill="black"/> <!-- Nose -->
+    <path d="M-15,-125 C-5,-120 5,-120 15,-125" stroke="black" strokeWidth="2" fill="none"/> <!-- Mouth -->
+    <path d="M-20,-130 L20,-130 L15,-120 L-15,-120 Z" fill="black"/> <!-- Mustache -->
+    
+    <!-- Turban -->
+    <path d="M-35,-190 Q-40,-210 -20,-220 Q0,-230 20,-220 Q40,-210 35,-190 Q30,-180 0,-180 Q-30,-180 -35,-190 Z" fill="#FF6B35"/>
+    <path d="M-35,-190 Q-30,-200 0,-200 Q30,-200 35,-190" stroke="#DE5A2C" strokeWidth="3" fill="none"/>
+    <ellipse cx="0" cy="-190" rx="35" ry="15" fill="#FF6B35"/>
+    
+    <!-- Arms -->
+    <path d="M-60,-90 Q-80,-60 -40,-20" stroke="#D4A37A" strokeWidth="20" fill="none"/> <!-- Left arm -->
+    <path d="M60,-90 Q80,-60 40,-20" stroke="#D4A37A" strokeWidth="20" fill="none"/> <!-- Right arm -->
+  </g>
+  
+  <!-- Laptop -->
+  <g transform="translate(400, 500)">
+    <rect x="-70" y="-20" width="140" height="10" fill="#4A6375"/> <!-- Laptop base -->
+    <rect x="-70" y="-80" width="140" height="60" rx="5" fill="#4A6375"/> <!-- Laptop screen -->
+    <rect x="-65" y="-75" width="130" height="50" fill="#333333"/> <!-- Screen display -->
+    <circle cx="0" cy="-50" r="5" fill="#666"/> <!-- Laptop logo -->
+  </g>
+  
+  <!-- Solar Panel -->
+  <g transform="translate(650, 450)">
+    <rect x="-50" y="-80" width="100" height="80" fill="#2C3E50"/> <!-- Panel frame -->
+    <rect x="-45" y="-75" width="90" height="70" fill="#7FB3D5"/> <!-- Panel glass -->
+    
+    <!-- Grid lines -->
+    <line x1="-45" y1="-55" x2="45" y2="-55" stroke="#2C3E50" strokeWidth="2"/>
+    <line x1="-45" y1="-35" x2="45" y2="-35" stroke="#2C3E50" strokeWidth="2"/>
+    <line x1="-45" y1="-15" x2="45" y2="-15" stroke="#2C3E50" strokeWidth="2"/>
+    <line x1="-15" y1="-75" x2="-15" y2="-5" stroke="#2C3E50" strokeWidth="2"/>
+    <line x1="15" y1="-75" x2="15" y2="-5" stroke="#2C3E50" strokeWidth="2"/>
+    
+    <!-- Panel stand -->
+    <rect x="-5" y="0" width="10" height="50" fill="#7F8C8D"/>
+  </g>
+  
+  <!-- Water pump and pipe -->
+  <g transform="translate(700, 520)">
+    <rect x="-20" y="-20" width="40" height="20" fill="#7F8C8D"/> <!-- Pump base -->
+    <path d="M-10,-20 L-10,-40 Q0,-50 10,-40 L10,-20" fill="#5D6D7E"/> <!-- Pump top -->
+    <path d="M-20,-10 L-40,-10 L-40,20 Q-40,40 -20,40 Q0,40 0,20 L0,-10" fill="#5D6D7E"/> <!-- Pipe horizontal -->
+    <path d="M-40,20 Q-50,20 -50,10 Q-50,0 -40,0" fill="none" stroke="#5D6D7E" strokeWidth="10"/> <!-- Pipe elbow -->
+    
+    <!-- Water flow -->
+    <path d="M-50,5 C-70,5 -60,40 -80,40" fill="none" stroke="#78C4E6" strokeWidth="8" strokeLinecap="round"/>
+    <ellipse cx="-80" cy="50" rx="20" ry="10" fill="#78C4E6" fillOpacity="0.7"/>
+    <ellipse cx="-80" cy="50" rx="15" ry="5" fill="#FFFFFF" fillOpacity="0.3"/>
+  </g>
+</svg>

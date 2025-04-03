@@ -2,6 +2,7 @@ import React from 'react';
 import PrecisionFarmingIllustration from '@/components/agriculture/PrecisionFarmingIllustration';
 import DataAnalyticsIllustration from '@/components/agriculture/DataAnalyticsIllustration';
 import SmartIrrigationIllustration from '@/components/agriculture/SmartIrrigationIllustration';
+import farmerTechImage from '../../assets/farmer_tech.png';
 
 export default function AgricultureFarmingPage() {
   return (
@@ -15,15 +16,22 @@ export default function AgricultureFarmingPage() {
 
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-8 rounded-xl shadow-sm mb-16">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">Transforming Agriculture with Technology</h2>
-          <p className="text-lg mb-6 text-gray-700">
-            At Bharat Technologies, we're committed to empowering farmers with innovative technology solutions that increase yields, reduce costs, and promote sustainable farming practices. Our advanced agricultural technologies blend traditional farming wisdom with cutting-edge innovation.
-          </p>
-          <div className="flex justify-center">
-            <a href="#solutions" className="inline-block bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition duration-300">
-              Explore Our Solutions
-            </a>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
+          <div className="md:w-1/2">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Transforming Agriculture with Technology</h2>
+            <p className="text-lg mb-6 text-gray-700">
+              At Bharat Technologies, we're committed to empowering farmers with innovative technology solutions that increase yields, reduce costs, and promote sustainable farming practices. Our advanced agricultural technologies blend traditional farming wisdom with cutting-edge innovation.
+            </p>
+            <div className="flex justify-center md:justify-start">
+              <a href="#solutions" className="inline-block bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition duration-300">
+                Explore Our Solutions
+              </a>
+            </div>
+          </div>
+          <div className="md:w-1/2 mt-6 md:mt-0">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img src={farmerTechImage} alt="Indian farmer with technology" className="w-full h-auto" />
+            </div>
           </div>
         </div>
       </div>
