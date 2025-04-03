@@ -134,7 +134,7 @@ const Gallery = () => {
                       <img 
                         src={card.image} 
                         alt={card.alt} 
-                        className="w-full h-full object-cover object-center p-0"
+                        className="w-full h-full object-fill object-center"
                       />
                     </div>
                     
