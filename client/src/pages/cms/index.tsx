@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, Navigation, FileText, LayoutGrid } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Main CMS Dashboard Page
 export default function CMSDashboard() {
@@ -227,8 +228,7 @@ function StatCard({
   );
 }
 
-// Content Sections Component
-// This is a placeholder - in a real implementation, this would fetch data from the API
+// Content Sections Component 
 function ContentSections() {
   const [sections, setSections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -236,20 +236,39 @@ function ContentSections() {
   const [newSectionName, setNewSectionName] = useState("");
   const [newSectionDescription, setNewSectionDescription] = useState("");
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Use React Query to fetch content sections
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['/api/cms/content-sections'],
+    queryFn: async () => {
+      const response = await fetch('/api/cms/content-sections');
+      if (!response.ok) {
+        throw new Error('Failed to fetch content sections');
+      }
+      return response.json();
+    }
+  });
 
   useEffect(() => {
-    // Simulate fetching sections from API
-    setTimeout(() => {
-      setSections([
-        { id: 1, name: "Home Page Content", description: "Main home page sections" },
-        { id: 2, name: "About Us", description: "About us page content" },
-        { id: 3, name: "Services", description: "Services and solutions" },
-      ]);
+    if (data?.success && data?.data) {
+      setSections(data.data);
       setLoading(false);
-    }, 1000);
-  }, []);
+    }
+  }, [data]);
 
-  const handleAddSection = () => {
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load content sections",
+        variant: "destructive"
+      });
+      setLoading(false);
+    }
+  }, [error, toast]);
+
+  const handleAddSection = async () => {
     if (!newSectionName.trim()) {
       toast({
         title: "Validation Error",
@@ -259,23 +278,43 @@ function ContentSections() {
       return;
     }
 
-    // Simulate API call to add section
-    const newSection = {
-      id: sections.length + 1,
-      name: newSectionName,
-      description: newSectionDescription
-    };
+    try {
+      const response = await fetch('/api/cms/content-sections', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: newSectionName,
+          description: newSectionDescription || undefined
+        })
+      });
 
-    setSections([...sections, newSection]);
-    setIsAddDialogOpen(false);
-    setNewSectionName("");
-    setNewSectionDescription("");
+      const result = await response.json();
+      
+      if (result.success) {
+        // Invalidate the query to refetch data
+        queryClient.invalidateQueries({ queryKey: ['/api/cms/content-sections'] });
+        
+        setIsAddDialogOpen(false);
+        setNewSectionName("");
+        setNewSectionDescription("");
 
-    toast({
-      title: "Section Added",
-      description: `"${newSectionName}" has been added successfully.`,
-      variant: "default"
-    });
+        toast({
+          title: "Section Added",
+          description: `"${newSectionName}" has been added successfully.`,
+          variant: "default"
+        });
+      } else {
+        throw new Error(result.message || 'Failed to add section');
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "An error occurred while adding the section",
+        variant: "destructive"
+      });
+    }
   };
 
   if (loading) {

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Switch } from "@/components/ui/switch";
 import { VersionHistory } from "@/components/cms/VersionHistory";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface ContentItem {
   id: number;
@@ -41,6 +42,40 @@ export default function ContentPage() {
 
   const sectionId = parseInt(params.id);
 
+  const queryClient = useQueryClient();
+  
+  // Fetch content section details
+  const { data: sectionData, isLoading: isSectionLoading, error: sectionError } = useQuery({
+    queryKey: ['/api/cms/content-sections', sectionId],
+    queryFn: async () => {
+      if (isNaN(sectionId)) {
+        throw new Error('Invalid section ID');
+      }
+      const response = await fetch(`/api/cms/content-sections/${sectionId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch section details');
+      }
+      return response.json();
+    },
+    enabled: !isNaN(sectionId)
+  });
+
+  // Fetch content items for this section
+  const { data: itemsData, isLoading: isItemsLoading, error: itemsError } = useQuery({
+    queryKey: ['/api/cms/content-items', sectionId],
+    queryFn: async () => {
+      if (isNaN(sectionId)) {
+        throw new Error('Invalid section ID');
+      }
+      const response = await fetch(`/api/cms/content-items?sectionId=${sectionId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch content items');
+      }
+      return response.json();
+    },
+    enabled: !isNaN(sectionId)
+  });
+
   useEffect(() => {
     if (isNaN(sectionId)) {
       toast({
@@ -51,54 +86,36 @@ export default function ContentPage() {
       setLocation("/cms");
       return;
     }
-
-    // Simulate API call to fetch section details
-    setLoading(true);
-    setTimeout(() => {
-      // Mock data for the section
-      setSectionName(sectionId === 1 ? "Home Page Content" : 
-                    sectionId === 2 ? "About Us" : 
-                    sectionId === 3 ? "Services" : `Section ${sectionId}`);
-      
-      setSectionDescription(
-        sectionId === 1 ? "Main content sections for the home page" : 
-        sectionId === 2 ? "Content for the About Us page" : 
-        sectionId === 3 ? "Services and solutions content" : "Content section"
-      );
-
-      // Mock data for content items
-      setContentItems([
-        {
-          id: 1,
-          title: "Welcome Message",
-          subtitle: "Introduction to Bharat Technologies",
-          content: "Bharat Technologies is a cutting-edge technology company specializing in AI solutions, cloud computing, and digital transformation services.",
-          imageUrl: "/images/welcome.jpg",
-          order: 1,
-          isActive: true
-        },
-        {
-          id: 2,
-          title: "Our Mission",
-          subtitle: "Driving innovation through technology",
-          content: "Our mission is to empower businesses with innovative technology solutions that drive growth and efficiency.",
-          linkUrl: "/about-us",
-          linkText: "Learn More",
-          order: 2,
-          isActive: true
-        },
-        {
-          id: 3,
-          title: "Featured Services",
-          content: "Explore our range of services including artificial intelligence, cloud solutions, and cybersecurity.",
-          order: 3,
-          isActive: false
-        }
-      ]);
-      
-      setLoading(false);
-    }, 1000);
   }, [sectionId, setLocation, toast]);
+
+  useEffect(() => {
+    if (sectionData?.success && sectionData?.data) {
+      setSectionName(sectionData.data.name);
+      setSectionDescription(sectionData.data.description || '');
+    }
+  }, [sectionData]);
+
+  useEffect(() => {
+    if (itemsData?.success && itemsData?.data) {
+      setContentItems(itemsData.data);
+    }
+  }, [itemsData]);
+
+  useEffect(() => {
+    if (sectionError || itemsError) {
+      toast({
+        title: "Error",
+        description: sectionError 
+          ? "Failed to load section details" 
+          : "Failed to load content items",
+        variant: "destructive"
+      });
+    }
+  }, [sectionError, itemsError, toast]);
+
+  useEffect(() => {
+    setLoading(isSectionLoading || isItemsLoading);
+  }, [isSectionLoading, isItemsLoading]);
 
   const handleAddItem = () => {
     setEditingItem({
@@ -119,6 +136,123 @@ export default function ContentPage() {
     setEditingItem({ ...item });
     setIsEditDialogOpen(true);
   };
+
+  // Add content item mutation
+  const addItemMutation = useMutation({
+    mutationFn: async (newItem: Omit<ContentItem, 'id'>) => {
+      const response = await fetch('/api/cms/content-items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...newItem,
+          sectionId
+        })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to add content item');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      // Invalidate queries to refetch content items
+      queryClient.invalidateQueries({ queryKey: ['/api/cms/content-items', sectionId] });
+      setIsAddDialogOpen(false);
+      setEditingItem(null);
+      
+      toast({
+        title: "Content Item Added",
+        description: "The item has been added successfully.",
+        variant: "default"
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to add content item",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  // Update content item mutation
+  const updateItemMutation = useMutation({
+    mutationFn: async (item: ContentItem) => {
+      const response = await fetch(`/api/cms/content-items/${item.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...item,
+          sectionId
+        })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to update content item');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      // Invalidate queries to refetch content items
+      queryClient.invalidateQueries({ queryKey: ['/api/cms/content-items', sectionId] });
+      setIsEditDialogOpen(false);
+      setEditingItem(null);
+      
+      toast({
+        title: "Content Item Updated",
+        description: "The item has been updated successfully.",
+        variant: "default"
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to update content item",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  // Delete content item mutation
+  const deleteItemMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/cms/content-items/${id}`, {
+        method: 'DELETE'
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to delete content item');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      // Invalidate queries to refetch content items
+      queryClient.invalidateQueries({ queryKey: ['/api/cms/content-items', sectionId] });
+      
+      toast({
+        title: "Content Item Deleted",
+        description: "The item has been deleted successfully.",
+        variant: "default"
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete content item",
+        variant: "destructive"
+      });
+    }
+  });
 
   const handleSaveNewItem = () => {
     if (!editingItem) return;
@@ -141,20 +275,16 @@ export default function ContentPage() {
       return;
     }
 
-    // Simulate API call to add new item
-    const newItem: ContentItem = {
-      ...editingItem,
-      id: Math.max(0, ...contentItems.map(item => item.id)) + 1
-    };
-
-    setContentItems([...contentItems, newItem]);
-    setIsAddDialogOpen(false);
-    setEditingItem(null);
-
-    toast({
-      title: "Content Item Added",
-      description: `"${newItem.title}" has been added successfully.`,
-      variant: "default"
+    // Call the mutation to add the item
+    addItemMutation.mutate({
+      title: editingItem.title,
+      subtitle: editingItem.subtitle,
+      content: editingItem.content,
+      imageUrl: editingItem.imageUrl,
+      linkUrl: editingItem.linkUrl,
+      linkText: editingItem.linkText,
+      order: editingItem.order,
+      isActive: editingItem.isActive
     });
   };
 
@@ -179,20 +309,8 @@ export default function ContentPage() {
       return;
     }
 
-    // Simulate API call to update item
-    const updatedItems = contentItems.map(item => 
-      item.id === editingItem.id ? editingItem : item
-    );
-
-    setContentItems(updatedItems);
-    setIsEditDialogOpen(false);
-    setEditingItem(null);
-
-    toast({
-      title: "Content Item Updated",
-      description: `"${editingItem.title}" has been updated successfully.`,
-      variant: "default"
-    });
+    // Call the mutation to update the item
+    updateItemMutation.mutate(editingItem);
   };
 
   const handleDeleteItem = (id: number) => {
@@ -201,29 +319,22 @@ export default function ContentPage() {
       return;
     }
 
-    // Simulate API call to delete item
-    const updatedItems = contentItems.filter(item => item.id !== id);
-    setContentItems(updatedItems);
-
-    toast({
-      title: "Content Item Deleted",
-      description: "The item has been deleted successfully.",
-      variant: "default"
-    });
+    // Call the mutation to delete the item
+    deleteItemMutation.mutate(id);
   };
   
   const handleVersionReverted = () => {
-    // Refresh content items when a version is reverted
-    setLoading(true);
-    // In a real implementation, this would refetch from the API
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        title: "Version Restored",
-        description: "The content has been reverted to the selected version.",
-        variant: "default"
-      });
-    }, 600);
+    // Refresh content items from API when a version is reverted
+    queryClient.invalidateQueries({ queryKey: ['/api/cms/content-items', sectionId] });
+    
+    toast({
+      title: "Version Restored",
+      description: "The content has been reverted to the selected version.",
+      variant: "default"
+    });
+    
+    // Close the history dialog
+    setIsHistoryDialogOpen(false);
   };
 
   if (loading) {
@@ -377,7 +488,42 @@ export default function ContentPage() {
                 />
               </div>
               <div className="pt-4">
-                <Button>
+                <Button onClick={() => {
+                  // Create section update mutation
+                  fetch(`/api/cms/content-sections/${sectionId}`, {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      name: sectionName,
+                      description: sectionDescription
+                    })
+                  })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Failed to update section');
+                    }
+                    return response.json();
+                  })
+                  .then(data => {
+                    if (data.success) {
+                      queryClient.invalidateQueries({ queryKey: ['/api/cms/content-sections', sectionId] });
+                      toast({
+                        title: "Section Updated",
+                        description: "Section settings have been updated successfully.",
+                        variant: "default"
+                      });
+                    }
+                  })
+                  .catch(error => {
+                    toast({
+                      title: "Error",
+                      description: error.message || "Failed to update section settings",
+                      variant: "destructive"
+                    });
+                  });
+                }}>
                   <Save className="h-4 w-4 mr-2" />
                   Save Changes
                 </Button>
