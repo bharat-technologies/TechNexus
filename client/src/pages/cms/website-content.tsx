@@ -437,12 +437,14 @@ export default function WebsiteContentPage() {
                         </CardDescription>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <Switch 
-                          checked={content.isActive}
-                          onCheckedChange={() => toggleContentActivation(content)}
-                          title={content.isActive ? "Active" : "Inactive"}
-                          className="h-3 w-6 data-[state=checked]:bg-gray-700 data-[state=unchecked]:bg-gray-200"
-                        />
+                        <div className="flex items-center justify-center h-8 w-8">
+                          <Switch 
+                            checked={content.isActive}
+                            onCheckedChange={() => toggleContentActivation(content)}
+                            title={content.isActive ? "Active" : "Inactive"}
+                            className="h-3 w-6 data-[state=checked]:bg-gray-700 data-[state=unchecked]:bg-gray-200 [&>span]:bg-gray-400"
+                          />
+                        </div>
                         <Button 
                           variant="ghost" 
                           size="sm" 
@@ -633,7 +635,7 @@ export default function WebsiteContentPage() {
                     id="active-status" 
                     checked={editingContent.isActive}
                     onCheckedChange={(checked) => setEditingContent({...editingContent, isActive: checked})}
-                    className="h-3 w-6 data-[state=checked]:bg-gray-700 data-[state=unchecked]:bg-gray-200"
+                    className="h-3 w-6 data-[state=checked]:bg-gray-700 data-[state=unchecked]:bg-gray-200 [&>span]:bg-gray-400"
                   />
                   <Label htmlFor="active-status">Active on Website</Label>
                 </div>
