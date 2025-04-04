@@ -420,10 +420,10 @@ export default function WebsiteContentPage() {
           ) : (
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {filteredContent.map((content) => (
-                <Card key={content.id} className={`border ${!content.isActive ? 'border-dashed border-gray-300 bg-gray-50' : ''}`}>
+                <Card key={content.id} className={`border h-full flex flex-col ${!content.isActive ? 'border-dashed border-gray-300 bg-gray-50' : ''}`}>
                   <CardHeader className="pb-3">
-                    <div className="flex justify-between items-start">
-                      <div>
+                    <div className="flex justify-between">
+                      <div className="flex-1 mr-2">
                         <CardTitle className="text-lg flex items-center">
                           {content.title}
                           {!content.isActive && (
@@ -436,7 +436,7 @@ export default function WebsiteContentPage() {
                           {content.subtitle || (content.type && `Type: ${content.type}`)}
                         </CardDescription>
                       </div>
-                      <div className="flex space-x-2">
+                      <div className="flex items-center space-x-1">
                         <Switch 
                           checked={content.isActive}
                           onCheckedChange={() => toggleContentActivation(content)}
@@ -448,6 +448,7 @@ export default function WebsiteContentPage() {
                           size="sm" 
                           onClick={() => handlePreviewContent(content)}
                           title="Preview"
+                          className="h-8 w-8 p-0"
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -456,6 +457,7 @@ export default function WebsiteContentPage() {
                           size="sm" 
                           onClick={() => handleEditContent(content)}
                           title="Edit"
+                          className="h-8 w-8 p-0"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -463,7 +465,7 @@ export default function WebsiteContentPage() {
                           variant="ghost" 
                           size="sm" 
                           onClick={() => handleDeleteContent(content)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
                           title="Delete"
                         >
                           <X className="h-4 w-4" />
@@ -471,25 +473,25 @@ export default function WebsiteContentPage() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="text-sm text-gray-600 mb-4 h-20 overflow-hidden relative">
+                  <CardContent className="pt-0 flex-1">
+                    <div className="text-sm text-gray-600 h-20 overflow-hidden relative mb-4">
                       {content.content && content.content.length > 120 
                         ? content.content.substring(0, 120) + '...' 
                         : content.content}
                       <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent"></div>
                     </div>
                     
-                    {content.imageUrl && (
-                      <div className="my-2">
+                    <div className={`${content.imageUrl ? 'h-32' : 'h-0'} mb-2`}>
+                      {content.imageUrl && (
                         <img 
                           src={content.imageUrl} 
                           alt={content.title} 
                           className="w-full h-32 object-cover rounded-md"
                         />
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </CardContent>
-                  <CardFooter className="flex flex-col items-start pt-0">
+                  <CardFooter className="flex flex-col items-start pt-0 mt-auto">
                     <div className="flex flex-wrap gap-2 mt-2 text-xs text-gray-500">
                       <div>Location: {content.pageLocation}</div>
                       <div>Order: {content.order}</div>
