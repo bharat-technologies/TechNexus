@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, Navigation, FileText, LayoutGrid } from "lucide-react";
+import { AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, Navigation, FileText, LayoutGrid, Globe, LayoutDashboard } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -65,6 +65,12 @@ export default function CMSDashboard() {
         <TabsContent value="overview">
           <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <StatCard 
+              title="Website Content" 
+              description="Manage and edit live website content"
+              icon={<Globe className="h-8 w-8" />}
+              linkTo="/cms/website-content"
+            />
+            <StatCard 
               title="Content Sections" 
               description="Manage content sections and items"
               icon={<FileText className="h-8 w-8" />}
@@ -97,7 +103,7 @@ export default function CMSDashboard() {
             <StatCard 
               title="Settings" 
               description="Manage CMS settings"
-              icon={<FileText className="h-8 w-8" />}
+              icon={<LayoutDashboard className="h-8 w-8" />}
               linkTo="/cms/settings" 
             />
           </div>

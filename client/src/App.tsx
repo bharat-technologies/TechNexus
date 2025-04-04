@@ -42,6 +42,7 @@ import CmsNavigation from "@/pages/cms/navigation";
 import CmsHeroSections from "@/pages/cms/hero-sections";
 import CmsGallery from "@/pages/cms/gallery";
 import CmsSettings from "@/pages/cms/settings";
+import CmsWebsiteContent from "@/pages/cms/website-content";
 
 // Product Pages
 import AnalyticsCloud from "@/pages/products/analytics-cloud";
@@ -103,6 +104,7 @@ function Router() {
       <Route path="/cms/hero-sections" component={CmsHeroSections} />
       <Route path="/cms/gallery" component={CmsGallery} />
       <Route path="/cms/settings" component={CmsSettings} />
+      <Route path="/cms/website-content" component={CmsWebsiteContent} />
       
       {/* Product Routes */}
       <Route path="/products/analytics-cloud" component={AnalyticsCloud} />

@@ -332,6 +332,108 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Website Content API
+  // This is a specialized endpoint that adapts content items to a website-content friendly format
+  app.get('/api/cms/website-content', async (req, res) => {
+    try {
+      // Reuse the content items API but transform the data for website content usage
+      const contentItems = await storage.getContentItems();
+      
+      const websiteContent = contentItems.map(item => ({
+        id: item.id,
+        type: item.type || item.category || 'general',
+        pageLocation: item.pageLocation || (item.sectionId ? item.sectionId.toString() : 'home'),
+        name: item.name || item.title,
+        title: item.title,
+        subtitle: item.subtitle || '',
+        content: item.content || '',
+        ctaText: item.ctaText || item.linkText || '',
+        ctaUrl: item.ctaUrl || item.linkUrl || '',
+        imageUrl: item.imageUrl || '',
+        order: item.order || 0,
+        isActive: item.isActive
+      }));
+      
+      res.json({ success: true, data: websiteContent });
+    } catch (error: any) {
+      console.error('Error fetching website content:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
+  app.get('/api/cms/website-content/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const contentItem = await storage.getContentItem(id);
+      
+      if (!contentItem) {
+        return res.status(404).json({ success: false, message: 'Content not found' });
+      }
+      
+      const websiteContent = {
+        id: contentItem.id,
+        type: contentItem.type || contentItem.category || 'general',
+        pageLocation: contentItem.pageLocation || (contentItem.sectionId ? contentItem.sectionId.toString() : 'home'),
+        name: contentItem.name || contentItem.title,
+        title: contentItem.title,
+        subtitle: contentItem.subtitle || '',
+        content: contentItem.content || '',
+        ctaText: contentItem.ctaText || contentItem.linkText || '',
+        ctaUrl: contentItem.ctaUrl || contentItem.linkUrl || '',
+        imageUrl: contentItem.imageUrl || '',
+        order: contentItem.order || 0,
+        isActive: contentItem.isActive
+      };
+      
+      res.json({ success: true, data: websiteContent });
+    } catch (error: any) {
+      console.error('Error fetching website content item:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
+  app.put('/api/cms/website-content/:id', requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const websiteContent = req.body;
+      
+      // Transform website content format back to content item format
+      const contentItemData = {
+        title: websiteContent.title,
+        subtitle: websiteContent.subtitle,
+        content: websiteContent.content,
+        type: websiteContent.type,
+        pageLocation: websiteContent.pageLocation,
+        imageUrl: websiteContent.imageUrl,
+        linkText: websiteContent.ctaText,
+        linkUrl: websiteContent.ctaUrl,
+        order: websiteContent.order,
+        isActive: websiteContent.isActive,
+        sectionId: isNaN(parseInt(websiteContent.pageLocation)) ? null : parseInt(websiteContent.pageLocation)
+      };
+      
+      const contentItem = await storage.updateContentItem(id, contentItemData);
+      
+      if (!contentItem) {
+        return res.status(404).json({ success: false, message: 'Content item not found' });
+      }
+      
+      // Create version record
+      await storage.createContentVersion({
+        entityType: 'website_content',
+        entityId: contentItem.id,
+        data: websiteContent,
+        createdBy: 'Admin',
+        comment: 'Website content update'
+      });
+      
+      res.json({ success: true, data: websiteContent });
+    } catch (error: any) {
+      console.error('Error updating website content:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+  
   // Navigation
   app.get('/api/cms/navigation', async (req, res) => {
     try {

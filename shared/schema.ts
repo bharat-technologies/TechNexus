@@ -72,6 +72,12 @@ export const contentItems = pgTable("content_items", {
   imageUrl: text("image_url"),
   linkUrl: text("link_url"),
   linkText: text("link_text"),
+  type: text("type"), // For content type classification (hero, feature, testimonial, etc.)
+  pageLocation: text("page_location"), // Home, about, services, etc.
+  name: text("name"), // Optional display name
+  ctaText: text("cta_text"), // Call to action text
+  ctaUrl: text("cta_url"), // Call to action URL
+  category: text("category"), // Alternative categorization
   order: integer("order").default(0),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -142,6 +148,12 @@ export const contentItemSchema = createInsertSchema(contentItems).pick({
   imageUrl: true,
   linkUrl: true,
   linkText: true,
+  type: true,
+  pageLocation: true,
+  name: true,
+  ctaText: true,
+  ctaUrl: true,
+  category: true,
   order: true,
   isActive: true,
 });
