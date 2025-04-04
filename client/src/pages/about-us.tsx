@@ -235,12 +235,27 @@ const AboutUs = () => {
         }
         
         // Extract sections (story, mission, vision)
+        // Filter to only get the content with the desired types
         const sectionContent = aboutContent.filter((item: any) => 
           ['story', 'mission', 'vision'].includes(item.type)
         );
         
-        if (sectionContent.length > 0) {
-          const mappedSections = sectionContent.map((section: any) => ({
+        // Group items by type to handle duplicates
+        const groupedByType: Record<string, ContentItem[]> = {};
+        sectionContent.forEach((item: ContentItem) => {
+          if (!groupedByType[item.type]) {
+            groupedByType[item.type] = [];
+          }
+          groupedByType[item.type].push(item);
+        });
+        
+        // Get only the latest item for each type (assuming higher IDs are newer)
+        const uniqueSectionContent = Object.values(groupedByType).map((items: ContentItem[]) => {
+          return items.reduce((latest, current) => current.id > latest.id ? current : latest, items[0]);
+        });
+        
+        if (uniqueSectionContent.length > 0) {
+          const mappedSections = uniqueSectionContent.map((section: any) => ({
             title: section.title,
             content: section.content || '',
             order: section.order || 0
@@ -253,8 +268,23 @@ const AboutUs = () => {
         
         // Extract values
         const valueContent = aboutContent.filter((item: any) => item.type === 'value');
+        
         if (valueContent.length > 0) {
-          const mappedValues = valueContent.map((value: any) => ({
+          // Group value items by title to handle duplicates
+          const groupedByTitle: Record<string, ContentItem[]> = {};
+          valueContent.forEach((item: ContentItem) => {
+            if (!groupedByTitle[item.title]) {
+              groupedByTitle[item.title] = [];
+            }
+            groupedByTitle[item.title].push(item);
+          });
+          
+          // Get only the latest item for each value title (assuming higher IDs are newer)
+          const uniqueValueContent = Object.values(groupedByTitle).map((items: ContentItem[]) => {
+            return items.reduce((latest, current) => current.id > latest.id ? current : latest, items[0]);
+          });
+          
+          const mappedValues = uniqueValueContent.map((value: any) => ({
             title: value.title,
             description: value.content || ''
           }));
