@@ -442,7 +442,7 @@ export default function WebsiteContentPage() {
                             checked={content.isActive}
                             onCheckedChange={() => toggleContentActivation(content)}
                             title={content.isActive ? "Active" : "Inactive"}
-                            className="h-5 w-9 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-white dark:[&>span]:bg-white [&>span]:shadow-md"
+                            className="h-5 w-9 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md"
                           />
                           {!content.isActive && (
                             <span className="absolute -bottom-3 left-0 text-[10px] text-gray-500">Inactive</span>
@@ -639,7 +639,7 @@ export default function WebsiteContentPage() {
                       id="active-status" 
                       checked={editingContent.isActive}
                       onCheckedChange={(checked) => setEditingContent({...editingContent, isActive: checked})}
-                      className="h-5 w-9 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-white dark:[&>span]:bg-white [&>span]:shadow-md"
+                      className="h-5 w-9 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md"
                     />
                     {!editingContent.isActive && (
                       <span className="absolute -bottom-3 left-0 text-[10px] text-gray-500">Inactive</span>
