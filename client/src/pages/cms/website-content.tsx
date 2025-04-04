@@ -256,6 +256,9 @@ export default function WebsiteContentPage() {
   };
   
   // Handle content deletion 
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [contentToDelete, setContentToDelete] = useState<WebsiteContent | null>(null);
+  
   const deleteContentMutation = useMutation({
     mutationFn: async (id: number) => {
       const response = await fetch(`/api/cms/website-content/${id}`, {
@@ -280,6 +283,10 @@ export default function WebsiteContentPage() {
         description: "The content has been permanently deleted",
         variant: "default"
       });
+      
+      // Close the dialog
+      setIsDeleteDialogOpen(false);
+      setContentToDelete(null);
     },
     onError: (error: any) => {
       toast({
@@ -291,8 +298,13 @@ export default function WebsiteContentPage() {
   });
   
   const handleDeleteContent = (content: WebsiteContent) => {
-    if (window.confirm(`Are you sure you want to delete "${content.title}"? This action cannot be undone.`)) {
-      deleteContentMutation.mutate(content.id);
+    setContentToDelete(content);
+    setIsDeleteDialogOpen(true);
+  };
+  
+  const confirmDelete = () => {
+    if (contentToDelete) {
+      deleteContentMutation.mutate(contentToDelete.id);
     }
   };
 
@@ -429,6 +441,7 @@ export default function WebsiteContentPage() {
                           checked={content.isActive}
                           onCheckedChange={() => toggleContentActivation(content)}
                           title={content.isActive ? "Active" : "Inactive"}
+                          className="h-4 w-7 data-[state=checked]:bg-black data-[state=unchecked]:bg-gray-200"
                         />
                         <Button 
                           variant="ghost" 
@@ -453,7 +466,7 @@ export default function WebsiteContentPage() {
                           className="text-red-500 hover:text-red-700 hover:bg-red-50"
                           title="Delete"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <X className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
@@ -696,6 +709,48 @@ export default function WebsiteContentPage() {
             }}>
               <Edit className="h-4 w-4 mr-2" />
               Edit Content
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this content? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          {contentToDelete && (
+            <div className="py-4">
+              <div className="p-4 border rounded-md bg-gray-50">
+                <h3 className="font-semibold">{contentToDelete.title}</h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  {contentToDelete.type} · {contentToDelete.pageLocation}
+                </p>
+              </div>
+            </div>
+          )}
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button 
+              variant="outline" 
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button 
+              variant="destructive" 
+              onClick={confirmDelete}
+              disabled={deleteContentMutation.isPending}
+            >
+              {deleteContentMutation.isPending ? (
+                <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+              ) : (
+                <X className="h-4 w-4 mr-2" />
+              )}
+              Delete
             </Button>
           </DialogFooter>
         </DialogContent>
