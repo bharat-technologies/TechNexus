@@ -159,20 +159,49 @@ const AboutUs = () => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('create_cms_content') === 'true') {
       try {
+        toast({
+          title: "Creating Content",
+          description: "Initializing About Us content in the CMS...",
+          variant: "default"
+        });
+        
+        let successCount = 0;
         for (const content of aboutUsContent) {
-          await fetch('/api/cms/website-content', {
+          const response = await fetch('/api/cms/website-content', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(content)
           });
+          
+          if (response.ok) {
+            successCount++;
+          }
         }
         
-        // Reload the page without the query parameter
-        window.location.href = window.location.pathname;
+        // Show success message
+        toast({
+          title: "Content Created",
+          description: `Successfully initialized ${successCount} content items. Page will refresh.`,
+          variant: "default"
+        });
+        
+        // Force a data refresh before redirecting
+        await queryClient.invalidateQueries({ queryKey: ['/api/cms/website-content'] });
+        
+        // Set a timeout to allow the toast to be seen
+        setTimeout(() => {
+          // Reload the page without the query parameter
+          window.location.href = window.location.pathname + "?cms=true";
+        }, 2000);
       } catch (error) {
         console.error("Failed to create About Us content:", error);
+        toast({
+          title: "Error",
+          description: "Failed to initialize content. Please try again.",
+          variant: "destructive"
+        });
       }
     }
   };
@@ -264,23 +293,68 @@ const AboutUs = () => {
   // Save original content data for editing
   useEffect(() => {
     if (data?.success && data?.data) {
+      // Log entire database content for debugging
+      console.log("Website content data:", data.data);
+      
+      // Filter by about-us page location - also include any content with type matching our needs
       const aboutContent = data.data.filter((item: any) => 
-        item.pageLocation === 'about-us'
+        item.pageLocation === 'about-us' || 
+        ['story', 'mission', 'vision', 'value'].includes(item.type)
       );
+      
+      console.log("Transformed content:", aboutContent);
+      
+      // Log unique page locations for debugging
+      const uniquePageTypes = [...new Set(data.data.map((item: any) => item.pageLocation))];
+      console.log("Unique page types:", uniquePageTypes);
+      
       setOriginalContent(aboutContent);
     }
   }, [data]);
   
   // Handle direct editing of content
   const handleDirectEdit = (type: string) => {
-    const contentToEdit = originalContent.find(item => item.type === type);
+    console.log("Looking for content type:", type);
+    console.log("Available content:", originalContent);
+    
+    // If original content is empty and we're in CMS mode, create default content
+    if (originalContent.length === 0 && isCmsEnvironment()) {
+      toast({
+        title: "Content Not Available",
+        description: `Please use the "Initialize Content" button at the top of the page first to create content`,
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Try to find the content by exact type match
+    let contentToEdit = originalContent.find(item => item.type === type);
+    
+    // If not found, try looking by title that matches section title
+    if (!contentToEdit) {
+      let searchTitle = '';
+      if (type === 'story') searchTitle = 'Our Story';
+      else if (type === 'mission') searchTitle = 'Our Mission';
+      else if (type === 'vision') searchTitle = 'Our Vision';
+      else if (type.startsWith('value-')) {
+        // For values, extract the value name from the type
+        const valueName = type.replace('value-', '');
+        searchTitle = valueName.charAt(0).toUpperCase() + valueName.slice(1); // Capitalize first letter
+      }
+      
+      if (searchTitle) {
+        contentToEdit = originalContent.find(item => item.title === searchTitle);
+      }
+    }
+    
     if (contentToEdit) {
       setEditingContent({...contentToEdit});
       setIsEditDialogOpen(true);
     } else {
+      // If we still can't find it, offer to initialize content
       toast({
         title: "Content Not Found",
-        description: `Cannot find content with type: ${type}`,
+        description: `Cannot find content with type: ${type}. Please use the "Initialize Content" button to create content.`,
         variant: "destructive"
       });
     }
