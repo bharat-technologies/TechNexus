@@ -34,6 +34,10 @@ import Support from "@/pages/support";
 import AiChat from "@/pages/ai-chat";
 import Admin from "@/pages/admin";
 
+// CMS Pages
+import CmsDashboard from "@/pages/cms/index";
+import CmsContentSection from "@/pages/cms/content/[id]";
+
 // Product Pages
 import AnalyticsCloud from "@/pages/products/analytics-cloud";
 import BusinessNetworkCloud from "@/pages/products/business-network-cloud";
@@ -85,6 +89,10 @@ function Router() {
       <Route path="/support" component={Support} />
       <Route path="/ai-chat" component={AiChat} />
       <Route path="/admin" component={Admin} />
+      
+      {/* CMS Routes */}
+      <Route path="/cms" component={CmsDashboard} />
+      <Route path="/cms/content/:id" component={CmsContentSection} />
       
       {/* Product Routes */}
       <Route path="/products/analytics-cloud" component={AnalyticsCloud} />
