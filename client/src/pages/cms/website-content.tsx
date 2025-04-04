@@ -445,7 +445,7 @@ export default function WebsiteContentPage() {
                             className="h-5 w-10 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md [&>span]:h-4 [&>span]:w-4"
                           />
                           {!content.isActive && (
-                            <span className="absolute -bottom-3 left-0 text-[10px] text-gray-500">Inactive</span>
+                            <span className="absolute -bottom-3 left-0 text-[8px] text-gray-400">inactive</span>
                           )}
                         </div>
                         <Button 
@@ -642,7 +642,7 @@ export default function WebsiteContentPage() {
                       className="h-5 w-10 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md [&>span]:h-4 [&>span]:w-4"
                     />
                     {!editingContent.isActive && (
-                      <span className="absolute -bottom-3 left-0 text-[10px] text-gray-500">Inactive</span>
+                      <span className="absolute -bottom-3 left-0 text-[8px] text-gray-400">inactive</span>
                     )}
                   </div>
                   <Label htmlFor="active-status">Active on Website</Label>
