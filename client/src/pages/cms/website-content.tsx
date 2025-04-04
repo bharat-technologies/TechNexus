@@ -81,7 +81,8 @@ export default function WebsiteContentPage() {
   useEffect(() => {
     if (data?.success && data?.data) {
       console.log("Website content data:", data.data);
-      const content = data.data.map((item: any) => ({
+      // First map the data to our WebsiteContent format
+      const allContent = data.data.map((item: any) => ({
         id: item.id,
         type: item.type || item.category || 'general',
         pageLocation: item.pageLocation || item.sectionId?.toString() || 'home',
@@ -96,12 +97,27 @@ export default function WebsiteContentPage() {
         isActive: item.isActive !== undefined ? item.isActive : true
       }));
       
-      console.log("Transformed content:", content);
-      setWebsiteContent(content);
+      // Group content by type and pageLocation
+      const contentByTypeAndLocation = allContent.reduce((acc: Record<string, WebsiteContent[]>, item: WebsiteContent) => {
+        const key = `${item.type}-${item.pageLocation}`;
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        acc[key].push(item);
+        return acc;
+      }, {} as Record<string, WebsiteContent[]>);
+      
+      // For each group, take only the item with the highest ID (latest version)
+      const latestContentOnly = Object.values(contentByTypeAndLocation).map((group: WebsiteContent[]) => {
+        return group.sort((a: WebsiteContent, b: WebsiteContent) => b.id - a.id)[0]; // Sort by ID descending and take first
+      });
+      
+      console.log("Latest content versions:", latestContentOnly);
+      setWebsiteContent(latestContentOnly);
       
       // Extract unique page locations
       const uniquePageTypes = Array.from(
-        new Set(content.map((item: WebsiteContent) => item.pageLocation).filter(Boolean))
+        new Set(latestContentOnly.map((item: WebsiteContent) => item.pageLocation).filter(Boolean))
       ) as string[];
       
       console.log("Unique page types:", uniquePageTypes);
