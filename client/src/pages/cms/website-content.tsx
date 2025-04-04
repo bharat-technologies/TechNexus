@@ -64,6 +64,7 @@ export default function WebsiteContentPage() {
 
   useEffect(() => {
     if (data?.success && data?.data) {
+      console.log("Website content data:", data.data);
       const content = data.data.map((item: any) => ({
         id: item.id,
         type: item.type || item.category || 'general',
@@ -76,9 +77,10 @@ export default function WebsiteContentPage() {
         ctaUrl: item.ctaUrl || item.linkUrl || '',
         imageUrl: item.imageUrl || '',
         order: item.order || 0,
-        isActive: item.isActive
+        isActive: item.isActive !== undefined ? item.isActive : true
       }));
       
+      console.log("Transformed content:", content);
       setWebsiteContent(content);
       
       // Extract unique page locations
@@ -86,7 +88,9 @@ export default function WebsiteContentPage() {
         new Set(content.map((item: WebsiteContent) => item.pageLocation).filter(Boolean))
       ) as string[];
       
-      setPageTypes(['home', ...uniquePageTypes.filter(type => type !== 'home')]);
+      console.log("Unique page types:", uniquePageTypes);
+      setPageTypes(['all', ...uniquePageTypes]);
+      setActiveTab('all'); // Default to show all content
       setLoading(false);
     }
   }, [data]);
@@ -117,70 +121,84 @@ export default function WebsiteContentPage() {
 
   const updateContentMutation = useMutation({
     mutationFn: async (content: WebsiteContent) => {
+      const isNew = content.id === 0;
+      const method = isNew ? 'POST' : 'PUT';
+      const endpoint = isNew ? '/api/cms/website-content' : `/api/cms/website-content/${content.id}`;
+      const fallbackEndpoint = isNew ? '/api/cms/content-items' : `/api/cms/content-items/${content.id}`;
+      
+      const contentPayload = {
+        title: content.title,
+        subtitle: content.subtitle,
+        content: content.content,
+        imageUrl: content.imageUrl,
+        ctaText: content.ctaText,
+        ctaUrl: content.ctaUrl,
+        type: content.type,
+        pageLocation: content.pageLocation,
+        order: content.order,
+        isActive: content.isActive
+      };
+      
+      const fallbackPayload = {
+        title: content.title,
+        subtitle: content.subtitle,
+        content: content.content,
+        imageUrl: content.imageUrl,
+        linkText: content.ctaText,
+        linkUrl: content.ctaUrl,
+        category: content.type,
+        order: content.order,
+        isActive: content.isActive,
+        sectionId: parseInt(content.pageLocation) || null
+      };
+      
       // Try the website-content endpoint first, fall back to content-items
       try {
-        const response = await fetch(`/api/cms/website-content/${content.id}`, {
-          method: 'PUT',
+        const response = await fetch(endpoint, {
+          method,
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(content)
+          body: JSON.stringify(contentPayload)
         });
         
         if (response.ok) {
           return response.json();
         } else {
           // Fallback
-          const fallbackResponse = await fetch(`/api/cms/content-items/${content.id}`, {
-            method: 'PUT',
+          const fallbackResponse = await fetch(fallbackEndpoint, {
+            method,
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              title: content.title,
-              subtitle: content.subtitle,
-              content: content.content,
-              imageUrl: content.imageUrl,
-              linkText: content.ctaText,
-              linkUrl: content.ctaUrl,
-              order: content.order,
-              isActive: content.isActive,
-              sectionId: parseInt(content.pageLocation) || null
-            })
+            body: JSON.stringify(fallbackPayload)
           });
           return fallbackResponse.json();
         }
       } catch (error) {
         // Fallback
-        const fallbackResponse = await fetch(`/api/cms/content-items/${content.id}`, {
-          method: 'PUT',
+        const fallbackResponse = await fetch(fallbackEndpoint, {
+          method,
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            title: content.title,
-            subtitle: content.subtitle,
-            content: content.content,
-            imageUrl: content.imageUrl,
-            linkText: content.ctaText,
-            linkUrl: content.ctaUrl,
-            order: content.order,
-            isActive: content.isActive,
-            sectionId: parseInt(content.pageLocation) || null
-          })
+          body: JSON.stringify(fallbackPayload)
         });
         return fallbackResponse.json();
       }
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/cms/website-content'] });
       queryClient.invalidateQueries({ queryKey: ['/api/cms/content-items'] });
       setIsEditDialogOpen(false);
       setEditingContent(null);
       
+      const isNew = variables.id === 0;
       toast({
-        title: "Content Updated",
-        description: "The content has been updated successfully.",
+        title: isNew ? "Content Created" : "Content Updated",
+        description: isNew 
+          ? "The new content has been created successfully." 
+          : "The content has been updated successfully.",
         variant: "default"
       });
     },
@@ -246,6 +264,30 @@ export default function WebsiteContentPage() {
             <h1 className="font-poppins text-3xl font-bold">Website Content</h1>
             <p className="text-gray-600 mt-1">Manage content that appears on your website</p>
           </div>
+          <Button 
+            size="sm"
+            className="mt-4 md:mt-0"
+            onClick={() => {
+              setEditingContent({
+                id: 0,
+                type: 'general',
+                pageLocation: 'home',
+                name: '',
+                title: '',
+                subtitle: '',
+                content: '',
+                ctaText: '',
+                ctaUrl: '',
+                imageUrl: '',
+                order: 0,
+                isActive: true
+              });
+              setIsEditDialogOpen(true);
+            }}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Create New Content
+          </Button>
         </div>
       </div>
 
@@ -270,6 +312,28 @@ export default function WebsiteContentPage() {
                   ? "There's no website content in the system yet." 
                   : `There's no content for the "${activeTab}" page.`}
               </p>
+              <Button 
+                onClick={() => {
+                  setEditingContent({
+                    id: 0,
+                    type: 'general',
+                    pageLocation: activeTab === 'all' ? 'home' : activeTab,
+                    name: '',
+                    title: '',
+                    subtitle: '',
+                    content: '',
+                    ctaText: '',
+                    ctaUrl: '',
+                    imageUrl: '',
+                    order: 0,
+                    isActive: true
+                  });
+                  setIsEditDialogOpen(true);
+                }}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Create Your First Content Item
+              </Button>
             </div>
           ) : (
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -354,13 +418,15 @@ export default function WebsiteContentPage() {
         </TabsContent>
       </Tabs>
 
-      {/* Edit Content Dialog */}
+      {/* Edit/Create Content Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Edit Website Content</DialogTitle>
+            <DialogTitle>{editingContent && editingContent.id === 0 ? 'Create New Content' : 'Edit Website Content'}</DialogTitle>
             <DialogDescription>
-              Update content that appears on your website
+              {editingContent && editingContent.id === 0 
+                ? 'Add new content to your website' 
+                : 'Update content that appears on your website'}
             </DialogDescription>
           </DialogHeader>
           {editingContent && (
@@ -488,7 +554,7 @@ export default function WebsiteContentPage() {
             </Button>
             <Button onClick={handleUpdateContent}>
               <Save className="h-4 w-4 mr-2" />
-              Save Changes
+              {editingContent && editingContent.id === 0 ? 'Create Content' : 'Save Changes'}
             </Button>
           </DialogFooter>
         </DialogContent>
