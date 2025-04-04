@@ -441,7 +441,7 @@ export default function WebsiteContentPage() {
                           checked={content.isActive}
                           onCheckedChange={() => toggleContentActivation(content)}
                           title={content.isActive ? "Active" : "Inactive"}
-                          className="h-4 w-7 data-[state=checked]:bg-black data-[state=unchecked]:bg-gray-200"
+                          className="h-3 w-6 data-[state=checked]:bg-gray-700 data-[state=unchecked]:bg-gray-200"
                         />
                         <Button 
                           variant="ghost" 
@@ -633,6 +633,7 @@ export default function WebsiteContentPage() {
                     id="active-status" 
                     checked={editingContent.isActive}
                     onCheckedChange={(checked) => setEditingContent({...editingContent, isActive: checked})}
+                    className="h-3 w-6 data-[state=checked]:bg-gray-700 data-[state=unchecked]:bg-gray-200"
                   />
                   <Label htmlFor="active-status">Active on Website</Label>
                 </div>
