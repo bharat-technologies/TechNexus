@@ -48,15 +48,14 @@ export default function WebsiteContentPage() {
     const filterParam = urlParams.get('filter');
     
     if (filterParam) {
-      // Set the active tab to the filter parameter value if it exists
-      // We'll use setTimeout to ensure this runs after the page types are loaded
-      setTimeout(() => {
-        if (pageTypes.includes(filterParam)) {
-          setActiveTab(filterParam);
-        }
-      }, 500);
+      // Always set the active tab to the filter parameter value
+      // This ensures the filter works even if pageTypes aren't loaded yet
+      setActiveTab(filterParam);
+      
+      // Store filter in localStorage for persistence
+      localStorage.setItem('cms_content_filter', filterParam);
     }
-  }, [pageTypes]);
+  }, []);
 
   // Fetch website content
   const { data, isLoading, error } = useQuery({
@@ -107,7 +106,20 @@ export default function WebsiteContentPage() {
       
       console.log("Unique page types:", uniquePageTypes);
       setPageTypes(['all', ...uniquePageTypes]);
-      setActiveTab('all'); // Default to show all content
+      
+      // Check if we have a filter in URL or localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const filterParam = urlParams.get('filter');
+      const storedFilter = localStorage.getItem('cms_content_filter');
+      
+      // Only set to 'all' if we don't have an existing filter
+      if (filterParam) {
+        setActiveTab(filterParam);
+      } else if (storedFilter && uniquePageTypes.includes(storedFilter)) {
+        setActiveTab(storedFilter);
+      } else {
+        setActiveTab('all'); // Default to show all content
+      }
       setLoading(false);
     }
   }, [data]);
