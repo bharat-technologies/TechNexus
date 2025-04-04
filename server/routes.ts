@@ -491,6 +491,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Delete website content
+  app.delete('/api/cms/website-content/:id', requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      
+      // Get the content item before deleting it (for version control)
+      const contentItem = await storage.getContentItem(id);
+      
+      if (!contentItem) {
+        return res.status(404).json({ success: false, message: 'Content item not found' });
+      }
+      
+      // Create version record before deletion for recovery purposes
+      await storage.createContentVersion({
+        entityType: 'website_content',
+        entityId: id,
+        data: {
+          id: contentItem.id,
+          type: contentItem.type || contentItem.category || 'general',
+          pageLocation: contentItem.pageLocation || (contentItem.sectionId ? contentItem.sectionId.toString() : 'home'),
+          name: contentItem.name || contentItem.title,
+          title: contentItem.title,
+          subtitle: contentItem.subtitle || '',
+          content: contentItem.content || '',
+          ctaText: contentItem.ctaText || contentItem.linkText || '',
+          ctaUrl: contentItem.ctaUrl || contentItem.linkUrl || '',
+          imageUrl: contentItem.imageUrl || '',
+          order: contentItem.order || 0,
+          isActive: contentItem.isActive
+        },
+        createdBy: 'Admin',
+        comment: 'Website content deletion'
+      });
+      
+      // Delete the content item
+      const success = await storage.deleteContentItem(id);
+      
+      if (!success) {
+        return res.status(500).json({ success: false, message: 'Failed to delete content item' });
+      }
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error('Error deleting website content:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+  
   // Navigation
   app.get('/api/cms/navigation', async (req, res) => {
     try {

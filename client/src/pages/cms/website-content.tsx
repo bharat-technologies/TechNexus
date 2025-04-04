@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { ArrowLeft, Edit, Eye, Plus, Save, Check, X } from "lucide-react";
+import { ArrowLeft, Edit, Eye, Plus, Save, Check, X, Trash2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -254,6 +254,47 @@ export default function WebsiteContentPage() {
     setEditingContent({ ...content });
     setIsPreviewDialogOpen(true);
   };
+  
+  // Handle content deletion 
+  const deleteContentMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/cms/website-content/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to delete content');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      // Refresh the content list
+      queryClient.invalidateQueries({ queryKey: ['/api/cms/website-content'] });
+      
+      toast({
+        title: "Content Deleted",
+        description: "The content has been permanently deleted",
+        variant: "default"
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete content",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  const handleDeleteContent = (content: WebsiteContent) => {
+    if (window.confirm(`Are you sure you want to delete "${content.title}"? This action cannot be undone.`)) {
+      deleteContentMutation.mutate(content.id);
+    }
+  };
 
   const handleUpdateContent = () => {
     if (!editingContent) return;
@@ -384,14 +425,11 @@ export default function WebsiteContentPage() {
                         </CardDescription>
                       </div>
                       <div className="flex space-x-2">
-                        <Button 
-                          variant={content.isActive ? "outline" : "default"}
-                          size="sm" 
-                          onClick={() => toggleContentActivation(content)}
-                          title={content.isActive ? "Deactivate" : "Activate"}
-                        >
-                          {content.isActive ? <X className="h-4 w-4" /> : <Check className="h-4 w-4" />}
-                        </Button>
+                        <Switch 
+                          checked={content.isActive}
+                          onCheckedChange={() => toggleContentActivation(content)}
+                          title={content.isActive ? "Active" : "Inactive"}
+                        />
                         <Button 
                           variant="ghost" 
                           size="sm" 
@@ -407,6 +445,15 @@ export default function WebsiteContentPage() {
                           title="Edit"
                         >
                           <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={() => handleDeleteContent(content)}
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
