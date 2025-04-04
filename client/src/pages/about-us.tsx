@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
+import { Edit, Plus } from 'lucide-react';
 
 interface AboutPageSection {
   title: string;
@@ -48,6 +51,116 @@ const AboutUs = () => {
     }
   ]);
 
+  // Helper function to create About Us content if needed
+  const createAboutUsContent = async () => {
+    // Only do this from CMS mode
+    if (!isCmsEnvironment()) return;
+    
+    // Create the default content if there's none
+    const aboutUsContent = [
+      {
+        id: 0,
+        type: 'title',
+        pageLocation: 'about-us',
+        name: 'About Us Title',
+        title: 'About Us',
+        order: 0,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'story',
+        pageLocation: 'about-us',
+        name: 'Our Story',
+        title: 'Our Story',
+        content: "Bharat Technologies was founded in 2015 with a vision to revolutionize the technology landscape in India and beyond. What started as a small team of passionate innovators has now grown into a global technology company with a presence in multiple countries.\n\nOur journey has been defined by our commitment to innovation, excellence, and customer satisfaction. We have consistently pushed the boundaries of what's possible, developing cutting-edge solutions that address complex challenges across industries.",
+        order: 1,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'mission',
+        pageLocation: 'about-us',
+        name: 'Our Mission',
+        title: 'Our Mission',
+        content: "At Bharat Technologies, our mission is to empower organizations through innovative technology solutions that drive growth, efficiency, and competitive advantage. We aim to be at the forefront of technological advancement, creating products and services that shape the future.",
+        order: 2,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'vision',
+        pageLocation: 'about-us',
+        name: 'Our Vision',
+        title: 'Our Vision',
+        content: "To be a global leader in technology innovation, recognized for our excellence, integrity, and the transformative impact of our solutions on businesses and society.",
+        order: 3,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'value',
+        pageLocation: 'about-us',
+        name: 'Innovation Value',
+        title: 'Innovation',
+        content: "We embrace creativity and continuously seek new ways to solve problems and create value.",
+        order: 4,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'value',
+        pageLocation: 'about-us',
+        name: 'Excellence Value',
+        title: 'Excellence',
+        content: "We are committed to delivering the highest quality in everything we do.",
+        order: 5,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'value',
+        pageLocation: 'about-us',
+        name: 'Integrity Value',
+        title: 'Integrity',
+        content: "We conduct our business with honesty, transparency, and ethical standards.",
+        order: 6,
+        isActive: true
+      },
+      {
+        id: 0,
+        type: 'value',
+        pageLocation: 'about-us',
+        name: 'Collaboration Value',
+        title: 'Collaboration',
+        content: "We believe in the power of teamwork and partnerships to achieve extraordinary results.",
+        order: 7,
+        isActive: true
+      }
+    ];
+    
+    // Create the content if a specific parameter is provided
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('create_cms_content') === 'true') {
+      try {
+        for (const content of aboutUsContent) {
+          await fetch('/api/cms/website-content', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(content)
+          });
+        }
+        
+        // Reload the page without the query parameter
+        window.location.href = window.location.pathname;
+      } catch (error) {
+        console.error("Failed to create About Us content:", error);
+      }
+    }
+  };
+
   // Fetch content from the CMS
   const { data } = useQuery({
     queryKey: ['/api/cms/website-content'],
@@ -59,6 +172,9 @@ const AboutUs = () => {
 
   useEffect(() => {
     document.title = 'About Us - Bharat Technologies';
+    
+    // Check if we need to create content in CMS mode
+    createAboutUsContent();
     
     // Process CMS data when available
     if (data?.success && data?.data) {
@@ -86,7 +202,7 @@ const AboutUs = () => {
           }));
           
           if (mappedSections.length > 0) {
-            setSections(mappedSections.sort((a, b) => (a.order || 0) - (b.order || 0)));
+            setSections(mappedSections.sort((a: AboutPageSection, b: AboutPageSection) => (a.order || 0) - (b.order || 0)));
           }
         }
         
@@ -115,11 +231,40 @@ const AboutUs = () => {
     ));
   };
 
+  // Check if we're in the CMS environment
+  const isCmsEnvironment = () => {
+    return window.location.pathname.includes('/cms') || 
+           window.location.search.includes('cms=true') ||
+           localStorage.getItem('cms_mode') === 'true';
+  };
+
   return (
     <main>
       <div className="bg-black text-white py-16">
         <div className="container mx-auto px-4">
           <h1 className="font-poppins font-bold text-4xl md:text-5xl text-center" data-aos="fade-up">{pageTitle}</h1>
+          
+          {/* Edit button that's only visible when accessed from CMS or with special params */}
+          {isCmsEnvironment() && (
+            <div className="flex justify-center mt-4 space-x-4">
+              <Button asChild variant="outline" className="bg-white text-black border-white hover:bg-gray-200">
+                <Link href="/cms/website-content?filter=about-us">
+                  <Edit className="h-4 w-4 mr-2" />
+                  Edit Page Content
+                </Link>
+              </Button>
+              
+              {/* Initialize content button */}
+              <Button 
+                variant="outline" 
+                className="bg-white text-black border-white hover:bg-gray-200"
+                onClick={() => window.location.href = '/about-us?create_cms_content=true&cms=true'}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Initialize Content
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 

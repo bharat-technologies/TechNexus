@@ -106,6 +106,12 @@ export default function CMSDashboard() {
               icon={<LayoutDashboard className="h-8 w-8" />}
               linkTo="/cms/settings" 
             />
+            <StatCard 
+              title="Edit About Us" 
+              description="Directly edit the About Us page content"
+              icon={<Edit className="h-8 w-8" />}
+              linkTo="/about-us?cms=true" 
+            />
           </div>
         </TabsContent>
         

@@ -40,6 +40,23 @@ export default function WebsiteContentPage() {
   const [isPreviewDialogOpen, setIsPreviewDialogOpen] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  
+  // Parse URL query parameters
+  useEffect(() => {
+    // Check if there's a filter parameter in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+    
+    if (filterParam) {
+      // Set the active tab to the filter parameter value if it exists
+      // We'll use setTimeout to ensure this runs after the page types are loaded
+      setTimeout(() => {
+        if (pageTypes.includes(filterParam)) {
+          setActiveTab(filterParam);
+        }
+      }, 500);
+    }
+  }, [pageTypes]);
 
   // Fetch website content
   const { data, isLoading, error } = useQuery({
