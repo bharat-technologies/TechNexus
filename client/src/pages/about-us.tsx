@@ -305,7 +305,8 @@ const AboutUs = () => {
       console.log("Transformed content:", aboutContent);
       
       // Log unique page locations for debugging
-      const uniquePageTypes = [...new Set(data.data.map((item: any) => item.pageLocation))];
+      const pageLocations = data.data.map((item: any) => item.pageLocation);
+      const uniquePageTypes = Array.from(new Set(pageLocations));
       console.log("Unique page types:", uniquePageTypes);
       
       setOriginalContent(aboutContent);

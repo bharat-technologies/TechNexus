@@ -391,6 +391,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ success: false, message: error.message });
     }
   });
+  
+  // POST endpoint for creating website content
+  app.post('/api/cms/website-content', async (req, res) => {
+    try {
+      console.log('Creating website content:', req.body);
+      
+      // Transform website content format to content item format
+      const websiteContent = req.body;
+      const contentItemData = {
+        title: websiteContent.title,
+        subtitle: websiteContent.subtitle || null,
+        content: websiteContent.content || null,
+        type: websiteContent.type || 'general',
+        pageLocation: websiteContent.pageLocation || 'home',
+        name: websiteContent.name || websiteContent.title,
+        imageUrl: websiteContent.imageUrl || null,
+        linkText: websiteContent.ctaText || null,
+        linkUrl: websiteContent.ctaUrl || null,
+        order: websiteContent.order || 0,
+        isActive: websiteContent.isActive !== undefined ? websiteContent.isActive : true,
+        sectionId: isNaN(parseInt(websiteContent.pageLocation)) ? null : parseInt(websiteContent.pageLocation)
+      };
+      
+      // Create the content item
+      const contentItem = await storage.createContentItem(contentItemData);
+      
+      // Transform back to website content format for response
+      const createdWebsiteContent = {
+        id: contentItem.id,
+        type: contentItem.type || contentItem.category || 'general',
+        pageLocation: contentItem.pageLocation || (contentItem.sectionId ? contentItem.sectionId.toString() : 'home'),
+        name: contentItem.name || contentItem.title,
+        title: contentItem.title,
+        subtitle: contentItem.subtitle || '',
+        content: contentItem.content || '',
+        ctaText: contentItem.ctaText || contentItem.linkText || '',
+        ctaUrl: contentItem.ctaUrl || contentItem.linkUrl || '',
+        imageUrl: contentItem.imageUrl || '',
+        order: contentItem.order || 0,
+        isActive: contentItem.isActive
+      };
+      
+      // Create version record
+      await storage.createContentVersion({
+        entityType: 'website_content',
+        entityId: contentItem.id,
+        data: createdWebsiteContent,
+        createdBy: 'Admin',
+        comment: 'Initial website content creation'
+      });
+      
+      res.status(201).json({ success: true, data: createdWebsiteContent });
+    } catch (error: any) {
+      console.error('Error creating website content:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
 
   app.put('/api/cms/website-content/:id', requireAuth, async (req, res) => {
     try {
