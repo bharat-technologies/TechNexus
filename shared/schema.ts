@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -174,5 +174,31 @@ export const galleryItemSchema = createInsertSchema(galleryItems).pick({
   linkUrl: true,
   category: true,
   order: true,
+  isActive: true,
+});
+
+// Version Control Schema
+export const contentVersions = pgTable("content_versions", {
+  id: serial("id").primaryKey(),
+  entityType: text("entity_type").notNull(), // 'content_item', 'hero_section', etc.
+  entityId: integer("entity_id").notNull(), // ID of the content item, hero section, etc.
+  version: integer("version").notNull(), // Incremental version number
+  data: jsonb("data").notNull(), // JSON representation of the entity at this version
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdBy: text("created_by"), // Username of the user who created this version
+  comment: text("comment"), // Optional comment about the changes
+  isActive: boolean("is_active").default(true).notNull(), // Whether this is the active version
+});
+
+export type ContentVersion = typeof contentVersions.$inferSelect;
+export type InsertContentVersion = typeof contentVersions.$inferInsert;
+
+export const contentVersionSchema = createInsertSchema(contentVersions).pick({
+  entityType: true,
+  entityId: true,
+  version: true,
+  data: true,
+  createdBy: true,
+  comment: true,
   isActive: true,
 });

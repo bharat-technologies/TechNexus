@@ -4,11 +4,12 @@ import {
   users, type User, type InsertUser,
   contactSubmissions, type ContactFormData, type ContactSubmission,
   newsletterSubscriptions,
-  contentSections, contentItems, navigationItems, heroSections, galleryItems,
+  contentSections, contentItems, navigationItems, heroSections, galleryItems, contentVersions,
   type ContentSection, type ContentItem, type InsertContentItem,
   type NavigationItem, type InsertNavigationItem,
   type HeroSection, type InsertHeroSection,
-  type GalleryItem, type InsertGalleryItem
+  type GalleryItem, type InsertGalleryItem,
+  type ContentVersion, type InsertContentVersion
 } from "@shared/schema";
 import { eq, and, isNull, desc } from 'drizzle-orm';
 import 'dotenv/config';
@@ -67,9 +68,35 @@ export interface IStorage {
   createGalleryItem(data: InsertGalleryItem): Promise<GalleryItem>;
   updateGalleryItem(id: number, data: Partial<InsertGalleryItem>): Promise<GalleryItem | undefined>;
   deleteGalleryItem(id: number): Promise<boolean>;
+  
+  // Version Control
+  createContentVersion(data: {
+    entityType: string,
+    entityId: number,
+    data: any,
+    createdBy?: string,
+    comment?: string
+  }): Promise<ContentVersion>;
+  getContentVersions(entityType: string, entityId: number): Promise<ContentVersion[]>;
+  getContentVersion(id: number): Promise<ContentVersion | undefined>;
+  revertToVersion(versionId: number): Promise<boolean>;
 }
 
 export class PostgresStorage implements IStorage {
+  
+  // Version control helper methods
+  private async getLatestVersionNumber(entityType: string, entityId: number): Promise<number> {
+    const versions = await db.select({ version: contentVersions.version })
+      .from(contentVersions)
+      .where(and(
+        eq(contentVersions.entityType, entityType),
+        eq(contentVersions.entityId, entityId)
+      ))
+      .orderBy(desc(contentVersions.version))
+      .limit(1);
+    
+    return versions.length > 0 ? versions[0].version : 0;
+  }
   
   // User operations
   async getUser(id: number): Promise<User | undefined> {
@@ -180,6 +207,19 @@ export class PostgresStorage implements IStorage {
   }
   
   async updateContentItem(id: number, data: Partial<InsertContentItem>): Promise<ContentItem | undefined> {
+    // Get the current item to save as a version
+    const currentItem = await this.getContentItem(id);
+    if (currentItem) {
+      // Create a version of the current state before updating
+      await this.createContentVersion({
+        entityType: 'content_item',
+        entityId: id,
+        data: currentItem,
+        comment: 'Automatic version before update'
+      });
+    }
+    
+    // Update the item
     const result = await db.update(contentItems)
       .set({
         ...data,
@@ -233,6 +273,18 @@ export class PostgresStorage implements IStorage {
   }
   
   async updateNavigationItem(id: number, data: Partial<InsertNavigationItem>): Promise<NavigationItem | undefined> {
+    // Get the current item to save as a version
+    const currentItem = await this.getNavigationItem(id);
+    if (currentItem) {
+      // Create a version of the current state before updating
+      await this.createContentVersion({
+        entityType: 'navigation_item',
+        entityId: id,
+        data: currentItem,
+        comment: 'Automatic version before update'
+      });
+    }
+    
     const result = await db.update(navigationItems)
       .set({
         ...data,
@@ -278,6 +330,18 @@ export class PostgresStorage implements IStorage {
   }
   
   async updateHeroSection(id: number, data: Partial<InsertHeroSection>): Promise<HeroSection | undefined> {
+    // Get the current item to save as a version
+    const currentItem = await this.getHeroSection(id);
+    if (currentItem) {
+      // Create a version of the current state before updating
+      await this.createContentVersion({
+        entityType: 'hero_section',
+        entityId: id,
+        data: currentItem,
+        comment: 'Automatic version before update'
+      });
+    }
+    
     const result = await db.update(heroSections)
       .set({
         ...data,
@@ -323,6 +387,18 @@ export class PostgresStorage implements IStorage {
   }
   
   async updateGalleryItem(id: number, data: Partial<InsertGalleryItem>): Promise<GalleryItem | undefined> {
+    // Get the current item to save as a version
+    const currentItem = await this.getGalleryItem(id);
+    if (currentItem) {
+      // Create a version of the current state before updating
+      await this.createContentVersion({
+        entityType: 'gallery_item',
+        entityId: id,
+        data: currentItem,
+        comment: 'Automatic version before update'
+      });
+    }
+    
     const result = await db.update(galleryItems)
       .set({
         ...data,
@@ -336,6 +412,150 @@ export class PostgresStorage implements IStorage {
   async deleteGalleryItem(id: number): Promise<boolean> {
     const result = await db.delete(galleryItems).where(eq(galleryItems.id, id)).returning();
     return result.length > 0;
+  }
+
+  // Version Control methods
+  async createContentVersion(data: {
+    entityType: string,
+    entityId: number,
+    data: any,
+    createdBy?: string,
+    comment?: string
+  }): Promise<ContentVersion> {
+    // Get the latest version number for this entity
+    const latestVersion = await this.getLatestVersionNumber(data.entityType, data.entityId);
+    const newVersion = latestVersion + 1;
+    
+    // Create the new version
+    const result = await db.insert(contentVersions).values({
+      entityType: data.entityType,
+      entityId: data.entityId,
+      version: newVersion,
+      data: data.data,
+      createdBy: data.createdBy || null,
+      comment: data.comment || null,
+      isActive: true
+    }).returning();
+    
+    return result[0];
+  }
+  
+  async getContentVersions(entityType: string, entityId: number): Promise<ContentVersion[]> {
+    return await db.select()
+      .from(contentVersions)
+      .where(and(
+        eq(contentVersions.entityType, entityType),
+        eq(contentVersions.entityId, entityId)
+      ))
+      .orderBy(desc(contentVersions.version));
+  }
+  
+  async getContentVersion(id: number): Promise<ContentVersion | undefined> {
+    const result = await db.select()
+      .from(contentVersions)
+      .where(eq(contentVersions.id, id));
+    return result[0];
+  }
+  
+  async revertToVersion(versionId: number): Promise<boolean> {
+    // Get the version to revert to
+    const version = await this.getContentVersion(versionId);
+    if (!version) return false;
+    
+    // Extract data fields that are appropriate for the entity type
+    // We need to be selective about what fields we restore to avoid
+    // database errors with primary keys, etc.
+    const now = new Date();
+    
+    // Determine what type of entity we're reverting and update accordingly
+    try {
+      switch (version.entityType) {
+        case 'content_item': {
+          const data = version.data as ContentItem;
+          await db.update(contentItems)
+            .set({
+              sectionId: data.sectionId,
+              title: data.title,
+              subtitle: data.subtitle,
+              content: data.content,
+              imageUrl: data.imageUrl,
+              linkUrl: data.linkUrl,
+              linkText: data.linkText,
+              order: data.order,
+              isActive: data.isActive,
+              updatedAt: now
+            })
+            .where(eq(contentItems.id, version.entityId));
+          break;
+        }
+        case 'hero_section': {
+          const data = version.data as HeroSection;
+          await db.update(heroSections)
+            .set({
+              title: data.title,
+              subtitle: data.subtitle,
+              description: data.description,
+              imageUrl: data.imageUrl,
+              ctaText: data.ctaText,
+              ctaLink: data.ctaLink,
+              isActive: data.isActive,
+              pageId: data.pageId,
+              updatedAt: now
+            })
+            .where(eq(heroSections.id, version.entityId));
+          break;
+        }
+        case 'navigation_item': {
+          const data = version.data as NavigationItem;
+          await db.update(navigationItems)
+            .set({
+              parentId: data.parentId,
+              title: data.title,
+              path: data.path,
+              icon: data.icon,
+              description: data.description,
+              order: data.order,
+              isActive: data.isActive,
+              updatedAt: now
+            })
+            .where(eq(navigationItems.id, version.entityId));
+          break;
+        }
+        case 'gallery_item': {
+          const data = version.data as GalleryItem;
+          await db.update(galleryItems)
+            .set({
+              title: data.title,
+              description: data.description,
+              imageUrl: data.imageUrl,
+              linkUrl: data.linkUrl,
+              category: data.category,
+              order: data.order,
+              isActive: data.isActive,
+              updatedAt: now
+            })
+            .where(eq(galleryItems.id, version.entityId));
+          break;
+        }
+        default:
+          return false;
+      }
+      
+      // Create a new version that's a copy of the reverted version
+      // but with a new timestamp and comment
+      await this.createContentVersion({
+        entityType: version.entityType,
+        entityId: version.entityId,
+        data: version.data,
+        createdBy: version.createdBy || undefined,
+        comment: `Reverted to version ${version.version}`
+      });
+      
+      return true;
+    } catch (error) {
+      console.error('Error reverting to version:', error);
+      return false;
+    }
   }
 }
 

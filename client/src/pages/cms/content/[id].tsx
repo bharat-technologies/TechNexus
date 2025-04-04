@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Switch } from "@/components/ui/switch";
+import { VersionHistory } from "@/components/cms/VersionHistory";
 
 interface ContentItem {
   id: number;
@@ -33,6 +34,8 @@ export default function ContentPage() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ContentItem | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [historyItem, setHistoryItem] = useState<ContentItem | null>(null);
+  const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("content");
   const { toast } = useToast();
 
@@ -208,6 +211,20 @@ export default function ContentPage() {
       variant: "default"
     });
   };
+  
+  const handleVersionReverted = () => {
+    // Refresh content items when a version is reverted
+    setLoading(true);
+    // In a real implementation, this would refetch from the API
+    setTimeout(() => {
+      setLoading(false);
+      toast({
+        title: "Version Restored",
+        description: "The content has been reverted to the selected version.",
+        variant: "default"
+      });
+    }, 600);
+  };
 
   if (loading) {
     return (
@@ -289,6 +306,19 @@ export default function ContentPage() {
                           onClick={() => handleDeleteItem(item.id)}
                         >
                           <Trash2 className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setHistoryItem(item);
+                            setIsHistoryDialogOpen(true);
+                          }}
+                        >
+                          <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 8v4l3 3"></path>
+                            <circle cx="12" cy="12" r="10"></circle>
+                          </svg>
                         </Button>
                       </div>
                     </div>
@@ -404,6 +434,41 @@ export default function ContentPage() {
             </Button>
             <Button onClick={handleUpdateItem}>
               Update Content Item
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Version History Dialog */}
+      <Dialog 
+        open={isHistoryDialogOpen} 
+        onOpenChange={(open) => {
+          setIsHistoryDialogOpen(open);
+          if (!open) setHistoryItem(null);
+        }}
+      >
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Version History</DialogTitle>
+            <DialogDescription>
+              {historyItem && `View and restore previous versions of "${historyItem.title}"`}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {historyItem && (
+            <VersionHistory 
+              entityType="contentItem" 
+              entityId={historyItem.id} 
+              onVersionReverted={handleVersionReverted}
+            />
+          )}
+          
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsHistoryDialogOpen(false)}
+            >
+              Close
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -555,6 +555,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Content Version API Routes
+  app.get('/api/cms/versions/:entityType/:entityId', requireAuth, async (req, res) => {
+    try {
+      const { entityType, entityId } = req.params;
+      const versions = await storage.getContentVersions(entityType, parseInt(entityId));
+      res.json({ success: true, data: versions });
+    } catch (error: any) {
+      console.error('Error fetching versions:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+  
+  app.post('/api/cms/versions/revert/:versionId', requireAuth, async (req, res) => {
+    try {
+      const { versionId } = req.params;
+      const success = await storage.revertToVersion(parseInt(versionId));
+      
+      if (success) {
+        res.json({ success: true, message: 'Successfully reverted to version' });
+      } else {
+        res.status(400).json({ success: false, message: 'Failed to revert to version' });
+      }
+    } catch (error: any) {
+      console.error('Error reverting to version:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+  
   const httpServer = createServer(app);
 
   return httpServer;
