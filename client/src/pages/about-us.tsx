@@ -289,10 +289,13 @@ const AboutUs = () => {
             return items.reduce((latest, current) => current.id > latest.id ? current : latest, items[0]);
           });
           
-          const mappedValues = uniqueValueContent.map((value: any) => ({
-            title: value.title,
-            description: value.content || ''
-          }));
+          // Filter out the "Our Values" title from the actual value items
+          const mappedValues = uniqueValueContent
+            .filter((value: any) => value.title !== "Our Values")
+            .map((value: any) => ({
+              title: value.title,
+              description: value.content || ''
+            }));
           
           if (mappedValues.length > 0) {
             console.log("Settings values to:", mappedValues);
