@@ -112,7 +112,7 @@ export default function CMSDashboard() {
           </div>
           
           <div className="mb-8">
-            <h3 className="text-xl font-semibold mb-4">Edit Pages</h3>
+            <h3 className="text-xl font-semibold mb-4">Main Pages</h3>
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               <StatCard 
                 title="Edit Home Page" 
@@ -127,28 +127,220 @@ export default function CMSDashboard() {
                 linkTo="/about-us?cms=true" 
               />
               <StatCard 
-                title="Edit Products" 
-                description="Edit product pages content"
+                title="Edit Our Team" 
+                description="Edit the Our Team page content"
                 icon={<Edit className="h-8 w-8" />}
-                linkTo="/cms/website-content?filter=products" 
+                linkTo="/our-team?cms=true" 
               />
               <StatCard 
-                title="Edit Services" 
-                description="Edit services pages content"
+                title="Edit Careers" 
+                description="Edit the Careers page content"
                 icon={<Edit className="h-8 w-8" />}
-                linkTo="/cms/website-content?filter=services" 
+                linkTo="/careers?cms=true" 
               />
               <StatCard 
-                title="Edit Technology" 
-                description="Edit technology pages content"
+                title="Edit AI Chat" 
+                description="Edit the AI Chat interface content"
                 icon={<Edit className="h-8 w-8" />}
-                linkTo="/cms/website-content?filter=technology" 
+                linkTo="/ai-chat?cms=true" 
+              />
+            </div>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Technology Pages</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Edit AI Intelligence" 
+                description="Edit AI Intelligence page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/ai-intelligence?cms=true" 
               />
               <StatCard 
-                title="Edit Solutions" 
-                description="Edit solutions pages content"
+                title="Edit Cloud Stack" 
+                description="Edit Cloud Stack page content"
                 icon={<Edit className="h-8 w-8" />}
-                linkTo="/cms/website-content?filter=solutions" 
+                linkTo="/cloud-stack?cms=true" 
+              />
+              <StatCard 
+                title="Edit Multi-Cloud" 
+                description="Edit Multi-Cloud page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/multi-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit Cyber Security" 
+                description="Edit Cyber Security page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/cyber-security?cms=true" 
+              />
+              <StatCard 
+                title="Edit Defence" 
+                description="Edit Defence page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/defence?cms=true" 
+              />
+              <StatCard 
+                title="Edit Space" 
+                description="Edit Space page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/space?cms=true" 
+              />
+            </div>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Products Pages</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Edit Analytics Cloud" 
+                description="Edit Analytics Cloud product page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/analytics-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit Business Network" 
+                description="Edit Business Network Cloud product page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/business-network-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit Content Cloud" 
+                description="Edit Content Cloud product page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/content-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit Cybersecurity Cloud" 
+                description="Edit Cybersecurity Cloud product page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/cybersecurity-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit DevOps Cloud" 
+                description="Edit DevOps Cloud product page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/devops-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit Experience Cloud" 
+                description="Edit Experience Cloud product page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/experience-cloud?cms=true" 
+              />
+              <StatCard 
+                title="Edit Observability" 
+                description="Edit Observability & Service Management page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/observability-service-management?cms=true" 
+              />
+              <StatCard 
+                title="Edit A-Z Products" 
+                description="Edit A-Z Products Listing page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/a-z-listing?cms=true" 
+              />
+              <StatCard 
+                title="Edit Name Changes" 
+                description="Edit Product Name Changes page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/products/name-changes?cms=true" 
+              />
+            </div>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Solutions Pages</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Edit Space Solutions" 
+                description="Edit Space Solutions page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/space?cms=true" 
+              />
+              <StatCard 
+                title="Edit Banking Solutions" 
+                description="Edit Banking Solutions page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/banking?cms=true" 
+              />
+              <StatCard 
+                title="Edit AI Intelligence Solutions" 
+                description="Edit AI Intelligence Solutions page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/ai-intelligence?cms=true" 
+              />
+              <StatCard 
+                title="Edit Cloud Stack Solutions" 
+                description="Edit Cloud Stack Solutions page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/cloud-stack?cms=true" 
+              />
+              <StatCard 
+                title="Edit Cyber Security Solutions" 
+                description="Edit Cyber Security Solutions page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/cyber-security?cms=true" 
+              />
+              <StatCard 
+                title="Edit Defence Solutions" 
+                description="Edit Defence Solutions page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/defence?cms=true" 
+              />
+              <StatCard 
+                title="Edit Multi-Cloud Solutions" 
+                description="Edit Multi-Cloud Solutions page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/solutions/multi-cloud?cms=true" 
+              />
+            </div>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Specialized Technology</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Edit Healthcare Technology" 
+                description="Edit Healthcare Technology page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/technology/healthcare?cms=true" 
+              />
+              <StatCard 
+                title="Edit Life Support Systems" 
+                description="Edit Life Support Systems page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/technology/life-support?cms=true" 
+              />
+              <StatCard 
+                title="Edit Agriculture & Farming" 
+                description="Edit Agriculture & Farming Technology page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/technology/agriculture-farming?cms=true" 
+              />
+            </div>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Services Pages</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Edit Consulting Services" 
+                description="Edit Consulting Services page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/consulting?cms=true" 
+              />
+              <StatCard 
+                title="Edit Development Services" 
+                description="Edit Development Services page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/development?cms=true" 
+              />
+              <StatCard 
+                title="Edit Support Services" 
+                description="Edit Support Services page"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/support?cms=true" 
               />
             </div>
           </div>

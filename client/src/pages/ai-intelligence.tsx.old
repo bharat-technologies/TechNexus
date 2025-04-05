@@ -11,7 +11,7 @@ const AiIntelligence = () => {
     title: 'Artificial Human Intelligence',
     subtitle: 'Advancing human potential through intelligent technology',
     section1Title: 'Human-Centered AI Solutions',
-    section1Content1: 'At Bharat Technologies, we are pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.',
+    section1Content1: 'At Bharat Technologies, we're pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.',
     section1Content2: 'By combining advanced machine learning with deep understanding of human cognitive processes, we create AI solutions that work with people in intuitive, natural ways, enhancing productivity, creativity, and decision-making.',
     capabilitiesTitle: 'Our AI Capabilities',
     capability1Title: 'Natural Language Processing',
@@ -78,7 +78,7 @@ const AiIntelligence = () => {
       pageLocation: 'ai-intelligence',
       name: 'Section 1 Content Paragraph 1',
       title: 'First Paragraph',
-      content: 'At Bharat Technologies, we are pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.',
+      content: 'At Bharat Technologies, we're pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.',
       order: 4,
       isActive: true
     },
@@ -266,7 +266,8 @@ const AiIntelligence = () => {
             }
           }
           
-          setPageContent(updatedContent);
+          setPageContent(updatedContent)
+          });
         }
         
         return (
