@@ -271,6 +271,9 @@ const AboutUs = () => {
           item.type === 'value' || item.type === 'value-item' || item.type === 'values'
         );
         
+        // Debug: log the value content we found
+        console.log("Found value content:", valueContent);
+        
         if (valueContent.length > 0) {
           // Group value items by title to handle duplicates
           const groupedByTitle: Record<string, ContentItem[]> = {};
@@ -292,7 +295,10 @@ const AboutUs = () => {
           }));
           
           if (mappedValues.length > 0) {
+            console.log("Settings values to:", mappedValues);
             setValues(mappedValues);
+          } else {
+            console.log("No values found after mapping!");
           }
         }
       }
