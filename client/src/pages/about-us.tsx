@@ -267,7 +267,9 @@ const AboutUs = () => {
         }
         
         // Extract values
-        const valueContent = aboutContent.filter((item: any) => item.type === 'value');
+        const valueContent = aboutContent.filter((item: any) => 
+          item.type === 'value' || item.type === 'value-item' || item.type === 'values'
+        );
         
         if (valueContent.length > 0) {
           // Group value items by title to handle duplicates
@@ -329,7 +331,7 @@ const AboutUs = () => {
       // Filter by about-us page location - also include any content with type matching our needs
       const aboutContent = data.data.filter((item: any) => 
         item.pageLocation === 'about-us' || 
-        ['story', 'mission', 'vision', 'value'].includes(item.type)
+        ['story', 'mission', 'vision', 'value', 'value-item', 'values'].includes(item.type)
       );
       
       console.log("Transformed content:", aboutContent);
