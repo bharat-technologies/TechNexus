@@ -63,55 +63,94 @@ export default function CMSDashboard() {
         </TabsList>
         
         <TabsContent value="overview">
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            <StatCard 
-              title="Website Content" 
-              description="Manage and edit live website content"
-              icon={<Globe className="h-8 w-8" />}
-              linkTo="/cms/website-content"
-            />
-            <StatCard 
-              title="Content Sections" 
-              description="Manage content sections and items"
-              icon={<FileText className="h-8 w-8" />}
-              linkTo="/cms/content"
-            />
-            <StatCard 
-              title="Navigation" 
-              description="Edit website navigation menus"
-              icon={<Navigation className="h-8 w-8" />}
-              linkTo="/cms/navigation" 
-            />
-            <StatCard 
-              title="Hero Sections" 
-              description="Manage hero banners and sections"
-              icon={<LayoutGrid className="h-8 w-8" />}
-              linkTo="/cms/hero-sections" 
-            />
-            <StatCard 
-              title="Gallery" 
-              description="Manage image gallery items"
-              icon={<Image className="h-8 w-8" />}
-              linkTo="/cms/gallery" 
-            />
-            <StatCard 
-              title="User Submissions" 
-              description="View contact form submissions"
-              icon={<FileText className="h-8 w-8" />}
-              linkTo="/admin" 
-            />
-            <StatCard 
-              title="Settings" 
-              description="Manage CMS settings"
-              icon={<LayoutDashboard className="h-8 w-8" />}
-              linkTo="/cms/settings" 
-            />
-            <StatCard 
-              title="Edit About Us" 
-              description="Directly edit the About Us page content"
-              icon={<Edit className="h-8 w-8" />}
-              linkTo="/about-us?cms=true" 
-            />
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">CMS Management</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Website Content" 
+                description="Manage and edit live website content"
+                icon={<Globe className="h-8 w-8" />}
+                linkTo="/cms/website-content"
+              />
+              <StatCard 
+                title="Content Sections" 
+                description="Manage content sections and items"
+                icon={<FileText className="h-8 w-8" />}
+                linkTo="/cms/content"
+              />
+              <StatCard 
+                title="Navigation" 
+                description="Edit website navigation menus"
+                icon={<Navigation className="h-8 w-8" />}
+                linkTo="/cms/navigation" 
+              />
+              <StatCard 
+                title="Hero Sections" 
+                description="Manage hero banners and sections"
+                icon={<LayoutGrid className="h-8 w-8" />}
+                linkTo="/cms/hero-sections" 
+              />
+              <StatCard 
+                title="Gallery" 
+                description="Manage image gallery items"
+                icon={<Image className="h-8 w-8" />}
+                linkTo="/cms/gallery" 
+              />
+              <StatCard 
+                title="User Submissions" 
+                description="View contact form submissions"
+                icon={<FileText className="h-8 w-8" />}
+                linkTo="/admin" 
+              />
+              <StatCard 
+                title="Settings" 
+                description="Manage CMS settings"
+                icon={<LayoutDashboard className="h-8 w-8" />}
+                linkTo="/cms/settings" 
+              />
+            </div>
+          </div>
+          
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Edit Pages</h3>
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <StatCard 
+                title="Edit Home Page" 
+                description="Edit the main landing page content"
+                icon={<Home className="h-8 w-8" />}
+                linkTo="/?cms=true" 
+              />
+              <StatCard 
+                title="Edit About Us" 
+                description="Edit the About Us page content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/about-us?cms=true" 
+              />
+              <StatCard 
+                title="Edit Products" 
+                description="Edit product pages content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/cms/website-content?filter=products" 
+              />
+              <StatCard 
+                title="Edit Services" 
+                description="Edit services pages content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/cms/website-content?filter=services" 
+              />
+              <StatCard 
+                title="Edit Technology" 
+                description="Edit technology pages content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/cms/website-content?filter=technology" 
+              />
+              <StatCard 
+                title="Edit Solutions" 
+                description="Edit solutions pages content"
+                icon={<Edit className="h-8 w-8" />}
+                linkTo="/cms/website-content?filter=solutions" 
+              />
+            </div>
           </div>
         </TabsContent>
         
