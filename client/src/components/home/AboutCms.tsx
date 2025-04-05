@@ -55,7 +55,7 @@ const AboutCms = () => {
             pageLocation: 'home',
             name: 'Home About Title',
             title: 'About Us',
-            content: '',
+            content: 'About section title on the home page',
             order: 1,
             isActive: true
           },

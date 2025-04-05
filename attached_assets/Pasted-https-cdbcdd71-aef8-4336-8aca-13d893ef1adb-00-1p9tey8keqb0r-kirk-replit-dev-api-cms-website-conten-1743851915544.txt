@@ -1,0 +1,75 @@
+https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/api/cms/website-content net::ERR_INSUFFICIENT_RESOURCES
+initializeCmsContent @ use-cms-content.ts:105
+createHeroContent @ HeroCms.tsx:103
+(anonymous) @ HeroCms.tsx:112
+commitHookEffectListMount @ chunk-WERSD76P.js?v=75a944c8:16915
+commitPassiveMountOnFiber @ chunk-WERSD76P.js?v=75a944c8:18156
+commitPassiveMountEffects_complete @ chunk-WERSD76P.js?v=75a944c8:18129
+commitPassiveMountEffects_begin @ chunk-WERSD76P.js?v=75a944c8:18119
+commitPassiveMountEffects @ chunk-WERSD76P.js?v=75a944c8:18109
+flushPassiveEffectsImpl @ chunk-WERSD76P.js?v=75a944c8:19490
+flushPassiveEffects @ chunk-WERSD76P.js?v=75a944c8:19447
+performSyncWorkOnRoot @ chunk-WERSD76P.js?v=75a944c8:18868
+flushSyncCallbacks @ chunk-WERSD76P.js?v=75a944c8:9119
+commitRootImpl @ chunk-WERSD76P.js?v=75a944c8:19432
+commitRoot @ chunk-WERSD76P.js?v=75a944c8:19277
+finishConcurrentRender @ chunk-WERSD76P.js?v=75a944c8:18805
+performConcurrentWorkOnRoot @ chunk-WERSD76P.js?v=75a944c8:18718
+workLoop @ chunk-WERSD76P.js?v=75a944c8:197
+flushWork @ chunk-WERSD76P.js?v=75a944c8:176
+performWorkUntilDeadline @ chunk-WERSD76P.js?v=75a944c8:384Understand this errorAI
+use-cms-content.ts:123 Error initializing CMS content: TypeError: Failed to fetch
+    at initializeCmsContent (use-cms-content.ts:105:30)
+    at createHeroContent (HeroCms.tsx:103:15)
+    at HeroCms.tsx:112:5
+    at commitHookEffectListMount (chunk-WERSD76P.js?v=75a944c8:16915:34)
+    at commitPassiveMountOnFiber (chunk-WERSD76P.js?v=75a944c8:18156:19)
+    at commitPassiveMountEffects_complete (chunk-WERSD76P.js?v=75a944c8:18129:17)
+    at commitPassiveMountEffects_begin (chunk-WERSD76P.js?v=75a944c8:18119:15)
+    at commitPassiveMountEffects (chunk-WERSD76P.js?v=75a944c8:18109:11)
+    at flushPassiveEffectsImpl (chunk-WERSD76P.js?v=75a944c8:19490:11)
+    at flushPassiveEffects (chunk-WERSD76P.js?v=75a944c8:19447:22)
+initializeCmsContent @ use-cms-content.ts:123
+await in initializeCmsContent
+createHeroContent @ HeroCms.tsx:103
+(anonymous) @ HeroCms.tsx:112
+commitHookEffectListMount @ chunk-WERSD76P.js?v=75a944c8:16915
+commitPassiveMountOnFiber @ chunk-WERSD76P.js?v=75a944c8:18156
+commitPassiveMountEffects_complete @ chunk-WERSD76P.js?v=75a944c8:18129
+commitPassiveMountEffects_begin @ chunk-WERSD76P.js?v=75a944c8:18119
+commitPassiveMountEffects @ chunk-WERSD76P.js?v=75a944c8:18109
+flushPassiveEffectsImpl @ chunk-WERSD76P.js?v=75a944c8:19490
+flushPassiveEffects @ chunk-WERSD76P.js?v=75a944c8:19447
+performSyncWorkOnRoot @ chunk-WERSD76P.js?v=75a944c8:18868
+flushSyncCallbacks @ chunk-WERSD76P.js?v=75a944c8:9119
+commitRootImpl @ chunk-WERSD76P.js?v=75a944c8:19432
+commitRoot @ chunk-WERSD76P.js?v=75a944c8:19277
+finishConcurrentRender @ chunk-WERSD76P.js?v=75a944c8:18805
+performConcurrentWorkOnRoot @ chunk-WERSD76P.js?v=75a944c8:18718
+workLoop @ chunk-WERSD76P.js?v=75a944c8:197
+flushWork @ chunk-WERSD76P.js?v=75a944c8:176
+performWorkUntilDeadline @ chunk-WERSD76P.js?v=75a944c8:384Understand this errorAI
+use-cms-content.ts:105 
+            
+            
+           POST https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/api/cms/website-content net::ERR_INSUFFICIENT_RESOURCES
+initializeCmsContent @ use-cms-content.ts:105
+createHomeAboutContent @ AboutCms.tsx:107
+(anonymous) @ AboutCms.tsx:140
+commitHookEffectListMount @ chunk-WERSD76P.js?v=75a944c8:16915
+commitPassiveMountOnFiber @ chunk-WERSD76P.js?v=75a944c8:18156
+commitPassiveMountEffects_complete @ chunk-WERSD76P.js?v=75a944c8:18129
+commitPassiveMountEffects_begin @ chunk-WERSD76P.js?v=75a944c8:18119
+commitPassiveMountEffects @ chunk-WERSD76P.js?v=75a944c8:18109
+flushPassiveEffectsImpl @ chunk-WERSD76P.js?v=75a944c8:19490
+flushPassiveEffects @ chunk-WERSD76P.js?v=75a944c8:19447
+performSyncWorkOnRoot @ chunk-WERSD76P.js?v=75a944c8:18868
+flushSyncCallbacks @ chunk-WERSD76P.js?v=75a944c8:9119
+commitRootImpl @ chunk-WERSD76P.js?v=75a944c8:19432
+commitRoot @ chunk-WERSD76P.js?v=75a944c8:19277
+finishConcurrentRender @ chunk-WERSD76P.js?v=75a944c8:18805
+performConcurrentWorkOnRoot @ chunk-WERSD76P.js?v=75a944c8:18718
+workLoop @ chunk-WERSD76P.js?v=75a944c8:197
+flushWork @ chunk-WERSD76P.js?v=75a944c8:176
+performWorkUntilDeadline @ chunk-WERSD76P.js?v=75a944c8:384Understand this errorAI
+use-cms-content.ts:123 Error initializing CMS content: TypeErr

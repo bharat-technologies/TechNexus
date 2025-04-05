@@ -43,7 +43,7 @@ const HeroCms = () => {
             pageLocation: 'home',
             name: 'Hero Heading',
             title: 'Welcome to',
-            content: '',
+            content: 'Welcome message for the home page hero section',
             order: 1,
             isActive: true
           },
@@ -53,7 +53,7 @@ const HeroCms = () => {
             pageLocation: 'home',
             name: 'Hero Subheading',
             title: 'Bharat Technologies',
-            content: '',
+            content: 'Company name displayed in the hero section',
             order: 2,
             isActive: true
           },
@@ -73,6 +73,7 @@ const HeroCms = () => {
             pageLocation: 'home',
             name: 'Primary Button',
             title: 'Learn More',
+            content: 'Primary action button in hero section',
             ctaUrl: '/about-us',
             order: 4,
             isActive: true
@@ -83,6 +84,7 @@ const HeroCms = () => {
             pageLocation: 'home',
             name: 'Secondary Button',
             title: 'Get Started',
+            content: 'Secondary action button in hero section',
             ctaUrl: '/#contact',
             order: 5,
             isActive: true
