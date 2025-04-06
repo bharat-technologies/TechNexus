@@ -27,6 +27,7 @@ const Careers = () => {
       name: 'careers-hero',
       title: 'Careers',
       subtitle: 'Join our team of innovators and help shape the future of technology',
+      content: 'Explore exciting career opportunities at Bharat Technologies and join our talented team of professionals.',
       backgroundColor: 'black',
       textColor: 'white',
       order: 1,
@@ -39,6 +40,7 @@ const Careers = () => {
       pageLocation: 'careers',
       name: 'careers-why-join',
       title: 'Why Join Bharat Technologies?',
+      content: 'Discover the benefits of working with us and why our team members love being part of Bharat Technologies.',
       benefits: [
         {
           title: 'Innovation',
@@ -69,6 +71,7 @@ const Careers = () => {
       pageLocation: 'careers',
       name: 'careers-jobs',
       title: 'Current Openings',
+      content: 'Browse our current job openings and find your next career opportunity with us.',
       jobPositions: [
         {
           title: 'Senior AI Engineer',
@@ -125,6 +128,7 @@ const Careers = () => {
       pageLocation: 'careers',
       name: 'careers-cta',
       title: 'Don\'t see a position that matches your skills?',
+      content: 'We\'re always looking for talented individuals to join our team. Send us your resume and we\'ll contact you when a suitable position becomes available.',
       ctaText: 'Send Us Your Resume',
       ctaUrl: '#contact',
       backgroundColor: 'white',
