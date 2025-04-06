@@ -359,11 +359,11 @@ const AboutUs = () => {
     console.log("Looking for content type:", type);
     console.log("Available content:", originalContent);
     
-    // If original content is empty and we're in CMS mode, create default content
+    // If original content is empty and we're in CMS mode, suggest using the CMS
     if (originalContent.length === 0 && isCmsEnvironment()) {
       toast({
         title: "Content Not Available",
-        description: `Please use the "Initialize Content" button at the top of the page first to create content`,
+        description: "No content exists yet. Try refreshing the page or editing via the CMS.",
         variant: "destructive"
       });
       return;
@@ -393,10 +393,10 @@ const AboutUs = () => {
       setEditingContent({...contentToEdit});
       setIsEditDialogOpen(true);
     } else {
-      // If we still can't find it, offer to initialize content
+      // If we still can't find it, suggest refreshing or using the CMS editor
       toast({
         title: "Content Not Found",
-        description: `Cannot find content with type: ${type}. Please use the "Initialize Content" button to create content.`,
+        description: `Cannot find content with type: ${type}. Try refreshing the page or using the CMS Content editor.`,
         variant: "destructive"
       });
     }
@@ -463,14 +463,7 @@ const AboutUs = () => {
                 </Button>
                 
                 {/* Initialize content button */}
-                <Button 
-                  variant="outline" 
-                  className="bg-white text-black border-white hover:bg-gray-200"
-                  onClick={() => window.location.href = '/about-us?create_cms_content=true&cms=true'}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Initialize Content
-                </Button>
+                {/* Content is now automatically created when needed */}
               </div>
             )}
           </div>
