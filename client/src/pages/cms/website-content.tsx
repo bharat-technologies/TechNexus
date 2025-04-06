@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 // Define the content types that appear on the website
 interface WebsiteContent {
@@ -28,6 +29,50 @@ interface WebsiteContent {
   order: number;
   isActive: boolean;
 }
+
+// Define the predefined content types for each page
+interface ContentTypeDefinition {
+  type: string;
+  displayName: string;
+  description: string;
+}
+
+const PAGE_LOCATIONS = {
+  HOME: 'home',
+  ABOUT_US: 'about-us',
+  AI_INTELLIGENCE: 'ai-intelligence',
+  CAREERS: 'careers'
+};
+
+const CONTENT_TYPES: Record<string, ContentTypeDefinition[]> = {
+  [PAGE_LOCATIONS.HOME]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main hero banner at the top of the home page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting product benefits' },
+    { type: 'testimonial', displayName: 'Testimonial', description: 'Client testimonials and success stories' },
+    { type: 'cta', displayName: 'Call to Action', description: 'Call to action sections with buttons' }
+  ],
+  [PAGE_LOCATIONS.ABOUT_US]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for About Us page' },
+    { type: 'story', displayName: 'Our Story', description: 'Company history and background' },
+    { type: 'mission', displayName: 'Our Mission', description: 'Company mission statement' },
+    { type: 'vision', displayName: 'Our Vision', description: 'Company vision for the future' },
+    { type: 'value', displayName: 'Company Value', description: 'Core company values' },
+    { type: 'team', displayName: 'Team Member', description: 'Team member profiles' }
+  ],
+  [PAGE_LOCATIONS.AI_INTELLIGENCE]: [
+    { type: 'ai-hero-heading', displayName: 'Artificial Human', description: 'Main page heading (first line)' },
+    { type: 'ai-hero-subheading', displayName: 'Intelligence', description: 'Main page heading (second line)' },
+    { type: 'ai-hero-description', displayName: 'Hero Description', description: 'Primary description of AI capabilities' },
+    { type: 'ai-approach-heading', displayName: 'Human-Centered AI Approach', description: 'Heading for approach section' },
+    { type: 'ai-approach-subheading', displayName: 'Enhancing human potential', description: 'Subheading for approach section' },
+    { type: 'ai-approach-content', displayName: 'Content', description: 'Main content text for the section' }
+  ],
+  [PAGE_LOCATIONS.CAREERS]: [
+    { type: 'job-listing', displayName: 'Job Listing', description: 'Open position details' },
+    { type: 'benefits', displayName: 'Benefits', description: 'Employee benefits information' },
+    { type: 'culture', displayName: 'Company Culture', description: 'Information about company culture' }
+  ]
+};
 
 export default function WebsiteContentPage() {
   const [activeTab, setActiveTab] = useState<string>("home");
@@ -117,7 +162,7 @@ export default function WebsiteContentPage() {
       
       // Extract unique page locations
       const uniquePageTypes = Array.from(
-        new Set(latestContentOnly.map((item: WebsiteContent) => item.pageLocation).filter(Boolean))
+        new Set(latestContentOnly.map(item => item.pageLocation).filter(Boolean))
       ) as string[];
       
       console.log("Unique page types:", uniquePageTypes);
@@ -340,6 +385,31 @@ export default function WebsiteContentPage() {
     updateContentMutation.mutate(editingContent);
   };
 
+  // Helper function to get content type definition
+  const getContentTypeDefinition = (type: string, pageLocation: string): ContentTypeDefinition | undefined => {
+    const contentTypesForPage = CONTENT_TYPES[pageLocation];
+    return contentTypesForPage?.find(item => item.type === type);
+  };
+
+  // Helper function to get a friendly page location name
+  const getPageLocationName = (location: string): string => {
+    if (location === PAGE_LOCATIONS.HOME) return 'Home Page';
+    if (location === PAGE_LOCATIONS.ABOUT_US) return 'About Us';
+    if (location === PAGE_LOCATIONS.AI_INTELLIGENCE) return 'AI-Intelligence';
+    if (location === PAGE_LOCATIONS.CAREERS) return 'Careers';
+    return location.charAt(0).toUpperCase() + location.slice(1);
+  };
+
+  // Sort content by page location, then by order within each location
+  const getSortedContent = (content: WebsiteContent[]): WebsiteContent[] => {
+    return [...content].sort((a, b) => {
+      if (a.pageLocation !== b.pageLocation) {
+        return a.pageLocation.localeCompare(b.pageLocation);
+      }
+      return a.order - b.order;
+    });
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -366,10 +436,15 @@ export default function WebsiteContentPage() {
             size="sm"
             className="mt-4 md:mt-0"
             onClick={() => {
+              const pageLocation = activeTab === 'all' ? 'home' : activeTab;
+              const defaultType = CONTENT_TYPES[pageLocation]?.length > 0 
+                ? CONTENT_TYPES[pageLocation][0].type 
+                : 'general';
+                
               setEditingContent({
                 id: 0,
-                type: 'general',
-                pageLocation: 'home',
+                type: defaultType,
+                pageLocation: pageLocation,
                 name: '',
                 title: '',
                 subtitle: '',
@@ -408,14 +483,19 @@ export default function WebsiteContentPage() {
               <p className="text-gray-500 mb-4">
                 {activeTab === 'all' 
                   ? "There's no website content in the system yet." 
-                  : `There's no content for the "${activeTab}" page.`}
+                  : `There's no content for the "${getPageLocationName(activeTab)}" page.`}
               </p>
               <Button 
                 onClick={() => {
+                  const pageLocation = activeTab === 'all' ? 'home' : activeTab;
+                  const defaultType = CONTENT_TYPES[pageLocation]?.length > 0 
+                    ? CONTENT_TYPES[pageLocation][0].type 
+                    : 'general';
+                    
                   setEditingContent({
                     id: 0,
-                    type: 'general',
-                    pageLocation: activeTab === 'all' ? 'home' : activeTab,
+                    type: defaultType,
+                    pageLocation: pageLocation,
                     name: '',
                     title: '',
                     subtitle: '',
@@ -435,96 +515,55 @@ export default function WebsiteContentPage() {
             </div>
           ) : (
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {filteredContent.map((content) => (
-                <Card key={content.id} className={`border h-full flex flex-col ${!content.isActive ? 'border-dashed border-gray-300 bg-gray-50' : ''}`}>
-                  <CardHeader className="pb-3">
-                    <div className="flex justify-between">
-                      <div className="flex-1 mr-2">
-                        <CardTitle className="text-lg flex items-center">
-                          {content.title}
-                          {!content.isActive && (
-                            <span className="ml-2 text-xs uppercase bg-gray-200 text-gray-600 px-2 py-1 rounded-full">
-                              Inactive
-                            </span>
-                          )}
-                        </CardTitle>
-                        <CardDescription className="mt-1">
-                          {content.subtitle || (content.type && `Type: ${content.type}`)}
-                        </CardDescription>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <div className="flex items-center justify-center h-8 w-8 mr-1">
-                          <Switch 
-                            checked={content.isActive}
-                            onCheckedChange={() => toggleContentActivation(content)}
-                            title={content.isActive ? "Active" : "Inactive"}
-                            className="h-5 w-10 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md [&>span]:h-4 [&>span]:w-4"
-                          />
-                          {!content.isActive && (
-                            <span className="absolute -bottom-3 left-0 text-[8px] text-gray-400">inactive</span>
-                          )}
+              {getSortedContent(filteredContent).map((content) => {
+                const typeDefinition = getContentTypeDefinition(content.type, content.pageLocation);
+                
+                return (
+                  <Card key={content.id} className={`border h-full flex flex-col shadow-sm hover:shadow-md transition-shadow ${!content.isActive ? 'opacity-60' : ''}`}>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1 mr-2">
+                          <div className="flex items-center justify-between mb-1.5">
+                            <h3 className="font-semibold text-lg">
+                              {typeDefinition?.displayName || content.type}
+                            </h3>
+                            <Switch
+                              checked={content.isActive}
+                              onCheckedChange={() => toggleContentActivation(content)}
+                              className="ml-2 h-5 w-10 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md [&>span]:h-4 [&>span]:w-4"
+                            />
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Type: <Badge variant="outline" className="font-normal">{content.type}</Badge>
+                          </div>
+                          <div className="mt-2 text-gray-700">
+                            {content.title}
+                          </div>
                         </div>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={() => handlePreviewContent(content)}
-                          title="Preview"
-                          className="h-8 w-8 p-0"
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={() => handleEditContent(content)}
-                          title="Edit"
-                          className="h-8 w-8 p-0"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={() => handleDeleteContent(content)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
-                          title="Delete"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
+                        <div className="flex space-x-1">
+                          <Button variant="ghost" size="icon" onClick={() => handleEditContent(content)} className="h-8 w-8">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" onClick={() => handleDeleteContent(content)} className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0 flex-1">
-                    <div className="text-sm text-gray-600 h-20 overflow-hidden relative mb-4">
-                      {content.content && content.content.length > 120 
-                        ? content.content.substring(0, 120) + '...' 
-                        : content.content}
-                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent"></div>
-                    </div>
-                    
-                    <div className={`${content.imageUrl ? 'h-32' : 'h-0'} mb-2`}>
-                      {content.imageUrl && (
-                        <img 
-                          src={content.imageUrl} 
-                          alt={content.title} 
-                          className="w-full h-32 object-cover rounded-md"
-                        />
+                    </CardHeader>
+                    <CardContent className="pb-4 pt-0 flex-1">
+                      {content.content && (
+                        <div className="text-sm text-gray-600 line-clamp-3 mt-2">
+                          {content.content}
+                        </div>
                       )}
-                    </div>
-                  </CardContent>
-                  <CardFooter className="flex flex-col items-start pt-0 mt-auto">
-                    <div className="flex flex-wrap gap-2 mt-2 text-xs text-gray-500">
-                      <div>Location: {content.pageLocation}</div>
+                    </CardContent>
+                    <CardFooter className="pt-3 pb-3 border-t flex items-center justify-between text-xs text-gray-500">
+                      <div>Location: {getPageLocationName(content.pageLocation)}</div>
                       <div>Order: {content.order}</div>
-                      {content.ctaText && (
-                        <div className="w-full mt-1">
-                          CTA: {content.ctaText} → {content.ctaUrl}
-                        </div>
-                      )}
-                    </div>
-                  </CardFooter>
-                </Card>
-              ))}
+                    </CardFooter>
+                  </Card>
+                );
+              })}
             </div>
           )}
         </TabsContent>
@@ -548,7 +587,14 @@ export default function WebsiteContentPage() {
                   <Label htmlFor="location">Page Location</Label>
                   <Select 
                     value={editingContent.pageLocation} 
-                    onValueChange={(value) => setEditingContent({...editingContent, pageLocation: value})}
+                    onValueChange={(value) => {
+                      // When page location changes, automatically set a default content type for that page
+                      const defaultType = CONTENT_TYPES[value]?.length > 0 
+                        ? CONTENT_TYPES[value][0].type 
+                        : editingContent.type;
+                        
+                      setEditingContent({...editingContent, pageLocation: value, type: defaultType});
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select page location" />
@@ -566,12 +612,35 @@ export default function WebsiteContentPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="type">Content Type</Label>
-                  <Input
-                    id="type"
-                    value={editingContent.type}
-                    onChange={(e) => setEditingContent({...editingContent, type: e.target.value})}
-                    placeholder="hero, feature, testimonial, etc."
-                  />
+                  {CONTENT_TYPES[editingContent.pageLocation]?.length > 0 ? (
+                    <Select 
+                      value={editingContent.type} 
+                      onValueChange={(value) => setEditingContent({...editingContent, type: value})}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select content type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CONTENT_TYPES[editingContent.pageLocation]?.map(contentType => (
+                          <SelectItem key={contentType.type} value={contentType.type}>
+                            {contentType.displayName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Input
+                      id="type"
+                      value={editingContent.type}
+                      onChange={(e) => setEditingContent({...editingContent, type: e.target.value})}
+                      placeholder="hero, feature, testimonial, etc."
+                    />
+                  )}
+                  {CONTENT_TYPES[editingContent.pageLocation]?.length > 0 && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      {CONTENT_TYPES[editingContent.pageLocation].find(t => t.type === editingContent.type)?.description || ''}
+                    </div>
+                  )}
                 </div>
               </div>
               
