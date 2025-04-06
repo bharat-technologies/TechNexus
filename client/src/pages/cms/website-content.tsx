@@ -47,15 +47,27 @@ interface ContentTypeDefinition {
 
 // Define hierarchical structure matching the website navbar
 const CONTENT_CATEGORIES = {
+  ABOUT_US: 'About Us',
   CORE_TECHNOLOGIES: 'Core Technologies',
   SECURITY_DEFENSE: 'Security & Defense',
-  SPECIALIZED_TECHNOLOGIES: 'Specialized Technologies'
+  SPECIALIZED_TECHNOLOGIES: 'Specialized Technologies',
+  PRODUCTS: 'Products',
+  SOLUTIONS_INDUSTRIES: 'Solutions - Industries',
+  SOLUTIONS_ENTERPRISE: 'Solutions - Enterprise Applications',
+  SUPPORT_SERVICES: 'Support & Services',
+  CONTACT: 'Contact'
 };
 
 const PAGE_LOCATIONS = {
-  // Core Technologies
+  // Home
   HOME: 'home',
+  
+  // About Us
   ABOUT_US: 'about-us',
+  OUR_TEAM: 'our-team',
+  CAREERS: 'careers',
+  
+  // Core Technologies
   AI_INTELLIGENCE: 'ai-intelligence',
   CLOUD_STACK: 'cloud-stack',
   MULTI_CLOUD: 'multi-cloud',
@@ -70,20 +82,58 @@ const PAGE_LOCATIONS = {
   HEALTH_CARE: 'health-care',
   LIFE_SUPPORT: 'life-support',
   
-  // Other
-  CAREERS: 'careers'
+  // Products
+  ANALYTICS_CLOUD: 'products/analytics-cloud',
+  BUSINESS_NETWORK: 'products/business-network-cloud',
+  CONTENT_CLOUD: 'products/content-cloud',
+  CYBERSECURITY_CLOUD: 'products/cybersecurity-cloud',
+  DEVOPS_CLOUD: 'products/devops-cloud',
+  EXPERIENCE_CLOUD: 'products/experience-cloud',
+  OBSERVABILITY: 'products/observability-service-management',
+  PRODUCTS_AZ: 'products/a-z-listing',
+  PRODUCT_NAMES: 'products/name-changes',
+  
+  // Solutions - Industries
+  BANKING: 'solutions/banking',
+  FINANCIAL_SERVICES: 'solutions/financial-services',
+  HEALTHCARE_SOLUTIONS: 'solutions/healthcare',
+  OIL_GAS: 'solutions/oil-gas',
+  INDUSTRIAL: 'solutions/industrial-manufacturing',
+  PUBLIC_SECTOR: 'solutions/public-sector',
+  UTILITIES: 'solutions/utilities',
+  ALL_INDUSTRIES: 'solutions/all-industries',
+  
+  // Solutions - Enterprise
+  SAP: 'solutions/sap',
+  MICROSOFT: 'solutions/microsoft',
+  SALESFORCE: 'solutions/salesforce',
+  
+  // Support & Services
+  CONSULTING: 'consulting',
+  DEVELOPMENT: 'development',
+  SUPPORT: 'support',
+  
+  // Contact
+  CALL_US: 'contact/call',
+  EMAIL_US: 'contact/email'
 };
 
 // Define hierarchy for filtering
 const CONTENT_HIERARCHY = {
+  about: {
+    name: CONTENT_CATEGORIES.ABOUT_US,
+    pages: [
+      PAGE_LOCATIONS.ABOUT_US,
+      PAGE_LOCATIONS.OUR_TEAM,
+      PAGE_LOCATIONS.CAREERS
+    ]
+  },
   technology: {
     name: 'Technology',
     children: {
       coreTechnologies: {
         name: CONTENT_CATEGORIES.CORE_TECHNOLOGIES,
         pages: [
-          PAGE_LOCATIONS.HOME,
-          PAGE_LOCATIONS.ABOUT_US,
           PAGE_LOCATIONS.AI_INTELLIGENCE,
           PAGE_LOCATIONS.CLOUD_STACK,
           PAGE_LOCATIONS.MULTI_CLOUD
@@ -107,10 +157,80 @@ const CONTENT_HIERARCHY = {
       }
     }
   },
-  other: {
-    name: 'Other Pages',
+  products: {
+    name: CONTENT_CATEGORIES.PRODUCTS,
+    children: {
+      cloudProducts: {
+        name: 'Cloud Products',
+        pages: [
+          PAGE_LOCATIONS.ANALYTICS_CLOUD,
+          PAGE_LOCATIONS.BUSINESS_NETWORK,
+          PAGE_LOCATIONS.CONTENT_CLOUD,
+          PAGE_LOCATIONS.CYBERSECURITY_CLOUD
+        ]
+      },
+      platform: {
+        name: 'Platform',
+        pages: [
+          PAGE_LOCATIONS.DEVOPS_CLOUD,
+          PAGE_LOCATIONS.EXPERIENCE_CLOUD,
+          PAGE_LOCATIONS.OBSERVABILITY
+        ]
+      },
+      resources: {
+        name: 'Resources',
+        pages: [
+          PAGE_LOCATIONS.PRODUCTS_AZ,
+          PAGE_LOCATIONS.PRODUCT_NAMES
+        ]
+      }
+    }
+  },
+  solutions: {
+    name: 'Solutions',
+    children: {
+      industries: {
+        name: CONTENT_CATEGORIES.SOLUTIONS_INDUSTRIES,
+        pages: [
+          PAGE_LOCATIONS.BANKING,
+          PAGE_LOCATIONS.FINANCIAL_SERVICES,
+          PAGE_LOCATIONS.HEALTHCARE_SOLUTIONS,
+          PAGE_LOCATIONS.OIL_GAS,
+          PAGE_LOCATIONS.INDUSTRIAL,
+          PAGE_LOCATIONS.PUBLIC_SECTOR,
+          PAGE_LOCATIONS.UTILITIES,
+          PAGE_LOCATIONS.ALL_INDUSTRIES
+        ]
+      },
+      enterprise: {
+        name: CONTENT_CATEGORIES.SOLUTIONS_ENTERPRISE,
+        pages: [
+          PAGE_LOCATIONS.SAP,
+          PAGE_LOCATIONS.MICROSOFT,
+          PAGE_LOCATIONS.SALESFORCE
+        ]
+      }
+    }
+  },
+  support: {
+    name: CONTENT_CATEGORIES.SUPPORT_SERVICES,
     pages: [
-      PAGE_LOCATIONS.CAREERS
+      PAGE_LOCATIONS.CONSULTING,
+      PAGE_LOCATIONS.DEVELOPMENT,
+      PAGE_LOCATIONS.SUPPORT
+    ]
+  },
+  contact: {
+    name: CONTENT_CATEGORIES.CONTACT,
+    pages: [
+      PAGE_LOCATIONS.CALL_US,
+      PAGE_LOCATIONS.EMAIL_US
+    ]
+  },
+  home: {
+    name: 'Home',
+    pages: [
+      PAGE_LOCATIONS.HOME
     ]
   }
 };
@@ -313,25 +433,33 @@ export default function WebsiteContentPage() {
       return [];
     }
     
-    // Handle "technology" category specifically
-    if (categoryKey === 'technology') {
+    const categoryData = CONTENT_HIERARCHY[categoryKey as keyof typeof CONTENT_HIERARCHY];
+    if (!categoryData) {
+      return [];
+    }
+    
+    // Handle categories with subcategories (children)
+    if ('children' in categoryData) {
       if (!subcategoryKey) {
-        // Return all pages from all subcategories
+        // Return all pages from all subcategories if no specific subcategory selected
         const allPages: string[] = [];
-        Object.keys(CONTENT_HIERARCHY.technology.children).forEach(key => {
-          const subcat = CONTENT_HIERARCHY.technology.children[key as keyof typeof CONTENT_HIERARCHY.technology.children];
+        Object.keys(categoryData.children).forEach(key => {
+          // Safely type the subcategory key
+          const typedKey = key as keyof typeof categoryData.children;
+          const subcat = categoryData.children[typedKey];
           allPages.push(...subcat.pages);
         });
         return allPages;
       } else {
-        // Return pages from the specific subcategory
-        return CONTENT_HIERARCHY.technology.children[subcategoryKey as keyof typeof CONTENT_HIERARCHY.technology.children]?.pages || [];
+        // Return pages from specific subcategory
+        const typedSubcategoryKey = subcategoryKey as keyof typeof categoryData.children;
+        return categoryData.children[typedSubcategoryKey]?.pages || [];
       }
     }
     
-    // Handle "other" category
-    if (categoryKey === 'other') {
-      return CONTENT_HIERARCHY.other.pages;
+    // Handle categories without subcategories (direct pages)
+    if ('pages' in categoryData) {
+      return categoryData.pages;
     }
     
     // If nothing matched, return empty array
@@ -710,11 +838,25 @@ export default function WebsiteContentPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all_subcategories">All Subcategories</SelectItem>
-                  {activeCategory === 'technology' && Object.keys(CONTENT_HIERARCHY.technology.children).map((subcategoryKey) => (
-                    <SelectItem key={subcategoryKey} value={subcategoryKey}>
-                      {CONTENT_HIERARCHY.technology.children[subcategoryKey as keyof typeof CONTENT_HIERARCHY.technology.children].name}
-                    </SelectItem>
-                  ))}
+                  {activeCategory && 'children' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY] && 
+                    // Type safety: Correctly access children for the active category
+                    Object.keys(CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].children).map((subcategoryKey) => {
+                      // Type the category data correctly
+                      const categoryData = CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY];
+                      // Only proceed if categoryData has children property
+                      if ('children' in categoryData) {
+                        const subCategoryKey = subcategoryKey as keyof typeof categoryData.children;
+                        const subCategory = categoryData.children[subCategoryKey];
+                        
+                        return (
+                          <SelectItem key={subcategoryKey} value={subcategoryKey}>
+                            {subCategory.name}
+                          </SelectItem>
+                        );
+                      }
+                      return null;
+                    })
+                  }
                 </SelectContent>
               </Select>
             )}
@@ -737,8 +879,8 @@ export default function WebsiteContentPage() {
                           {getPageLocationName(pageKey)}
                         </SelectItem>
                       ))
-                    : (activeCategory === 'other'
-                        ? CONTENT_HIERARCHY.other.pages.map((pageKey: string) => (
+                    : (activeCategory && 'pages' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY]
+                        ? (CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY] as any).pages.map((pageKey: string) => (
                             <SelectItem key={pageKey} value={pageKey}>
                               {getPageLocationName(pageKey)}
                             </SelectItem>
