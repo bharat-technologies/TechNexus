@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 
 // Define the content types that appear on the website
@@ -37,14 +37,37 @@ interface ContentTypeDefinition {
   description: string;
 }
 
+// Define hierarchical structure matching the website navbar
+const CONTENT_CATEGORIES = {
+  CORE_TECHNOLOGIES: 'Core Technologies',
+  SECURITY_DEFENSE: 'Security & Defense',
+  SPECIALIZED_TECHNOLOGIES: 'Specialized Technologies'
+};
+
 const PAGE_LOCATIONS = {
+  // Core Technologies
   HOME: 'home',
   ABOUT_US: 'about-us',
   AI_INTELLIGENCE: 'ai-intelligence',
+  CLOUD_STACK: 'cloud-stack',
+  MULTI_CLOUD: 'multi-cloud',
+  
+  // Security & Defense
+  CYBER_SECURITY: 'cyber-security',
+  DEFENCE: 'defence',
+  SPACE: 'space',
+  
+  // Specialized Technologies
+  AGRICULTURE: 'agriculture-farming',
+  HEALTH_CARE: 'health-care',
+  LIFE_SUPPORT: 'life-support',
+  
+  // Other
   CAREERS: 'careers'
 };
 
 const CONTENT_TYPES: Record<string, ContentTypeDefinition[]> = {
+  // Core Technologies
   [PAGE_LOCATIONS.HOME]: [
     { type: 'hero', displayName: 'Hero Section', description: 'Main hero banner at the top of the home page' },
     { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting product benefits' },
@@ -60,14 +83,60 @@ const CONTENT_TYPES: Record<string, ContentTypeDefinition[]> = {
     { type: 'team', displayName: 'Team Member', description: 'Team member profiles' }
   ],
   [PAGE_LOCATIONS.AI_INTELLIGENCE]: [
-    { type: 'ai-hero-heading', displayName: 'Artificial Human', description: 'Main page heading (first line)' },
-    { type: 'ai-hero-subheading', displayName: 'Intelligence', description: 'Main page heading (second line)' },
-    { type: 'ai-hero-description', displayName: 'Hero Description', description: 'Primary description of AI capabilities' },
-    { type: 'ai-approach-heading', displayName: 'Human-Centered AI Approach', description: 'Heading for approach section' },
-    { type: 'ai-approach-subheading', displayName: 'Enhancing human potential', description: 'Subheading for approach section' },
-    { type: 'ai-approach-content', displayName: 'Content', description: 'Main content text for the section' }
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for AI Intelligence page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting AI capabilities' },
+    { type: 'use-case', displayName: 'Use Case', description: 'Practical applications of AI technology' },
+    { type: 'approach', displayName: 'Approach', description: 'Our approach to AI development' }
   ],
+  [PAGE_LOCATIONS.CLOUD_STACK]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Cloud Stack page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting cloud capabilities' },
+    { type: 'service', displayName: 'Service', description: 'Specific cloud services offered' }
+  ],
+  [PAGE_LOCATIONS.MULTI_CLOUD]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Multi-Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting multi-cloud capabilities' },
+    { type: 'advantage', displayName: 'Advantage', description: 'Benefits of multi-cloud architecture' }
+  ],
+  
+  // Security & Defense
+  [PAGE_LOCATIONS.CYBER_SECURITY]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Cyber Security page' },
+    { type: 'threat', displayName: 'Threat Protection', description: 'Information about threat protection services' },
+    { type: 'security-solution', displayName: 'Security Solution', description: 'Details about specific security solutions' },
+    { type: 'security-service', displayName: 'Security Service', description: 'Ongoing security services offered' }
+  ],
+  [PAGE_LOCATIONS.DEFENCE]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Defence page' },
+    { type: 'defence-solution', displayName: 'Defence Solution', description: 'Defence technology solutions' },
+    { type: 'defence-capability', displayName: 'Defence Capability', description: 'Specific defence capabilities' }
+  ],
+  [PAGE_LOCATIONS.SPACE]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Space page' },
+    { type: 'space-technology', displayName: 'Space Technology', description: 'Space technology innovations' },
+    { type: 'space-service', displayName: 'Space Service', description: 'Space-related services' }
+  ],
+  
+  // Specialized Technologies
+  [PAGE_LOCATIONS.AGRICULTURE]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Agriculture & Farming page' },
+    { type: 'farming-solution', displayName: 'Farming Solution', description: 'Agricultural technology solutions' },
+    { type: 'case-study', displayName: 'Case Study', description: 'Real-world implementation case studies' }
+  ],
+  [PAGE_LOCATIONS.HEALTH_CARE]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Health Care page' },
+    { type: 'healthcare-solution', displayName: 'Healthcare Solution', description: 'Healthcare technology solutions' },
+    { type: 'medical-innovation', displayName: 'Medical Innovation', description: 'Medical technology innovations' }
+  ],
+  [PAGE_LOCATIONS.LIFE_SUPPORT]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Life Support page' },
+    { type: 'life-support-solution', displayName: 'Life Support Solution', description: 'Life support system solutions' },
+    { type: 'emergency-system', displayName: 'Emergency System', description: 'Emergency and critical systems' }
+  ],
+  
+  // Other
   [PAGE_LOCATIONS.CAREERS]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Careers page' },
     { type: 'job-listing', displayName: 'Job Listing', description: 'Open position details' },
     { type: 'benefits', displayName: 'Benefits', description: 'Employee benefits information' },
     { type: 'culture', displayName: 'Company Culture', description: 'Information about company culture' }
@@ -153,8 +222,10 @@ export default function WebsiteContentPage() {
       }, {} as Record<string, WebsiteContent[]>);
       
       // For each group, take only the item with the highest ID (latest version)
-      const latestContentOnly = Object.values(contentByTypeAndLocation).map((group: WebsiteContent[]) => {
-        return group.sort((a: WebsiteContent, b: WebsiteContent) => b.id - a.id)[0]; // Sort by ID descending and take first
+      const latestContentOnly = Object.values(contentByTypeAndLocation).map((group: unknown) => {
+        // Safely cast the group to WebsiteContent[] with typeguard
+        const typedGroup = group as WebsiteContent[];
+        return typedGroup.sort((a: WebsiteContent, b: WebsiteContent) => b.id - a.id)[0]; // Sort by ID descending and take first
       });
       
       console.log("Latest content versions:", latestContentOnly);
@@ -393,11 +464,30 @@ export default function WebsiteContentPage() {
 
   // Helper function to get a friendly page location name
   const getPageLocationName = (location: string): string => {
+    // Core Technologies
     if (location === PAGE_LOCATIONS.HOME) return 'Home Page';
     if (location === PAGE_LOCATIONS.ABOUT_US) return 'About Us';
-    if (location === PAGE_LOCATIONS.AI_INTELLIGENCE) return 'AI-Intelligence';
+    if (location === PAGE_LOCATIONS.AI_INTELLIGENCE) return 'Artificial Intelligence';
+    if (location === PAGE_LOCATIONS.CLOUD_STACK) return 'Cloud Stack';
+    if (location === PAGE_LOCATIONS.MULTI_CLOUD) return 'Multi Cloud';
+    
+    // Security & Defense
+    if (location === PAGE_LOCATIONS.CYBER_SECURITY) return 'Cyber Security';
+    if (location === PAGE_LOCATIONS.DEFENCE) return 'Defence';
+    if (location === PAGE_LOCATIONS.SPACE) return 'Space';
+    
+    // Specialized Technologies
+    if (location === PAGE_LOCATIONS.AGRICULTURE) return 'Agriculture & Farming';
+    if (location === PAGE_LOCATIONS.HEALTH_CARE) return 'Health Care';
+    if (location === PAGE_LOCATIONS.LIFE_SUPPORT) return 'Life Support';
+    
+    // Other
     if (location === PAGE_LOCATIONS.CAREERS) return 'Careers';
-    return location.charAt(0).toUpperCase() + location.slice(1);
+    
+    // Fallback for any other locations
+    return location.split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
   };
 
   // Sort content by page location, then by order within each location
@@ -467,11 +557,79 @@ export default function WebsiteContentPage() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="mb-8 flex flex-wrap">
           <TabsTrigger value="all">All Content</TabsTrigger>
-          {pageTypes.map(type => (
+          
+          {/* Core Technologies */}
+          <div className="flex items-center w-full mt-4">
+            <div className="h-px flex-1 bg-gray-200"></div>
+            <h3 className="px-4 text-sm font-medium text-gray-500">{CONTENT_CATEGORIES.CORE_TECHNOLOGIES}</h3>
+            <div className="h-px flex-1 bg-gray-200"></div>
+          </div>
+          {pageTypes.filter(type => 
+            type === PAGE_LOCATIONS.HOME || 
+            type === PAGE_LOCATIONS.ABOUT_US || 
+            type === PAGE_LOCATIONS.AI_INTELLIGENCE || 
+            type === PAGE_LOCATIONS.CLOUD_STACK || 
+            type === PAGE_LOCATIONS.MULTI_CLOUD
+          ).map(type => (
             <TabsTrigger key={type} value={type}>
-              {type === 'home' ? 'Home Page' : 
-               isNaN(Number(type)) ? type.charAt(0).toUpperCase() + type.slice(1) : 
-               `Section ${type}`}
+              {getPageLocationName(type)}
+            </TabsTrigger>
+          ))}
+          
+          {/* Security & Defense */}
+          <div className="flex items-center w-full mt-4">
+            <div className="h-px flex-1 bg-gray-200"></div>
+            <h3 className="px-4 text-sm font-medium text-gray-500">{CONTENT_CATEGORIES.SECURITY_DEFENSE}</h3>
+            <div className="h-px flex-1 bg-gray-200"></div>
+          </div>
+          {pageTypes.filter(type => 
+            type === PAGE_LOCATIONS.CYBER_SECURITY || 
+            type === PAGE_LOCATIONS.DEFENCE || 
+            type === PAGE_LOCATIONS.SPACE
+          ).map(type => (
+            <TabsTrigger key={type} value={type}>
+              {getPageLocationName(type)}
+            </TabsTrigger>
+          ))}
+          
+          {/* Specialized Technologies */}
+          <div className="flex items-center w-full mt-4">
+            <div className="h-px flex-1 bg-gray-200"></div>
+            <h3 className="px-4 text-sm font-medium text-gray-500">{CONTENT_CATEGORIES.SPECIALIZED_TECHNOLOGIES}</h3>
+            <div className="h-px flex-1 bg-gray-200"></div>
+          </div>
+          {pageTypes.filter(type => 
+            type === PAGE_LOCATIONS.AGRICULTURE || 
+            type === PAGE_LOCATIONS.HEALTH_CARE || 
+            type === PAGE_LOCATIONS.LIFE_SUPPORT
+          ).map(type => (
+            <TabsTrigger key={type} value={type}>
+              {getPageLocationName(type)}
+            </TabsTrigger>
+          ))}
+          
+          {/* Other Pages */}
+          <div className="flex items-center w-full mt-4">
+            <div className="h-px flex-1 bg-gray-200"></div>
+            <h3 className="px-4 text-sm font-medium text-gray-500">Other Pages</h3>
+            <div className="h-px flex-1 bg-gray-200"></div>
+          </div>
+          {pageTypes.filter(type => 
+            type !== 'all' &&
+            type !== PAGE_LOCATIONS.HOME && 
+            type !== PAGE_LOCATIONS.ABOUT_US && 
+            type !== PAGE_LOCATIONS.AI_INTELLIGENCE && 
+            type !== PAGE_LOCATIONS.CLOUD_STACK && 
+            type !== PAGE_LOCATIONS.MULTI_CLOUD &&
+            type !== PAGE_LOCATIONS.CYBER_SECURITY && 
+            type !== PAGE_LOCATIONS.DEFENCE && 
+            type !== PAGE_LOCATIONS.SPACE &&
+            type !== PAGE_LOCATIONS.AGRICULTURE && 
+            type !== PAGE_LOCATIONS.HEALTH_CARE && 
+            type !== PAGE_LOCATIONS.LIFE_SUPPORT
+          ).map(type => (
+            <TabsTrigger key={type} value={type}>
+              {getPageLocationName(type)}
             </TabsTrigger>
           ))}
         </TabsList>
@@ -600,13 +758,72 @@ export default function WebsiteContentPage() {
                       <SelectValue placeholder="Select page location" />
                     </SelectTrigger>
                     <SelectContent>
-                      {pageTypes.map(type => (
-                        <SelectItem key={type} value={type}>
-                          {type === 'home' ? 'Home Page' : 
-                           isNaN(Number(type)) ? type.charAt(0).toUpperCase() + type.slice(1) : 
-                           `Section ${type}`}
-                        </SelectItem>
-                      ))}
+                      {/* Core Technologies */}
+                      <SelectGroup>
+                        <SelectLabel>{CONTENT_CATEGORIES.CORE_TECHNOLOGIES}</SelectLabel>
+                        {pageTypes.filter(type => 
+                          type === PAGE_LOCATIONS.HOME || 
+                          type === PAGE_LOCATIONS.ABOUT_US || 
+                          type === PAGE_LOCATIONS.AI_INTELLIGENCE || 
+                          type === PAGE_LOCATIONS.CLOUD_STACK || 
+                          type === PAGE_LOCATIONS.MULTI_CLOUD
+                        ).map(type => (
+                          <SelectItem key={type} value={type}>
+                            {getPageLocationName(type)}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                      
+                      {/* Security & Defense */}
+                      <SelectGroup>
+                        <SelectLabel>{CONTENT_CATEGORIES.SECURITY_DEFENSE}</SelectLabel>
+                        {pageTypes.filter(type => 
+                          type === PAGE_LOCATIONS.CYBER_SECURITY || 
+                          type === PAGE_LOCATIONS.DEFENCE || 
+                          type === PAGE_LOCATIONS.SPACE
+                        ).map(type => (
+                          <SelectItem key={type} value={type}>
+                            {getPageLocationName(type)}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                      
+                      {/* Specialized Technologies */}
+                      <SelectGroup>
+                        <SelectLabel>{CONTENT_CATEGORIES.SPECIALIZED_TECHNOLOGIES}</SelectLabel>
+                        {pageTypes.filter(type => 
+                          type === PAGE_LOCATIONS.AGRICULTURE || 
+                          type === PAGE_LOCATIONS.HEALTH_CARE || 
+                          type === PAGE_LOCATIONS.LIFE_SUPPORT
+                        ).map(type => (
+                          <SelectItem key={type} value={type}>
+                            {getPageLocationName(type)}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                      
+                      {/* Other Pages */}
+                      <SelectGroup>
+                        <SelectLabel>Other Pages</SelectLabel>
+                        {pageTypes.filter(type => 
+                          type !== 'all' &&
+                          type !== PAGE_LOCATIONS.HOME && 
+                          type !== PAGE_LOCATIONS.ABOUT_US && 
+                          type !== PAGE_LOCATIONS.AI_INTELLIGENCE && 
+                          type !== PAGE_LOCATIONS.CLOUD_STACK && 
+                          type !== PAGE_LOCATIONS.MULTI_CLOUD &&
+                          type !== PAGE_LOCATIONS.CYBER_SECURITY && 
+                          type !== PAGE_LOCATIONS.DEFENCE && 
+                          type !== PAGE_LOCATIONS.SPACE &&
+                          type !== PAGE_LOCATIONS.AGRICULTURE && 
+                          type !== PAGE_LOCATIONS.HEALTH_CARE && 
+                          type !== PAGE_LOCATIONS.LIFE_SUPPORT
+                        ).map(type => (
+                          <SelectItem key={type} value={type}>
+                            {getPageLocationName(type)}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                 </div>
