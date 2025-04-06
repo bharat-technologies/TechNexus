@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { ArrowLeft, Edit, Eye, Plus, Save, Check, X, Trash2 } from "lucide-react";
+import { ArrowLeft, Edit, Eye, Plus, Save, Check, X, Trash2, ChevronRight, ChevronDown, Filter } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,14 @@ import { Switch } from "@/components/ui/switch";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Define the content types that appear on the website
 interface WebsiteContent {
@@ -64,6 +72,47 @@ const PAGE_LOCATIONS = {
   
   // Other
   CAREERS: 'careers'
+};
+
+// Define hierarchy for filtering
+const CONTENT_HIERARCHY = {
+  technology: {
+    name: 'Technology',
+    children: {
+      coreTechnologies: {
+        name: CONTENT_CATEGORIES.CORE_TECHNOLOGIES,
+        pages: [
+          PAGE_LOCATIONS.HOME,
+          PAGE_LOCATIONS.ABOUT_US,
+          PAGE_LOCATIONS.AI_INTELLIGENCE,
+          PAGE_LOCATIONS.CLOUD_STACK,
+          PAGE_LOCATIONS.MULTI_CLOUD
+        ]
+      },
+      securityDefense: {
+        name: CONTENT_CATEGORIES.SECURITY_DEFENSE,
+        pages: [
+          PAGE_LOCATIONS.CYBER_SECURITY,
+          PAGE_LOCATIONS.DEFENCE,
+          PAGE_LOCATIONS.SPACE
+        ]
+      },
+      specialized: {
+        name: CONTENT_CATEGORIES.SPECIALIZED_TECHNOLOGIES,
+        pages: [
+          PAGE_LOCATIONS.AGRICULTURE,
+          PAGE_LOCATIONS.HEALTH_CARE,
+          PAGE_LOCATIONS.LIFE_SUPPORT
+        ]
+      }
+    }
+  },
+  other: {
+    name: 'Other Pages',
+    pages: [
+      PAGE_LOCATIONS.CAREERS
+    ]
+  }
 };
 
 const CONTENT_TYPES: Record<string, ContentTypeDefinition[]> = {
@@ -145,6 +194,8 @@ const CONTENT_TYPES: Record<string, ContentTypeDefinition[]> = {
 
 export default function WebsiteContentPage() {
   const [activeTab, setActiveTab] = useState<string>("home");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
   const [websiteContent, setWebsiteContent] = useState<WebsiteContent[]>([]);
   const [filteredContent, setFilteredContent] = useState<WebsiteContent[]>([]);
   const [pageTypes, setPageTypes] = useState<string[]>([]);
@@ -256,18 +307,69 @@ export default function WebsiteContentPage() {
     }
   }, [data]);
 
-  // Filter content based on active tab
+  // Helper function to get pages in a category
+  const getPagesInCategory = (categoryKey: string, subcategoryKey: string | null = null): string[] => {
+    if (categoryKey === 'all') {
+      return [];
+    }
+    
+    const category = CONTENT_HIERARCHY[categoryKey as keyof typeof CONTENT_HIERARCHY];
+    if (!category) return [];
+
+    if (!subcategoryKey && 'pages' in category) {
+      // Return direct pages from the category
+      return category.pages || [];
+    } else if (subcategoryKey && 'children' in category) {
+      // Return pages from the specified subcategory
+      const subcategory = category.children[subcategoryKey as keyof typeof category.children];
+      return subcategory?.pages || [];
+    }
+    
+    // If nothing matched, return empty array
+    return [];
+  };
+
+  // Filter content based on active tab, category, and subcategory
   useEffect(() => {
-    if (activeTab === 'all') {
+    if (activeTab === 'all' && activeCategory === 'all') {
+      // Show all content
       setFilteredContent(websiteContent);
-    } else {
+    } else if (activeCategory !== 'all' && activeSubcategory) {
+      // Filter by subcategory
+      const pagesInSubcategory = getPagesInCategory(activeCategory, activeSubcategory);
+      setFilteredContent(websiteContent.filter(item => 
+        pagesInSubcategory.includes(item.pageLocation)
+      ));
+    } else if (activeCategory !== 'all') {
+      // Filter by category
+      const allPagesInCategory: string[] = [];
+      
+      // If the category has subcategories, collect pages from all subcategories
+      const category = CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY];
+      if (category && 'children' in category) {
+        Object.keys(category.children).forEach(subcategoryKey => {
+          const subcategory = category.children[subcategoryKey as keyof typeof category.children];
+          if (subcategory && subcategory.pages) {
+            allPagesInCategory.push(...subcategory.pages);
+          }
+        });
+      } else if (category && 'pages' in category) {
+        // Directly get pages from category
+        allPagesInCategory.push(...category.pages);
+      }
+      
+      setFilteredContent(websiteContent.filter(item => 
+        allPagesInCategory.includes(item.pageLocation)
+      ));
+    } else if (activeTab !== 'all') {
+      // Filter by specific tab (page)
       setFilteredContent(websiteContent.filter(item => 
         item.pageLocation === activeTab || 
         // For numeric IDs (from sectionId), convert to string for comparison
         (Number.isInteger(Number(activeTab)) && item.pageLocation === activeTab)
       ));
     }
-  }, [activeTab, websiteContent]);
+  }, [activeTab, activeCategory, activeSubcategory, websiteContent]);
 
   useEffect(() => {
     if (error) {
@@ -554,6 +656,108 @@ export default function WebsiteContentPage() {
         </div>
       </div>
 
+      {/* Advanced Filtering Interface */}
+      <div className="mb-6 rounded-lg border border-gray-200 p-4 bg-white">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+          <div className="flex items-center">
+            <Filter className="h-4 w-4 mr-2 text-gray-500" />
+            <h3 className="text-sm font-medium">Advanced Filtering</h3>
+          </div>
+          
+          <div className="flex flex-wrap items-center gap-2">
+            <Select
+              value={activeCategory}
+              onValueChange={(value) => {
+                setActiveCategory(value);
+                setActiveSubcategory(null);
+                if (value === 'all') {
+                  setActiveTab('all');
+                }
+              }}
+            >
+              <SelectTrigger className="h-8 px-3 text-xs w-[160px]">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {Object.keys(CONTENT_HIERARCHY).map((categoryKey) => (
+                  <SelectItem key={categoryKey} value={categoryKey}>
+                    {CONTENT_HIERARCHY[categoryKey as keyof typeof CONTENT_HIERARCHY].name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            
+            {activeCategory !== 'all' && 'children' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY] && (
+              <Select
+                value={activeSubcategory || ''}
+                onValueChange={(value) => {
+                  setActiveSubcategory(value || null);
+                  // If a subcategory is selected, don't change the tab
+                }}
+              >
+                <SelectTrigger className="h-8 px-3 text-xs w-[180px]">
+                  <SelectValue placeholder="Select subcategory" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">All Subcategories</SelectItem>
+                  {Object.keys(CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].children).map((subcategoryKey) => (
+                    <SelectItem key={subcategoryKey} value={subcategoryKey}>
+                      {CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].children[subcategoryKey as any].name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            
+            {activeCategory !== 'all' && (activeSubcategory || !('children' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY])) && (
+              <Select
+                value={activeTab}
+                onValueChange={(value) => {
+                  setActiveTab(value);
+                }}
+              >
+                <SelectTrigger className="h-8 px-3 text-xs w-[180px]">
+                  <SelectValue placeholder="Select page" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Pages</SelectItem>
+                  {activeSubcategory 
+                    ? getPagesInCategory(activeCategory, activeSubcategory).map(pageKey => (
+                        <SelectItem key={pageKey} value={pageKey}>
+                          {getPageLocationName(pageKey)}
+                        </SelectItem>
+                      ))
+                    : ('pages' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY] 
+                        ? CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].pages?.map(pageKey => (
+                            <SelectItem key={pageKey} value={pageKey}>
+                              {getPageLocationName(pageKey)}
+                            </SelectItem>
+                          ))
+                        : []
+                      )
+                  }
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+          
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="h-8 px-3 text-xs"
+            onClick={() => {
+              setActiveCategory('all');
+              setActiveSubcategory(null);
+              setActiveTab('all');
+            }}
+          >
+            Reset Filters
+          </Button>
+        </div>
+      </div>
+      
+      {/* Traditional Tab Navigation (kept for backward compatibility) */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="mb-8 flex flex-wrap">
           <TabsTrigger value="all">All Content</TabsTrigger>
