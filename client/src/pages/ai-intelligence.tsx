@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import CmsPageTemplate from '@/components/cms-templates/CmsPageTemplate';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
 import { useCmsMode } from '@/hooks/use-cms-mode';
 import { CMSContent } from '@/hooks/use-cms-content';
 import HeroBlock from '@/components/cms-blocks/HeroBlock';
@@ -16,13 +14,7 @@ const AiIntelligence = () => {
     document.title = 'Artificial Human Intelligence - Bharat Technologies';
   }, []);
 
-  const handleInitializeContent = () => {
-    // Add the create_cms_content parameter to the URL and refresh
-    const url = new URL(window.location.href);
-    url.searchParams.set('create_cms_content', 'true');
-    url.searchParams.set('cms', 'true');
-    window.location.href = url.toString();
-  };
+  // Content is now automatically created if it doesn't exist
 
   // Define default CMS content for initialization
   const defaultCmsContent: CMSContent[] = [
@@ -293,15 +285,11 @@ const AiIntelligence = () => {
         <main>
           {isCmsMode && (
             <div className="bg-gray-100 p-4 sticky top-0 z-50 border-b">
-              <div className="container mx-auto flex justify-between items-center">
+              <div className="container mx-auto">
                 <div>
                   <h2 className="font-medium">CMS Mode: Editing AI Intelligence Page</h2>
                   <p className="text-sm text-gray-500">Make changes to page content using the Edit button</p>
                 </div>
-                <Button onClick={handleInitializeContent}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Initialize Content
-                </Button>
               </div>
             </div>
           )}

@@ -25,7 +25,7 @@ interface CmsPageTemplateProps {
  * 
  * This component:
  * 1. Fetches CMS content for the specified page location
- * 2. Provides a way to initialize default content if needed
+ * 2. Auto-creates content if none exists and defaultContent is provided
  * 3. Renders an edit button in CMS mode
  * 4. Passes content and helper functions to children
  */
@@ -38,51 +38,36 @@ const CmsPageTemplate = ({
   const { content, isLoading, getContentByType, getAllContentByType } = useCmsContent(pageLocation);
   const { toast } = useToast();
   
-  // Initialize content if requested via URL parameter
+  // Auto-create content if none exists and defaultContent is provided
   useEffect(() => {
-    const checkAndCreateContent = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('create_cms_content') === 'true' && defaultContent.length > 0) {
+    const autoCreateContentIfNeeded = async () => {
+      // Only auto-create if we have defaultContent and no existing content
+      if (defaultContent.length > 0 && !isLoading && content.length === 0) {
         try {
-          toast({
-            title: "Creating Content",
-            description: `Initializing ${pageLocation} page content...`,
-            variant: "default"
-          });
+          console.log(`Auto-creating content for ${pageLocation} page`);
           
           const success = await initializeCmsContent(pageLocation, defaultContent);
           
           if (success) {
+            // Use a more subtle notification for auto-creation
             toast({
-              title: "Content Created",
-              description: `${pageLocation} page content has been initialized. Please refresh the page.`,
+              title: "Content Ready",
+              description: `${pageLocation} content has been initialized and is ready to edit.`,
               variant: "default"
             });
             
-            // Refresh the page without the create_cms_content parameter
-            const url = new URL(window.location.href);
-            url.searchParams.delete('create_cms_content');
-            window.location.href = url.toString();
-          } else {
-            toast({
-              title: "Error",
-              description: "Failed to initialize content. Please try again.",
-              variant: "destructive"
-            });
+            // Refresh the page to show the new content
+            window.location.reload();
           }
         } catch (error) {
-          console.error("Error creating CMS content:", error);
-          toast({
-            title: "Error",
-            description: "An error occurred while creating content.",
-            variant: "destructive"
-          });
+          console.error("Error auto-creating CMS content:", error);
+          // No toast for error during auto-creation to avoid confusing users
         }
       }
     };
     
-    checkAndCreateContent();
-  }, [pageLocation, defaultContent, toast]);
+    autoCreateContentIfNeeded();
+  }, [pageLocation, defaultContent, content, isLoading, toast]);
   
   return (
     <div className="relative">
