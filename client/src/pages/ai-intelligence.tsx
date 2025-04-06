@@ -1,32 +1,16 @@
-import { useEffect, useState } from 'react';
-import CmsPageTemplate from '@/components/cms/CmsPageTemplate';
+import { useEffect } from 'react';
+import CmsPageTemplate from '@/components/cms-templates/CmsPageTemplate';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { useCmsMode } from '@/hooks/use-cms-mode';
 import { CMSContent } from '@/hooks/use-cms-content';
+import HeroBlock from '@/components/cms-blocks/HeroBlock';
+import ContentBlock from '@/components/cms-blocks/ContentBlock';
+import FeaturesBlock from '@/components/cms-blocks/FeaturesBlock';
+import CTABlock from '@/components/cms-blocks/CTABlock';
 
 const AiIntelligence = () => {
   const isCmsMode = useCmsMode();
-  const [pageContent, setPageContent] = useState({
-    title: 'Artificial Human Intelligence',
-    subtitle: 'Advancing human potential through intelligent technology',
-    section1Title: 'Human-Centered AI Solutions',
-    section1Content1: 'At Bharat Technologies, we are pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.',
-    section1Content2: 'By combining advanced machine learning with deep understanding of human cognitive processes, we create AI solutions that work with people in intuitive, natural ways, enhancing productivity, creativity, and decision-making.',
-    capabilitiesTitle: 'Our AI Capabilities',
-    capability1Title: 'Natural Language Processing',
-    capability1Description: 'Advanced language understanding and generation capabilities that enable more natural human-computer interaction.',
-    capability2Title: 'Computer Vision',
-    capability2Description: 'Visual perception systems that can analyze and understand images and video with human-like accuracy.',
-    capability3Title: 'Predictive Analytics',
-    capability3Description: 'AI-powered forecasting tools that help businesses anticipate trends and make data-driven decisions.',
-    ethicalTitle: 'Ethical AI Development',
-    ethicalContent1: 'We believe in developing AI systems that are transparent, fair, and accountable. Our ethical framework guides all our AI projects, ensuring that our solutions respect privacy, reduce bias, and operate with clear oversight.',
-    ethicalContent2: 'By prioritizing ethical considerations from the earliest stages of development, we create AI systems that users can trust and that benefit society as a whole.',
-    ctaTitle: 'Ready to Explore AI Solutions?',
-    ctaDescription: 'Discover how our AI technologies can transform your business and help you stay ahead in the digital era.',
-    ctaButtonText: 'Contact Our AI Experts'
-  });
 
   useEffect(() => {
     document.title = 'Artificial Human Intelligence - Bharat Technologies';
@@ -40,358 +24,351 @@ const AiIntelligence = () => {
     window.location.href = url.toString();
   };
 
-  // Default CMS content for initialization
+  // Define default CMS content for initialization
   const defaultCmsContent: CMSContent[] = [
+    // Hero section content
     {
       id: 0,
-      type: 'ai-intelligence-title',
+      type: 'ai-hero-heading',
       pageLocation: 'ai-intelligence',
-      name: 'Page Title',
-      title: 'Artificial Human Intelligence',
-      content: 'Main page heading',
+      name: 'Hero Heading',
+      title: 'Artificial Human',
+      content: 'Main page heading (first line)',
       order: 1,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-subtitle',
+      type: 'ai-hero-subheading',
       pageLocation: 'ai-intelligence',
-      name: 'Page Subtitle',
-      title: 'Advancing human potential through intelligent technology',
-      content: 'Page subtitle displayed below the main heading',
+      name: 'Hero Subheading',
+      title: 'Intelligence',
+      content: 'Main page heading (second line)',
       order: 2,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-section1-title',
+      type: 'ai-hero-description',
       pageLocation: 'ai-intelligence',
-      name: 'Section 1 Title',
-      title: 'Human-Centered AI Solutions',
-      content: 'Title for the first section about human-centered AI',
+      name: 'Hero Description',
+      title: 'Hero Description',
+      content: 'Advancing human potential through intelligent technology that enhances rather than replaces human capabilities.',
       order: 3,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-section1-content1',
+      type: 'ai-hero-primary-button',
       pageLocation: 'ai-intelligence',
-      name: 'Section 1 Content Paragraph 1',
-      title: 'First Paragraph',
-      content: 'At Bharat Technologies, we are pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.',
+      name: 'Hero Primary Button',
+      title: 'Explore AI Solutions',
+      ctaUrl: '/contact',
       order: 4,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-section1-content2',
+      type: 'ai-hero-secondary-button',
       pageLocation: 'ai-intelligence',
-      name: 'Section 1 Content Paragraph 2',
-      title: 'Second Paragraph',
-      content: 'By combining advanced machine learning with deep understanding of human cognitive processes, we create AI solutions that work with people in intuitive, natural ways, enhancing productivity, creativity, and decision-making.',
+      name: 'Hero Secondary Button',
+      title: 'Learn More',
+      ctaUrl: '#ai-approach',
       order: 5,
       isActive: true
     },
+    
+    // Approach section content
     {
       id: 0,
-      type: 'ai-intelligence-capabilities-title',
+      type: 'ai-approach-heading',
       pageLocation: 'ai-intelligence',
-      name: 'Capabilities Section Title',
-      title: 'Our AI Capabilities',
-      content: 'Title for the capabilities section',
+      name: 'Approach Section Heading',
+      title: 'Human-Centered AI Approach',
+      content: 'Heading for approach section',
       order: 6,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-capability',
+      type: 'ai-approach-subheading',
       pageLocation: 'ai-intelligence',
-      name: 'Capability 1',
-      title: 'Natural Language Processing',
-      content: 'Advanced language understanding and generation capabilities that enable more natural human-computer interaction.',
-      imageUrl: 'fas fa-brain',
+      name: 'Approach Section Subheading',
+      title: 'Enhancing human potential, not replacing it',
+      content: 'Subheading for approach section',
       order: 7,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-capability',
+      type: 'ai-approach-content',
       pageLocation: 'ai-intelligence',
-      name: 'Capability 2',
-      title: 'Computer Vision',
-      content: 'Visual perception systems that can analyze and understand images and video with human-like accuracy.',
-      imageUrl: 'fas fa-eye',
+      name: 'Approach Section Content',
+      title: 'Content',
+      content: '<p>At Bharat Technologies, we are pioneering a new approach to artificial intelligence that puts humans at the center. Our AI systems are designed to augment human capabilities, not replace them.</p><p>By combining advanced machine learning with deep understanding of human cognitive processes, we create AI solutions that work with people in intuitive, natural ways, enhancing productivity, creativity, and decision-making.</p>',
       order: 8,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-capability',
+      type: 'ai-approach-image',
       pageLocation: 'ai-intelligence',
-      name: 'Capability 3',
-      title: 'Predictive Analytics',
-      content: 'AI-powered forecasting tools that help businesses anticipate trends and make data-driven decisions.',
-      imageUrl: 'fas fa-chart-line',
+      name: 'Approach Section Image',
+      title: 'Approach Image',
+      content: 'Human-AI collaboration illustration',
+      imageUrl: '/assets/ai-approach.jpg',
       order: 9,
       isActive: true
     },
+    
+    // Capabilities section
     {
       id: 0,
-      type: 'ai-intelligence-ethical-title',
+      type: 'ai-capabilities-heading',
       pageLocation: 'ai-intelligence',
-      name: 'Ethical Section Title',
-      title: 'Ethical AI Development',
-      content: 'Title for the ethical AI section',
+      name: 'Capabilities Section Heading',
+      title: 'Our AI Capabilities',
+      content: 'Heading for capabilities section',
       order: 10,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-ethical-content1',
+      type: 'ai-capabilities-subheading',
       pageLocation: 'ai-intelligence',
-      name: 'Ethical Content Paragraph 1',
-      title: 'Ethics First Paragraph',
-      content: 'We believe in developing AI systems that are transparent, fair, and accountable. Our ethical framework guides all our AI projects, ensuring that our solutions respect privacy, reduce bias, and operate with clear oversight.',
+      name: 'Capabilities Section Subheading',
+      title: 'Cutting-edge technologies powering innovation',
+      content: 'Subheading for capabilities section',
       order: 11,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-ethical-content2',
+      type: 'ai-capabilities-description',
       pageLocation: 'ai-intelligence',
-      name: 'Ethical Content Paragraph 2',
-      title: 'Ethics Second Paragraph',
-      content: 'By prioritizing ethical considerations from the earliest stages of development, we create AI systems that users can trust and that benefit society as a whole.',
+      name: 'Capabilities Section Description',
+      title: 'Description',
+      content: 'Our suite of artificial intelligence capabilities enables businesses to solve complex problems and create new opportunities.',
       order: 12,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-cta-title',
+      type: 'ai-capabilities-item',
       pageLocation: 'ai-intelligence',
-      name: 'CTA Title',
-      title: 'Ready to Explore AI Solutions?',
-      content: 'Title for the call to action section',
+      name: 'Natural Language Processing',
+      title: 'Natural Language Processing',
+      content: 'Advanced language understanding and generation capabilities that enable more natural human-computer interaction. Our NLP models can understand context, sentiment, and nuance in multiple languages.',
       order: 13,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-cta-description',
+      type: 'ai-capabilities-item',
       pageLocation: 'ai-intelligence',
-      name: 'CTA Description',
-      title: 'CTA Text',
-      content: 'Discover how our AI technologies can transform your business and help you stay ahead in the digital era.',
+      name: 'Computer Vision',
+      title: 'Computer Vision',
+      content: 'Visual perception systems that can analyze and understand images and video with human-like accuracy. Applications include quality control, medical imaging analysis, and security systems.',
       order: 14,
       isActive: true
     },
     {
       id: 0,
-      type: 'ai-intelligence-cta-button',
+      type: 'ai-capabilities-item',
       pageLocation: 'ai-intelligence',
-      name: 'CTA Button',
-      title: 'Contact Our AI Experts',
-      content: 'Text for the call to action button',
-      ctaUrl: '/#contact',
+      name: 'Predictive Analytics',
+      title: 'Predictive Analytics',
+      content: 'AI-powered forecasting tools that help businesses anticipate trends and make data-driven decisions. Our models process vast datasets to identify patterns invisible to traditional analytics.',
       order: 15,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-capabilities-item',
+      pageLocation: 'ai-intelligence',
+      name: 'Reinforcement Learning',
+      title: 'Reinforcement Learning',
+      content: 'Systems that learn through interaction with their environment, maximizing reward signals to optimize decision processes. Ideal for complex control systems and resource allocation problems.',
+      order: 16,
+      isActive: true
+    },
+    
+    // Ethics section
+    {
+      id: 0,
+      type: 'ai-ethics-heading',
+      pageLocation: 'ai-intelligence',
+      name: 'Ethics Section Heading',
+      title: 'Ethical AI Development',
+      content: 'Heading for ethics section',
+      order: 17,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-ethics-subheading',
+      pageLocation: 'ai-intelligence',
+      name: 'Ethics Section Subheading',
+      title: 'Responsible innovation at every step',
+      content: 'Subheading for ethics section',
+      order: 18,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-ethics-content',
+      pageLocation: 'ai-intelligence',
+      name: 'Ethics Section Content',
+      title: 'Ethics Content',
+      content: '<p>We believe in developing AI systems that are transparent, fair, and accountable. Our ethical framework guides all our AI projects, ensuring that our solutions respect privacy, reduce bias, and operate with clear oversight.</p><p>By prioritizing ethical considerations from the earliest stages of development, we create AI systems that users can trust and that benefit society as a whole.</p>',
+      order: 19,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-ethics-image',
+      pageLocation: 'ai-intelligence',
+      name: 'Ethics Section Image',
+      title: 'Ethics Image',
+      content: 'Ethical AI development illustration',
+      imageUrl: '/assets/ai-ethics.jpg',
+      order: 20,
+      isActive: true
+    },
+    
+    // CTA section
+    {
+      id: 0,
+      type: 'ai-cta-heading',
+      pageLocation: 'ai-intelligence',
+      name: 'CTA Section Heading',
+      title: 'Ready to Explore AI Solutions?',
+      content: 'Heading for CTA section',
+      order: 21,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-cta-description',
+      pageLocation: 'ai-intelligence',
+      name: 'CTA Section Description',
+      title: 'CTA Description',
+      content: 'Discover how our AI technologies can transform your business and help you stay ahead in the digital era.',
+      order: 22,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-cta-primary-button',
+      pageLocation: 'ai-intelligence',
+      name: 'CTA Primary Button',
+      title: 'Contact Our AI Experts',
+      ctaUrl: '/contact',
+      order: 23,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'ai-cta-secondary-button',
+      pageLocation: 'ai-intelligence',
+      name: 'CTA Secondary Button',
+      title: 'View Case Studies',
+      ctaUrl: '/case-studies',
+      order: 24,
       isActive: true
     }
   ];
 
   return (
-    <CmsPageTemplate pageLocation="ai-intelligence" defaultContent={defaultCmsContent}>
-      {({ content, isLoading, getContentByType, getAllContentByType }) => {
-        // Update the content if we have CMS data
-        if (!isLoading && content.length > 0) {
-          // Main title and subtitle
-          const titleContent = getContentByType('ai-intelligence-title');
-          const subtitleContent = getContentByType('ai-intelligence-subtitle');
-          
-          // Section 1
-          const section1TitleContent = getContentByType('ai-intelligence-section1-title');
-          const section1Content1 = getContentByType('ai-intelligence-section1-content1');
-          const section1Content2 = getContentByType('ai-intelligence-section1-content2');
-          
-          // Capabilities section
-          const capabilitiesTitleContent = getContentByType('ai-intelligence-capabilities-title');
-          const capabilitiesContent = getAllContentByType('ai-intelligence-capability');
-          
-          // Ethical section
-          const ethicalTitleContent = getContentByType('ai-intelligence-ethical-title');
-          const ethicalContent1 = getContentByType('ai-intelligence-ethical-content1');
-          const ethicalContent2 = getContentByType('ai-intelligence-ethical-content2');
-          
-          // CTA section
-          const ctaTitleContent = getContentByType('ai-intelligence-cta-title');
-          const ctaDescriptionContent = getContentByType('ai-intelligence-cta-description');
-          const ctaButtonContent = getContentByType('ai-intelligence-cta-button');
-          
-          // Update state with CMS content
-          const updatedContent = {
-            title: titleContent?.title || pageContent.title,
-            subtitle: subtitleContent?.title || pageContent.subtitle,
-            section1Title: section1TitleContent?.title || pageContent.section1Title,
-            section1Content1: section1Content1?.content || pageContent.section1Content1,
-            section1Content2: section1Content2?.content || pageContent.section1Content2,
-            capabilitiesTitle: capabilitiesTitleContent?.title || pageContent.capabilitiesTitle,
-            capability1Title: pageContent.capability1Title,
-            capability1Description: pageContent.capability1Description,
-            capability2Title: pageContent.capability2Title,
-            capability2Description: pageContent.capability2Description,
-            capability3Title: pageContent.capability3Title,
-            capability3Description: pageContent.capability3Description,
-            ethicalTitle: ethicalTitleContent?.title || pageContent.ethicalTitle,
-            ethicalContent1: ethicalContent1?.content || pageContent.ethicalContent1,
-            ethicalContent2: ethicalContent2?.content || pageContent.ethicalContent2,
-            ctaTitle: ctaTitleContent?.title || pageContent.ctaTitle,
-            ctaDescription: ctaDescriptionContent?.content || pageContent.ctaDescription,
-            ctaButtonText: ctaButtonContent?.title || pageContent.ctaButtonText
-          };
-          
-          // Update capabilities if we have them
-          if (capabilitiesContent.length > 0) {
-            if (capabilitiesContent[0]) {
-              updatedContent.capability1Title = capabilitiesContent[0].title || pageContent.capability1Title;
-              updatedContent.capability1Description = capabilitiesContent[0].content || pageContent.capability1Description;
-            }
-            
-            if (capabilitiesContent[1]) {
-              updatedContent.capability2Title = capabilitiesContent[1].title || pageContent.capability2Title;
-              updatedContent.capability2Description = capabilitiesContent[1].content || pageContent.capability2Description;
-            }
-            
-            if (capabilitiesContent[2]) {
-              updatedContent.capability3Title = capabilitiesContent[2].title || pageContent.capability3Title;
-              updatedContent.capability3Description = capabilitiesContent[2].content || pageContent.capability3Description;
-            }
-          }
-          
-          setPageContent(updatedContent);
-        }
-        
-        return (
-          <main>
-            {isCmsMode && (
-              <div className="bg-gray-100 p-4 sticky top-0 z-50 border-b">
-                <div className="container mx-auto flex justify-between items-center">
-                  <div>
-                    <h2 className="font-medium">CMS Mode: Editing AI Intelligence Page</h2>
-                    <p className="text-sm text-gray-500">Make changes to page content using the Edit button</p>
-                  </div>
-                  <Button onClick={handleInitializeContent}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Initialize Content
-                  </Button>
+    <CmsPageTemplate 
+      pageLocation="ai-intelligence" 
+      defaultContent={defaultCmsContent}
+      editButtonProps={{
+        position: 'custom',
+        customPositionClass: 'fixed top-20 right-4 z-50',
+        filterQuery: 'ai-'
+      }}
+    >
+      {({ content, isLoading, getContentByType, getAllContentByType }) => (
+        <main>
+          {isCmsMode && (
+            <div className="bg-gray-100 p-4 sticky top-0 z-50 border-b">
+              <div className="container mx-auto flex justify-between items-center">
+                <div>
+                  <h2 className="font-medium">CMS Mode: Editing AI Intelligence Page</h2>
+                  <p className="text-sm text-gray-500">Make changes to page content using the Edit button</p>
                 </div>
-              </div>
-            )}
-            
-            <div className="bg-black text-white py-16">
-              <div className="container mx-auto px-4">
-                <h1 className="font-poppins font-bold text-4xl md:text-5xl text-center" data-aos="fade-up">{pageContent.title}</h1>
-                <p className="text-lg text-center mt-4 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-                  {pageContent.subtitle}
-                </p>
+                <Button onClick={handleInitializeContent}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Initialize Content
+                </Button>
               </div>
             </div>
-
-            <section className="py-16">
-              <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
-                  <div className="md:w-1/2" data-aos="fade-right">
-                    <h2 className="font-poppins font-bold text-3xl mb-6">{pageContent.section1Title}</h2>
-                    <p className="text-lg mb-4">
-                      {pageContent.section1Content1}
-                    </p>
-                    <p className="text-lg">
-                      {pageContent.section1Content2}
-                    </p>
-                  </div>
-                  <div className="md:w-1/2" data-aos="fade-left">
-                    <svg className="w-full" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="600" height="400" fill="#f5f5f5" rx="10"></rect>
-                      <circle cx="300" cy="200" r="150" fill="#e0e0e0"></circle>
-                      <path d="M200 200C200 150 250 100 300 100C350 100 400 150 400 200C400 250 350 300 300 300C250 300 200 250 200 200Z" stroke="#333" fill="none" strokeWidth="2"></path>
-                      <path d="M225 175C225 160 250 145 275 145C300 145 325 160 325 175" stroke="#333" strokeWidth="2"></path>
-                      <path d="M275 175C275 160 300 145 325 145C350 145 375 160 375 175" stroke="#333" strokeWidth="2"></path>
-                      <circle cx="250" cy="175" r="10" fill="#333"></circle>
-                      <circle cx="350" cy="175" r="10" fill="#333"></circle>
-                      <path d="M275 230C275 230 300 250 325 230" stroke="#333" strokeWidth="2"></path>
-                      <path d="M225 145L250 175" stroke="#333" strokeWidth="2"></path>
-                      <path d="M375 145L350 175" stroke="#333" strokeWidth="2"></path>
-                      <rect x="275" y="100" width="50" height="20" rx="5" fill="#333"></rect>
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="mb-20" data-aos="fade-up">
-                  <h2 className="font-poppins font-bold text-3xl text-center mb-12">{pageContent.capabilitiesTitle}</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="bg-white p-8 rounded-lg shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
-                      <div className="text-4xl text-black mb-6">
-                        <i className="fas fa-brain"></i>
-                      </div>
-                      <h3 className="font-poppins font-semibold text-xl mb-4">{pageContent.capability1Title}</h3>
-                      <p className="text-gray-600">{pageContent.capability1Description}</p>
-                    </div>
-                    <div className="bg-white p-8 rounded-lg shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
-                      <div className="text-4xl text-black mb-6">
-                        <i className="fas fa-eye"></i>
-                      </div>
-                      <h3 className="font-poppins font-semibold text-xl mb-4">{pageContent.capability2Title}</h3>
-                      <p className="text-gray-600">{pageContent.capability2Description}</p>
-                    </div>
-                    <div className="bg-white p-8 rounded-lg shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
-                      <div className="text-4xl text-black mb-6">
-                        <i className="fas fa-chart-line"></i>
-                      </div>
-                      <h3 className="font-poppins font-semibold text-xl mb-4">{pageContent.capability3Title}</h3>
-                      <p className="text-gray-600">{pageContent.capability3Description}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:flex-row-reverse items-center gap-12 mb-20">
-                  <div className="md:w-1/2" data-aos="fade-left">
-                    <h2 className="font-poppins font-bold text-3xl mb-6">{pageContent.ethicalTitle}</h2>
-                    <p className="text-lg mb-4">
-                      {pageContent.ethicalContent1}
-                    </p>
-                    <p className="text-lg">
-                      {pageContent.ethicalContent2}
-                    </p>
-                  </div>
-                  <div className="md:w-1/2" data-aos="fade-right">
-                    <svg className="w-full" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="600" height="400" fill="#f5f5f5" rx="10"></rect>
-                      <rect x="100" y="100" width="400" height="200" fill="#e0e0e0" rx="10"></rect>
-                      <line x1="100" y1="150" x2="500" y2="150" stroke="#333" strokeWidth="2"></line>
-                      <line x1="100" y1="200" x2="500" y2="200" stroke="#333" strokeWidth="2"></line>
-                      <line x1="100" y1="250" x2="500" y2="250" stroke="#333" strokeWidth="2"></line>
-                      <circle cx="150" cy="150" r="15" fill="#333"></circle>
-                      <circle cx="250" cy="200" r="15" fill="#333"></circle>
-                      <circle cx="350" cy="250" r="15" fill="#333"></circle>
-                      <rect x="450" y="125" width="30" height="50" rx="5" fill="#333"></rect>
-                      <rect x="450" y="175" width="30" height="50" rx="5" fill="#333"></rect>
-                      <rect x="450" y="225" width="30" height="50" rx="5" fill="#333"></rect>
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="text-center" data-aos="fade-up">
-                  <h2 className="font-poppins font-bold text-3xl mb-8">{pageContent.ctaTitle}</h2>
-                  <p className="text-lg mb-8 max-w-3xl mx-auto">
-                    {pageContent.ctaDescription}
-                  </p>
-                  <a href="/#contact" className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300 inline-block">
-                    {pageContent.ctaButtonText}
-                  </a>
-                </div>
-              </div>
-            </section>
-          </main>
-        );
-      }}
+          )}
+          
+          {/* Hero Section */}
+          <section id="hero">
+            <HeroBlock 
+              content={content}
+              isLoading={isLoading}
+              getContentByType={getContentByType}
+              getAllContentByType={getAllContentByType}
+              typePrefix="ai-hero"
+            />
+          </section>
+          
+          {/* Approach Section */}
+          <section id="ai-approach">
+            <ContentBlock 
+              content={content}
+              isLoading={isLoading}
+              getContentByType={getContentByType}
+              getAllContentByType={getAllContentByType}
+              typePrefix="ai-approach"
+              imagePosition="right"
+              backgroundColor="white"
+            />
+          </section>
+          
+          {/* Capabilities Section */}
+          <section id="ai-capabilities">
+            <FeaturesBlock 
+              content={content}
+              isLoading={isLoading}
+              getContentByType={getContentByType}
+              getAllContentByType={getAllContentByType}
+              typePrefix="ai-capabilities"
+              backgroundColor="light"
+            />
+          </section>
+          
+          {/* Ethics Section */}
+          <section id="ai-ethics">
+            <ContentBlock 
+              content={content}
+              isLoading={isLoading}
+              getContentByType={getContentByType}
+              getAllContentByType={getAllContentByType}
+              typePrefix="ai-ethics"
+              imagePosition="left"
+              backgroundColor="white"
+            />
+          </section>
+          
+          {/* CTA Section */}
+          <section id="ai-cta">
+            <CTABlock 
+              content={content}
+              isLoading={isLoading}
+              getContentByType={getContentByType}
+              getAllContentByType={getAllContentByType}
+              typePrefix="ai-cta"
+              style="centered"
+              backgroundColor="black"
+            />
+          </section>
+        </main>
+      )}
     </CmsPageTemplate>
   );
 };
