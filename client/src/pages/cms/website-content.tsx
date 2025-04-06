@@ -313,16 +313,25 @@ export default function WebsiteContentPage() {
       return [];
     }
     
-    const category = CONTENT_HIERARCHY[categoryKey as keyof typeof CONTENT_HIERARCHY];
-    if (!category) return [];
-
-    if (!subcategoryKey && 'pages' in category) {
-      // Return direct pages from the category
-      return category.pages || [];
-    } else if (subcategoryKey && 'children' in category) {
-      // Return pages from the specified subcategory
-      const subcategory = category.children[subcategoryKey as keyof typeof category.children];
-      return subcategory?.pages || [];
+    // Handle "technology" category specifically
+    if (categoryKey === 'technology') {
+      if (!subcategoryKey) {
+        // Return all pages from all subcategories
+        const allPages: string[] = [];
+        Object.keys(CONTENT_HIERARCHY.technology.children).forEach(key => {
+          const subcat = CONTENT_HIERARCHY.technology.children[key as keyof typeof CONTENT_HIERARCHY.technology.children];
+          allPages.push(...subcat.pages);
+        });
+        return allPages;
+      } else {
+        // Return pages from the specific subcategory
+        return CONTENT_HIERARCHY.technology.children[subcategoryKey as keyof typeof CONTENT_HIERARCHY.technology.children]?.pages || [];
+      }
+    }
+    
+    // Handle "other" category
+    if (categoryKey === 'other') {
+      return CONTENT_HIERARCHY.other.pages;
     }
     
     // If nothing matched, return empty array
@@ -690,9 +699,9 @@ export default function WebsiteContentPage() {
             
             {activeCategory !== 'all' && 'children' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY] && (
               <Select
-                value={activeSubcategory || ''}
+                value={activeSubcategory || 'all_subcategories'}
                 onValueChange={(value) => {
-                  setActiveSubcategory(value || null);
+                  setActiveSubcategory(value === 'all_subcategories' ? null : value);
                   // If a subcategory is selected, don't change the tab
                 }}
               >
@@ -700,10 +709,10 @@ export default function WebsiteContentPage() {
                   <SelectValue placeholder="Select subcategory" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Subcategories</SelectItem>
-                  {Object.keys(CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].children).map((subcategoryKey) => (
+                  <SelectItem value="all_subcategories">All Subcategories</SelectItem>
+                  {activeCategory === 'technology' && Object.keys(CONTENT_HIERARCHY.technology.children).map((subcategoryKey) => (
                     <SelectItem key={subcategoryKey} value={subcategoryKey}>
-                      {CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].children[subcategoryKey as any].name}
+                      {CONTENT_HIERARCHY.technology.children[subcategoryKey as keyof typeof CONTENT_HIERARCHY.technology.children].name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -728,8 +737,8 @@ export default function WebsiteContentPage() {
                           {getPageLocationName(pageKey)}
                         </SelectItem>
                       ))
-                    : ('pages' in CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY] 
-                        ? CONTENT_HIERARCHY[activeCategory as keyof typeof CONTENT_HIERARCHY].pages?.map(pageKey => (
+                    : (activeCategory === 'other'
+                        ? CONTENT_HIERARCHY.other.pages.map((pageKey: string) => (
                             <SelectItem key={pageKey} value={pageKey}>
                               {getPageLocationName(pageKey)}
                             </SelectItem>
