@@ -3,11 +3,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
-export interface CTABlockProps {
+export interface SimpleHeroBlockProps {
   title: string;
-  ctaText: string;
-  ctaUrl: string;
+  subtitle?: string;
   backgroundColor?: string;
   textColor?: string;
   isCmsMode?: boolean;
@@ -15,21 +15,19 @@ export interface CTABlockProps {
 }
 
 /**
- * A reusable call-to-action block with CMS editing capability
+ * A reusable simple hero block with CMS editing capability
  */
-const CTABlock = ({
+const SimpleHeroBlock = ({
   title,
-  ctaText,
-  ctaUrl,
-  backgroundColor = 'white',
-  textColor = 'black',
+  subtitle = '',
+  backgroundColor = 'black',
+  textColor = 'white',
   isCmsMode = false,
   id
-}: CTABlockProps) => {
+}: SimpleHeroBlockProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
-  const [editedCtaText, setEditedCtaText] = useState(ctaText);
-  const [editedCtaUrl, setEditedCtaUrl] = useState(ctaUrl);
+  const [editedSubtitle, setEditedSubtitle] = useState(subtitle || '');
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -45,8 +43,7 @@ const CTABlock = ({
         body: JSON.stringify({
           id,
           title: editedTitle,
-          ctaText: editedCtaText,
-          ctaUrl: editedCtaUrl,
+          subtitle: editedSubtitle,
           backgroundColor,
           textColor
         })
@@ -55,7 +52,7 @@ const CTABlock = ({
       if (response.ok) {
         toast({
           title: "Success",
-          description: "CTA section updated successfully",
+          description: "Hero section updated successfully",
           variant: "default"
         });
         setIsEditing(false);
@@ -63,7 +60,7 @@ const CTABlock = ({
       } else {
         toast({
           title: "Error",
-          description: "Failed to update CTA section",
+          description: "Failed to update hero section",
           variant: "destructive"
         });
       }
@@ -86,32 +83,30 @@ const CTABlock = ({
         : 'bg-white text-black';
 
   const textColorClass = textColor === 'white' ? 'text-white' : 'text-black';
-  const buttonClass = textColor === 'white' 
-    ? 'bg-white text-black hover:bg-gray-200' 
-    : 'bg-black text-white hover:bg-gray-800';
 
   return (
-    <section className={`py-16 ${bgColorClass}`}>
-      <div className="container mx-auto px-4">
-        {isCmsMode && !isEditing ? (
-          <div className="flex justify-end mb-4">
+    <div className={`${bgColorClass} py-16 relative overflow-hidden`}>
+      {isCmsMode && !isEditing ? (
+        <div className="container mx-auto px-4 mb-4">
+          <div className="flex justify-end">
             <Button 
               variant="outline" 
               onClick={() => setIsEditing(true)}
-              className="mb-4"
             >
-              Edit CTA Section
+              Edit Hero Section
             </Button>
           </div>
-        ) : null}
+        </div>
+      ) : null}
 
-        {isCmsMode && isEditing ? (
+      {isCmsMode && isEditing ? (
+        <div className="container mx-auto px-4">
           <div className="bg-white text-black p-6 rounded-lg shadow-lg mb-8">
-            <h3 className="text-xl font-semibold mb-4">Edit Call-to-Action Section</h3>
+            <h3 className="text-xl font-semibold mb-4">Edit Hero Section</h3>
             
             <div className="space-y-4 mb-6">
               <div>
-                <label className="block text-sm font-medium mb-1">Message</label>
+                <label className="block text-sm font-medium mb-1">Title</label>
                 <Input 
                   value={editedTitle} 
                   onChange={(e) => setEditedTitle(e.target.value)}
@@ -120,20 +115,12 @@ const CTABlock = ({
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Button Text</label>
-                <Input 
-                  value={editedCtaText} 
-                  onChange={(e) => setEditedCtaText(e.target.value)}
+                <label className="block text-sm font-medium mb-1">Subtitle</label>
+                <Textarea 
+                  value={editedSubtitle} 
+                  onChange={(e) => setEditedSubtitle(e.target.value)}
                   className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-1">Button Link</label>
-                <Input 
-                  value={editedCtaUrl} 
-                  onChange={(e) => setEditedCtaUrl(e.target.value)}
-                  className="w-full"
+                  rows={3}
                 />
               </div>
             </div>
@@ -147,20 +134,24 @@ const CTABlock = ({
               </Button>
             </div>
           </div>
-        ) : (
-          <div className="text-center" data-aos="fade-up">
-            <p className={`text-lg mb-4 ${textColorClass}`}>{editedTitle || title}</p>
-            <a 
-              href={editedCtaUrl || ctaUrl} 
-              className={`inline-block ${buttonClass} px-6 py-3 rounded-full font-medium transition-colors duration-300`}
+        </div>
+      ) : (
+        <div className="container mx-auto px-4">
+          <h1 className={`font-poppins font-bold text-4xl md:text-5xl text-center ${textColorClass}`} data-aos="fade-up">
+            {editedTitle || title}
+          </h1>
+          {(editedSubtitle || subtitle) && (
+            <p className={`text-lg text-center mt-4 max-w-3xl mx-auto ${textColorClass === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`} 
+              data-aos="fade-up" 
+              data-aos-delay="100"
             >
-              {editedCtaText || ctaText}
-            </a>
-          </div>
-        )}
-      </div>
-    </section>
+              {editedSubtitle || subtitle}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
-export default CTABlock;
+export default SimpleHeroBlock;
