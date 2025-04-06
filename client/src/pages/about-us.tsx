@@ -8,7 +8,7 @@ import HeroBlock from '@/components/cms-blocks/HeroBlock';
 
 const AboutUs = () => {
   const isCmsMode = useCmsMode();
-  const { data: contentData, loading, error } = useCmsContent('about-us');
+  const { content: contentData, isLoading, error } = useCmsContent('about-us');
   
   // Set page title
   useEffect(() => {
@@ -18,37 +18,61 @@ const AboutUs = () => {
   // Default content blocks for the About Us page
   const defaultContent = [
     {
+      id: 0,
       type: 'hero',
+      pageLocation: 'about-us',
+      name: 'About Us Hero',
       title: 'About Us',
       subtitle: 'Learn about our story, mission, and values',
       content: '',
       backgroundColor: 'black',
-      textColor: 'white'
+      textColor: 'white',
+      order: 0,
+      isActive: true
     },
     {
+      id: 0, 
       type: 'content',
+      pageLocation: 'about-us',
+      name: 'Our Story',
       title: 'Our Story',
       content: "Bharat Technologies was founded in 2015 with a vision to revolutionize the technology landscape in India and beyond. What started as a small team of passionate innovators has now grown into a global technology company with a presence in multiple countries.\n\nOur journey has been defined by our commitment to innovation, excellence, and customer satisfaction. We have consistently pushed the boundaries of what's possible, developing cutting-edge solutions that address complex challenges across industries.",
       backgroundColor: 'white',
-      textColor: 'black'
+      textColor: 'black',
+      order: 1,
+      isActive: true
     },
     {
+      id: 0,
       type: 'content',
+      pageLocation: 'about-us',
+      name: 'Our Mission',
       title: 'Our Mission',
       content: "At Bharat Technologies, our mission is to empower organizations through innovative technology solutions that drive growth, efficiency, and competitive advantage. We aim to be at the forefront of technological advancement, creating products and services that shape the future.",
       backgroundColor: 'white',
-      textColor: 'black'
+      textColor: 'black',
+      order: 2,
+      isActive: true
     },
     {
+      id: 0,
       type: 'content',
+      pageLocation: 'about-us',
+      name: 'Our Vision',
       title: 'Our Vision',
       content: "To be a global leader in technology innovation, recognized for our excellence, integrity, and the transformative impact of our solutions on businesses and society.",
       backgroundColor: 'white',
-      textColor: 'black'
+      textColor: 'black',
+      order: 3,
+      isActive: true
     },
     {
+      id: 0,
       type: 'values',
+      pageLocation: 'about-us',
+      name: 'Our Values',
       title: 'Our Values',
+      content: '',
       values: [
         {
           title: 'Innovation',
@@ -68,23 +92,20 @@ const AboutUs = () => {
         }
       ],
       backgroundColor: 'white',
-      textColor: 'black'
+      textColor: 'black',
+      order: 4,
+      isActive: true
     }
   ];
 
   return (
     <CmsPageTemplate 
       pageLocation="about-us"
-      pageTitle="About Us"
-      contentData={contentData}
-      loading={loading}
-      error={error}
       defaultContent={defaultContent}
-      isCmsMode={isCmsMode}
     >
-      {(content) => (
+      {({ content: contentItems }) => (
         <>
-          {content.map((block, index) => {
+          {contentItems.map((block, index) => {
             if (block.type === 'hero') {
               return (
                 <HeroBlock 
