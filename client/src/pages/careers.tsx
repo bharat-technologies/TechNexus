@@ -8,6 +8,7 @@ import CTABlock from '@/components/cms-blocks/CTABlock';
 import { JobPosition } from '@/components/cms-blocks/JobsBlock';
 import { BenefitItem } from '@/components/cms-blocks/WhyJoinBlock';
 import { CMSContent } from '@/hooks/use-cms-content';
+import { Button } from '@/components/ui/button';
 
 const Careers = () => {
   const isCmsMode = useCmsMode();
@@ -133,8 +134,35 @@ const Careers = () => {
     }
   ];
 
+  // Check if we're in CMS mode and if there's a parameter to initialize content
+  useEffect(() => {
+    if (isCmsMode) {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('initialize') === 'true') {
+        // Redirect to create cms content page
+        window.location.href = '/careers?create_cms_content=true';
+      }
+    }
+  }, [isCmsMode]);
+
   return (
     <main>
+      {isCmsMode && window.location.search.includes('cms=true') && !window.location.search.includes('create_cms_content=true') && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 m-4">
+          <h3 className="text-yellow-800 font-medium">No content found for careers page</h3>
+          <p className="text-yellow-700 mt-1">If this is your first time editing this page, you need to initialize the content first.</p>
+          <div className="mt-3">
+            <Button 
+              variant="outline"
+              onClick={() => {
+                window.location.href = '/careers?create_cms_content=true';
+              }}
+            >
+              Initialize Careers Page Content
+            </Button>
+          </div>
+        </div>
+      )}
       <CmsPageTemplate 
         pageLocation="careers"
         defaultContent={defaultContent}
