@@ -303,6 +303,67 @@ const CONTENT_TYPES: Record<string, ContentTypeDefinition[]> = {
     { type: 'emergency-system', displayName: 'Emergency System', description: 'Emergency and critical systems' }
   ],
   
+  // Products - Cloud Products
+  [PAGE_LOCATIONS.ANALYTICS_CLOUD]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Analytics Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting analytics capabilities' },
+    { type: 'use-case', displayName: 'Use Case', description: 'Practical applications of analytics cloud' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for analytics cloud' }
+  ],
+  [PAGE_LOCATIONS.BUSINESS_NETWORK]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Business Network Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting business network capabilities' },
+    { type: 'integration', displayName: 'Integration', description: 'Integration options with other systems' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for business network cloud' }
+  ],
+  [PAGE_LOCATIONS.CONTENT_CLOUD]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Content Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting content cloud capabilities' },
+    { type: 'content-type', displayName: 'Content Type', description: 'Types of content supported' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for content cloud' }
+  ],
+  [PAGE_LOCATIONS.CYBERSECURITY_CLOUD]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Cybersecurity Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting cybersecurity capabilities' },
+    { type: 'security-layer', displayName: 'Security Layer', description: 'Layers of security provided' },
+    { type: 'threat-protection', displayName: 'Threat Protection', description: 'Types of threats protected against' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for cybersecurity cloud' }
+  ],
+  
+  // Products - Platform
+  [PAGE_LOCATIONS.DEVOPS_CLOUD]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for DevOps Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting DevOps capabilities' },
+    { type: 'tool', displayName: 'Tool', description: 'DevOps tools provided' },
+    { type: 'integration', displayName: 'Integration', description: 'Integration with CI/CD pipelines' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for DevOps cloud' }
+  ],
+  [PAGE_LOCATIONS.EXPERIENCE_CLOUD]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Experience Cloud page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting experience cloud capabilities' },
+    { type: 'use-case', displayName: 'Use Case', description: 'Practical applications of experience cloud' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for experience cloud' }
+  ],
+  [PAGE_LOCATIONS.OBSERVABILITY]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Observability Service Management page' },
+    { type: 'feature', displayName: 'Feature', description: 'Feature section highlighting observability capabilities' },
+    { type: 'monitoring', displayName: 'Monitoring Tool', description: 'Monitoring tools provided' },
+    { type: 'dashboard', displayName: 'Dashboard', description: 'Available dashboards and metrics' },
+    { type: 'pricing', displayName: 'Pricing Tier', description: 'Pricing information for observability service' }
+  ],
+  
+  // Products - Resources
+  [PAGE_LOCATIONS.PRODUCTS_AZ]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for A-Z Product Listing page' },
+    { type: 'category', displayName: 'Product Category', description: 'Category of products' },
+    { type: 'product-item', displayName: 'Product Item', description: 'Individual product listing' }
+  ],
+  [PAGE_LOCATIONS.PRODUCT_NAMES]: [
+    { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Product Name Changes page' },
+    { type: 'name-change', displayName: 'Name Change', description: 'Information about product name changes' },
+    { type: 'faq', displayName: 'FAQ', description: 'Frequently asked questions about name changes' }
+  ],
+  
   // Other
   [PAGE_LOCATIONS.CAREERS]: [
     { type: 'hero', displayName: 'Hero Section', description: 'Main banner for Careers page' },
