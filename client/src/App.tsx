@@ -4,12 +4,14 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { AgentAIProvider } from "@/contexts/AgentAIContext";
+import { ContactProvider } from "@/contexts/ContactContext";
 import NotFound from "@/pages/not-found";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackToTop from "@/components/layout/BackToTop";
 import Loader from "@/components/layout/Loader";
 import AgentAIModal from "@/components/layout/AgentAIModal";
+import ContactModal from "@/components/layout/ContactModal";
 import Home from "@/pages/home";
 import AboutUs from "@/pages/about-us";
 import OurTeam from "@/pages/our-team";
@@ -126,13 +128,16 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AgentAIProvider>
-        <Loader />
-        <Navbar />
-        <Router />
-        <Footer />
-        <BackToTop />
-        <AgentAIModal />
-        <Toaster />
+        <ContactProvider>
+          <Loader />
+          <Navbar />
+          <Router />
+          <Footer />
+          <BackToTop />
+          <AgentAIModal />
+          <ContactModal />
+          <Toaster />
+        </ContactProvider>
       </AgentAIProvider>
     </QueryClientProvider>
   );

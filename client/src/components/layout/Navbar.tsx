@@ -1,20 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'wouter';
 import { useAgentAI } from '@/contexts/AgentAIContext';
+import { useContact } from '@/contexts/ContactContext';
 import MobileMenu from './MobileMenu';
-import CallUsModal from './CallUsModal';
-import EmailUsModal from './EmailUsModal';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [isCallUsOpen, setIsCallUsOpen] = useState(false);
-  const [isEmailUsOpen, setIsEmailUsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   // Use the global Agent AI context
   const { setIsOpen: setIsAgentAIOpen, setIsMinimized } = useAgentAI();
+  
+  // Use the global Contact context
+  const { openContactModal } = useContact();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -245,8 +245,16 @@ const Navbar = () => {
                 <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Get in Touch</div>
-                    <a onClick={() => { setActiveDropdown(null); setIsCallUsOpen(true); }} className="block py-1 cursor-pointer">Call Us</a>
-                    <a onClick={() => { setActiveDropdown(null); setIsEmailUsOpen(true); }} className="block py-1 cursor-pointer">Email Us</a>
+                    <a onClick={() => { 
+                        setActiveDropdown(null); 
+                        openContactModal('call');
+                      }} 
+                      className="block py-1 cursor-pointer">Call Us</a>
+                    <a onClick={() => { 
+                        setActiveDropdown(null); 
+                        openContactModal('email');
+                      }} 
+                      className="block py-1 cursor-pointer">Email Us</a>
                     <a onClick={() => { 
                         setActiveDropdown(null); 
                         setIsAgentAIOpen(true);
@@ -279,18 +287,8 @@ const Navbar = () => {
           setIsAgentAIOpen(true);
           setIsMinimized(false); // Make sure it opens as full dialog
         }}
-        onOpenCallUs={() => setIsCallUsOpen(true)}
-        onOpenEmailUs={() => setIsEmailUsOpen(true)}
-      />
-      
-      <CallUsModal
-        isOpen={isCallUsOpen}
-        onClose={() => setIsCallUsOpen(false)}
-      />
-      
-      <EmailUsModal
-        isOpen={isEmailUsOpen}
-        onClose={() => setIsEmailUsOpen(false)}
+        onOpenCallUs={() => openContactModal('call')}
+        onOpenEmailUs={() => openContactModal('email')}
       />
     </>
   );

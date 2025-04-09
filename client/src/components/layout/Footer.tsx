@@ -1,6 +1,8 @@
 import { Link } from 'wouter';
+import { useContact } from '@/contexts/ContactContext';
 
 const Footer = () => {
+  const { openContactModal } = useContact();
   return (
     <footer className="bg-black text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
@@ -42,7 +44,16 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="/#contact" className="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+                <a 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openContactModal('email');
+                  }}
+                  className="text-gray-300 hover:text-white transition-colors duration-300"
+                >
+                  Contact
+                </a>
               </li>
               <li>
                 <Link href="/careers">
