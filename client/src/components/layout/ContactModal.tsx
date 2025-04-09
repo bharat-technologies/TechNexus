@@ -33,13 +33,7 @@ const ContactModal = () => {
   const { setIsOpen, setIsMinimized } = useAgentAI();
   const [selectedOption, setSelectedOption] = useState<'main' | 'email-form' | 'call-details'>('main');
   
-  // Reset the selection when the modal closes
-  useEffect(() => {
-    if (!contactModal) {
-      // Reset to default view after modal closes
-      setTimeout(() => setSelectedOption('main'), 300);
-    }
-  }, [contactModal]);
+  // The reset functionality is now handled in the main useEffect below
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -90,6 +84,9 @@ const ContactModal = () => {
       setSelectedOption('call-details');
     } else if (contactModal === 'email') {
       setSelectedOption('email-form');
+    } else if (contactModal === null) {
+      // Reset to main view when modal is closed
+      setSelectedOption('main');
     }
   }, [contactModal]);
   
