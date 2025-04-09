@@ -79,9 +79,22 @@ const ContactModal = () => {
     closeContactModal();
   };
 
-  // If the contact modal type is 'ai', handle it by opening the AgentAI
+  // Set the appropriate option based on the modal type
+  useEffect(() => {
+    if (contactModal === 'ai') {
+      handleAgentAI();
+      return;
+    }
+    
+    if (contactModal === 'call') {
+      setSelectedOption('call-details');
+    } else if (contactModal === 'email') {
+      setSelectedOption('email-form');
+    }
+  }, [contactModal]);
+  
+  // If the contact modal type is 'ai', don't render the modal
   if (contactModal === 'ai') {
-    handleAgentAI();
     return null;
   }
 
