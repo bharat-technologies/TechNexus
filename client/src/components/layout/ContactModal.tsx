@@ -119,12 +119,12 @@ const ContactModal = () => {
               <i className="fas fa-arrow-left"></i> Back
             </button>
             <DialogHeader className="mt-4 pl-8">
-              <DialogTitle>Send Us an Email</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-left">Send Us an Email</DialogTitle>
+              <DialogDescription className="text-left">
                 Fill out the form below and we'll get back to you as soon as possible.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-8">
               <div>
                 <label htmlFor="name" className="block mb-2 font-medium">Your Name</label>
                 <input 
@@ -201,21 +201,23 @@ const ContactModal = () => {
               <i className="fas fa-arrow-left"></i> Back
             </button>
             <DialogHeader className="mt-4 pl-8">
-              <DialogTitle>Call Our Team</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-left">Call Our Team</DialogTitle>
+              <DialogDescription className="text-left">
                 We're available Monday through Friday, 9am to 6pm IST.
               </DialogDescription>
             </DialogHeader>
-            <div className="py-6">
-              <div className="flex flex-col items-center justify-center text-center">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-phone text-3xl text-green-600"></i>
+            <div className="py-6 px-8">
+              <div className="flex flex-col items-start text-left">
+                <div className="flex items-center mb-6">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                    <i className="fas fa-phone text-2xl text-green-600"></i>
+                  </div>
+                  <h3 className="text-2xl font-bold">+123 456 7890</h3>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">+123 456 7890</h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-6 text-left">
                   Our technical support team is ready to assist you with any questions about our products and services.
                 </p>
-                <div className="grid grid-cols-2 gap-4 w-full max-w-xs">
+                <div className="grid grid-cols-2 gap-4 w-full">
                   <div className="bg-gray-100 p-3 rounded-lg text-center">
                     <div className="font-medium">Sales</div>
                     <div className="text-sm text-gray-600">Ext. 101</div>
