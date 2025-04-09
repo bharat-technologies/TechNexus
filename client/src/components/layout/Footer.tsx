@@ -48,8 +48,7 @@ const Footer = () => {
                   href="#" 
                   onClick={(e) => {
                     e.preventDefault();
-                    // Open main contact modal instead of specific type
-                    openContactModal(null);
+                    openContactModal('email');
                   }}
                   className="text-gray-300 hover:text-white transition-colors duration-300"
                 >
