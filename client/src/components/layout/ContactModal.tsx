@@ -112,18 +112,18 @@ const ContactModal = () => {
         
         {selectedOption === 'email-form' && (
           <>
-            <DialogHeader>
-              <DialogTitle>Send Us an Email</DialogTitle>
-              <DialogDescription>
-                Fill out the form below and we'll get back to you as soon as possible.
-              </DialogDescription>
-            </DialogHeader>
             <button 
               onClick={() => setSelectedOption('main')}
               className="absolute top-4 left-4 text-gray-500 hover:text-black"
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
+            <DialogHeader className="mt-4 pl-8">
+              <DialogTitle>Send Us an Email</DialogTitle>
+              <DialogDescription>
+                Fill out the form below and we'll get back to you as soon as possible.
+              </DialogDescription>
+            </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block mb-2 font-medium">Your Name</label>
@@ -194,18 +194,18 @@ const ContactModal = () => {
         
         {selectedOption === 'call-details' && (
           <>
-            <DialogHeader>
-              <DialogTitle>Call Our Team</DialogTitle>
-              <DialogDescription>
-                We're available Monday through Friday, 9am to 6pm IST.
-              </DialogDescription>
-            </DialogHeader>
             <button 
               onClick={() => setSelectedOption('main')}
               className="absolute top-4 left-4 text-gray-500 hover:text-black"
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
+            <DialogHeader className="mt-4 pl-8">
+              <DialogTitle>Call Our Team</DialogTitle>
+              <DialogDescription>
+                We're available Monday through Friday, 9am to 6pm IST.
+              </DialogDescription>
+            </DialogHeader>
             <div className="py-6">
               <div className="flex flex-col items-center justify-center text-center">
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
