@@ -114,17 +114,17 @@ const ContactModal = () => {
           <>
             <button 
               onClick={() => setSelectedOption('main')}
-              className="absolute top-4 left-4 text-gray-500 hover:text-black"
+              className="absolute top-4 left-6 text-gray-500 hover:text-black"
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
-            <DialogHeader className="mt-4 pl-8">
+            <DialogHeader className="mt-4 pl-6">
               <DialogTitle className="text-left">Send Us an Email</DialogTitle>
               <DialogDescription className="text-left">
                 Fill out the form below and we'll get back to you as soon as possible.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-6">
               <div>
                 <label htmlFor="name" className="block mb-2 font-medium">Your Name</label>
                 <input 
@@ -196,17 +196,17 @@ const ContactModal = () => {
           <>
             <button 
               onClick={() => setSelectedOption('main')}
-              className="absolute top-4 left-4 text-gray-500 hover:text-black"
+              className="absolute top-4 left-6 text-gray-500 hover:text-black"
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
-            <DialogHeader className="mt-4 pl-8">
+            <DialogHeader className="mt-4 pl-6">
               <DialogTitle className="text-left">Call Our Team</DialogTitle>
               <DialogDescription className="text-left">
                 We're available Monday through Friday, 9am to 6pm IST.
               </DialogDescription>
             </DialogHeader>
-            <div className="py-6 px-8">
+            <div className="py-6 px-6">
               <div className="flex flex-col items-start text-left">
                 <div className="flex items-center mb-6">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
