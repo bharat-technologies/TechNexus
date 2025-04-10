@@ -20,22 +20,42 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setIsScrolled(scrollTop > 50);
+      
+      // Close any open dropdowns on scroll
+      if (activeDropdown) {
+        setActiveDropdown(null);
+      }
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      // Only process if there's an active dropdown
+      if (!activeDropdown) return;
+      
+      const target = event.target as HTMLElement;
+      
+      // Check if the click was outside the dropdown
+      if (!target.closest('.dropdown-content') && !target.closest('.dropdown button')) {
+        setActiveDropdown(null);
+      }
+    };
+
+    // Handle route changes
+    const handleRouteChange = () => {
+      if (activeDropdown) {
         setActiveDropdown(null);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('popstate', handleRouteChange);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('popstate', handleRouteChange);
     };
-  }, []);
+  }, [activeDropdown]);
 
   const toggleDropdown = (dropdown: string) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);

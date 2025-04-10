@@ -235,15 +235,17 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailU
                 // Handle regular links
                 else {
                   return (
-                    <Link key={linkIndex} href={link.path}>
-                      <a 
-                        className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')}`}
-                        onClick={handleLinkClick}
-                      >
-                        <i className={`${link.icon} mr-2`}></i>
-                        <span>{link.text}</span>
-                      </a>
-                    </Link>
+                    <div 
+                      key={linkIndex} 
+                      className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')} cursor-pointer`}
+                      onClick={() => {
+                        handleLinkClick();
+                        window.location.href = link.path;
+                      }}
+                    >
+                      <i className={`${link.icon} mr-2`}></i>
+                      <span>{link.text}</span>
+                    </div>
                   );
                 }
               })}
