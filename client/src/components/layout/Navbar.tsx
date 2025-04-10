@@ -294,6 +294,7 @@ const Navbar = () => {
         }}
         onOpenCallUs={() => openContactModal('call')}
         onOpenEmailUs={() => openContactModal('email')}
+        onOpenContactModal={() => openContactModal('main')}
       />
     </>
   );

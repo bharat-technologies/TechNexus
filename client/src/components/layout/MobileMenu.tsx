@@ -7,6 +7,7 @@ interface MobileMenuProps {
   onOpenAgentAI?: () => void;
   onOpenCallUs?: () => void;
   onOpenEmailUs?: () => void;
+  onOpenContactModal?: () => void;
 }
 
 interface DropdownSection {
@@ -18,7 +19,7 @@ interface DropdownSection {
   }[];
 }
 
-const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailUs }: MobileMenuProps) => {
+const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailUs, onOpenContactModal }: MobileMenuProps) => {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
 
   const toggleSection = (section: string) => {
@@ -132,6 +133,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailU
     {
       title: 'Contact',
       links: [
+        { path: '#', icon: 'fas fa-address-card', text: 'Contact Us' },
         { path: 'tel:+1234567890', icon: 'fas fa-phone', text: 'Call Us' },
         { path: 'mailto:contact@bharattechnologies.com', icon: 'fas fa-envelope', text: 'Email Us' },
         { path: '#', icon: 'fas fa-robot', text: 'Agent AI' },
@@ -219,6 +221,23 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailU
                         onClose();
                         document.body.style.overflow = 'auto';
                         if (onOpenEmailUs) onOpenEmailUs();
+                      }}
+                    >
+                      <i className={`${link.icon} mr-2`}></i>
+                      <span>{link.text}</span>
+                    </div>
+                  );
+                }
+                // Handle Contact Us modal
+                else if (link.text === 'Contact Us' && section.title === 'Contact') {
+                  return (
+                    <div 
+                      key={linkIndex}
+                      className={`block py-2 hover:text-gray-300 transition-colors duration-300 mobile-${section.title.toLowerCase().replace('&', '').replace(' ', '')} cursor-pointer`}
+                      onClick={() => {
+                        onClose();
+                        document.body.style.overflow = 'auto';
+                        if (onOpenContactModal) onOpenContactModal();
                       }}
                     >
                       <i className={`${link.icon} mr-2`}></i>
