@@ -281,21 +281,54 @@ const Navbar = () => {
                   
                   <div className="solution-section mt-4">
                     <div className="font-bold mb-1">Industry</div>
-                    <div onClick={() => window.location.href = '/solutions/banking'} className="block py-1 cursor-pointer hover:bg-gray-50">Banking</div>
-                    <div onClick={() => window.location.href = '/solutions/insurance'} className="block py-1 cursor-pointer hover:bg-gray-50">Insurance</div>
-                    <div onClick={() => window.location.href = '/solutions/healthcare'} className="block py-1 cursor-pointer hover:bg-gray-50">Healthcare</div>
-                    <div onClick={() => window.location.href = '/solutions/oil-gas'} className="block py-1 cursor-pointer hover:bg-gray-50">Oil & Gas</div>
-                    <div onClick={() => window.location.href = '/solutions/industrial-manufacturing'} className="block py-1 cursor-pointer hover:bg-gray-50">Industrial Manufacturing</div>
-                    <div onClick={() => window.location.href = '/solutions/public-sector'} className="block py-1 cursor-pointer hover:bg-gray-50">Public Sector</div>
-                    <div onClick={() => window.location.href = '/solutions/utilities'} className="block py-1 cursor-pointer hover:bg-gray-50">Utilities</div>
-                    <div onClick={() => window.location.href = '/solutions/all-industries'} className="block py-1 cursor-pointer hover:bg-gray-50">View All Industries</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/banking';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Banking</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/insurance';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Insurance</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/healthcare';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Healthcare</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/oil-gas';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Oil & Gas</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/industrial-manufacturing';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Industrial Manufacturing</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/public-sector';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Public Sector</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/utilities';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Utilities</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/all-industries';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">View All Industries</div>
                   </div>
                   
                   <div className="solution-section mt-4">
                     <div className="font-bold mb-1">Enterprise Applications</div>
-                    <div onClick={() => window.location.href = '/solutions/sap'} className="block py-1 cursor-pointer hover:bg-gray-50">SAP®</div>
-                    <div onClick={() => window.location.href = '/solutions/microsoft'} className="block py-1 cursor-pointer hover:bg-gray-50">Microsoft®</div>
-                    <div onClick={() => window.location.href = '/solutions/salesforce'} className="block py-1 cursor-pointer hover:bg-gray-50">Salesforce®</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/sap';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">SAP®</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/microsoft';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Microsoft®</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/salesforce';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Salesforce®</div>
                   </div>
                 </div>
               </div>
@@ -312,9 +345,18 @@ const Navbar = () => {
                 <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Support & Services</div>
-                    <div onClick={() => window.location.href = '/consulting'} className="block py-1 cursor-pointer hover:bg-gray-50">Consulting</div>
-                    <div onClick={() => window.location.href = '/development'} className="block py-1 cursor-pointer hover:bg-gray-50">Development</div>
-                    <div onClick={() => window.location.href = '/support'} className="block py-1 cursor-pointer hover:bg-gray-50">Support</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/consulting';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Consulting</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/development';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Development</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/support';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Support</div>
                   </div>
                 </div>
               </div>

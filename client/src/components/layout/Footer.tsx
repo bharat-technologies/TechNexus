@@ -29,37 +29,34 @@ const Footer = () => {
             <h3 className="font-poppins font-semibold text-xl mb-4">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/">
-                  <a className="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
-                </Link>
+                <div 
+                  onClick={() => window.location.href = '/'}
+                  className="text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer"
+                >Home</div>
               </li>
               <li>
-                <Link href="/about-us">
-                  <a className="text-gray-300 hover:text-white transition-colors duration-300">About</a>
-                </Link>
+                <div 
+                  onClick={() => window.location.href = '/about-us'}
+                  className="text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer"
+                >About</div>
               </li>
               <li>
-                <Link href="/consulting">
-                  <a className="text-gray-300 hover:text-white transition-colors duration-300">Services</a>
-                </Link>
+                <div 
+                  onClick={() => window.location.href = '/consulting'}
+                  className="text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer"
+                >Services</div>
               </li>
               <li>
-                <a 
-                  href="#" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Open the main contact modal instead of directly going to email form
-                    openContactModal('main');
-                  }}
-                  className="text-gray-300 hover:text-white transition-colors duration-300"
-                >
-                  Contact
-                </a>
+                <div 
+                  onClick={() => openContactModal('main')}
+                  className="text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer"
+                >Contact</div>
               </li>
               <li>
-                <Link href="/careers">
-                  <a className="text-gray-300 hover:text-white transition-colors duration-300">Careers</a>
-                </Link>
+                <div 
+                  onClick={() => window.location.href = '/careers'}
+                  className="text-gray-300 hover:text-white transition-colors duration-300 cursor-pointer"
+                >Careers</div>
               </li>
             </ul>
           </div>

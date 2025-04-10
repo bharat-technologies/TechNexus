@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useCmsContent, initializeCmsContent } from '@/hooks/use-cms-content';
 import { Button } from '@/components/ui/button';
 import { Edit } from 'lucide-react';
@@ -145,23 +145,27 @@ const AboutCms = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
+  // Store content accessors in refs to prevent dependency changes
+  const getContentByTypeRef = useRef(getContentByType);
+  const getAllContentByTypeRef = useRef(getAllContentByType);
+  
   // Separate effect for updating content states
   useEffect(() => {
     if (!isLoading && content.length > 0) {
       // Get title
-      const titleContent = getContentByType('home-about-title');
+      const titleContent = getContentByTypeRef.current('home-about-title');
       if (titleContent) {
         setTitle(titleContent.title);
       }
       
       // Get description
-      const descriptionContent = getContentByType('home-about-description');
+      const descriptionContent = getContentByTypeRef.current('home-about-description');
       if (descriptionContent) {
         setDescription(descriptionContent.content || '');
       }
       
       // Get features
-      const featureContents = getAllContentByType('home-about-feature');
+      const featureContents = getAllContentByTypeRef.current('home-about-feature');
       if (featureContents.length > 0) {
         const mappedFeatures = featureContents.map(feature => ({
           icon: feature.imageUrl || 'fas fa-cog',
