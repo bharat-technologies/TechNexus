@@ -90,6 +90,8 @@ const ContactModal = () => {
       setSelectedOption('call-details');
     } else if (contactModal === 'email') {
       setSelectedOption('email-form');
+    } else if (contactModal === 'main') {
+      setSelectedOption('main');
     }
   }, [contactModal]);
   

@@ -247,6 +247,11 @@ const Navbar = () => {
                     <div className="font-bold mb-1">Get in Touch</div>
                     <a onClick={() => { 
                         setActiveDropdown(null); 
+                        openContactModal('main');
+                      }} 
+                      className="block py-1 cursor-pointer">Contact Us</a>
+                    <a onClick={() => { 
+                        setActiveDropdown(null); 
                         openContactModal('call');
                       }} 
                       className="block py-1 cursor-pointer">Call Us</a>
