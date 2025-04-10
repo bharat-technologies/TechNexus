@@ -225,22 +225,58 @@ const Navbar = () => {
                 <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Solutions</div>
-                    <div onClick={() => window.location.href = '/solutions/ai-intelligence'} className="block py-1 cursor-pointer hover:bg-gray-50">AI Intelligence</div>
-                    <div onClick={() => window.location.href = '/solutions/cloud-stack'} className="block py-1 cursor-pointer hover:bg-gray-50">Cloud Stack</div>
-                    <div onClick={() => window.location.href = '/solutions/cyber-security'} className="block py-1 cursor-pointer hover:bg-gray-50">Cyber Security</div>
-                    <div onClick={() => window.location.href = '/solutions/multi-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Multi-Cloud</div>
-                    <div onClick={() => window.location.href = '/solutions/defence'} className="block py-1 cursor-pointer hover:bg-gray-50">Defence</div>
-                    <div onClick={() => window.location.href = '/solutions/space'} className="block py-1 cursor-pointer hover:bg-gray-50">Space</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/ai-intelligence';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">AI Intelligence</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/cloud-stack';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Cloud Stack</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/cyber-security';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Cyber Security</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/multi-cloud';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Multi-Cloud</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/defence';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Defence</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/space';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Space</div>
                   </div>
                   
                   <div className="solution-section mt-4">
                     <div className="font-bold mb-1">Artificial Intelligence</div>
-                    <div onClick={() => window.location.href = '/solutions/service-management-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Service Management Aviator</div>
-                    <div onClick={() => window.location.href = '/solutions/devops-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">DevOps Aviator</div>
-                    <div onClick={() => window.location.href = '/solutions/experience-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Experience Aviator</div>
-                    <div onClick={() => window.location.href = '/solutions/content-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Content Aviator</div>
-                    <div onClick={() => window.location.href = '/solutions/business-network-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Business Network Aviator</div>
-                    <div onClick={() => window.location.href = '/solutions/cybersecurity-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Cybersecurity Aviator</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/service-management-aviator';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Service Management Aviator</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/devops-aviator';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">DevOps Aviator</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/experience-aviator';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Experience Aviator</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/content-aviator';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Content Aviator</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/business-network-aviator';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Business Network Aviator</div>
+                    <div onClick={() => {
+                      setActiveDropdown(null);
+                      window.location.href = '/solutions/cybersecurity-aviator';
+                    }} className="block py-1 cursor-pointer hover:bg-gray-50">Cybersecurity Aviator</div>
                   </div>
                   
                   <div className="solution-section mt-4">
