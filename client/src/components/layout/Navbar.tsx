@@ -211,6 +211,35 @@ const Navbar = () => {
                     <a href="/solutions/defence" className="block py-1">Defence</a>
                     <a href="/solutions/space" className="block py-1">Space</a>
                   </div>
+                  
+                  <div className="solution-section mt-4">
+                    <div className="font-bold mb-1">Artificial Intelligence</div>
+                    <a href="/solutions/service-management-aviator" className="block py-1">Service Management Aviator</a>
+                    <a href="/solutions/devops-aviator" className="block py-1">DevOps Aviator</a>
+                    <a href="/solutions/experience-aviator" className="block py-1">Experience Aviator</a>
+                    <a href="/solutions/content-aviator" className="block py-1">Content Aviator</a>
+                    <a href="/solutions/business-network-aviator" className="block py-1">Business Network Aviator</a>
+                    <a href="/solutions/cybersecurity-aviator" className="block py-1">Cybersecurity Aviator</a>
+                  </div>
+                  
+                  <div className="solution-section mt-4">
+                    <div className="font-bold mb-1">Industry</div>
+                    <a href="/solutions/banking" className="block py-1">Banking</a>
+                    <a href="/solutions/insurance" className="block py-1">Insurance</a>
+                    <a href="/solutions/healthcare" className="block py-1">Healthcare</a>
+                    <a href="/solutions/oil-gas" className="block py-1">Oil & Gas</a>
+                    <a href="/solutions/industrial-manufacturing" className="block py-1">Industrial Manufacturing</a>
+                    <a href="/solutions/public-sector" className="block py-1">Public Sector</a>
+                    <a href="/solutions/utilities" className="block py-1">Utilities</a>
+                    <a href="/solutions/all-industries" className="block py-1">View All Industries</a>
+                  </div>
+                  
+                  <div className="solution-section mt-4">
+                    <div className="font-bold mb-1">Enterprise Applications</div>
+                    <a href="/solutions/sap" className="block py-1">SAP®</a>
+                    <a href="/solutions/microsoft" className="block py-1">Microsoft®</a>
+                    <a href="/solutions/salesforce" className="block py-1">Salesforce®</a>
+                  </div>
                 </div>
               </div>
               

@@ -178,15 +178,19 @@
   display: block;
 }
 
-/* Solutions dropdown in horizontal grid */
+/* Solutions dropdown in grid layout */
 .solutions-dropdown {
-  min-width: 600px;
+  min-width: 800px;
   max-width: 90vw;
   left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
 }
 
 .solutions-dropdown.active {
-  display: block;
+  display: grid;
 }
 
 /* Services dropdown in horizontal grid */
@@ -262,6 +266,7 @@
     min-width: 600px;
     left: -200px;
     transform: none;
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .services-dropdown {
