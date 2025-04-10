@@ -295,27 +295,27 @@ const Navbar = () => {
                 <div className={`dropdown-content contact-dropdown ${activeDropdown === 'contact' ? 'active' : ''} right-0`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Get in Touch</div>
-                    <a onClick={() => { 
+                    <div onClick={() => { 
                         setActiveDropdown(null); 
                         openContactModal('main');
                       }} 
-                      className="block py-1 cursor-pointer">Contact Us</a>
-                    <a onClick={() => { 
+                      className="block py-1 cursor-pointer hover:bg-gray-50">Contact Us</div>
+                    <div onClick={() => { 
                         setActiveDropdown(null); 
                         openContactModal('call');
                       }} 
-                      className="block py-1 cursor-pointer">Call Us</a>
-                    <a onClick={() => { 
+                      className="block py-1 cursor-pointer hover:bg-gray-50">Call Us</div>
+                    <div onClick={() => { 
                         setActiveDropdown(null); 
                         openContactModal('email');
                       }} 
-                      className="block py-1 cursor-pointer">Email Us</a>
-                    <a onClick={() => { 
+                      className="block py-1 cursor-pointer hover:bg-gray-50">Email Us</div>
+                    <div onClick={() => { 
                         setActiveDropdown(null); 
                         setIsAgentAIOpen(true);
                         setIsMinimized(false); // Make sure it opens as full dialog
                       }} 
-                      className="block py-1 cursor-pointer">Agent AI</a>
+                      className="block py-1 cursor-pointer hover:bg-gray-50">Agent AI</div>
                   </div>
                 </div>
               </div>

@@ -137,8 +137,16 @@ const AboutCms = () => {
   
   // Process CMS data when available
   useEffect(() => {
-    createHomeAboutContent();
-    
+    // Only run createHomeAboutContent once when component mounts
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('create_cms_content') === 'true') {
+      createHomeAboutContent();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+  // Separate effect for updating content states
+  useEffect(() => {
     if (!isLoading && content.length > 0) {
       // Get title
       const titleContent = getContentByType('home-about-title');
@@ -163,17 +171,19 @@ const AboutCms = () => {
         setFeatures(mappedFeatures);
       }
     }
-  }, [content, isLoading, getContentByType, getAllContentByType]);
+  }, [content, isLoading]);
   
   return (
     <section id="about" className="py-20 bg-white relative">
       {isCmsEnvironment() && (
         <div className="absolute top-4 right-4">
-          <Button asChild size="sm" variant="outline">
-            <Link href="/cms/website-content?filter=home">
-              <Edit className="h-4 w-4 mr-2" />
-              Edit Content
-            </Link>
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={() => window.location.href = '/cms/website-content?filter=home'}
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Edit Content
           </Button>
         </div>
       )}

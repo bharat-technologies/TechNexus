@@ -165,11 +165,14 @@ const HeroCms = () => {
       
       {isCmsEnvironment() && (
         <div className="absolute top-4 right-4 z-50">
-          <Button asChild size="sm" variant="outline" className="bg-white/20 backdrop-blur-sm text-white border-white/40 hover:bg-white/30">
-            <Link href="/cms/website-content?filter=home">
-              <Edit className="h-4 w-4 mr-2" />
-              Edit Hero
-            </Link>
+          <Button 
+            size="sm" 
+            variant="outline" 
+            className="bg-white/20 backdrop-blur-sm text-white border-white/40 hover:bg-white/30"
+            onClick={() => window.location.href = '/cms/website-content?filter=home'}
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Edit Hero
           </Button>
         </div>
       )}
@@ -208,12 +211,16 @@ const HeroCms = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.6 }}
             >
-              <Link href={primaryButtonUrl}>
-                <a className="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors duration-300">{primaryButtonText}</a>
-              </Link>
-              <Link href={secondaryButtonUrl}>
-                <a className="border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-black transition-colors duration-300">{secondaryButtonText}</a>
-              </Link>
+              <div 
+                onClick={() => window.location.href = primaryButtonUrl}
+                className="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors duration-300 cursor-pointer">
+                {primaryButtonText}
+              </div>
+              <div 
+                onClick={() => window.location.href = secondaryButtonUrl}
+                className="border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
+                {secondaryButtonText}
+              </div>
             </motion.div>
           </div>
           
