@@ -148,34 +148,34 @@ const Navbar = () => {
                   
                   <div className="solution-section mt-2">
                     <div className="font-bold mb-1">Security & Defense</div>
-                    <a href="/cyber-security" className="block py-1">
+                    <div onClick={() => window.location.href = '/cyber-security'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-shield-alt mr-2"></i>
                       <span>Cyber Security</span>
-                    </a>
-                    <a href="/defence" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/defence'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-satellite mr-2"></i>
                       <span>Defence</span>
-                    </a>
-                    <a href="/space" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/space'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-rocket mr-2"></i>
                       <span>Space</span>
-                    </a>
+                    </div>
                   </div>
 
                   <div className="solution-section mt-2">
                     <div className="font-bold mb-1">Specialized Technologies</div>
-                    <a href="/technology/agriculture-farming" className="block py-1">
+                    <div onClick={() => window.location.href = '/technology/agriculture-farming'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-leaf mr-2"></i>
                       <span>Agriculture & Farming</span>
-                    </a>
-                    <a href="/technology/healthcare" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/technology/healthcare'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-heartbeat mr-2"></i>
                       <span>Health Care</span>
-                    </a>
-                    <a href="/technology/life-support" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/technology/life-support'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-user-shield mr-2"></i>
                       <span>Life Support</span>
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -192,23 +192,23 @@ const Navbar = () => {
                 <div className={`dropdown-content products-dropdown ${activeDropdown === 'products' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Cloud Products</div>
-                    <a href="/products/analytics-cloud" className="block py-1">Analytics Cloud</a>
-                    <a href="/products/business-network-cloud" className="block py-1">Business Network Cloud</a>
-                    <a href="/products/content-cloud" className="block py-1">Content Cloud</a>
-                    <a href="/products/cybersecurity-cloud" className="block py-1">Cybersecurity Cloud</a>
+                    <div onClick={() => window.location.href = '/products/analytics-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Analytics Cloud</div>
+                    <div onClick={() => window.location.href = '/products/business-network-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Business Network Cloud</div>
+                    <div onClick={() => window.location.href = '/products/content-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Content Cloud</div>
+                    <div onClick={() => window.location.href = '/products/cybersecurity-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Cybersecurity Cloud</div>
                   </div>
                   
                   <div className="solution-section mt-2">
                     <div className="font-bold mb-1">Platform</div>
-                    <a href="/products/devops-cloud" className="block py-1">DevOps Cloud</a>
-                    <a href="/products/experience-cloud" className="block py-1">Experience Cloud</a>
-                    <a href="/products/observability-service-management" className="block py-1">Observability and Service</a>
+                    <div onClick={() => window.location.href = '/products/devops-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">DevOps Cloud</div>
+                    <div onClick={() => window.location.href = '/products/experience-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Experience Cloud</div>
+                    <div onClick={() => window.location.href = '/products/observability-service-management'} className="block py-1 cursor-pointer hover:bg-gray-50">Observability and Service</div>
                   </div>
                   
                   <div className="solution-section mt-2">
                     <div className="font-bold mb-1">Resources</div>
-                    <a href="/products/a-z-listing" className="block py-1">A-Z Product Listing</a>
-                    <a href="/products/name-changes" className="block py-1">Product Name Changes</a>
+                    <div onClick={() => window.location.href = '/products/a-z-listing'} className="block py-1 cursor-pointer hover:bg-gray-50">A-Z Product Listing</div>
+                    <div onClick={() => window.location.href = '/products/name-changes'} className="block py-1 cursor-pointer hover:bg-gray-50">Product Name Changes</div>
                   </div>
                 </div>
               </div>
@@ -225,41 +225,41 @@ const Navbar = () => {
                 <div className={`dropdown-content solutions-dropdown ${activeDropdown === 'solutions' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Solutions</div>
-                    <a href="/solutions/ai-intelligence" className="block py-1">AI Intelligence</a>
-                    <a href="/solutions/cloud-stack" className="block py-1">Cloud Stack</a>
-                    <a href="/solutions/cyber-security" className="block py-1">Cyber Security</a>
-                    <a href="/solutions/multi-cloud" className="block py-1">Multi-Cloud</a>
-                    <a href="/solutions/defence" className="block py-1">Defence</a>
-                    <a href="/solutions/space" className="block py-1">Space</a>
+                    <div onClick={() => window.location.href = '/solutions/ai-intelligence'} className="block py-1 cursor-pointer hover:bg-gray-50">AI Intelligence</div>
+                    <div onClick={() => window.location.href = '/solutions/cloud-stack'} className="block py-1 cursor-pointer hover:bg-gray-50">Cloud Stack</div>
+                    <div onClick={() => window.location.href = '/solutions/cyber-security'} className="block py-1 cursor-pointer hover:bg-gray-50">Cyber Security</div>
+                    <div onClick={() => window.location.href = '/solutions/multi-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">Multi-Cloud</div>
+                    <div onClick={() => window.location.href = '/solutions/defence'} className="block py-1 cursor-pointer hover:bg-gray-50">Defence</div>
+                    <div onClick={() => window.location.href = '/solutions/space'} className="block py-1 cursor-pointer hover:bg-gray-50">Space</div>
                   </div>
                   
                   <div className="solution-section mt-4">
                     <div className="font-bold mb-1">Artificial Intelligence</div>
-                    <a href="/solutions/service-management-aviator" className="block py-1">Service Management Aviator</a>
-                    <a href="/solutions/devops-aviator" className="block py-1">DevOps Aviator</a>
-                    <a href="/solutions/experience-aviator" className="block py-1">Experience Aviator</a>
-                    <a href="/solutions/content-aviator" className="block py-1">Content Aviator</a>
-                    <a href="/solutions/business-network-aviator" className="block py-1">Business Network Aviator</a>
-                    <a href="/solutions/cybersecurity-aviator" className="block py-1">Cybersecurity Aviator</a>
+                    <div onClick={() => window.location.href = '/solutions/service-management-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Service Management Aviator</div>
+                    <div onClick={() => window.location.href = '/solutions/devops-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">DevOps Aviator</div>
+                    <div onClick={() => window.location.href = '/solutions/experience-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Experience Aviator</div>
+                    <div onClick={() => window.location.href = '/solutions/content-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Content Aviator</div>
+                    <div onClick={() => window.location.href = '/solutions/business-network-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Business Network Aviator</div>
+                    <div onClick={() => window.location.href = '/solutions/cybersecurity-aviator'} className="block py-1 cursor-pointer hover:bg-gray-50">Cybersecurity Aviator</div>
                   </div>
                   
                   <div className="solution-section mt-4">
                     <div className="font-bold mb-1">Industry</div>
-                    <a href="/solutions/banking" className="block py-1">Banking</a>
-                    <a href="/solutions/insurance" className="block py-1">Insurance</a>
-                    <a href="/solutions/healthcare" className="block py-1">Healthcare</a>
-                    <a href="/solutions/oil-gas" className="block py-1">Oil & Gas</a>
-                    <a href="/solutions/industrial-manufacturing" className="block py-1">Industrial Manufacturing</a>
-                    <a href="/solutions/public-sector" className="block py-1">Public Sector</a>
-                    <a href="/solutions/utilities" className="block py-1">Utilities</a>
-                    <a href="/solutions/all-industries" className="block py-1">View All Industries</a>
+                    <div onClick={() => window.location.href = '/solutions/banking'} className="block py-1 cursor-pointer hover:bg-gray-50">Banking</div>
+                    <div onClick={() => window.location.href = '/solutions/insurance'} className="block py-1 cursor-pointer hover:bg-gray-50">Insurance</div>
+                    <div onClick={() => window.location.href = '/solutions/healthcare'} className="block py-1 cursor-pointer hover:bg-gray-50">Healthcare</div>
+                    <div onClick={() => window.location.href = '/solutions/oil-gas'} className="block py-1 cursor-pointer hover:bg-gray-50">Oil & Gas</div>
+                    <div onClick={() => window.location.href = '/solutions/industrial-manufacturing'} className="block py-1 cursor-pointer hover:bg-gray-50">Industrial Manufacturing</div>
+                    <div onClick={() => window.location.href = '/solutions/public-sector'} className="block py-1 cursor-pointer hover:bg-gray-50">Public Sector</div>
+                    <div onClick={() => window.location.href = '/solutions/utilities'} className="block py-1 cursor-pointer hover:bg-gray-50">Utilities</div>
+                    <div onClick={() => window.location.href = '/solutions/all-industries'} className="block py-1 cursor-pointer hover:bg-gray-50">View All Industries</div>
                   </div>
                   
                   <div className="solution-section mt-4">
                     <div className="font-bold mb-1">Enterprise Applications</div>
-                    <a href="/solutions/sap" className="block py-1">SAP®</a>
-                    <a href="/solutions/microsoft" className="block py-1">Microsoft®</a>
-                    <a href="/solutions/salesforce" className="block py-1">Salesforce®</a>
+                    <div onClick={() => window.location.href = '/solutions/sap'} className="block py-1 cursor-pointer hover:bg-gray-50">SAP®</div>
+                    <div onClick={() => window.location.href = '/solutions/microsoft'} className="block py-1 cursor-pointer hover:bg-gray-50">Microsoft®</div>
+                    <div onClick={() => window.location.href = '/solutions/salesforce'} className="block py-1 cursor-pointer hover:bg-gray-50">Salesforce®</div>
                   </div>
                 </div>
               </div>
@@ -276,9 +276,9 @@ const Navbar = () => {
                 <div className={`dropdown-content services-dropdown ${activeDropdown === 'services' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Support & Services</div>
-                    <a href="/consulting" className="block py-1">Consulting</a>
-                    <a href="/development" className="block py-1">Development</a>
-                    <a href="/support" className="block py-1">Support</a>
+                    <div onClick={() => window.location.href = '/consulting'} className="block py-1 cursor-pointer hover:bg-gray-50">Consulting</div>
+                    <div onClick={() => window.location.href = '/development'} className="block py-1 cursor-pointer hover:bg-gray-50">Development</div>
+                    <div onClick={() => window.location.href = '/support'} className="block py-1 cursor-pointer hover:bg-gray-50">Support</div>
                   </div>
                 </div>
               </div>
