@@ -134,8 +134,8 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailU
       title: 'Contact',
       links: [
         { path: '#', icon: 'fas fa-address-card', text: 'Contact Us' },
-        { path: 'tel:+1234567890', icon: 'fas fa-phone', text: 'Call Us' },
-        { path: 'mailto:contact@bharattechnologies.com', icon: 'fas fa-envelope', text: 'Email Us' },
+        { path: '#', icon: 'fas fa-phone', text: 'Call Us' },
+        { path: '#', icon: 'fas fa-envelope', text: 'Email Us' },
         { path: '#', icon: 'fas fa-robot', text: 'Agent AI' },
       ]
     }
