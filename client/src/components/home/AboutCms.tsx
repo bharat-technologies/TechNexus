@@ -145,27 +145,27 @@ const AboutCms = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  // Store content accessors in refs to prevent dependency changes
-  const getContentByTypeRef = useRef(getContentByType);
-  const getAllContentByTypeRef = useRef(getAllContentByType);
-  
   // Separate effect for updating content states
   useEffect(() => {
-    if (!isLoading && content.length > 0) {
+    // Avoid running if data isn't loaded yet
+    if (isLoading || content.length === 0) return;
+    
+    // Create a local function to process data
+    const processContent = () => {
       // Get title
-      const titleContent = getContentByTypeRef.current('home-about-title');
+      const titleContent = getContentByType('home-about-title');
       if (titleContent) {
         setTitle(titleContent.title);
       }
       
       // Get description
-      const descriptionContent = getContentByTypeRef.current('home-about-description');
+      const descriptionContent = getContentByType('home-about-description');
       if (descriptionContent) {
         setDescription(descriptionContent.content || '');
       }
       
       // Get features
-      const featureContents = getAllContentByTypeRef.current('home-about-feature');
+      const featureContents = getAllContentByType('home-about-feature');
       if (featureContents.length > 0) {
         const mappedFeatures = featureContents.map(feature => ({
           icon: feature.imageUrl || 'fas fa-cog',
@@ -174,7 +174,12 @@ const AboutCms = () => {
         }));
         setFeatures(mappedFeatures);
       }
-    }
+    };
+    
+    // Process the content
+    processContent();
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, isLoading]);
   
   return (
