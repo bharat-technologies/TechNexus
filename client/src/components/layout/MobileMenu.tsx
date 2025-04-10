@@ -72,8 +72,6 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailU
         { path: '/products/devops-cloud', icon: 'fas fa-code-branch', text: 'DevOps Cloud' },
         { path: '/products/experience-cloud', icon: 'fas fa-laptop', text: 'Experience Cloud' },
         { path: '/products/observability-service-management', icon: 'fas fa-eye', text: 'Observability and Service Management Cloud' },
-        { path: '/products/opentext-thrust', icon: 'fas fa-rocket', text: 'OpenText™ Thrust' },
-        { path: '/products/portfolio', icon: 'fas fa-briefcase', text: 'Portfolio' },
         { path: '/products/a-z-listing', icon: 'fas fa-list-alt', text: 'A-Z Product Listing' },
         { path: '/products/name-changes', icon: 'fas fa-exchange-alt', text: 'Product Name Changes' },
       ]
