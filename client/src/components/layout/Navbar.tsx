@@ -76,8 +76,10 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             {/* Logo Section */}
-            <Link href="/">
-              <a className="flex items-center cursor-pointer group">
+            <div 
+              onClick={() => window.location.href = '/'}
+              className="flex items-center cursor-pointer group"
+            >
                 <svg width="40" height="40" viewBox="0 0 50 50" fill="none" 
                   className="mr-2 transition-transform duration-500 group-hover:rotate-90">
                   <rect width="50" height="50" rx="10" fill="black"/>
@@ -86,8 +88,7 @@ const Navbar = () => {
                 <span className="font-poppins font-semibold text-lg text-primary group-hover:text-black">
                   Bharat Technologies
                 </span>
-              </a>
-            </Link>
+            </div>
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-3" ref={dropdownRef}>
@@ -103,18 +104,18 @@ const Navbar = () => {
                 <div className={`dropdown-content company-dropdown ${activeDropdown === 'company' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">About Us</div>
-                    <a href="/about-us" className="block py-1">
+                    <div onClick={() => window.location.href = '/about-us'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-building mr-2"></i>
                       <span>Company Overview</span>
-                    </a>
-                    <a href="/our-team" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/our-team'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-users mr-2"></i>
                       <span>Our Team</span>
-                    </a>
-                    <a href="/careers" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/careers'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-briefcase mr-2"></i>
                       <span>Careers</span>
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -131,18 +132,18 @@ const Navbar = () => {
                 <div className={`dropdown-content technology-dropdown ${activeDropdown === 'technology' ? 'active' : ''}`}>
                   <div className="solution-section">
                     <div className="font-bold mb-1">Core Technologies</div>
-                    <a href="/ai-intelligence" className="block py-1">
+                    <div onClick={() => window.location.href = '/ai-intelligence'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-robot mr-2"></i>
                       <span>Artificial Intelligence</span>
-                    </a>
-                    <a href="/cloud-stack" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/cloud-stack'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-cloud mr-2"></i>
                       <span>Cloud Stack</span>
-                    </a>
-                    <a href="/multi-cloud" className="block py-1">
+                    </div>
+                    <div onClick={() => window.location.href = '/multi-cloud'} className="block py-1 cursor-pointer hover:bg-gray-50">
                       <i className="fas fa-server mr-2"></i>
                       <span>Multi Cloud</span>
-                    </a>
+                    </div>
                   </div>
                   
                   <div className="solution-section mt-2">
