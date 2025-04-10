@@ -76,18 +76,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenAgentAI, onOpenCallUs, onOpenEmailU
         { path: '/products/name-changes', icon: 'fas fa-exchange-alt', text: 'Product Name Changes' },
       ]
     },
-    {
-      title: 'Solutions - Information Reimagined',
-      links: [
-        { path: '/solutions/knowledge-reimagined', icon: 'fas fa-brain', text: 'Knowledge Reimagined' },
-        { path: '/solutions/cloudops-reimagined', icon: 'fas fa-cloud-upload-alt', text: 'CloudOps Reimagined' },
-        { path: '/solutions/connections-reimagined', icon: 'fas fa-network-wired', text: 'Connections Reimagined' },
-        { path: '/solutions/conversations-reimagined', icon: 'fas fa-comments', text: 'Conversations Reimagined' },
-        { path: '/solutions/decisions-reimagined', icon: 'fas fa-balance-scale', text: 'Decisions Reimagined' },
-        { path: '/solutions/engineering-reimagined', icon: 'fas fa-cogs', text: 'Engineering Reimagined' },
-        { path: '/solutions/security-reimagined', icon: 'fas fa-shield-alt', text: 'Security Reimagined' },
-      ]
-    },
+
     {
       title: 'Solutions - Artificial Intelligence',
       links: [
