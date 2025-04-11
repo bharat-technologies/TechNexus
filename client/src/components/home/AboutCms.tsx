@@ -1,18 +1,24 @@
-import { useEffect, useState, useRef } from 'react';
-import { useCmsContent, initializeCmsContent } from '@/hooks/use-cms-content';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useCmsContent, initializeCmsContent, type CMSContent } from '@/hooks/use-cms-content';
 import { Button } from '@/components/ui/button';
 import { Edit } from 'lucide-react';
-import { Link } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 
+// Define feature interface
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
 const AboutCms = () => {
-  const { content, isLoading, getContentByType, getAllContentByType } = useCmsContent('home');
+  const { content, isLoading } = useCmsContent('home');
   const { toast } = useToast();
   
-  // State for section content
+  // State for section content with default values
   const [title, setTitle] = useState('About Us');
   const [description, setDescription] = useState('We specialize in AI, cloud, cybersecurity, and space technologies to shape a better future.');
-  const [features, setFeatures] = useState([
+  const [features, setFeatures] = useState<Feature[]>([
     {
       icon: 'fas fa-robot',
       title: 'AI Solutions',
@@ -30,157 +36,155 @@ const AboutCms = () => {
     }
   ]);
   
+  // Create memoized content processing functions to avoid recreating them on every render
+  const getContentByType = useCallback((type: string): CMSContent | undefined => {
+    if (!content || content.length === 0) return undefined;
+    return content.find(item => item.type === type);
+  }, [content]);
+  
+  const getAllContentByType = useCallback((typePattern: string): CMSContent[] => {
+    if (!content || content.length === 0) return [];
+    return content.filter(item => item.type.startsWith(typePattern));
+  }, [content]);
+  
   // Check if we're in the CMS environment
-  const isCmsEnvironment = () => {
+  const isCmsEnvironment = useCallback(() => {
     return window.location.pathname.includes('/cms') || 
            window.location.search.includes('cms=true') ||
            localStorage.getItem('cms_mode') === 'true';
-  };
+  }, []);
+  
+  // Default content for initialization
+  const defaultContent = useMemo(() => [
+    {
+      id: 0,
+      type: 'home-about-title',
+      pageLocation: 'home',
+      name: 'Home About Title',
+      title: 'About Us',
+      content: 'About section title on the home page',
+      order: 1,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'home-about-description',
+      pageLocation: 'home',
+      name: 'Home About Description',
+      title: 'About Description',
+      content: 'We specialize in AI, cloud, cybersecurity, and space technologies to shape a better future.',
+      order: 2,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'home-about-feature',
+      pageLocation: 'home',
+      name: 'AI Solutions Feature',
+      title: 'AI Solutions',
+      content: 'Advanced artificial intelligence solutions for modern businesses',
+      imageUrl: 'fas fa-robot',
+      order: 3,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'home-about-feature',
+      pageLocation: 'home',
+      name: 'Cyber Security Feature',
+      title: 'Cyber Security',
+      content: 'Protecting your digital assets with cutting-edge security',
+      imageUrl: 'fas fa-shield-alt',
+      order: 4,
+      isActive: true
+    },
+    {
+      id: 0,
+      type: 'home-about-feature',
+      pageLocation: 'home',
+      name: 'Cloud Services Feature',
+      title: 'Cloud Services',
+      content: 'Scalable cloud solutions for growing enterprises',
+      imageUrl: 'fas fa-cloud',
+      order: 5,
+      isActive: true
+    }
+  ], []);
   
   // Initialize CMS content if requested
-  const createHomeAboutContent = async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('create_cms_content') === 'true') {
-      try {
+  const createHomeAboutContent = useCallback(async () => {
+    try {
+      toast({
+        title: "Creating Content",
+        description: "Initializing Home page About section content...",
+        variant: "default"
+      });
+      
+      const success = await initializeCmsContent('home', defaultContent);
+      
+      if (success) {
         toast({
-          title: "Creating Content",
-          description: "Initializing Home page About section content...",
+          title: "Content Created",
+          description: "Home page About section content has been initialized. Please refresh the page.",
           variant: "default"
         });
         
-        const defaultContent = [
-          {
-            id: 0,
-            type: 'home-about-title',
-            pageLocation: 'home',
-            name: 'Home About Title',
-            title: 'About Us',
-            content: 'About section title on the home page',
-            order: 1,
-            isActive: true
-          },
-          {
-            id: 0,
-            type: 'home-about-description',
-            pageLocation: 'home',
-            name: 'Home About Description',
-            title: 'About Description',
-            content: 'We specialize in AI, cloud, cybersecurity, and space technologies to shape a better future.',
-            order: 2,
-            isActive: true
-          },
-          {
-            id: 0,
-            type: 'home-about-feature',
-            pageLocation: 'home',
-            name: 'AI Solutions Feature',
-            title: 'AI Solutions',
-            content: 'Advanced artificial intelligence solutions for modern businesses',
-            imageUrl: 'fas fa-robot',
-            order: 3,
-            isActive: true
-          },
-          {
-            id: 0,
-            type: 'home-about-feature',
-            pageLocation: 'home',
-            name: 'Cyber Security Feature',
-            title: 'Cyber Security',
-            content: 'Protecting your digital assets with cutting-edge security',
-            imageUrl: 'fas fa-shield-alt',
-            order: 4,
-            isActive: true
-          },
-          {
-            id: 0,
-            type: 'home-about-feature',
-            pageLocation: 'home',
-            name: 'Cloud Services Feature',
-            title: 'Cloud Services',
-            content: 'Scalable cloud solutions for growing enterprises',
-            imageUrl: 'fas fa-cloud',
-            order: 5,
-            isActive: true
-          }
-        ];
-        
-        const success = await initializeCmsContent('home', defaultContent);
-        
-        if (success) {
-          toast({
-            title: "Content Created",
-            description: "Home page About section content has been initialized. Please refresh the page.",
-            variant: "default"
-          });
-          
-          // Refresh the page without the create_cms_content parameter
-          const url = new URL(window.location.href);
-          url.searchParams.delete('create_cms_content');
-          window.location.href = url.toString();
-        } else {
-          toast({
-            title: "Error",
-            description: "Failed to initialize content. Please try again.",
-            variant: "destructive"
-          });
-        }
-      } catch (error) {
-        console.error("Error creating CMS content:", error);
+        // Refresh the page without the create_cms_content parameter
+        const url = new URL(window.location.href);
+        url.searchParams.delete('create_cms_content');
+        window.location.href = url.toString();
+      } else {
         toast({
           title: "Error",
-          description: "An error occurred while creating content.",
+          description: "Failed to initialize content. Please try again.",
           variant: "destructive"
         });
       }
+    } catch (error) {
+      console.error("Error creating CMS content:", error);
+      toast({
+        title: "Error",
+        description: "An error occurred while creating content.",
+        variant: "destructive"
+      });
     }
-  };
+  }, [toast, defaultContent]);
   
-  // Process CMS data when available
+  // Check for content creation request on mount
   useEffect(() => {
-    // Only run createHomeAboutContent once when component mounts
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('create_cms_content') === 'true') {
       createHomeAboutContent();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [createHomeAboutContent]);
   
-  // Separate effect for updating content states
+  // Update content from CMS when data is loaded
   useEffect(() => {
-    // Avoid running if data isn't loaded yet
-    if (isLoading || content.length === 0) return;
+    if (isLoading || !content || content.length === 0) return;
     
-    // Create a local function to process data
-    const processContent = () => {
-      // Get title
-      const titleContent = getContentByType('home-about-title');
-      if (titleContent) {
-        setTitle(titleContent.title);
-      }
-      
-      // Get description
-      const descriptionContent = getContentByType('home-about-description');
-      if (descriptionContent) {
-        setDescription(descriptionContent.content || '');
-      }
-      
-      // Get features
-      const featureContents = getAllContentByType('home-about-feature');
-      if (featureContents.length > 0) {
-        const mappedFeatures = featureContents.map(feature => ({
-          icon: feature.imageUrl || 'fas fa-cog',
-          title: feature.title,
-          description: feature.content || ''
-        }));
-        setFeatures(mappedFeatures);
-      }
-    };
+    // Get title
+    const titleContent = getContentByType('home-about-title');
+    if (titleContent) {
+      setTitle(titleContent.title);
+    }
     
-    // Process the content
-    processContent();
+    // Get description
+    const descriptionContent = getContentByType('home-about-description');
+    if (descriptionContent) {
+      setDescription(descriptionContent.content || '');
+    }
     
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content, isLoading]);
+    // Get features
+    const featureContents = getAllContentByType('home-about-feature');
+    if (featureContents.length > 0) {
+      const mappedFeatures = featureContents.map(feature => ({
+        icon: feature.imageUrl || 'fas fa-cog',
+        title: feature.title,
+        description: feature.content || ''
+      }));
+      setFeatures(mappedFeatures);
+    }
+  }, [content, isLoading, getContentByType, getAllContentByType]);
   
   return (
     <section id="about" className="py-20 bg-white relative">

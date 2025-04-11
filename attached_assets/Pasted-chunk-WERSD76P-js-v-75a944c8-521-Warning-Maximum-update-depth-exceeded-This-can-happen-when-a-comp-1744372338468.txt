@@ -1,0 +1,30 @@
+chunk-WERSD76P.js?v=75a944c8:521 Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+    at AboutCms (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/components/home/AboutCms.tsx:25:73)
+    at main
+    at div
+    at CmsPageTemplate (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/components/cms-templates/CmsPageTemplate.tsx:23:3)
+    at Home (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/pages/home.tsx:27:21)
+    at Route (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.d…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=75a944c8:323:16)
+    at Switch (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.d…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=75a944c8:379:17)
+    at Router (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/App.tsx?v=P7eu5Om8YmdkngYJZhMBO:74:22)
+    at ContactProvider (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/contexts/ContactContext.tsx:20:35)
+    at AgentAIProvider (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/contexts/AgentAIContext.tsx:21:35)
+    at QueryClientProvider (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.d…rkspace/node_modules/.vite/deps/@tanstack_react-query.js?v=75a944c8:2805:3)
+    at App
+printWarning	@	chunk-WERSD76P.js?v=75a944c8:521
+
+2164
+AboutCms.tsx:164 Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+    at AboutCms (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/components/home/AboutCms.tsx:25:73)
+    at main
+    at div
+    at CmsPageTemplate (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/components/cms-templates/CmsPageTemplate.tsx:23:3)
+    at Home (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/pages/home.tsx:27:21)
+    at Route (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.d…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=75a944c8:323:16)
+    at Switch (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.d…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=75a944c8:379:17)
+    at Router (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/App.tsx?v=P7eu5Om8YmdkngYJZhMBO:74:22)
+    at ContactProvider (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/contexts/ContactContext.tsx:20:35)
+    at AgentAIProvider (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.dev/src/contexts/AgentAIContext.tsx:21:35)
+    at QueryClientProvider (https://cdbcdd71-aef8-4336-8aca-13d893ef1adb-00-1p9tey8keqb0r.kirk.replit.d…rkspace/node_modules/.vite/deps/@tanstack_react-query.js?v=75a944c8:2805:3)
+    at App
+﻿
