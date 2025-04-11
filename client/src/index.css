@@ -344,32 +344,38 @@
 }
 
 /* Robot, AI Icons */
-.dropdown-content a:hover i.fa-robot {
+.dropdown-content a:hover i.fa-robot,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-robot {
   color: #00897b; /* Teal */
 }
 
 /* Cloud Icons */
-.dropdown-content a:hover i.fa-cloud {
+.dropdown-content a:hover i.fa-cloud,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-cloud {
   color: #29b6f6; /* Light Blue */
 }
 
 /* Server Icons */
-.dropdown-content a:hover i.fa-server {
+.dropdown-content a:hover i.fa-server,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-server {
   color: #039be5; /* Blue */
 }
 
 /* Security Icons */
-.dropdown-content a:hover i.fa-shield-alt {
+.dropdown-content a:hover i.fa-shield-alt,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-shield-alt {
   color: #d32f2f; /* Red */
 }
 
 /* Defense Icons */
-.dropdown-content a:hover i.fa-satellite {
+.dropdown-content a:hover i.fa-satellite,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-satellite {
   color: #455a64; /* Dark Blue Grey */
 }
 
 /* Space Icons */
-.dropdown-content a:hover i.fa-rocket {
+.dropdown-content a:hover i.fa-rocket,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-rocket {
   color: #7e57c2; /* Purple */
 }
 
@@ -479,17 +485,20 @@
 }
 
 /* Heartbeat Icons */
-.dropdown-content a:hover i.fa-heartbeat {
+.dropdown-content a:hover i.fa-heartbeat,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-heartbeat {
   color: #e53935; /* Red */
 }
 
 /* Leaf Icons */
-.dropdown-content a:hover i.fa-leaf {
+.dropdown-content a:hover i.fa-leaf,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-leaf {
   color: #43a047; /* Green */
 }
 
 /* User Shield Icons */
-.dropdown-content a:hover i.fa-user-shield {
+.dropdown-content a:hover i.fa-user-shield,
+.dropdown-content div[class*="cursor-pointer"]:hover i.fa-user-shield {
   color: #039be5; /* Blue */
 }
 
