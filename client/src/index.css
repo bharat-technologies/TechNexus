@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Specialization hover colors */
+.hover-icon-0:hover {
+  background-color: #4B7BF5; /* Blue for AI Solutions */
+}
+
+.hover-icon-1:hover {
+  background-color: #ED4C67; /* Red for Cyber Security */
+}
+
+.hover-icon-2:hover {
+  background-color: #1ABC9C; /* Teal for Cloud Services */
+}
+
+.hover-icon-3:hover {
+  background-color: #673AB7; /* Purple for Space Technology */
+}
+
+.hover-icon-4:hover {
+  background-color: #FF9800; /* Orange for Multi-Cloud Integration */
+}
+
 @layer base {
   :root {
     /* Tailwind variables */

@@ -235,7 +235,7 @@ const AboutCms = () => {
               key={index} 
               className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
             >
-              <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+              <div className={`w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center transition-colors duration-300 hover-icon-${index}`}>
                 <i className={`${feature.icon} text-white`} style={{ fontSize: "1.25rem" }}></i>
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
