@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+import { useContact } from '@/contexts/ContactContext';
 
 const ServiceManagementAviator = () => {
+  const { openContactModal } = useContact();
+  
   useEffect(() => {
     document.title = 'Service Management Aviator - Bharat Technologies';
   }, []);
@@ -192,10 +195,16 @@ const ServiceManagementAviator = () => {
               Discover how Bharat Service Management Aviator can help your organization deliver exceptional service experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
-                Request a Demo
+              <button 
+                className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                onClick={() => openContactModal('call')}
+              >
+                Request Call Back
               </button>
-              <button className="border border-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+              <button 
+                className="border border-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                onClick={() => openContactModal('email')}
+              >
                 Contact Sales
               </button>
             </div>
