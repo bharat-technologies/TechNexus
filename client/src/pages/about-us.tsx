@@ -520,6 +520,81 @@ const AboutUs = () => {
             </div>
           </div>
         </section>
+
+        {/* Technology Specialization Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="font-poppins font-bold text-3xl md:text-4xl" data-aos="fade-up">We specialize in AI, cloud, cybersecurity, and space technologies to shape a better future.</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12">
+              {/* AI Solutions Specialization */}
+              <div className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="18" height="22" x="3" y="1" rx="2"/>
+                    <path d="M7 5h10"/>
+                    <path d="M7 9h10"/>
+                    <path d="M7 19h10"/>
+                    <path d="M7 15h10"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">AI Solutions</h3>
+                <p className="text-gray-600">Advanced artificial intelligence solutions for modern businesses</p>
+              </div>
+              
+              {/* Cyber Security Specialization */}
+              <div className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Cyber Security</h3>
+                <p className="text-gray-600">Protecting your digital assets with cutting-edge security</p>
+              </div>
+              
+              {/* Cloud Technology Specialization */}
+              <div className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
+                <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Cloud Technology</h3>
+                <p className="text-gray-600">Scalable and secure cloud infrastructure for enterprise needs</p>
+              </div>
+              
+              {/* Space Technology Specialization */}
+              <div className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl" data-aos="fade-up" data-aos-delay="400">
+                <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                    <path d="M9 18h6"/>
+                    <path d="M10 22h4"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Space Technology</h3>
+                <p className="text-gray-600">Advanced solutions for satellite communications and space exploration</p>
+              </div>
+              
+              {/* Multi-Cloud Integration */}
+              <div className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl" data-aos="fade-up" data-aos-delay="500">
+                <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                    <path d="M3 3v5h5"/>
+                    <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                    <path d="M16 16h5v5"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Multi-Cloud Integration</h3>
+                <p className="text-gray-600">Seamless integration across cloud platforms for maximum flexibility and resilience</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       
       {/* Content Edit Dialog */}
