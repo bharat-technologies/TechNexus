@@ -24,6 +24,7 @@ import Defence from "@/pages/defence";
 import Space from "@/pages/space";
 import SpaceSolutions from "@/pages/solutions/space";
 import BankingSolutions from "@/pages/solutions/banking";
+import AllIndustriesPage from "@/pages/solutions/all-industries";
 import AgricultureFarming from "@/pages/technology/agriculture-farming";
 import Healthcare from "@/pages/technology/healthcare";
 import LifeSupport from "@/pages/technology/life-support";
@@ -86,6 +87,7 @@ function Router() {
       <Route path="/solutions/multi-cloud" component={MultiCloud} />
       <Route path="/solutions/space" component={SpaceSolutions} />
       <Route path="/solutions/banking" component={BankingSolutions} />
+      <Route path="/solutions/all-industries" component={AllIndustriesPage} />
       <Route path="/technology/agriculture-farming" component={AgricultureFarming} />
       <Route path="/technology/healthcare" component={Healthcare} />
       <Route path="/technology/life-support" component={LifeSupport} />
