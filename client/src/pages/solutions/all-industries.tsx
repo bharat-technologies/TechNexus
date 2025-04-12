@@ -15,63 +15,90 @@ const AllIndustriesPage = () => {
       title: "Banking",
       icon: <Database className="h-8 w-8 text-blue-600" />,
       description: "Digital banking solutions that transform financial services with secure, efficient platforms for payments, lending, and customer engagement.",
-      color: "blue",
+      textColorClass: "text-blue-600",
+      hoverColorClass: "hover:text-blue-800",
+      bgColorClass: "bg-blue-100",
+      borderColorClass: "border-t-blue-500",
       path: "/solutions/banking"
     },
     {
       title: "Insurance",
       icon: <Briefcase className="h-8 w-8 text-indigo-600" />,
       description: "Technology solutions for insurers, enhancing risk assessment, claims processing, and customer experiences through AI and analytics.",
-      color: "indigo",
+      textColorClass: "text-indigo-600",
+      hoverColorClass: "hover:text-indigo-800",
+      bgColorClass: "bg-indigo-100",
+      borderColorClass: "border-t-indigo-500",
       path: "/solutions/insurance"
     },
     {
       title: "Healthcare",
       icon: <HeartPulse className="h-8 w-8 text-teal-600" />,
       description: "Digital healthcare platforms that improve patient care, streamline operations, and enable telemedicine and remote monitoring.",
-      color: "teal",
+      textColorClass: "text-teal-600",
+      hoverColorClass: "hover:text-teal-800",
+      bgColorClass: "bg-teal-100",
+      borderColorClass: "border-t-teal-500",
       path: "/solutions/healthcare"
     },
     {
       title: "Oil & Gas",
       icon: <Droplet className="h-8 w-8 text-blue-600" />,
       description: "Advanced solutions for exploration, production, and distribution optimization, with predictive maintenance and environmental monitoring.",
-      color: "blue",
+      textColorClass: "text-blue-600",
+      hoverColorClass: "hover:text-blue-800",
+      bgColorClass: "bg-blue-100",
+      borderColorClass: "border-t-blue-500",
       path: "/solutions/oil-gas"
     },
     {
       title: "Industrial Manufacturing",
       icon: <Factory className="h-8 w-8 text-slate-600" />,
       description: "Industry 4.0 technologies for smart factories, connected operations, and automated processes that enhance efficiency and quality.",
-      color: "slate",
+      textColorClass: "text-slate-600",
+      hoverColorClass: "hover:text-slate-800",
+      bgColorClass: "bg-slate-100",
+      borderColorClass: "border-t-slate-500",
       path: "/solutions/industrial-manufacturing"
     },
     {
       title: "Public Sector",
       icon: <Building className="h-8 w-8 text-gray-600" />,
       description: "Digital government solutions that enhance citizen services, streamline operations, and enable secure, efficient public administration.",
-      color: "gray",
+      textColorClass: "text-gray-600",
+      hoverColorClass: "hover:text-gray-800",
+      bgColorClass: "bg-gray-100",
+      borderColorClass: "border-t-gray-500",
       path: "/solutions/public-sector"
     },
     {
       title: "Utilities",
       icon: <Zap className="h-8 w-8 text-emerald-600" />,
       description: "Smart grid and utility management systems that optimize energy and water distribution while enhancing reliability and sustainability.",
-      color: "emerald",
+      textColorClass: "text-emerald-600",
+      hoverColorClass: "hover:text-emerald-800",
+      bgColorClass: "bg-emerald-100",
+      borderColorClass: "border-t-emerald-500",
       path: "/solutions/utilities"
     },
     {
       title: "Education",
       icon: <FileText className="h-8 w-8 text-amber-600" />,
       description: "Digital learning platforms and educational management systems that transform teaching, learning, and educational administration.",
-      color: "amber",
+      textColorClass: "text-amber-600",
+      hoverColorClass: "hover:text-amber-800",
+      bgColorClass: "bg-amber-100",
+      borderColorClass: "border-t-amber-500",
       path: "/solutions/education"
     },
     {
       title: "Retail & E-commerce",
       icon: <Globe className="h-8 w-8 text-pink-600" />,
       description: "Omnichannel commerce solutions that enhance customer experiences, optimize inventory, and enable personalized marketing strategies.",
-      color: "pink",
+      textColorClass: "text-pink-600",
+      hoverColorClass: "hover:text-pink-800",
+      bgColorClass: "bg-pink-100",
+      borderColorClass: "border-t-pink-500",
       path: "/solutions/retail"
     }
   ];
@@ -103,29 +130,27 @@ const AllIndustriesPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {industryCards.map((industry, index) => {
-              const borderClass = `border-t-4 border-t-${industry.color}-500`;
-              const bgClass = `bg-${industry.color}-100`;
-              
               return (
                 <Card 
                   key={index} 
-                  className={`shadow-lg hover:shadow-xl transition-all ${borderClass}`}
+                  className={`shadow-lg hover:shadow-xl transition-all border-t-4 ${industry.borderColorClass}`}
                   data-aos="fade-up" 
                   data-aos-delay={index * 100}
                 >
                   <CardContent className="p-6">
-                    <div className={`${bgClass} p-3 rounded-full w-fit mb-4`}>
+                    <div className={`${industry.bgColorClass} p-3 rounded-full w-fit mb-4`}>
                       {industry.icon}
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{industry.title}</h3>
                     <p className="text-gray-600 mb-4">
                       {industry.description}
                     </p>
-                    <Link href={industry.path}>
-                      <a className={`inline-flex items-center text-${industry.color}-600 hover:text-${industry.color}-800`}>
-                        Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Link>
+                    <div 
+                      onClick={() => window.location.href = industry.path} 
+                      className={`inline-flex items-center cursor-pointer ${industry.textColorClass} ${industry.hoverColorClass}`}
+                    >
+                      Learn more <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
                   </CardContent>
                 </Card>
               );
