@@ -29,6 +29,7 @@ import OilGasPage from "@/pages/solutions/oil-gas";
 import IndustrialManufacturingPage from "@/pages/solutions/industrial-manufacturing";
 import PublicSectorPage from "@/pages/solutions/public-sector";
 import UtilitiesPage from "@/pages/solutions/utilities";
+import HealthcarePage from "@/pages/solutions/healthcare";
 import AgricultureFarming from "@/pages/technology/agriculture-farming";
 import Healthcare from "@/pages/technology/healthcare";
 import LifeSupport from "@/pages/technology/life-support";
@@ -96,6 +97,7 @@ function Router() {
       <Route path="/solutions/industrial-manufacturing" component={IndustrialManufacturingPage} />
       <Route path="/solutions/public-sector" component={PublicSectorPage} />
       <Route path="/solutions/utilities" component={UtilitiesPage} />
+      <Route path="/solutions/healthcare" component={HealthcarePage} />
       <Route path="/technology/agriculture-farming" component={AgricultureFarming} />
       <Route path="/technology/healthcare" component={Healthcare} />
       <Route path="/technology/life-support" component={LifeSupport} />
