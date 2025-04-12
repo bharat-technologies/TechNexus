@@ -185,13 +185,22 @@ const AboutCms = () => {
   // Use CMS values if available, otherwise fallback to defaults
   const title = titleContent?.title || defaultTitle;
   const description = descriptionContent?.content || defaultDescription;
-  const features: Feature[] = featureContents.length > 0 
-    ? featureContents.map((feature: CMSContent): Feature => ({
-        icon: feature.imageUrl || 'fas fa-cog',
-        title: feature.title,
-        description: feature.content || ''
-      })) 
-    : defaultFeatures;
+  
+  // Always use default features if CMS data is not loaded correctly
+  let features: Feature[] = defaultFeatures;
+  
+  // Only override with CMS data if we have at least 3 feature items
+  if (featureContents.length >= 3) {
+    features = featureContents.map((feature: CMSContent): Feature => ({
+      icon: feature.imageUrl || 'fas fa-cog',
+      title: feature.title,
+      description: feature.content || ''
+    }));
+  }
+  
+  // Log for debugging
+  console.log('Features count:', features.length);
+  console.log('CMS features count:', featureContents.length);
   
   // Check if we're in the CMS environment
   const isCmsEnvironment = () => {
