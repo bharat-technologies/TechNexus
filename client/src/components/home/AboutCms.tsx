@@ -34,6 +34,16 @@ const AboutCms = () => {
       icon: 'fas fa-cloud',
       title: 'Cloud Services',
       description: 'Scalable cloud solutions for growing enterprises'
+    },
+    {
+      icon: 'fas fa-satellite',
+      title: 'Space Technology',
+      description: 'Advanced solutions for satellite communications and space exploration'
+    },
+    {
+      icon: 'fas fa-sync',
+      title: 'Multi-Cloud Integration',
+      description: 'Seamless integration across cloud platforms for maximum flexibility and resilience'
     }
   ];
   
@@ -102,6 +112,28 @@ const AboutCms = () => {
               imageUrl: 'fas fa-cloud',
               order: 5,
               isActive: true
+            },
+            {
+              id: 0,
+              type: 'home-about-feature',
+              pageLocation: 'home',
+              name: 'Space Technology Feature',
+              title: 'Space Technology',
+              content: 'Advanced solutions for satellite communications and space exploration',
+              imageUrl: 'fas fa-satellite',
+              order: 6,
+              isActive: true
+            },
+            {
+              id: 0,
+              type: 'home-about-feature',
+              pageLocation: 'home',
+              name: 'Multi-Cloud Integration Feature',
+              title: 'Multi-Cloud Integration',
+              content: 'Seamless integration across cloud platforms for maximum flexibility and resilience',
+              imageUrl: 'fas fa-sync',
+              order: 7,
+              isActive: true
             }
           ];
           
@@ -169,7 +201,7 @@ const AboutCms = () => {
   };
   
   return (
-    <section id="about" className="py-20 bg-white relative">
+    <section id="about" className="py-20 bg-gray-50 relative">
       {isCmsEnvironment() && (
         <div className="absolute top-4 right-4">
           <Button 
@@ -188,16 +220,16 @@ const AboutCms = () => {
         <p className="text-lg text-center max-w-3xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="200">
           {description}
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8" data-aos="fade-up" data-aos-delay="400">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mt-8" data-aos="fade-up" data-aos-delay="400">
           {features.map((feature, index) => (
             <div 
               key={index} 
-              className="bg-white p-8 rounded-lg shadow-lg transition-transform duration-300 hover:transform hover:scale-105"
+              className="bg-white p-8 rounded-lg shadow-md transition-all hover:shadow-xl"
             >
-              <div className="text-4xl text-black mb-6">
-                <i className={feature.icon}></i>
+              <div className="w-14 h-14 bg-black rounded-lg mb-6 flex items-center justify-center">
+                <i className={`${feature.icon} text-white`} style={{ fontSize: "1.25rem" }}></i>
               </div>
-              <h3 className="font-poppins font-semibold text-xl mb-4">{feature.title}</h3>
+              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
               <p className="text-gray-600">{feature.description}</p>
             </div>
           ))}
