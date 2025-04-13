@@ -554,7 +554,7 @@ const ContactModal = () => {
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className={`w-full px-3 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'} flex items-center h-[40px]`}
+                        className={`w-full px-3 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black hover:border-gray-400 transition-colors duration-200 ${!callbackDate && 'text-gray-500'} flex items-center h-[40px]`}
                       >
                         <span className="truncate">{callbackDate ? format(callbackDate, 'PPP') : "Select date"}</span>
                       </button>
@@ -585,7 +585,7 @@ const ContactModal = () => {
                 <div className="space-y-1">
                   <label className="block mb-1 font-medium">Preferred Time</label>
                   <Select value={selectedTime} onValueChange={setSelectedTime}>
-                    <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center">
+                    <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center focus:outline-none focus:ring-2 focus:ring-black hover:border-gray-400 transition-colors duration-200">
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
                     <SelectContent>
@@ -607,7 +607,7 @@ const ContactModal = () => {
               <div className="space-y-1 mb-4">
                 <label className="block mb-1 font-medium">Timezone</label>
                 <Select value={selectedTimezone} onValueChange={setSelectedTimezone}>
-                  <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center justify-start text-left">
+                  <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center justify-start text-left focus:outline-none focus:ring-2 focus:ring-black hover:border-gray-400 transition-colors duration-200">
                     <SelectValue placeholder="Select timezone" className="text-left" />
                   </SelectTrigger>
                   <SelectContent>
