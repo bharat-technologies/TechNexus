@@ -632,18 +632,46 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-/* Selected timezone option */
-.timezone-option[data-state="checked"] {
-  background-color: #f5f5f5;
-  font-weight: 500;
-}
-
-/* Hide checkmarks from select items */
+/* Hide default checkmarks from select items */
 .SelectItem-check,
 .SelectItem svg,
 .select-item svg,
 [role="option"] svg:not([class*="chevron"]) {
   display: none !important;
+}
+
+/* Custom checkmark and hover styling */
+.timezone-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.check-mark {
+  visibility: hidden;
+  margin-right: 8px;
+  font-weight: bold;
+  width: 16px;
+  display: inline-block;
+  color: black;
+}
+
+/* Show checkmark on hover */
+.timezone-option:hover .check-mark {
+  visibility: visible;
+}
+
+/* Show checkmark for selected item */
+.timezone-option[data-state="checked"] .check-mark {
+  visibility: visible;
+}
+
+/* Enhanced hover effect */
+.timezone-option:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
 .timezone-select-items {
