@@ -531,7 +531,7 @@ const ContactModal = () => {
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className={`w-full px-3 py-2 h-10 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
+                        className={`w-full px-3 py-2 h-10 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black form-input-like ${!callbackDate && 'text-gray-500'}`}
                       >
                         {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
                       </button>
