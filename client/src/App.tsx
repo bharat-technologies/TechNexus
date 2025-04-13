@@ -57,6 +57,7 @@ import CmsSettings from "@/pages/cms/settings";
 import CmsWebsiteContent from "@/pages/cms/website-content";
 import DatabaseAdmin from "@/pages/cms/database-admin";
 import CmsLogin from "@/pages/cms/login";
+import CmsProfile from "@/pages/cms/profile";
 
 // Product Pages
 import AnalyticsCloud from "@/pages/products/analytics-cloud";
@@ -165,6 +166,11 @@ function Router() {
       <Route path="/cms/database-admin">
         <ProtectedRoute>
           <DatabaseAdmin />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/profile">
+        <ProtectedRoute>
+          <CmsProfile />
         </ProtectedRoute>
       </Route>
       
