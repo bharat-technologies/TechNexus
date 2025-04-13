@@ -591,61 +591,61 @@ const ContactModal = () => {
                     <div className="timezone-select-items">
                       <SelectItem value="IST" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>New Delhi - IST (GMT +5:30)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="BST" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>London - BST (GMT +1:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="CEST" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>Paris, Berlin - CEST (GMT +2:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="EDT" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>New York - EDT (GMT -4:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="CDT" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>Chicago - CDT (GMT -5:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="MDT" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>Denver - MDT (GMT -6:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="PDT" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>Los Angeles - PDT (GMT -7:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="JST" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>Tokyo - JST (GMT +9:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="AEST" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>Sydney - AEST (GMT +10:00)</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="GMT" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
-                          <span className="check-mark">✓</span>
+                          <span className="check-mark">→</span>
                           <span>London - GMT (GMT +0:00)</span>
                         </span>
                       </SelectItem>
