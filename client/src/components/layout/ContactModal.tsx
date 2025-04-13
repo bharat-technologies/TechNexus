@@ -31,7 +31,7 @@ const ContactModal = () => {
   const { contactModal, closeContactModal, openContactModal } = useContact();
   const { toast } = useToast();
   const { setIsOpen, setIsMinimized } = useAgentAI();
-  const [selectedOption, setSelectedOption] = useState<'main' | 'email-form' | 'call-details'>('main');
+  const [selectedOption, setSelectedOption] = useState<'main' | 'email-form' | 'call-details' | 'callback-form'>('main');
   
   // Reset the selection when the modal closes
   useEffect(() => {
@@ -86,8 +86,10 @@ const ContactModal = () => {
       return;
     }
     
-    if (contactModal === 'call' || contactModal === 'callback') {
+    if (contactModal === 'call') {
       setSelectedOption('call-details');
+    } else if (contactModal === 'callback') {
+      setSelectedOption('callback-form');
     } else if (contactModal === 'email') {
       setSelectedOption('email-form');
     } else if (contactModal === 'main') {
@@ -117,6 +119,8 @@ const ContactModal = () => {
                   setSelectedOption('email-form');
                 } else if (option === 'call') {
                   setSelectedOption('call-details');
+                } else if (option === 'callback') {
+                  setSelectedOption('callback-form');
                 } else if (option === 'ai') {
                   handleAgentAI();
                 }
@@ -252,6 +256,82 @@ const ContactModal = () => {
                 </div>
               </div>
             </div>
+          </>
+        )}
+
+        {selectedOption === 'callback-form' && (
+          <>
+            <button 
+              onClick={() => setSelectedOption('main')}
+              className="absolute top-4 left-4 text-gray-500 hover:text-black"
+            >
+              <i className="fas fa-arrow-left"></i> Back
+            </button>
+            <DialogHeader className="mt-8 pl-4">
+              <DialogTitle className="text-left">Request Call Back</DialogTitle>
+              <DialogDescription className="text-left">
+                Fill out the form below and our team will call you at your preferred time.
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-4">
+              <div>
+                <label htmlFor="name" className="block mb-2 font-medium">Your Name</label>
+                <input 
+                  type="text" 
+                  id="name"
+                  className={`w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
+                  placeholder="John Doe"
+                  {...register('name')}
+                />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+              </div>
+              <div>
+                <label htmlFor="email" className="block mb-2 font-medium">Your Email</label>
+                <input 
+                  type="email" 
+                  id="email"
+                  className={`w-full px-4 py-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
+                  placeholder="john@example.com"
+                  {...register('email')}
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+              </div>
+              <div>
+                <label htmlFor="subject" className="block mb-2 font-medium">Phone Number</label>
+                <input 
+                  type="tel" 
+                  id="subject"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" 
+                  placeholder="+91 98765 43210"
+                  {...register('subject')}
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block mb-2 font-medium">Preferred Time & Request Details</label>
+                <textarea 
+                  id="message"
+                  rows={4}
+                  className={`w-full px-4 py-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
+                  placeholder="Please call me back tomorrow between 10 AM and 12 PM. I'm interested in discussing..."
+                  {...register('message')}
+                ></textarea>
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
+              </div>
+              <DialogFooter className="mt-6">
+                <button 
+                  type="submit"
+                  className="bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300 disabled:opacity-70"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin mr-2"></i>
+                      Sending...
+                    </>
+                  ) : 'Request Call Back'}
+                </button>
+              </DialogFooter>
+            </form>
           </>
         )}
       </DialogContent>

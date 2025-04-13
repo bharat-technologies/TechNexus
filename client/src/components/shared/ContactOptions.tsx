@@ -54,7 +54,7 @@ const ContactOptions: React.FC<ContactOptionsProps> = ({
   };
   
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 ${className}`}>
+    <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 ${className}`}>
       {/* Email Option */}
       <div 
         className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-6 text-center transition-all duration-300 cursor-pointer flex flex-col h-full"
@@ -89,6 +89,25 @@ const ContactOptions: React.FC<ContactOptionsProps> = ({
         <div className="mt-auto">
           <button className="w-full bg-black text-white px-3 py-2 rounded-full text-xs md:text-sm hover:bg-gray-800 transition-colors duration-300">
             +123 456 7890
+          </button>
+        </div>
+      </div>
+      
+      {/* Request Call Back Option */}
+      <div 
+        className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-6 text-center transition-all duration-300 cursor-pointer flex flex-col h-full"
+        onClick={handleCallbackClick}
+      >
+        <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i className="fas fa-phone-volume text-2xl text-yellow-600"></i>
+        </div>
+        <h3 className="text-xl font-bold mb-2">Request Call Back</h3>
+        <p className="text-gray-600 mb-6 flex-grow text-sm md:text-base">
+          Leave your details and we'll call you at your convenience
+        </p>
+        <div className="mt-auto">
+          <button className="w-full bg-black text-white px-3 py-2 rounded-full text-xs md:text-sm hover:bg-gray-800 transition-colors duration-300">
+            Schedule Now
           </button>
         </div>
       </div>
