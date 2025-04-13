@@ -607,8 +607,8 @@ const ContactModal = () => {
               <div className="space-y-1 mb-4">
                 <label className="block mb-1 font-medium">Timezone</label>
                 <Select value={selectedTimezone} onValueChange={setSelectedTimezone}>
-                  <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center">
-                    <SelectValue placeholder="Select timezone" />
+                  <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center justify-start text-left">
+                    <SelectValue placeholder="Select timezone" className="text-left" />
                   </SelectTrigger>
                   <SelectContent>
                     <div className="timezone-select-items">
