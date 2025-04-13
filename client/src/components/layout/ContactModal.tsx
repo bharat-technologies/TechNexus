@@ -140,13 +140,15 @@ const ContactModal = () => {
     // Don't auto-close on selection, user must double-click to confirm
   };
   
-  // Handle double-click on calendar days
+  // Track last selected date to handle second click
+  const [lastSelectedDate, setLastSelectedDate] = useState<Date | null>(null);
+  
+  // Handle two-click selection approach
   useEffect(() => {
-    // Keep track of click count and last clicked time
-    let clickCount = 0;
-    let lastClickTime = 0;
-    const DOUBLE_CLICK_TIMEOUT = 300; // ms
+    // Track if we need to close on next click
+    let shouldCloseOnNextClick = false;
     
+    // Function to handle clicks on the calendar
     const handleCalendarClick = (e: MouseEvent) => {
       // Only handle clicks within the calendar component
       if (calendarRef.current?.contains(e.target as Node)) {
@@ -154,22 +156,22 @@ const ContactModal = () => {
         
         // Check if we're clicking on a day button (has data-day attribute)
         if (target.tagName === 'BUTTON' && target.hasAttribute('data-day')) {
-          const currentTime = new Date().getTime();
-          
-          // Check if this is a double click (two clicks within timeout period)
-          if (currentTime - lastClickTime < DOUBLE_CLICK_TIMEOUT) {
-            // This is a double-click
-            clickCount = 0;
-            lastClickTime = 0;
+          // Get the date from the button's data-day attribute
+          const dateStr = target.getAttribute('data-day');
+          if (dateStr) {
+            const clickedDate = new Date(dateStr);
             
-            // Only close if we have a date selected
-            if (callbackDate) {
+            // If we already have a selected date and we're clicking it again
+            if (callbackDate && lastSelectedDate && 
+                clickedDate.toDateString() === lastSelectedDate.toDateString()) {
+              // This is a second click on the same date - confirm & close
               closeCalendarPopover();
+              shouldCloseOnNextClick = false;
+            } else {
+              // First click - just store the date for potential second click
+              setLastSelectedDate(clickedDate);
+              shouldCloseOnNextClick = true;
             }
-          } else {
-            // This is a first click
-            clickCount = 1;
-            lastClickTime = currentTime;
           }
         }
       }
@@ -182,7 +184,7 @@ const ContactModal = () => {
     return () => {
       document.removeEventListener('click', handleCalendarClick);
     };
-  }, [callbackDate]);
+  }, [callbackDate, lastSelectedDate]);
 
   // Form with defaultValues from saved contact info if available
   const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<ContactFormValues>({
@@ -588,7 +590,11 @@ const ContactModal = () => {
                       />
                       <div className="p-2 border-t border-gray-100">
                         <div className="text-xs text-gray-500 text-center">
-                          {callbackDate ? "Double-click on the selected date to confirm" : "Select a date"}
+                          {callbackDate && lastSelectedDate && 
+                           callbackDate.toDateString() === lastSelectedDate.toDateString() ? 
+                            "Click selected date again to confirm" : 
+                            "Select a date"
+                          }
                         </div>
                       </div>
                     </div>
