@@ -526,59 +526,62 @@ const ContactModal = () => {
                   )}
                 </div>
               </div>
-              {/* Date Picker */}
-              <div className="space-y-1">
-                <label className="block mb-1 font-medium">Preferred Date</label>
-                <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-                  <PopoverTrigger asChild>
-                    <button
-                      type="button"
-                      className={`w-full px-3 py-2 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
-                    >
-                      {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <div ref={calendarRef}>
-                      <Calendar
-                        mode="single"
-                        selected={callbackDate}
-                        onSelect={handleCalendarDateSelect}
-                        disabled={(date: Date) => 
-                          date < new Date(new Date().setHours(0, 0, 0, 0))
-                        }
-                        initialFocus
-                        className="calendar-with-double-click"
-                      />
-                      <div className="p-2 border-t border-gray-100">
-                        <div className="text-xs text-gray-500 text-center">
-                          {callbackDate ? `Selected date: ${format(callbackDate, 'PPP')}` : "Select a date"}
+              {/* Date and Time Selectors in a row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Date Picker */}
+                <div className="space-y-1">
+                  <label className="block mb-1 font-medium">Preferred Date</label>
+                  <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        className={`w-full px-3 py-2 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
+                      >
+                        {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <div ref={calendarRef}>
+                        <Calendar
+                          mode="single"
+                          selected={callbackDate}
+                          onSelect={handleCalendarDateSelect}
+                          disabled={(date: Date) => 
+                            date < new Date(new Date().setHours(0, 0, 0, 0))
+                          }
+                          initialFocus
+                          className="calendar-with-double-click"
+                        />
+                        <div className="p-2 border-t border-gray-100">
+                          <div className="text-xs text-gray-500 text-center">
+                            {callbackDate ? `Selected date: ${format(callbackDate, 'PPP')}` : "Select a date"}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
 
-              {/* Time Selector */}
-              <div className="space-y-1">
-                <label className="block mb-1 font-medium">Preferred Time</label>
-                <Select value={selectedTime} onValueChange={setSelectedTime}>
-                  <SelectTrigger className="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                    <SelectValue placeholder="Select time" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="09:00">9:00 AM</SelectItem>
-                    <SelectItem value="10:00">10:00 AM</SelectItem>
-                    <SelectItem value="11:00">11:00 AM</SelectItem>
-                    <SelectItem value="12:00">12:00 PM</SelectItem>
-                    <SelectItem value="13:00">1:00 PM</SelectItem>
-                    <SelectItem value="14:00">2:00 PM</SelectItem>
-                    <SelectItem value="15:00">3:00 PM</SelectItem>
-                    <SelectItem value="16:00">4:00 PM</SelectItem>
-                    <SelectItem value="17:00">5:00 PM</SelectItem>
-                  </SelectContent>
-                </Select>
+                {/* Time Selector */}
+                <div className="space-y-1">
+                  <label className="block mb-1 font-medium">Preferred Time</label>
+                  <Select value={selectedTime} onValueChange={setSelectedTime}>
+                    <SelectTrigger className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                      <SelectValue placeholder="Select time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="09:00">9:00 AM</SelectItem>
+                      <SelectItem value="10:00">10:00 AM</SelectItem>
+                      <SelectItem value="11:00">11:00 AM</SelectItem>
+                      <SelectItem value="12:00">12:00 PM</SelectItem>
+                      <SelectItem value="13:00">1:00 PM</SelectItem>
+                      <SelectItem value="14:00">2:00 PM</SelectItem>
+                      <SelectItem value="15:00">3:00 PM</SelectItem>
+                      <SelectItem value="16:00">4:00 PM</SelectItem>
+                      <SelectItem value="17:00">5:00 PM</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               {/* Timezone Selector */}
