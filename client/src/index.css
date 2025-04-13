@@ -622,11 +622,24 @@
 /* Timezone selector styles */
 .timezone-option {
   width: 100%;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .timezone-option:hover {
   background-color: #f3f4f6;
+}
+
+/* When hovering on a timezone option, make the check mark visible and add a highlight */
+.timezone-option.group:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Style for the check mark */
+.timezone-option .opacity-0 {
+  font-weight: bold;
+  color: #000;
 }
 
 .timezone-select-items {
