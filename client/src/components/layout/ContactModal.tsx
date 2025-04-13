@@ -138,13 +138,9 @@ const ContactModal = () => {
   const handleCalendarDateSelect = (date: Date | undefined) => {
     setCallbackDate(date);
     
-    // Standard approach: show a toast notification for confirmation
+    // Close the calendar after selecting a date
     if (date) {
-      toast({
-        title: "Date selected",
-        description: `Selected: ${format(date, 'PPP')}`,
-        variant: "default",
-      });
+      setCalendarOpen(false);
     }
   };
 
