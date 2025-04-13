@@ -23,7 +23,7 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-center mb-12" data-aos="fade-up">Get in Touch</h2>
           
-          <div className="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+          <div className="max-w-7xl mx-auto" data-aos="fade-up" data-aos-delay="200">
             {/* Contact Options Grid - Using shared component */}
             <ContactOptions 
               onOptionClick={handleOpenContactModal}

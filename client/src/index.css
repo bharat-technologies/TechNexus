@@ -653,7 +653,7 @@
   font-weight: normal;
   width: 12px;
   display: inline-block;
-  color: #3b82f6;
+  color: #666;
   font-size: 0.9em;
 }
 
@@ -669,9 +669,9 @@
 
 /* Enhanced hover effect with light blue background */
 .timezone-option:hover {
-  background-color: rgba(59, 130, 246, 0.08);
+  background-color: rgba(59, 130, 246, 0.15);
   border-radius: 4px;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25);
   transition: all 0.2s ease;
 }
 
@@ -1144,4 +1144,18 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.9rem;
   opacity: 0.7;
+}
+
+/* Standardize all form inputs, selectors, and buttons */
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+select,
+.form-control,
+button[type="button"].form-input-like {
+  height: 2.5rem !important; /* 40px height, important to override inline styles */
 }
