@@ -199,7 +199,7 @@ const ContactModal = () => {
           callbackTime: selectedTime,
           timezone: selectedTimezone,
           // Change the message to include the callback details
-          message: `Callback requested for ${callbackDate ? format(callbackDate, 'PPP') : 'Not specified'} at ${selectedTime} ${selectedTimezone}.\n\nDetails: ${data.message}`
+          message: `Callback requested for ${callbackDate ? format(callbackDate, 'PPP') : 'Not specified'} at ${selectedTime} (${selectedTimezone}).\n\nDetails: ${data.message}`
         };
         await apiRequest('POST', '/api/contact', callbackData);
         toast({
@@ -588,13 +588,16 @@ const ContactModal = () => {
                     <SelectValue placeholder="Select timezone" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="IST">Indian Standard Time (IST)</SelectItem>
-                    <SelectItem value="EST">Eastern Standard Time (EST)</SelectItem>
-                    <SelectItem value="CST">Central Standard Time (CST)</SelectItem>
-                    <SelectItem value="MST">Mountain Standard Time (MST)</SelectItem>
-                    <SelectItem value="PST">Pacific Standard Time (PST)</SelectItem>
-                    <SelectItem value="GMT">Greenwich Mean Time (GMT)</SelectItem>
-                    <SelectItem value="CET">Central European Time (CET)</SelectItem>
+                    <SelectItem value="IST">New Delhi - IST (GMT +5:30)</SelectItem>
+                    <SelectItem value="BST">London - BST (GMT +1:00)</SelectItem>
+                    <SelectItem value="CEST">Paris, Berlin - CEST (GMT +2:00)</SelectItem>
+                    <SelectItem value="EDT">New York - EDT (GMT -4:00)</SelectItem>
+                    <SelectItem value="CDT">Chicago - CDT (GMT -5:00)</SelectItem>
+                    <SelectItem value="MDT">Denver - MDT (GMT -6:00)</SelectItem>
+                    <SelectItem value="PDT">Los Angeles - PDT (GMT -7:00)</SelectItem>
+                    <SelectItem value="JST">Tokyo - JST (GMT +9:00)</SelectItem>
+                    <SelectItem value="AEST">Sydney - AEST (GMT +10:00)</SelectItem>
+                    <SelectItem value="GMT">London - GMT (GMT +0:00)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
