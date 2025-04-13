@@ -172,6 +172,16 @@ export class PostgresStorage implements IStorage {
   }
   
   async updateContentSection(id: number, data: { name?: string, description?: string }): Promise<ContentSection | undefined> {
+    // Get current section to check for uniqueId
+    const currentSection = await this.getContentSection(id);
+    if (currentSection && !currentSection.uniqueId) {
+      // Generate a uniqueId if it doesn't exist
+      data = {
+        ...data,
+        uniqueId: this.generateUniqueId('section', data.name || currentSection.name)
+      };
+    }
+    
     const result = await db.update(contentSections)
       .set({
         ...data,
@@ -230,6 +240,11 @@ export class PostgresStorage implements IStorage {
         data: currentItem,
         comment: 'Automatic version before update'
       });
+      
+      // Ensure uniqueId is preserved if it exists, or generate one if it doesn't
+      if (!currentItem.uniqueId) {
+        data.uniqueId = this.generateUniqueId('content', data.title || currentItem.title || 'item');
+      }
     }
     
     // Update the item
@@ -334,8 +349,11 @@ export class PostgresStorage implements IStorage {
   
   async createHeroSection(data: InsertHeroSection): Promise<HeroSection> {
     const now = new Date();
+    const uniqueId = this.generateUniqueId('hero', data.title || `${data.pageId}-hero`);
+    
     const result = await db.insert(heroSections).values({
       ...data,
+      uniqueId,
       createdAt: now,
       updatedAt: now
     }).returning();
@@ -353,6 +371,11 @@ export class PostgresStorage implements IStorage {
         data: currentItem,
         comment: 'Automatic version before update'
       });
+      
+      // Ensure uniqueId is preserved if it exists, or generate one if it doesn't
+      if (!currentItem.uniqueId) {
+        data.uniqueId = this.generateUniqueId('hero', data.title || currentItem.title || `${currentItem.pageId}-hero`);
+      }
     }
     
     const result = await db.update(heroSections)
@@ -391,8 +414,11 @@ export class PostgresStorage implements IStorage {
   
   async createGalleryItem(data: InsertGalleryItem): Promise<GalleryItem> {
     const now = new Date();
+    const uniqueId = this.generateUniqueId('gallery', data.title || 'gallery-item');
+    
     const result = await db.insert(galleryItems).values({
       ...data,
+      uniqueId,
       createdAt: now,
       updatedAt: now
     }).returning();
@@ -410,6 +436,11 @@ export class PostgresStorage implements IStorage {
         data: currentItem,
         comment: 'Automatic version before update'
       });
+      
+      // Ensure uniqueId is preserved if it exists, or generate one if it doesn't
+      if (!currentItem.uniqueId) {
+        data.uniqueId = this.generateUniqueId('gallery', data.title || currentItem.title || 'gallery-item');
+      }
     }
     
     const result = await db.update(galleryItems)
