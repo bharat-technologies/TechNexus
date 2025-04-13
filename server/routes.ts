@@ -801,20 +801,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get all tables
   app.get('/api/db/tables', requireAuth, async (req, res) => {
     try {
-      // Get list of all tables in the database with a simpler query
+      // Get list of all tables in the database with row counts
       const tablesResult = await pool.query({
         text: `
-          SELECT table_name
-          FROM information_schema.tables 
+          SELECT 
+            table_name,
+            (SELECT count(*) FROM information_schema.columns WHERE table_name = t.table_name) AS column_count,
+            obj_description(('public.' || table_name)::regclass::oid, 'pg_class') AS description
+          FROM information_schema.tables t
           WHERE table_schema = 'public'
           ORDER BY table_name
         `
       });
       
-      const tables = tablesResult.rows.map(row => ({
-        name: row.table_name,
-        rowCount: 0  // We'll skip row count estimation for now
-      }));
+      // For each table, get the row count
+      const tables = [];
+      for (const row of tablesResult.rows) {
+        try {
+          const countResult = await pool.query({
+            text: `SELECT COUNT(*) AS row_count FROM "${row.table_name}"`
+          });
+          
+          tables.push({
+            name: row.table_name,
+            rowCount: parseInt(countResult.rows[0].row_count),
+            description: row.description
+          });
+        } catch (err) {
+          console.error(`Error counting rows for table ${row.table_name}:`, err);
+          tables.push({
+            name: row.table_name,
+            rowCount: 0,
+            description: row.description
+          });
+        }
+      }
       
       res.json({
         success: true,
@@ -896,20 +917,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
         query: z.string().min(1)
       }).parse(req.body);
       
-      // Validate query for safety - only allow SELECT statements for now
-      if (!query.trim().toUpperCase().startsWith('SELECT')) {
+      // Basic SQL sanitization checks
+      const upperQuery = query.trim().toUpperCase();
+      const isDangerous = 
+        upperQuery.includes('DROP DATABASE') || 
+        upperQuery.includes('TRUNCATE DATABASE') || 
+        upperQuery.includes('DROP SCHEMA PUBLIC') ||
+        upperQuery.includes('DELETE FROM') && !upperQuery.includes('WHERE');
+      
+      if (isDangerous) {
         return res.status(400).json({
           success: false,
-          message: 'Only SELECT queries are allowed for security reasons'
+          message: 'This query contains potentially dangerous operations that could delete large amounts of data'
         });
       }
       
       const result = await pool.query({text: query});
       
+      // Handle different query types
+      const isSelect = upperQuery.startsWith('SELECT');
+      const isUpdate = upperQuery.startsWith('UPDATE');
+      const isDelete = upperQuery.startsWith('DELETE');
+      const isInsert = upperQuery.startsWith('INSERT');
+      const isAlter = upperQuery.startsWith('ALTER');
+      const isCreate = upperQuery.startsWith('CREATE');
+      
+      let message = '';
+      if (isSelect) {
+        message = `Query returned ${result.rowCount || 0} rows`;
+      } else if (isUpdate) {
+        message = `Updated ${result.rowCount || 0} rows`;
+      } else if (isDelete) {
+        message = `Deleted ${result.rowCount || 0} rows`;
+      } else if (isInsert) {
+        message = `Inserted ${result.rowCount || 0} rows`;
+      } else if (isAlter) {
+        message = 'Schema altered successfully';
+      } else if (isCreate) {
+        message = 'Created successfully';
+      } else {
+        message = 'Query executed successfully';
+      }
+      
       res.json({
         success: true,
-        results: result.rows,
-        rowCount: result.rowCount
+        results: result.rows || [],
+        rowCount: result.rowCount || 0,
+        message
       });
     } catch (error: any) {
       console.error('Error executing SQL query:', error);
