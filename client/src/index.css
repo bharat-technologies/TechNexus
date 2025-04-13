@@ -619,6 +619,21 @@
   transform: translateY(-3px);
 }
 
+/* Timezone selector styles */
+.timezone-option {
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.timezone-option:hover {
+  background-color: #f3f4f6;
+}
+
+.timezone-select-items {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 /* Gallery Item Hover Effect */
 .gallery-item:hover .gallery-overlay {
   opacity: 1;
