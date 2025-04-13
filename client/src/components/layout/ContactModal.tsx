@@ -87,7 +87,10 @@ const ContactModal = () => {
   const { toast } = useToast();
   const { setIsOpen, setIsMinimized } = useAgentAI();
   const [selectedOption, setSelectedOption] = useState<'main' | 'email-form' | 'call-details' | 'callback-form'>('main');
-  const [callbackDate, setCallbackDate] = useState<Date | undefined>(undefined);
+  // Default date is 24 hours from now
+  const defaultDate = new Date();
+  defaultDate.setDate(defaultDate.getDate() + 1);
+  const [callbackDate, setCallbackDate] = useState<Date | undefined>(defaultDate);
   
   // State for autocomplete suggestions
   const [companyOptions, setCompanyOptions] = useState<string[]>([]);
@@ -102,8 +105,28 @@ const ContactModal = () => {
     }
   }, [contactModal]);
   
-  const [selectedTime, setSelectedTime] = useState<string>("09:00");
-  const [selectedTimezone, setSelectedTimezone] = useState<string>("IST");
+  // Default time is current time rounded to nearest hour
+  const currentHour = new Date().getHours();
+  const defaultTime = currentHour < 9 ? "09:00" : 
+                     currentHour > 17 ? "09:00" : 
+                     `${currentHour < 10 ? '0' + currentHour : currentHour}:00`;
+  const [selectedTime, setSelectedTime] = useState<string>(defaultTime);
+  // Default timezone based on browser timezone
+  const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  // Map browser timezone to our options (defaulting to IST if no match)
+  const getDefaultTimezone = () => {
+    if (browserTimezone.includes("Asia/Kolkata")) return "IST";
+    if (browserTimezone.includes("Europe/London")) return "BST";
+    if (browserTimezone.includes("Europe/Paris") || browserTimezone.includes("Europe/Berlin")) return "CEST";
+    if (browserTimezone.includes("America/New_York")) return "EDT";
+    if (browserTimezone.includes("America/Chicago")) return "CDT";
+    if (browserTimezone.includes("America/Denver")) return "MDT";
+    if (browserTimezone.includes("America/Los_Angeles")) return "PDT";
+    if (browserTimezone.includes("Asia/Tokyo")) return "JST";
+    if (browserTimezone.includes("Australia/Sydney")) return "AEST";
+    return "IST"; // Default to IST if no match
+  };
+  const [selectedTimezone, setSelectedTimezone] = useState<string>(getDefaultTimezone());
 
   // Add refs for calendar functionality
   const calendarRef = useRef<HTMLDivElement>(null);
