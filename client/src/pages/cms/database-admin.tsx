@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { ArrowLeft, Table, ArrowDownUp, ChevronDown, X, HardDrive, Database, RefreshCw, Plus, Edit, Trash, PlusCircle, Save } from "lucide-react";
+import { ArrowLeft, Table, ArrowDownUp, ChevronDown, X, HardDrive, Database, RefreshCw, Plus, Edit, Trash, Trash2, PlusCircle, Save } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1018,6 +1018,173 @@ export default function DatabaseAdminPage() {
                 <>
                   <PlusCircle className="h-4 w-4 mr-2" />
                   Create Table
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Column Dialog */}
+      <Dialog open={isAddColumnDialogOpen} onOpenChange={setIsAddColumnDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add New Column</DialogTitle>
+            <DialogDescription>
+              Add a new column to table {selectedTable}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4 space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="column-name">Column Name</Label>
+              <Input
+                id="column-name"
+                value={newColumn.name}
+                onChange={(e) => setNewColumn({...newColumn, name: e.target.value})}
+                placeholder="e.g., title, price, etc."
+                autoComplete="off"
+              />
+              <p className="text-xs text-gray-500">
+                Use lowercase letters, numbers, and underscores only
+              </p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="column-type">Data Type</Label>
+              <Select 
+                value={newColumn.type} 
+                onValueChange={(value) => setNewColumn({...newColumn, type: value})}
+              >
+                <SelectTrigger id="column-type">
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="text">text</SelectItem>
+                  <SelectItem value="integer">integer</SelectItem>
+                  <SelectItem value="boolean">boolean</SelectItem>
+                  <SelectItem value="date">date</SelectItem>
+                  <SelectItem value="timestamp">timestamp</SelectItem>
+                  <SelectItem value="numeric">numeric</SelectItem>
+                  <SelectItem value="jsonb">jsonb</SelectItem>
+                  <SelectItem value="uuid">uuid</SelectItem>
+                  <SelectItem value="varchar">varchar</SelectItem>
+                  <SelectItem value="text[]">text[] (array)</SelectItem>
+                  <SelectItem value="integer[]">integer[] (array)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center justify-between pt-2">
+              <div className="flex items-center space-x-2">
+                <Switch 
+                  id="column-nullable" 
+                  checked={newColumn.isNullable}
+                  onCheckedChange={(checked) => setNewColumn({...newColumn, isNullable: checked})}
+                />
+                <Label htmlFor="column-nullable">Allow NULL values</Label>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="column-unique"
+                  checked={newColumn.isUnique}
+                  onCheckedChange={(checked) => setNewColumn({...newColumn, isUnique: checked})}
+                />
+                <Label htmlFor="column-unique">Unique constraint</Label>
+              </div>
+            </div>
+            
+            <div className="space-y-2 pt-2">
+              <Label htmlFor="column-default">Default Value (optional)</Label>
+              <Input
+                id="column-default"
+                value={newColumn.defaultValue || ''}
+                onChange={(e) => setNewColumn({...newColumn, defaultValue: e.target.value || undefined})}
+                placeholder="e.g., 0, 'Unknown', etc."
+              />
+              <p className="text-xs text-gray-500">
+                Leave empty for no default value
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAddColumnDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => {
+                if (!selectedTable || !newColumn.name || !newColumn.type) {
+                  toast({
+                    title: "Missing required fields",
+                    description: "Please fill in all required fields",
+                    variant: "destructive"
+                  });
+                  return;
+                }
+                
+                addColumnMutation.mutate({
+                  tableName: selectedTable,
+                  column: newColumn
+                });
+              }} 
+              disabled={addColumnMutation.isPending}
+            >
+              {addColumnMutation.isPending ? (
+                <>
+                  <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full mr-2" />
+                  Adding...
+                </>
+              ) : (
+                <>
+                  <PlusCircle className="h-4 w-4 mr-2" />
+                  Add Column
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Drop Table Confirmation Dialog */}
+      <Dialog open={isDropTableDialogOpen} onOpenChange={setIsDropTableDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-red-600">Drop Table Confirmation</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete the table "{selectedTable}" and all its data.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <div className="bg-red-50 border border-red-200 rounded-md p-4">
+              <p className="text-red-800 font-medium">Warning:</p>
+              <ul className="list-disc ml-5 mt-2 text-sm text-red-700 space-y-1">
+                <li>All data in this table will be permanently deleted</li>
+                <li>Any applications or queries relying on this table will fail</li>
+                <li>This action cannot be undone or recovered</li>
+              </ul>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsDropTableDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button 
+              variant="destructive"
+              onClick={() => {
+                if (!selectedTable) return;
+                dropTableMutation.mutate(selectedTable);
+              }} 
+              disabled={dropTableMutation.isPending}
+            >
+              {dropTableMutation.isPending ? (
+                <>
+                  <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full mr-2" />
+                  Dropping Table...
+                </>
+              ) : (
+                <>
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Drop Table
                 </>
               )}
             </Button>
