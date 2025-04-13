@@ -86,7 +86,7 @@ const ContactModal = () => {
       return;
     }
     
-    if (contactModal === 'call') {
+    if (contactModal === 'call' || contactModal === 'callback') {
       setSelectedOption('call-details');
     } else if (contactModal === 'email') {
       setSelectedOption('email-form');

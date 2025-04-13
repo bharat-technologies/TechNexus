@@ -3,7 +3,7 @@ import { useAgentAI } from '@/contexts/AgentAIContext';
 import { useContact } from '@/contexts/ContactContext';
 
 interface ContactOptionsProps {
-  onOptionClick?: (option: 'email' | 'call' | 'ai') => void;
+  onOptionClick?: (option: 'email' | 'call' | 'ai' | 'callback') => void;
   className?: string;
   inModal?: boolean;
 }
@@ -33,6 +33,14 @@ const ContactOptions: React.FC<ContactOptionsProps> = ({
       onOptionClick('call');
     } else if (!inModal) {
       openContactModal('call');
+    }
+  };
+  
+  const handleCallbackClick = () => {
+    if (onOptionClick) {
+      onOptionClick('callback');
+    } else if (!inModal) {
+      openContactModal('callback');
     }
   };
   

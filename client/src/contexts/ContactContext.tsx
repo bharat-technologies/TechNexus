@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-type ContactModalType = 'email' | 'call' | 'ai' | 'main' | null;
+type ContactModalType = 'email' | 'call' | 'ai' | 'main' | 'callback' | null;
 
 interface ContactContextType {
   contactModal: ContactModalType;
