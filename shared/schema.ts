@@ -9,6 +9,9 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
   email: text("email"),
   role: text("role").default("user"),
+  profileBackground: text("profile_background").default("default"),
+  profileBackgroundColor: text("profile_background_color").default("#f9fafb"),
+  profileSettings: jsonb("profile_settings"),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
@@ -16,6 +19,9 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
   email: true,
   role: true,
+  profileBackground: true,
+  profileBackgroundColor: true,
+  profileSettings: true,
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
