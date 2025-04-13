@@ -536,16 +536,19 @@ const ContactModal = () => {
                     <div 
                       ref={calendarRef}
                       onKeyDown={(e: React.KeyboardEvent) => {
-                        if (e.key === 'Enter' && callbackDate) {
+                        if (e.key === 'Enter') {
                           e.preventDefault();
-                          // Close the popover on Enter key
-                          closeCalendarPopover();
+                          // Close the popover on Enter key, but only if a date is selected
+                          if (callbackDate) {
+                            setTimeout(() => closeCalendarPopover(), 50);
+                          }
                         }
                       }}
-                      onDoubleClick={() => {
+                      onDoubleClick={(e) => {
+                        // Close the popover on double click, only if a date is selected
                         if (callbackDate) {
-                          // Close the popover on double click
-                          closeCalendarPopover();
+                          e.stopPropagation(); // Prevent event bubbling
+                          setTimeout(() => closeCalendarPopover(), 50);
                         }
                       }}
                     >
@@ -554,10 +557,8 @@ const ContactModal = () => {
                         selected={callbackDate}
                         onSelect={(date: Date | undefined) => {
                           setCallbackDate(date);
-                          // Auto-close calendar after selecting a date
-                          if (date) {
-                            setTimeout(() => closeCalendarPopover(), 100);
-                          }
+                          // Don't auto-close on single click, only on double click or Enter
+                          // Auto-closing is handled by the onDoubleClick and onKeyDown handlers
                         }}
                         disabled={(date: Date) => 
                           date < new Date(new Date().setHours(0, 0, 0, 0))
