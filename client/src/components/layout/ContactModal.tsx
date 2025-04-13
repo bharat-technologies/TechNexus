@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { apiRequest } from '@/lib/queryClient';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useAgentAI } from '@/contexts/AgentAIContext';
 import { useContact } from '@/contexts/ContactContext';
@@ -51,6 +51,23 @@ const ContactModal = () => {
   
   const [selectedTime, setSelectedTime] = useState<string>("09:00");
   const [selectedTimezone, setSelectedTimezone] = useState<string>("IST");
+
+  // Add refs for calendar functionality
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  
+  // Function to close the calendar popover
+  const closeCalendarPopover = () => {
+    if (calendarRef.current) {
+      // Create and dispatch a click event outside the calendar to close it
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+      });
+      document.body.dispatchEvent(clickEvent);
+    }
+  };
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -352,15 +369,35 @@ const ContactModal = () => {
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={callbackDate}
-                      onSelect={setCallbackDate}
-                      disabled={(date) => 
-                        date < new Date(new Date().setHours(0, 0, 0, 0))
-                      }
-                      initialFocus
-                    />
+                    <div 
+                      ref={calendarRef}
+                      onKeyDown={(e: React.KeyboardEvent) => {
+                        if (e.key === 'Enter' && callbackDate) {
+                          e.preventDefault();
+                          // Close the popover on Enter key
+                          closeCalendarPopover();
+                        }
+                      }}
+                      onDoubleClick={() => {
+                        if (callbackDate) {
+                          // Close the popover on double click
+                          closeCalendarPopover();
+                        }
+                      }}
+                    >
+                      <Calendar
+                        mode="single"
+                        selected={callbackDate}
+                        onSelect={(date: Date | undefined) => {
+                          setCallbackDate(date);
+                          // We don't auto-close on single click, only on double click or Enter
+                        }}
+                        disabled={(date: Date) => 
+                          date < new Date(new Date().setHours(0, 0, 0, 0))
+                        }
+                        initialFocus
+                      />
+                    </div>
                   </PopoverContent>
                 </Popover>
               </div>
