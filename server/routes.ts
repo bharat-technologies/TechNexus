@@ -10,8 +10,89 @@ import {
 import { z } from "zod";
 import { generateAgentResponse } from "./services/openai";
 import { sql } from "drizzle-orm";
+import { requireAuth, loginUser, createUser, initializeAdminUser } from "./auth";
+import session from "express-session";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Configure session middleware
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'bharat-technologies-cms-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+  }));
+  
+  // Initialize an admin user if none exists
+  await initializeAdminUser();
+  
+  // Authentication endpoints
+  app.post('/api/auth/login', async (req, res) => {
+    try {
+      const { username, password } = z.object({
+        username: z.string().min(1),
+        password: z.string().min(1)
+      }).parse(req.body);
+      
+      const result = await loginUser(username, password);
+      
+      if (!result.success) {
+        return res.status(401).json({
+          success: false,
+          message: result.message
+        });
+      }
+      
+      // Set user ID in session
+      req.session.userId = result.userId;
+      
+      res.json({
+        success: true,
+        message: 'Login successful'
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid username or password format'
+        });
+      }
+      
+      console.error('Login error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'An error occurred during login'
+      });
+    }
+  });
+  
+  app.post('/api/auth/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Logout error:', err);
+        return res.status(500).json({
+          success: false,
+          message: 'Error during logout'
+        });
+      }
+      
+      res.json({
+        success: true,
+        message: 'Logged out successfully'
+      });
+    });
+  });
+  
+  app.get('/api/auth/check', (req, res) => {
+    const isAuthenticated = !!req.session.userId;
+    res.json({
+      success: true,
+      authenticated: isAuthenticated
+    });
+  });
+  
   // API routes with /api prefix
   
   // Contact form submission endpoint
@@ -171,15 +252,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Auth middleware for admin routes
   const requireAuth = (req: Request, res: Response, next: NextFunction) => {
-    // For now, we'll skip actual authentication and allow access
-    // In a real implementation, you would check session status
+    if (!req.session || !req.session.userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
     next();
-    
-    // Example with passport authentication:
-    // if (!req.isAuthenticated || !req.isAuthenticated()) {
-    //   return res.status(401).json({ success: false, message: 'Authentication required' });
-    // }
-    // next();
   };
 
   // Content Sections
