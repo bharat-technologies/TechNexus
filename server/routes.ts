@@ -187,7 +187,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Hash the new password
-      const hashedPassword = await createUser.hashPassword(newPassword);
+      const hashedPassword = await hashPassword(newPassword);
       
       // Update user password
       const updatedUser = await storage.updateUser(userId, { password: hashedPassword });

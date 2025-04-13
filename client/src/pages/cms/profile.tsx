@@ -148,19 +148,36 @@ function UpdateEmailForm() {
     setIsSubmitting(true);
     
     try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/auth/update-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: newEmail }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update email');
+      }
       
       toast({
-        title: "Email update requested",
-        description: "A verification email has been sent to your new address",
+        title: "Email updated successfully",
+        description: data.message || "Your email has been updated",
       });
       
       setSuccess(true);
-    } catch (error) {
+      
+      // Refresh user data in auth context after 1 second
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      
+    } catch (error: any) {
       toast({
         title: "Update failed",
-        description: "There was a problem updating your email. Please try again.",
+        description: error.message || "There was a problem updating your email. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -245,30 +262,44 @@ function ChangePasswordForm() {
       return;
     }
     
-    if (newPassword.length < 8) {
-      setError('New password must be at least 8 characters long');
+    if (newPassword.length < 6) {
+      setError('New password must be at least 6 characters long');
       return;
     }
     
     setIsSubmitting(true);
     
     try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update password');
+      }
       
       toast({
         title: "Password updated",
-        description: "Your password has been changed successfully",
+        description: data.message || "Your password has been changed successfully",
       });
       
       setSuccess(true);
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Update failed",
-        description: "There was a problem updating your password. Please try again.",
+        description: error.message || "There was a problem updating your password. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -311,7 +342,7 @@ function ChangePasswordForm() {
           />
         </div>
         <p className="text-xs text-muted-foreground">
-          Password must be at least 8 characters long.
+          Password must be at least 6 characters long.
         </p>
       </div>
       
@@ -388,19 +419,35 @@ function ResetPasswordForm() {
     setIsSubmitting(true);
     
     try {
-      // Mock API call to request a verification code
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await fetch('/api/auth/request-reset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to request password reset');
+      }
       
       toast({
         title: "Verification code sent",
-        description: "Check your email for the verification code",
+        description: data.message || "Check your email for the verification code",
       });
       
+      // Store the token for the next step (would normally be sent by email)
+      if (data.resetToken) {
+        setVerificationCode(data.resetToken);
+      }
+      
       setStep(2);
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Request failed",
-        description: "There was a problem sending the verification code. Please try again.",
+        description: error.message || "There was a problem sending the verification code. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -416,19 +463,33 @@ function ResetPasswordForm() {
     setIsSubmitting(true);
     
     try {
-      // Mock API call to verify code and reset password
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: verificationCode,
+          newPassword
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to reset password');
+      }
       
       toast({
         title: "Password reset successful",
-        description: "Your password has been reset successfully",
+        description: data.message || "Your password has been reset successfully",
       });
       
       setStep(3);
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Reset failed",
-        description: "Invalid verification code or there was a problem resetting your password.",
+        description: error.message || "Invalid verification code or there was a problem resetting your password.",
         variant: "destructive",
       });
     } finally {
@@ -507,7 +568,7 @@ function ResetPasswordForm() {
             />
           </div>
           <p className="text-xs text-muted-foreground">
-            Password must be at least 8 characters long.
+            Password must be at least 6 characters long.
           </p>
         </div>
         
