@@ -588,7 +588,7 @@ const ContactModal = () => {
                     <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center focus:outline-none focus:ring-2 focus:ring-black hover:border-gray-400 transition-colors duration-200">
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent position="popper" side="top" align="start">
                       <div className="timezone-select-items">
                         <SelectItem value="09:00" className="timezone-option py-2 px-3">
                           <span className="timezone-content">
@@ -657,7 +657,7 @@ const ContactModal = () => {
                   <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center justify-start text-left focus:outline-none focus:ring-2 focus:ring-black hover:border-gray-400 transition-colors duration-200">
                     <SelectValue placeholder="Select timezone" className="text-left" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent position="popper" side="top" align="start">
                     <div className="timezone-select-items">
                       <SelectItem value="IST" className="timezone-option py-2 px-3">
                         <span className="timezone-content">
