@@ -286,7 +286,7 @@ const ContactModal = () => {
 
   return (
     <Dialog open={contactModal !== null} onOpenChange={() => closeContactModal()}>
-      <DialogContent className="sm:max-w-[750px] lg:max-w-[850px] xl:max-w-[900px] p-6">
+      <DialogContent className="sm:max-w-[800px] lg:max-w-[950px] xl:max-w-[1050px] p-6">
         {selectedOption === 'main' && (
           <>
             <DialogHeader className="text-center">
@@ -294,7 +294,7 @@ const ContactModal = () => {
             </DialogHeader>
             
             <ContactOptions 
-              className="py-6" 
+              className="py-8 px-6" 
               inModal={true}
               onOptionClick={(option) => {
                 if (option === 'email') {

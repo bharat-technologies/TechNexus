@@ -54,7 +54,7 @@ const ContactOptions: React.FC<ContactOptionsProps> = ({
   };
   
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 ${className}`}>
+    <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 ${className}`}>
       {/* Email Option */}
       <div 
         className="bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md rounded-lg p-6 text-center transition-all duration-300 cursor-pointer flex flex-col h-full"
