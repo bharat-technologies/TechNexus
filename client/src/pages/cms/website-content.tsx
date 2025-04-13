@@ -1112,7 +1112,7 @@ export default function WebsiteContentPage() {
                             Type: <Badge variant="outline" className="font-normal">{content.type}</Badge>
                           </div>
                           <div className="text-sm text-gray-600 mt-1">
-                            ID: <Badge variant="secondary" className="font-mono text-xs">{content.uniqueId || `id-${content.id}`}</Badge>
+                            ID: <span className="text-xs text-gray-500">{content.uniqueId || content.id}</span>
                           </div>
                           <div className="mt-2 text-gray-700">
                             {content.title}
@@ -1429,7 +1429,7 @@ export default function WebsiteContentPage() {
                 <div className="mt-6 pt-4 border-t text-sm text-gray-500">
                   <div>Page: {editingContent.pageLocation}</div>
                   <div>Type: {editingContent.type}</div>
-                  <div>ID: {editingContent.uniqueId || `id-${editingContent.id}`}</div>
+                  <div>ID: {editingContent.uniqueId || editingContent.id}</div>
                   <div>Status: {editingContent.isActive ? 'Active' : 'Inactive'}</div>
                 </div>
               </div>
@@ -1466,8 +1466,8 @@ export default function WebsiteContentPage() {
                 <p className="text-sm text-gray-500 mt-1">
                   {contentToDelete.type} · {contentToDelete.pageLocation}
                 </p>
-                <p className="text-xs font-mono text-gray-400 mt-1">
-                  ID: {contentToDelete.uniqueId || `id-${contentToDelete.id}`}
+                <p className="text-xs text-gray-500 mt-1">
+                  ID: {contentToDelete.uniqueId || contentToDelete.id}
                 </p>
               </div>
             </div>
