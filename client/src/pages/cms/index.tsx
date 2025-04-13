@@ -1,39 +1,42 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { 
   AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, 
-  Navigation, FileText, LayoutGrid, Globe, LayoutDashboard, Database 
+  Navigation, FileText, LayoutGrid, Globe, LayoutDashboard, Database,
+  LogOut, Loader2
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Main CMS Dashboard Page
 export default function CMSDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const { isAuthenticated, isLoading, logout } = useAuth();
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Check authentication status
-  useEffect(() => {
-    // For demo purposes, we'll simulate being logged in
-    // In a real implementation, you would check session status
-    setIsAuthenticated(true);
-  }, []);
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    await logout();
+    setIsLoggingOut(false);
+    setLocation('/cms/login');
+  };
 
-  if (isAuthenticated === null) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-8 h-8 border-4 border-t-transparent border-black rounded-full animate-spin"></div>
+        <div className="flex flex-col items-center space-y-4">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
       </div>
     );
-  }
-
-  if (isAuthenticated === false) {
-    return <LoginForm onLogin={() => setIsAuthenticated(true)} />;
   }
 
   return (
@@ -50,8 +53,23 @@ export default function CMSDashboard() {
               View Website
             </Link>
           </Button>
-          <Button onClick={() => setIsAuthenticated(false)} variant="ghost" size="sm">
-            Sign Out
+          <Button 
+            onClick={handleLogout} 
+            variant="ghost" 
+            size="sm"
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Signing Out...
+              </>
+            ) : (
+              <>
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </>
+            )}
           </Button>
         </div>
       </div>
