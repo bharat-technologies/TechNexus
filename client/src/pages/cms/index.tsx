@@ -3,7 +3,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, Navigation, FileText, LayoutGrid, Globe, LayoutDashboard } from "lucide-react";
+import { 
+  AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, 
+  Navigation, FileText, LayoutGrid, Globe, LayoutDashboard, Database 
+} from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -101,6 +104,12 @@ export default function CMSDashboard() {
                 description="View contact form submissions"
                 icon={<FileText className="h-8 w-8" />}
                 linkTo="/admin" 
+              />
+              <StatCard 
+                title="Database Admin" 
+                description="Manage database tables and content"
+                icon={<Database className="h-8 w-8" />}
+                linkTo="/cms/database-admin" 
               />
               <StatCard 
                 title="Settings" 
