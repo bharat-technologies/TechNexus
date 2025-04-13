@@ -25,6 +25,7 @@ import {
 // Define the content types that appear on the website
 interface WebsiteContent {
   id: number;
+  uniqueId?: string; // Add the uniqueId field
   type: string;
   pageLocation: string;
   name: string;
@@ -1110,6 +1111,9 @@ export default function WebsiteContentPage() {
                           <div className="text-sm text-gray-600">
                             Type: <Badge variant="outline" className="font-normal">{content.type}</Badge>
                           </div>
+                          <div className="text-sm text-gray-600 mt-1">
+                            ID: <Badge variant="secondary" className="font-mono text-xs">{content.uniqueId || `id-${content.id}`}</Badge>
+                          </div>
                           <div className="mt-2 text-gray-700">
                             {content.title}
                           </div>
@@ -1425,6 +1429,7 @@ export default function WebsiteContentPage() {
                 <div className="mt-6 pt-4 border-t text-sm text-gray-500">
                   <div>Page: {editingContent.pageLocation}</div>
                   <div>Type: {editingContent.type}</div>
+                  <div>ID: {editingContent.uniqueId || `id-${editingContent.id}`}</div>
                   <div>Status: {editingContent.isActive ? 'Active' : 'Inactive'}</div>
                 </div>
               </div>
@@ -1460,6 +1465,9 @@ export default function WebsiteContentPage() {
                 <h3 className="font-semibold">{contentToDelete.title}</h3>
                 <p className="text-sm text-gray-500 mt-1">
                   {contentToDelete.type} · {contentToDelete.pageLocation}
+                </p>
+                <p className="text-xs font-mono text-gray-400 mt-1">
+                  ID: {contentToDelete.uniqueId || `id-${contentToDelete.id}`}
                 </p>
               </div>
             </div>
