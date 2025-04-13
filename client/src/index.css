@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Calendar double-click support */
+.calendar-with-double-click button[data-selected="true"] {
+  background-color: black !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.calendar-with-double-click button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 /* Specialization hover colors */
 .hover-icon-0:hover {
   background-color: #4B7BF5; /* Blue for AI Solutions */

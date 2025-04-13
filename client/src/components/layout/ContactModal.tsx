@@ -125,25 +125,42 @@ const ContactModal = () => {
     }
   }, []);
   
-  // Handle double-click in the calendar to close it
+  // Handle double-click anywhere in the calendar to close it
   useEffect(() => {
     const handleCalendarDoubleClick = (e: MouseEvent) => {
+      // Check if we're within the calendar component
       if (calendarRef.current?.contains(e.target as Node)) {
-        // On double-click within the calendar, close it if a date is selected
+        // Check if we have a date selected
         if (callbackDate) {
           e.preventDefault();
           e.stopPropagation();
-          setTimeout(() => closeCalendarPopover(), 50);
+          // Force close the popover
+          setCalendarOpen(false);
         }
       }
     };
     
+    // Add listener for double-click events
     document.addEventListener('dblclick', handleCalendarDoubleClick);
     
+    // Cleanup
     return () => {
       document.removeEventListener('dblclick', handleCalendarDoubleClick);
     };
   }, [callbackDate]);
+  
+  // Also handle calendar click events directly
+  const handleCalendarClick = (date: Date | undefined) => {
+    setCallbackDate(date);
+    // Don't auto-close on single click
+  };
+  
+  // Handle date double-click specifically
+  const handleCalendarDayDoubleClick = () => {
+    if (callbackDate) {
+      setCalendarOpen(false);
+    }
+  };
 
   // Form with defaultValues from saved contact info if available
   const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<ContactFormValues>({
@@ -540,14 +557,18 @@ const ContactModal = () => {
                       <Calendar
                         mode="single"
                         selected={callbackDate}
-                        onSelect={(date: Date | undefined) => {
-                          setCallbackDate(date);
-                          // Don't auto-close on single click
+                        onSelect={handleCalendarClick}
+                        onDayClick={(day: Date, modifiers: any) => {
+                          // Capture click events to set up double-click later
+                          if (!modifiers.disabled) {
+                            setCallbackDate(day);
+                          }
                         }}
                         disabled={(date: Date) => 
                           date < new Date(new Date().setHours(0, 0, 0, 0))
                         }
                         initialFocus
+                        className="calendar-with-double-click"
                       />
                       <div 
                         className="p-2 border-t border-gray-100"
