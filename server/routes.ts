@@ -341,6 +341,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const websiteContent = contentItems.map(item => ({
         id: item.id,
+        uniqueId: item.uniqueId || '', // Include the uniqueId in the response
         type: item.type || item.category || 'general',
         pageLocation: item.pageLocation || (item.sectionId ? item.sectionId.toString() : 'home'),
         name: item.name || item.title,
@@ -372,6 +373,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const websiteContent = {
         id: contentItem.id,
+        uniqueId: contentItem.uniqueId || '', // Include the uniqueId in the response
         type: contentItem.type || contentItem.category || 'general',
         pageLocation: contentItem.pageLocation || (contentItem.sectionId ? contentItem.sectionId.toString() : 'home'),
         name: contentItem.name || contentItem.title,
@@ -420,6 +422,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Transform back to website content format for response
       const createdWebsiteContent = {
         id: contentItem.id,
+        uniqueId: contentItem.uniqueId || '', // Include the uniqueId in the response
         type: contentItem.type || contentItem.category || 'general',
         pageLocation: contentItem.pageLocation || (contentItem.sectionId ? contentItem.sectionId.toString() : 'home'),
         name: contentItem.name || contentItem.title,
@@ -509,6 +512,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         entityId: id,
         data: {
           id: contentItem.id,
+          uniqueId: contentItem.uniqueId || '', // Include the uniqueId in the version record
           type: contentItem.type || contentItem.category || 'general',
           pageLocation: contentItem.pageLocation || (contentItem.sectionId ? contentItem.sectionId.toString() : 'home'),
           name: contentItem.name || contentItem.title,
