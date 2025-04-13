@@ -193,7 +193,7 @@ export default function DatabaseAdminPage() {
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {tables && tables.map((table: TableInfo) => (
+              {tables?.data && tables.data.map((table: TableInfo) => (
                 <Card key={table.name} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedTable(table.name)}>
                   <CardHeader className={`pb-2 ${selectedTable === table.name ? 'bg-black text-white' : ''}`}>
                     <CardTitle className="flex items-center justify-between">
@@ -236,12 +236,12 @@ export default function DatabaseAdminPage() {
                 <div className="bg-red-50 p-4 rounded-md text-red-600">
                   <p>Error loading table data: {tableDataError instanceof Error ? tableDataError.message : 'Unknown error'}</p>
                 </div>
-              ) : tableData && (
+              ) : tableData?.data && (
                 <div className="overflow-auto rounded-md border">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-gray-100 border-b">
-                        {tableData.columns.map((column: {
+                        {tableData.data.columns.map((column: {
                           name: string;
                           type: string;
                           isPrimary: boolean;
@@ -318,7 +318,7 @@ export default function DatabaseAdminPage() {
                   </div>
                   <div className="bg-gray-50 p-3 rounded">
                     <span className="text-gray-500">Tables:</span>
-                    <span className="ml-2 font-mono">{tables?.length || 0}</span>
+                    <span className="ml-2 font-mono">{tables?.data?.length || 0}</span>
                   </div>
                 </div>
               </div>
@@ -327,8 +327,8 @@ export default function DatabaseAdminPage() {
                 <h3 className="font-medium mb-2">Database Schema</h3>
                 <div className="bg-gray-50 p-4 rounded-md">
                   <pre className="text-xs overflow-auto font-mono">
-                    {tables ? (
-                      tables.map((table: TableInfo) => `• ${table.name} (${table.rowCount} rows)`).join('\n')
+                    {tables?.data ? (
+                      tables.data.map((table: TableInfo) => `• ${table.name} (${table.rowCount} rows)`).join('\n')
                     ) : (
                       'Loading schema information...'
                     )}

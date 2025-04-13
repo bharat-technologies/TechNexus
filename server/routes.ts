@@ -801,23 +801,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get all tables
   app.get('/api/db/tables', requireAuth, async (req, res) => {
     try {
-      // Get list of all tables in the database
+      // Get list of all tables in the database with a simpler query
       const tablesResult = await pool.query(`
-        SELECT
-          table_name,
-          (SELECT count(*) FROM information_schema.columns WHERE table_name = t.table_name) as column_count,
-          (SELECT count(*) FROM ${sql.raw('"' + 'pg_catalog' + '"')}.pg_stat_user_tables WHERE relname = t.table_name) as row_estimate
-        FROM information_schema.tables t
+        SELECT table_name
+        FROM information_schema.tables 
         WHERE table_schema = 'public'
         ORDER BY table_name
       `);
       
       const tables = tablesResult.rows.map(row => ({
         name: row.table_name,
-        rowCount: parseInt(row.row_estimate)
+        rowCount: 0  // We'll skip row count estimation for now
       }));
       
-      res.json(tables);
+      res.json({
+        success: true,
+        data: tables
+      });
     } catch (error: any) {
       console.error('Error fetching database tables:', error);
       res.status(500).json({ success: false, message: error.message });
@@ -858,18 +858,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Get table data (limit to prevent massive data loads)
       const dataResult = await pool.query(`
-        SELECT * FROM ${sql.raw('"' + tableName + '"')}
+        SELECT * FROM "${tableName}"
         LIMIT 100
       `);
       
       const response = {
-        columns: columnsResult.rows.map(col => ({
-          name: col.column_name,
-          type: col.data_type,
-          isPrimary: col.is_primary,
-          isNullable: col.is_nullable === 'YES'
-        })),
-        rows: dataResult.rows
+        success: true,
+        data: {
+          columns: columnsResult.rows.map(col => ({
+            name: col.column_name,
+            type: col.data_type,
+            isPrimary: col.is_primary,
+            isNullable: col.is_nullable === 'YES'
+          })),
+          rows: dataResult.rows
+        }
       };
       
       res.json(response);
