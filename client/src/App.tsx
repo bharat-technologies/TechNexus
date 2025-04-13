@@ -5,6 +5,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { AgentAIProvider } from "@/contexts/AgentAIContext";
 import { ContactProvider } from "@/contexts/ContactContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import NotFound from "@/pages/not-found";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -54,6 +56,7 @@ import CmsGallery from "@/pages/cms/gallery";
 import CmsSettings from "@/pages/cms/settings";
 import CmsWebsiteContent from "@/pages/cms/website-content";
 import DatabaseAdmin from "@/pages/cms/database-admin";
+import CmsLogin from "@/pages/cms/login";
 
 // Product Pages
 import AnalyticsCloud from "@/pages/products/analytics-cloud";
@@ -116,15 +119,54 @@ function Router() {
       <Route path="/admin" component={Admin} />
       
       {/* CMS Routes */}
-      <Route path="/cms" component={CmsDashboard} />
-      <Route path="/cms/content" component={CmsContent} />
-      <Route path="/cms/content/:id" component={CmsContentSection} />
-      <Route path="/cms/navigation" component={CmsNavigation} />
-      <Route path="/cms/hero-sections" component={CmsHeroSections} />
-      <Route path="/cms/gallery" component={CmsGallery} />
-      <Route path="/cms/settings" component={CmsSettings} />
-      <Route path="/cms/website-content" component={CmsWebsiteContent} />
-      <Route path="/cms/database-admin" component={DatabaseAdmin} />
+      <Route path="/cms/login" component={CmsLogin} />
+      
+      {/* Protected CMS Routes */}
+      <Route path="/cms">
+        <ProtectedRoute>
+          <CmsDashboard />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/content">
+        <ProtectedRoute>
+          <CmsContent />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/content/:id">
+        <ProtectedRoute>
+          <CmsContentSection />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/navigation">
+        <ProtectedRoute>
+          <CmsNavigation />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/hero-sections">
+        <ProtectedRoute>
+          <CmsHeroSections />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/gallery">
+        <ProtectedRoute>
+          <CmsGallery />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/settings">
+        <ProtectedRoute>
+          <CmsSettings />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/website-content">
+        <ProtectedRoute>
+          <CmsWebsiteContent />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/cms/database-admin">
+        <ProtectedRoute>
+          <DatabaseAdmin />
+        </ProtectedRoute>
+      </Route>
       
       {/* Product Routes */}
       <Route path="/products/analytics-cloud" component={AnalyticsCloud} />
@@ -145,18 +187,20 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AgentAIProvider>
-        <ContactProvider>
-          <Loader />
-          <Navbar />
-          <Router />
-          <Footer />
-          <BackToTop />
-          <AgentAIModal />
-          <ContactModal />
-          <Toaster />
-        </ContactProvider>
-      </AgentAIProvider>
+      <AuthProvider>
+        <AgentAIProvider>
+          <ContactProvider>
+            <Loader />
+            <Navbar />
+            <Router />
+            <Footer />
+            <BackToTop />
+            <AgentAIModal />
+            <ContactModal />
+            <Toaster />
+          </ContactProvider>
+        </AgentAIProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
