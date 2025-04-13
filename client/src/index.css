@@ -636,10 +636,16 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-/* Style for the check mark */
-.timezone-option .opacity-0 {
+/* Style for the check mark - will be visible only for selected items */
+.timezone-option span:first-child {
+  visibility: hidden;
   font-weight: bold;
   color: #000;
+}
+
+/* Make checkmark visible for selected items */
+.timezone-option[data-state="checked"] span:first-child {
+  visibility: visible;
 }
 
 .timezone-select-items {
