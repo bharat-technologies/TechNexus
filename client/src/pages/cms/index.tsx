@@ -6,12 +6,21 @@ import { useEffect, useState } from "react";
 import { 
   AlertCircle, CheckCircle, Edit, Trash2, Plus, Home, Image, 
   Navigation, FileText, LayoutGrid, Globe, LayoutDashboard, Database,
-  LogOut, Loader2
+  LogOut, Loader2, User, Settings, ChevronDown
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Main CMS Dashboard Page
 export default function CMSDashboard() {
@@ -39,6 +48,8 @@ export default function CMSDashboard() {
     );
   }
 
+  const { user } = useAuth();
+  
   return (
     <main className="container mx-auto p-4 md:p-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
@@ -46,31 +57,61 @@ export default function CMSDashboard() {
           <h1 className="font-poppins text-3xl font-bold">Content Management System</h1>
           <p className="text-gray-600 mt-1">Manage website content, navigation, and more</p>
         </div>
-        <div className="mt-4 md:mt-0 flex space-x-2">
+        <div className="mt-4 md:mt-0 flex space-x-2 items-center">
           <Button asChild variant="outline" size="sm">
             <Link href="/">
               <Home className="mr-2 h-4 w-4" />
               View Website
             </Link>
           </Button>
-          <Button 
-            onClick={handleLogout} 
-            variant="ghost" 
-            size="sm"
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing Out...
-              </>
-            ) : (
-              <>
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign Out
-              </>
-            )}
-          </Button>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="sm" className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="h-3 w-3 text-primary" />
+                </div>
+                <span className="hidden sm:inline">{user?.username || 'Admin'}</span>
+                <ChevronDown className="h-4 w-4 opacity-50" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem asChild>
+                  <Link href="/cms/profile" className="w-full cursor-pointer">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/cms/settings" className="w-full cursor-pointer">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={handleLogout} 
+                disabled={isLoggingOut}
+                className="text-destructive focus:text-destructive"
+              >
+                {isLoggingOut ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <span>Signing Out...</span>
+                  </>
+                ) : (
+                  <>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Sign Out</span>
+                  </>
+                )}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 

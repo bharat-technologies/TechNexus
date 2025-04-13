@@ -159,6 +159,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+
+  
   // Update profile background settings
   app.post('/api/auth/update-profile-background', requireAuth, async (req, res) => {
     try {
