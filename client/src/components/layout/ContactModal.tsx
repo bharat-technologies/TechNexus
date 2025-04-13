@@ -523,7 +523,7 @@ const ContactModal = () => {
                 </div>
               </div>
               {/* Date and Time Selectors in a row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                 {/* Date Picker */}
                 <div className="space-y-1">
                   <label className="block mb-1 font-medium">Preferred Date</label>
@@ -531,7 +531,7 @@ const ContactModal = () => {
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className={`w-full px-3 py-2 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
+                        className={`w-full px-3 py-2 h-10 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
                       >
                         {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
                       </button>
@@ -581,7 +581,7 @@ const ContactModal = () => {
               </div>
 
               {/* Timezone Selector */}
-              <div className="space-y-1">
+              <div className="space-y-1 mb-4">
                 <label className="block mb-1 font-medium">Timezone</label>
                 <Select value={selectedTimezone} onValueChange={setSelectedTimezone}>
                   <SelectTrigger className="w-full px-3 py-2 border border-gray-300 rounded-lg">
@@ -592,61 +592,61 @@ const ContactModal = () => {
                       <SelectItem value="IST" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>New Delhi - IST (GMT +5:30)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="BST" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>London - BST (GMT +1:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="CEST" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>Paris, Berlin - CEST (GMT +2:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="EDT" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>New York - EDT (GMT -4:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="CDT" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>Chicago - CDT (GMT -5:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="MDT" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>Denver - MDT (GMT -6:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="PDT" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>Los Angeles - PDT (GMT -7:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="JST" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>Tokyo - JST (GMT +9:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="AEST" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>Sydney - AEST (GMT +10:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                       <SelectItem value="GMT" className="timezone-option group">
                         <span className="flex justify-between w-full">
                           <span>London - GMT (GMT +0:00)</span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">→</span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2">✓</span>
                         </span>
                       </SelectItem>
                     </div>
