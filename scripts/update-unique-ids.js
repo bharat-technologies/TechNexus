@@ -1,12 +1,11 @@
 // Script to update existing content items with unique IDs
-const { Pool } = require('@neondatabase/serverless');
-const { drizzle } = require('drizzle-orm/neon-serverless');
-const ws = require('ws');
-const { contentItems } = require('../shared/schema.js');
-const { eq } = require('drizzle-orm');
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-serverless';
+import ws from 'ws';
+import { contentItems } from '../shared/schema.js';
+import { eq } from 'drizzle-orm';
 
 // Configure Neon connection
-const neonConfig = require('@neondatabase/serverless').neonConfig;
 neonConfig.webSocketConstructor = ws;
 
 // Function to generate a unique ID

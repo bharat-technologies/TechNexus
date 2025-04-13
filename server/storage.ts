@@ -171,7 +171,7 @@ export class PostgresStorage implements IStorage {
     return result[0];
   }
   
-  async updateContentSection(id: number, data: { name?: string, description?: string }): Promise<ContentSection | undefined> {
+  async updateContentSection(id: number, data: { name?: string, description?: string, uniqueId?: string }): Promise<ContentSection | undefined> {
     // Get current section to check for uniqueId
     const currentSection = await this.getContentSection(id);
     if (currentSection && !currentSection.uniqueId) {
