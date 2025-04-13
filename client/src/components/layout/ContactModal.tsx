@@ -589,15 +589,62 @@ const ContactModal = () => {
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="09:00">9:00 AM</SelectItem>
-                      <SelectItem value="10:00">10:00 AM</SelectItem>
-                      <SelectItem value="11:00">11:00 AM</SelectItem>
-                      <SelectItem value="12:00">12:00 PM</SelectItem>
-                      <SelectItem value="13:00">1:00 PM</SelectItem>
-                      <SelectItem value="14:00">2:00 PM</SelectItem>
-                      <SelectItem value="15:00">3:00 PM</SelectItem>
-                      <SelectItem value="16:00">4:00 PM</SelectItem>
-                      <SelectItem value="17:00">5:00 PM</SelectItem>
+                      <div className="timezone-select-items">
+                        <SelectItem value="09:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>9:00 AM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="10:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>10:00 AM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="11:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>11:00 AM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="12:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>12:00 PM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="13:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>1:00 PM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="14:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>2:00 PM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="15:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>3:00 PM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="16:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>4:00 PM</span>
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="17:00" className="timezone-option py-2 px-3">
+                          <span className="timezone-content">
+                            <span className="check-mark">→</span>
+                            <span>5:00 PM</span>
+                          </span>
+                        </SelectItem>
+                      </div>
                     </SelectContent>
                   </Select>
                 </div>
