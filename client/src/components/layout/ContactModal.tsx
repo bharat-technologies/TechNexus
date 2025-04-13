@@ -111,14 +111,26 @@ const ContactModal = () => {
   
   // Function to close the calendar popover
   const closeCalendarPopover = () => {
+    // Method 1: Try clicking outside the calendar to close the popover
     if (calendarRef.current) {
-      // Create and dispatch a click event outside the calendar to close it
       const clickEvent = new MouseEvent('click', {
         bubbles: true,
         cancelable: true,
         view: window
       });
+      // Click on document.body which is outside the popover
       document.body.dispatchEvent(clickEvent);
+      
+      // Method 2: Find and click the escape key as a fallback
+      const escapeEvent = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        code: 'Escape',
+        keyCode: 27,
+        which: 27,
+        bubbles: true,
+        cancelable: true
+      });
+      document.dispatchEvent(escapeEvent);
     }
   };
 
@@ -542,7 +554,10 @@ const ContactModal = () => {
                         selected={callbackDate}
                         onSelect={(date: Date | undefined) => {
                           setCallbackDate(date);
-                          // We don't auto-close on single click, only on double click or Enter
+                          // Auto-close calendar after selecting a date
+                          if (date) {
+                            setTimeout(() => closeCalendarPopover(), 100);
+                          }
                         }}
                         disabled={(date: Date) => 
                           date < new Date(new Date().setHours(0, 0, 0, 0))
