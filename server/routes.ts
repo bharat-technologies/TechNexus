@@ -5,7 +5,7 @@ import { db, pool } from "./db";
 import { 
   contactFormSchema, contentItemSchema, 
   navigationItemSchema, heroSectionSchema,
-  galleryItemSchema
+  galleryItemSchema, User
 } from "@shared/schema";
 import { z } from "zod";
 import { generateAgentResponse } from "./services/openai";
@@ -155,6 +155,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({
         success: false,
         message: 'Error updating email'
+      });
+    }
+  });
+  
+  // Update profile background settings
+  app.post('/api/auth/update-profile-background', requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId!;
+      const { profileBackground, profileBackgroundColor, profileSettings } = z.object({
+        profileBackground: z.string().optional(),
+        profileBackgroundColor: z.string().optional(),
+        profileSettings: z.record(z.any()).optional()
+      }).parse(req.body);
+      
+      // Prepare update data
+      const updateData: Partial<User> = {};
+      if (profileBackground !== undefined) updateData.profileBackground = profileBackground;
+      if (profileBackgroundColor !== undefined) updateData.profileBackgroundColor = profileBackgroundColor;
+      if (profileSettings !== undefined) updateData.profileSettings = profileSettings;
+      
+      // Update user profile background settings
+      const updatedUser = await storage.updateUser(userId, updateData);
+      
+      if (!updatedUser) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+      
+      res.json({
+        success: true,
+        message: 'Profile background settings updated successfully',
+        data: {
+          profileBackground: updatedUser.profileBackground,
+          profileBackgroundColor: updatedUser.profileBackgroundColor,
+          profileSettings: updatedUser.profileSettings
+        }
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid profile background settings format'
+        });
+      }
+      
+      console.error('Error updating profile background settings:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error updating profile background settings'
       });
     }
   });

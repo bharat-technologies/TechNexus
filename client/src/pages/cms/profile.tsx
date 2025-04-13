@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { 
-  User, Key, Mail, AlertCircle, CheckCircle, Loader2, ArrowLeft, Shield
+  User, Key, Mail, AlertCircle, CheckCircle, Loader2, ArrowLeft, Shield,
+  Paintbrush, Image, Palette
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
@@ -41,9 +51,10 @@ export default function ProfilePage() {
       </div>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="account">Account Information</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="appearance">Appearance</TabsTrigger>
         </TabsList>
         
         <TabsContent value="account" className="mt-6">
@@ -126,6 +137,20 @@ export default function ProfilePage() {
                 <h3 className="font-medium mb-4">Password Reset by Email</h3>
                 <ResetPasswordForm />
               </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="appearance" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xl">Profile Appearance</CardTitle>
+              <CardDescription>
+                Customize your profile background and appearance
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ProfileBackgroundCustomizer />
             </CardContent>
           </Card>
         </TabsContent>
@@ -400,6 +425,184 @@ function ChangePasswordForm() {
         )}
       </Button>
     </form>
+  );
+}
+
+function ProfileBackgroundCustomizer() {
+  const { user } = useAuth();
+  const [backgroundType, setBackgroundType] = useState<string>(user?.profileBackground || 'color');
+  const [backgroundColor, setBackgroundColor] = useState<string>(user?.profileBackgroundColor || '#f8fafc');
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { toast } = useToast();
+  
+  // Preview state
+  const [showPreview, setShowPreview] = useState(false);
+  
+  useEffect(() => {
+    if (user) {
+      setBackgroundType(user.profileBackground || 'color');
+      setBackgroundColor(user.profileBackgroundColor || '#f8fafc');
+    }
+  }, [user]);
+
+  const handleSaveSettings = async () => {
+    setIsLoading(true);
+    setSuccess(false);
+    
+    try {
+      const response = await fetch('/api/auth/update-profile-background', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          profileBackground: backgroundType,
+          profileBackgroundColor: backgroundColor,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update profile background');
+      }
+      
+      toast({
+        title: "Settings saved",
+        description: "Your profile background settings have been updated.",
+      });
+      
+      setSuccess(true);
+      
+      // Refresh after a delay to show the success state
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } catch (error: any) {
+      toast({
+        title: "Update failed",
+        description: error.message || "There was a problem updating your settings. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  return (
+    <div className="space-y-6">
+      <div className="bg-muted/50 p-4 rounded-lg flex items-start space-x-4">
+        <Paintbrush className="h-6 w-6 text-primary mt-1" />
+        <div>
+          <h3 className="font-medium">Customize your profile background</h3>
+          <p className="text-sm text-muted-foreground">
+            Choose a background color or style for your dashboard. These settings will be applied to your personal view.
+          </p>
+        </div>
+      </div>
+      
+      {showPreview && (
+        <div className="relative overflow-hidden rounded-lg border h-40 mb-4" style={{
+          backgroundColor: backgroundType === 'color' ? backgroundColor : undefined,
+          backgroundImage: backgroundType === 'gradient' 
+            ? `linear-gradient(to right, ${backgroundColor}, #ffffff)` 
+            : undefined
+        }}>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg shadow-sm">
+              <p className="text-sm font-medium">Background Preview</p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="background-type">Background Type</Label>
+          <RadioGroup
+            value={backgroundType}
+            onValueChange={setBackgroundType}
+            className="flex flex-col space-y-2 mt-2"
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="color" id="color" />
+              <Label htmlFor="color" className="cursor-pointer">Solid Color</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="gradient" id="gradient" />
+              <Label htmlFor="gradient" className="cursor-pointer">Gradient</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="pattern" id="pattern" disabled />
+              <Label htmlFor="pattern" className="cursor-pointer text-muted-foreground">Pattern (Coming Soon)</Label>
+            </div>
+          </RadioGroup>
+        </div>
+        
+        <div className="space-y-2">
+          <Label htmlFor="color-picker">
+            {backgroundType === 'gradient' ? 'Gradient Start Color' : 'Background Color'}
+          </Label>
+          <div className="flex items-center gap-2">
+            <div
+              className="w-10 h-10 rounded-md border"
+              style={{ backgroundColor: backgroundColor }}
+            />
+            <Input
+              id="color-picker"
+              type="color"
+              value={backgroundColor}
+              onChange={(e) => setBackgroundColor(e.target.value)}
+              className="w-16 h-10 p-1"
+            />
+            <Input
+              type="text"
+              value={backgroundColor}
+              onChange={(e) => setBackgroundColor(e.target.value)}
+              placeholder="#hex color"
+              className="flex-1"
+            />
+          </div>
+        </div>
+        
+        <div className="flex items-center space-x-2 pt-2">
+          <Switch
+            id="preview-mode"
+            checked={showPreview}
+            onCheckedChange={setShowPreview}
+          />
+          <Label htmlFor="preview-mode" className="cursor-pointer">
+            Show Preview
+          </Label>
+        </div>
+      </div>
+      
+      <div className="pt-4">
+        <Button
+          onClick={handleSaveSettings}
+          disabled={isLoading || success}
+          className="w-full"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : success ? (
+            <>
+              <CheckCircle className="mr-2 h-4 w-4" />
+              Settings Saved
+            </>
+          ) : (
+            <>
+              <Palette className="mr-2 h-4 w-4" />
+              Save Background Settings
+            </>
+          )}
+        </Button>
+      </div>
+    </div>
   );
 }
 
