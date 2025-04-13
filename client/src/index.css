@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles for calendar day buttons to support double-click functionality */
+.calendar-day-button {
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.calendar-day-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.calendar-day-button.selected,
+.calendar-day-button[aria-selected="true"] {
+  background-color: black !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Make the double-click action more obvious */
+.calendar-day-button[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 2px;
+  background-color: white;
+  border-radius: 1px;
+}
+
+/* Add a hint for double-click */
+.calendar-container::after {
+  content: "Double-click or press Enter to confirm";
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
 /* Specialization hover colors */
 .hover-icon-0:hover {
   background-color: #4B7BF5; /* Blue for AI Solutions */
