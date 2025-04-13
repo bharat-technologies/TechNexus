@@ -550,16 +550,14 @@ const ContactModal = () => {
                         initialFocus
                       />
                       <div 
-                        className="text-center text-sm text-gray-500 p-2 border-t border-gray-100"
+                        className="p-2 border-t border-gray-100"
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' && callbackDate) {
                             e.preventDefault();
                             closeCalendarPopover();
                           }
                         }}
-                      >
-                        <p>Double-click on a date or press Enter to confirm</p>
-                      </div>
+                      ></div>
                     </div>
                   </PopoverContent>
                 </Popover>
