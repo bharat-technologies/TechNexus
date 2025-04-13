@@ -1,6 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { db, pool } from "./db";
 import { 
   contactFormSchema, contentItemSchema, 
   navigationItemSchema, heroSectionSchema,
@@ -8,6 +9,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { generateAgentResponse } from "./services/openai";
+import { sql } from "drizzle-orm";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes with /api prefix
@@ -791,6 +793,123 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error('Error reverting to version:', error);
       res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
+  // Database Admin API endpoints
+  
+  // Get all tables
+  app.get('/api/db/tables', requireAuth, async (req, res) => {
+    try {
+      // Get list of all tables in the database
+      const tablesResult = await pool.query(`
+        SELECT
+          table_name,
+          (SELECT count(*) FROM information_schema.columns WHERE table_name = t.table_name) as column_count,
+          (SELECT count(*) FROM ${sql.raw('"' + 'pg_catalog' + '"')}.pg_stat_user_tables WHERE relname = t.table_name) as row_estimate
+        FROM information_schema.tables t
+        WHERE table_schema = 'public'
+        ORDER BY table_name
+      `);
+      
+      const tables = tablesResult.rows.map(row => ({
+        name: row.table_name,
+        rowCount: parseInt(row.row_estimate)
+      }));
+      
+      res.json(tables);
+    } catch (error: any) {
+      console.error('Error fetching database tables:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+  
+  // Get table data
+  app.get('/api/db/table-data', requireAuth, async (req, res) => {
+    try {
+      const tableName = req.query.table as string;
+      
+      if (!tableName) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'Table name is required' 
+        });
+      }
+      
+      // Get table columns information
+      const columnsResult = await pool.query(`
+        SELECT 
+          column_name, 
+          data_type,
+          is_nullable,
+          column_default,
+          (
+            SELECT count(*) FROM information_schema.table_constraints tc
+            JOIN information_schema.key_column_usage kcu 
+              ON tc.constraint_name = kcu.constraint_name
+            WHERE tc.table_name = c.table_name 
+              AND kcu.column_name = c.column_name
+              AND tc.constraint_type = 'PRIMARY KEY'
+          ) > 0 as is_primary
+        FROM information_schema.columns c
+        WHERE table_name = $1
+        ORDER BY ordinal_position
+      `, [tableName]);
+      
+      // Get table data (limit to prevent massive data loads)
+      const dataResult = await pool.query(`
+        SELECT * FROM ${sql.raw('"' + tableName + '"')}
+        LIMIT 100
+      `);
+      
+      const response = {
+        columns: columnsResult.rows.map(col => ({
+          name: col.column_name,
+          type: col.data_type,
+          isPrimary: col.is_primary,
+          isNullable: col.is_nullable === 'YES'
+        })),
+        rows: dataResult.rows
+      };
+      
+      res.json(response);
+    } catch (error: any) {
+      console.error(`Error fetching data for table ${req.query.table}:`, error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error fetching table data: ${error.message}` 
+      });
+    }
+  });
+  
+  // Execute custom SQL query
+  app.post('/api/db/execute-query', requireAuth, async (req, res) => {
+    try {
+      const { query } = z.object({
+        query: z.string().min(1)
+      }).parse(req.body);
+      
+      // Validate query for safety - only allow SELECT statements for now
+      if (!query.trim().toUpperCase().startsWith('SELECT')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Only SELECT queries are allowed for security reasons'
+        });
+      }
+      
+      const result = await pool.query(query);
+      
+      res.json({
+        success: true,
+        results: result.rows,
+        rowCount: result.rowCount
+      });
+    } catch (error: any) {
+      console.error('Error executing SQL query:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error executing query: ${error.message}` 
+      });
     }
   });
   
