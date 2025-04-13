@@ -1,5 +1,6 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+import crypto from 'crypto';
 import { 
   users, type User, type InsertUser,
   contactSubmissions, type ContactFormData, type ContactSubmission,
@@ -117,10 +118,57 @@ export class PostgresStorage implements IStorage {
     const result = await db.select().from(users).where(eq(users.username, username));
     return result[0];
   }
+  
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.email, email));
+    return result[0];
+  }
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const result = await db.insert(users).values(insertUser).returning();
     return result[0];
+  }
+  
+  async updateUser(id: number, data: Partial<User>): Promise<User | undefined> {
+    const result = await db.update(users)
+      .set(data)
+      .where(eq(users.id, id))
+      .returning();
+    return result[0];
+  }
+  
+  // Password reset operations
+  async createPasswordResetToken(userId: number): Promise<PasswordResetToken> {
+    // Generate a random token
+    const token = crypto.randomUUID().replace(/-/g, '');
+    
+    // Set expiration to 1 hour from now
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 1);
+    
+    const result = await db.insert(passwordResetTokens).values({
+      userId,
+      token,
+      expiresAt,
+      isUsed: false,
+    }).returning();
+    
+    return result[0];
+  }
+  
+  async getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined> {
+    const result = await db.select()
+      .from(passwordResetTokens)
+      .where(eq(passwordResetTokens.token, token));
+    return result[0];
+  }
+  
+  async invalidatePasswordResetToken(token: string): Promise<boolean> {
+    const result = await db.update(passwordResetTokens)
+      .set({ isUsed: true })
+      .where(eq(passwordResetTokens.token, token))
+      .returning();
+    return result.length > 0;
   }
   
   // Contact form operations
