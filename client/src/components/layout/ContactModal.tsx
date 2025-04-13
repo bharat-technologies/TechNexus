@@ -589,65 +589,35 @@ const ContactModal = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <div className="timezone-select-items">
-                      <SelectItem value="IST" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>New Delhi - IST (GMT +5:30)</span>
-                        </span>
+                      <SelectItem value="IST" className="timezone-option py-2 px-3">
+                        New Delhi - IST (GMT +5:30)
                       </SelectItem>
-                      <SelectItem value="BST" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>London - BST (GMT +1:00)</span>
-                        </span>
+                      <SelectItem value="BST" className="timezone-option py-2 px-3">
+                        London - BST (GMT +1:00)
                       </SelectItem>
-                      <SelectItem value="CEST" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>Paris, Berlin - CEST (GMT +2:00)</span>
-                        </span>
+                      <SelectItem value="CEST" className="timezone-option py-2 px-3">
+                        Paris, Berlin - CEST (GMT +2:00)
                       </SelectItem>
-                      <SelectItem value="EDT" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>New York - EDT (GMT -4:00)</span>
-                        </span>
+                      <SelectItem value="EDT" className="timezone-option py-2 px-3">
+                        New York - EDT (GMT -4:00)
                       </SelectItem>
-                      <SelectItem value="CDT" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>Chicago - CDT (GMT -5:00)</span>
-                        </span>
+                      <SelectItem value="CDT" className="timezone-option py-2 px-3">
+                        Chicago - CDT (GMT -5:00)
                       </SelectItem>
-                      <SelectItem value="MDT" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>Denver - MDT (GMT -6:00)</span>
-                        </span>
+                      <SelectItem value="MDT" className="timezone-option py-2 px-3">
+                        Denver - MDT (GMT -6:00)
                       </SelectItem>
-                      <SelectItem value="PDT" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>Los Angeles - PDT (GMT -7:00)</span>
-                        </span>
+                      <SelectItem value="PDT" className="timezone-option py-2 px-3">
+                        Los Angeles - PDT (GMT -7:00)
                       </SelectItem>
-                      <SelectItem value="JST" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>Tokyo - JST (GMT +9:00)</span>
-                        </span>
+                      <SelectItem value="JST" className="timezone-option py-2 px-3">
+                        Tokyo - JST (GMT +9:00)
                       </SelectItem>
-                      <SelectItem value="AEST" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>Sydney - AEST (GMT +10:00)</span>
-                        </span>
+                      <SelectItem value="AEST" className="timezone-option py-2 px-3">
+                        Sydney - AEST (GMT +10:00)
                       </SelectItem>
-                      <SelectItem value="GMT" className="timezone-option group py-2 px-3">
-                        <span className="flex w-full items-center">
-                          <span className="mr-2">✓</span>
-                          <span>London - GMT (GMT +0:00)</span>
-                        </span>
+                      <SelectItem value="GMT" className="timezone-option py-2 px-3">
+                        London - GMT (GMT +0:00)
                       </SelectItem>
                     </div>
                   </SelectContent>

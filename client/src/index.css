@@ -625,27 +625,17 @@
   transition: all 0.2s ease;
 }
 
+/* Enhanced hover effect for timezone options */
 .timezone-option:hover {
-  background-color: #f3f4f6;
-}
-
-/* When hovering on a timezone option, make the check mark visible and add a highlight */
-.timezone-option.group:hover {
   background-color: #f0f0f0;
   border-radius: 4px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-/* Style for the check mark - will be visible only for selected items */
-.timezone-option span:first-child {
-  visibility: hidden;
-  font-weight: bold;
-  color: #000;
-}
-
-/* Make checkmark visible for selected items */
-.timezone-option[data-state="checked"] span:first-child {
-  visibility: visible;
+/* Selected timezone option */
+.timezone-option[data-state="checked"] {
+  background-color: #f5f5f5;
+  font-weight: 500;
 }
 
 .timezone-select-items {
