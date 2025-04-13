@@ -1108,11 +1108,11 @@ export default function WebsiteContentPage() {
                               className="ml-2 h-5 w-10 data-[state=checked]:bg-neutral-800 data-[state=unchecked]:bg-gray-300 [&>span]:bg-gray-50 [&>span]:shadow-md [&>span]:h-4 [&>span]:w-4"
                             />
                           </div>
-                          <div className="text-sm text-gray-600">
-                            Type: <Badge variant="outline" className="font-normal">{content.type}</Badge>
+                          <div className="text-xs text-gray-500">
+                            Type: <span>{content.type}</span>
                           </div>
-                          <div className="text-sm text-gray-600 mt-1">
-                            ID: <span className="text-xs text-gray-500">{content.uniqueId || content.id}</span>
+                          <div className="text-xs text-gray-500 mt-0.5">
+                            ID: <span>{content.uniqueId || content.id}</span>
                           </div>
                           <div className="mt-2 text-gray-700">
                             {content.title}
@@ -1426,7 +1426,7 @@ export default function WebsiteContentPage() {
                   </div>
                 )}
                 
-                <div className="mt-6 pt-4 border-t text-sm text-gray-500">
+                <div className="mt-6 pt-4 border-t text-xs text-gray-500">
                   <div>Page: {editingContent.pageLocation}</div>
                   <div>Type: {editingContent.type}</div>
                   <div>ID: {editingContent.uniqueId || editingContent.id}</div>
@@ -1463,10 +1463,10 @@ export default function WebsiteContentPage() {
             <div className="py-4">
               <div className="p-4 border rounded-md bg-gray-50">
                 <h3 className="font-semibold">{contentToDelete.title}</h3>
-                <p className="text-sm text-gray-500 mt-1">
-                  {contentToDelete.type} · {contentToDelete.pageLocation}
-                </p>
                 <p className="text-xs text-gray-500 mt-1">
+                  Type: {contentToDelete.type} · Page: {contentToDelete.pageLocation}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
                   ID: {contentToDelete.uniqueId || contentToDelete.id}
                 </p>
               </div>
