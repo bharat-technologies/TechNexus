@@ -20,6 +20,14 @@ import {
   DialogFooter
 } from "@/components/ui/dialog";
 
+// Add a type for saved user contact information
+interface SavedContactInfo {
+  name: string;
+  email: string;
+  phone: string;
+  company?: string;
+}
+
 const contactSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -27,10 +35,50 @@ const contactSchema = z.object({
   message: z.string().min(10, { message: 'Message must be at least 10 characters' }),
   callbackDate: z.date().optional(),
   callbackTime: z.string().optional(),
-  timezone: z.string().optional()
+  timezone: z.string().optional(),
+  company: z.string().optional()
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
+
+// Function to save user contact information to localStorage
+const saveUserContactInfo = (info: SavedContactInfo) => {
+  try {
+    localStorage.setItem('userContactInfo', JSON.stringify(info));
+    return true;
+  } catch (error) {
+    console.error('Error saving contact info:', error);
+    return false;
+  }
+};
+
+// Function to retrieve saved user contact information
+const getSavedContactInfo = (): SavedContactInfo | null => {
+  try {
+    const savedInfo = localStorage.getItem('userContactInfo');
+    if (savedInfo) {
+      return JSON.parse(savedInfo);
+    }
+    return null;
+  } catch (error) {
+    console.error('Error retrieving contact info:', error);
+    return null;
+  }
+};
+
+// Common company names for autocomplete suggestions
+const commonCompanies = [
+  "Tata Consultancy Services",
+  "Infosys",
+  "Wipro",
+  "HCL Technologies",
+  "Tech Mahindra",
+  "Reliance Industries",
+  "Bharti Airtel",
+  "Larsen & Toubro",
+  "ITC Limited",
+  "HDFC Bank"
+];
 
 // Main ContactModal component
 const ContactModal = () => {
@@ -40,6 +88,11 @@ const ContactModal = () => {
   const { setIsOpen, setIsMinimized } = useAgentAI();
   const [selectedOption, setSelectedOption] = useState<'main' | 'email-form' | 'call-details' | 'callback-form'>('main');
   const [callbackDate, setCallbackDate] = useState<Date | undefined>(undefined);
+  
+  // State for autocomplete suggestions
+  const [companyOptions, setCompanyOptions] = useState<string[]>([]);
+  const [showCompanySuggestions, setShowCompanySuggestions] = useState(false);
+  const [savedInfo, setSavedInfo] = useState<SavedContactInfo | null>(null);
   
   // Reset the selection when the modal closes
   useEffect(() => {
@@ -69,19 +122,61 @@ const ContactModal = () => {
     }
   };
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
+  // Load saved contact info when component mounts
+  useEffect(() => {
+    const savedContactInfo = getSavedContactInfo();
+    if (savedContactInfo) {
+      setSavedInfo(savedContactInfo);
+    }
+  }, []);
+
+  // Form with defaultValues from saved contact info if available
+  const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
+      name: savedInfo?.name || '',
+      email: savedInfo?.email || '',
+      subject: savedInfo?.phone || '',
+      message: '',
+      company: savedInfo?.company || ''
     }
   });
+  
+  // Watch form values to update autocomplete
+  const companyValue = watch('company');
+
+  // Handle company name autocomplete suggestions
+  useEffect(() => {
+    if (companyValue && companyValue.length > 2) {
+      // Filter company suggestions based on input
+      const filteredOptions = commonCompanies.filter(company => 
+        company.toLowerCase().includes(companyValue.toLowerCase())
+      );
+      setCompanyOptions(filteredOptions);
+      setShowCompanySuggestions(filteredOptions.length > 0);
+    } else {
+      setShowCompanySuggestions(false);
+    }
+  }, [companyValue]);
+
+  // Function to select a company from suggestions
+  const selectCompany = (company: string) => {
+    setValue('company', company);
+    setShowCompanySuggestions(false);
+  };
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
     try {
+      // Save user contact info for future form autocomplete
+      const contactInfo: SavedContactInfo = {
+        name: data.name,
+        email: data.email,
+        phone: data.subject || '', // Using subject for phone number
+        company: data.company
+      };
+      saveUserContactInfo(contactInfo);
+
       // If it's a callback form submission, include the date, time and timezone
       if (selectedOption === 'callback-form') {
         const callbackData = {
@@ -201,6 +296,7 @@ const ContactModal = () => {
                   id="name"
                   className={`w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="John Doe"
+                  autoComplete="name"
                   {...register('name')}
                 />
                 {errors.name && (
@@ -214,11 +310,38 @@ const ContactModal = () => {
                   id="email"
                   className={`w-full px-4 py-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="john@example.com"
+                  autoComplete="email"
                   {...register('email')}
                 />
                 {errors.email && (
                   <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>
                 )}
+              </div>
+              <div>
+                <label htmlFor="company" className="block mb-2 font-medium">Company</label>
+                <div className="relative">
+                  <input 
+                    type="text"
+                    id="company"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                    placeholder="Your company name"
+                    autoComplete="organization"
+                    {...register('company')}
+                  />
+                  {showCompanySuggestions && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                      {companyOptions.map((company, idx) => (
+                        <div 
+                          key={idx} 
+                          className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                          onClick={() => selectCompany(company)}
+                        >
+                          {company}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <div>
                 <label htmlFor="subject" className="block mb-2 font-medium">Subject</label>
@@ -331,6 +454,7 @@ const ContactModal = () => {
                   id="name"
                   className={`w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="John Doe"
+                  autoComplete="name"
                   {...register('name')}
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
@@ -342,6 +466,7 @@ const ContactModal = () => {
                   id="email"
                   className={`w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="john@example.com"
+                  autoComplete="email"
                   {...register('email')}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
@@ -353,8 +478,35 @@ const ContactModal = () => {
                   id="subject"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" 
                   placeholder="+91 98765 43210"
+                  autoComplete="tel"
                   {...register('subject')}
                 />
+              </div>
+              <div>
+                <label htmlFor="company" className="block mb-1 font-medium">Company</label>
+                <div className="relative">
+                  <input 
+                    type="text"
+                    id="company"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                    placeholder="Your company name"
+                    autoComplete="organization"
+                    {...register('company')}
+                  />
+                  {showCompanySuggestions && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                      {companyOptions.map((company, idx) => (
+                        <div 
+                          key={idx} 
+                          className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                          onClick={() => selectCompany(company)}
+                        >
+                          {company}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               {/* Date Picker */}
               <div className="space-y-1">
