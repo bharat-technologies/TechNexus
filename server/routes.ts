@@ -802,12 +802,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/db/tables', requireAuth, async (req, res) => {
     try {
       // Get list of all tables in the database with a simpler query
-      const tablesResult = await pool.query(`
-        SELECT table_name
-        FROM information_schema.tables 
-        WHERE table_schema = 'public'
-        ORDER BY table_name
-      `);
+      const tablesResult = await pool.query({
+        text: `
+          SELECT table_name
+          FROM information_schema.tables 
+          WHERE table_schema = 'public'
+          ORDER BY table_name
+        `
+      });
       
       const tables = tablesResult.rows.map(row => ({
         name: row.table_name,
@@ -837,30 +839,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Get table columns information
-      const columnsResult = await pool.query(`
-        SELECT 
-          column_name, 
-          data_type,
-          is_nullable,
-          column_default,
-          (
-            SELECT count(*) FROM information_schema.table_constraints tc
-            JOIN information_schema.key_column_usage kcu 
-              ON tc.constraint_name = kcu.constraint_name
-            WHERE tc.table_name = c.table_name 
-              AND kcu.column_name = c.column_name
-              AND tc.constraint_type = 'PRIMARY KEY'
-          ) > 0 as is_primary
-        FROM information_schema.columns c
-        WHERE table_name = $1
-        ORDER BY ordinal_position
-      `, [tableName]);
+      const columnsResult = await pool.query({
+        text: `
+          SELECT 
+            column_name, 
+            data_type,
+            is_nullable,
+            column_default,
+            (
+              SELECT count(*) FROM information_schema.table_constraints tc
+              JOIN information_schema.key_column_usage kcu 
+                ON tc.constraint_name = kcu.constraint_name
+              WHERE tc.table_name = c.table_name 
+                AND kcu.column_name = c.column_name
+                AND tc.constraint_type = 'PRIMARY KEY'
+            ) > 0 as is_primary
+          FROM information_schema.columns c
+          WHERE table_name = $1
+          ORDER BY ordinal_position
+        `,
+        values: [tableName]
+      });
       
       // Get table data (limit to prevent massive data loads)
-      const dataResult = await pool.query(`
-        SELECT * FROM "${tableName}"
-        LIMIT 100
-      `);
+      const dataResult = await pool.query({
+        text: `SELECT * FROM "${tableName}" LIMIT 100`
+      });
       
       const response = {
         success: true,
@@ -900,7 +904,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const result = await pool.query(query);
+      const result = await pool.query({text: query});
       
       res.json({
         success: true,

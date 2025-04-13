@@ -265,19 +265,19 @@ export default function DatabaseAdminPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {tableData.rows.length === 0 ? (
+                      {tableData.data.rows.length === 0 ? (
                         <tr>
                           <td 
-                            colSpan={tableData.columns.length} 
+                            colSpan={tableData.data.columns.length} 
                             className="px-4 py-8 text-center text-gray-500"
                           >
                             No data in this table
                           </td>
                         </tr>
                       ) : (
-                        tableData.rows.map((row: Record<string, any>, rowIndex: number) => (
+                        tableData.data.rows.map((row: Record<string, any>, rowIndex: number) => (
                           <tr key={rowIndex} className="border-b hover:bg-gray-50">
-                            {tableData.columns.map((column: { name: string }) => (
+                            {tableData.data.columns.map((column: { name: string }) => (
                               <td key={column.name} className="px-4 py-3 align-top">
                                 <div className="max-w-xs truncate">
                                   {formatValue(row[column.name])}
