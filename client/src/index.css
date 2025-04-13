@@ -680,6 +680,21 @@
   overflow-y: auto;
 }
 
+/* Ensure timezone dropdown text is left-aligned */
+.SelectValue {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  width: 100%;
+}
+
+/* Left align select trigger content */
+.SelectTrigger > span {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  width: 100%;
+  display: flex;
+}
+
 /* Gallery Item Hover Effect */
 .gallery-item:hover .gallery-overlay {
   opacity: 1;
