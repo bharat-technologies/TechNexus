@@ -531,9 +531,9 @@ const ContactModal = () => {
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className={`w-full px-3 py-2 h-10 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black form-input-like ${!callbackDate && 'text-gray-500'}`}
+                        className={`w-full px-3 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'} flex items-center h-[40px]`}
                       >
-                        {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
+                        <span className="truncate">{callbackDate ? format(callbackDate, 'PPP') : "Select date"}</span>
                       </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -562,7 +562,7 @@ const ContactModal = () => {
                 <div className="space-y-1">
                   <label className="block mb-1 font-medium">Preferred Time</label>
                   <Select value={selectedTime} onValueChange={setSelectedTime}>
-                    <SelectTrigger className="w-full px-3 py-2 h-10 border border-gray-300 rounded-lg">
+                    <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center">
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
                     <SelectContent>
@@ -584,7 +584,7 @@ const ContactModal = () => {
               <div className="space-y-1 mb-4">
                 <label className="block mb-1 font-medium">Timezone</label>
                 <Select value={selectedTimezone} onValueChange={setSelectedTimezone}>
-                  <SelectTrigger className="w-full px-3 py-2 h-10 border border-gray-300 rounded-lg">
+                  <SelectTrigger className="w-full px-3 border border-gray-300 rounded-lg h-[40px] flex items-center">
                     <SelectValue placeholder="Select timezone" />
                   </SelectTrigger>
                   <SelectContent>
