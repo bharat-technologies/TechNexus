@@ -55,7 +55,7 @@ export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect
 // Website content management tables
 export const contentSections = pgTable("content_sections", {
   id: serial("id").primaryKey(),
-  uniqueId: text("unique_id").notNull().unique(), // Unique identifier for the section
+  uniqueId: text("unique_id").unique(), // Unique identifier for the section (nullable initially)
   name: text("name").notNull(),
   description: text("description"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -66,7 +66,7 @@ export type ContentSection = typeof contentSections.$inferSelect;
 
 export const contentItems = pgTable("content_items", {
   id: serial("id").primaryKey(),
-  uniqueId: text("unique_id").notNull().unique(), // Unique identifier for the content item
+  uniqueId: text("unique_id").unique(), // Unique identifier for the content item
   sectionId: integer("section_id").references(() => contentSections.id),
   title: text("title").notNull(),
   subtitle: text("subtitle"),
@@ -110,7 +110,7 @@ export type InsertNavigationItem = typeof navigationItems.$inferInsert;
 
 export const heroSections = pgTable("hero_sections", {
   id: serial("id").primaryKey(),
-  uniqueId: text("unique_id").notNull().unique(), // Unique identifier for the hero section
+  uniqueId: text("unique_id").unique(), // Unique identifier for the hero section
   title: text("title").notNull(),
   subtitle: text("subtitle"),
   description: text("description"),
@@ -128,7 +128,7 @@ export type InsertHeroSection = typeof heroSections.$inferInsert;
 
 export const galleryItems = pgTable("gallery_items", {
   id: serial("id").primaryKey(),
-  uniqueId: text("unique_id").notNull().unique(), // Unique identifier for the gallery item
+  uniqueId: text("unique_id").unique(), // Unique identifier for the gallery item
   title: text("title").notNull(),
   description: text("description"),
   imageUrl: text("image_url").notNull(),
@@ -186,6 +186,7 @@ export const heroSectionSchema = createInsertSchema(heroSections).pick({
 });
 
 export const galleryItemSchema = createInsertSchema(galleryItems).pick({
+  uniqueId: true,
   title: true,
   description: true,
   imageUrl: true,

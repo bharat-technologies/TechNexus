@@ -151,10 +151,20 @@ export class PostgresStorage implements IStorage {
     return result[0];
   }
   
+  // Helper to generate a unique ID for a content section
+  private generateUniqueId(prefix: string, name: string): string {
+    const cleanName = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    const timestamp = Date.now().toString(36);
+    return `${prefix}-${cleanName}-${timestamp}`;
+  }
+  
   async createContentSection(data: { name: string, description?: string }): Promise<ContentSection> {
     const now = new Date();
+    const uniqueId = this.generateUniqueId('section', data.name);
+    
     const result = await db.insert(contentSections).values({
       ...data,
+      uniqueId,
       createdAt: now,
       updatedAt: now
     }).returning();
@@ -198,8 +208,11 @@ export class PostgresStorage implements IStorage {
   
   async createContentItem(data: InsertContentItem): Promise<ContentItem> {
     const now = new Date();
+    const uniqueId = this.generateUniqueId('content', data.title || 'item');
+    
     const result = await db.insert(contentItems).values({
       ...data,
+      uniqueId,
       createdAt: now,
       updatedAt: now
     }).returning();
