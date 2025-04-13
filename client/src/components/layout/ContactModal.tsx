@@ -286,7 +286,7 @@ const ContactModal = () => {
 
   return (
     <Dialog open={contactModal !== null} onOpenChange={() => closeContactModal()}>
-      <DialogContent className="sm:max-w-[700px] lg:max-w-[750px] p-6">
+      <DialogContent className="sm:max-w-[750px] lg:max-w-[850px] xl:max-w-[900px] p-6">
         {selectedOption === 'main' && (
           <>
             <DialogHeader className="text-center">
