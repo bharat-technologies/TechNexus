@@ -638,6 +638,14 @@
   font-weight: 500;
 }
 
+/* Hide checkmarks from select items */
+.SelectItem-check,
+.SelectItem svg,
+.select-item svg,
+[role="option"] svg:not([class*="chevron"]) {
+  display: none !important;
+}
+
 .timezone-select-items {
   max-height: 300px;
   overflow-y: auto;
