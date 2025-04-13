@@ -125,41 +125,10 @@ const ContactModal = () => {
     }
   }, []);
   
-  // Handle double-click anywhere in the calendar to close it
-  useEffect(() => {
-    const handleCalendarDoubleClick = (e: MouseEvent) => {
-      // Check if we're within the calendar component
-      if (calendarRef.current?.contains(e.target as Node)) {
-        // Check if we have a date selected
-        if (callbackDate) {
-          e.preventDefault();
-          e.stopPropagation();
-          // Force close the popover
-          setCalendarOpen(false);
-        }
-      }
-    };
-    
-    // Add listener for double-click events
-    document.addEventListener('dblclick', handleCalendarDoubleClick);
-    
-    // Cleanup
-    return () => {
-      document.removeEventListener('dblclick', handleCalendarDoubleClick);
-    };
-  }, [callbackDate]);
-  
-  // Also handle calendar click events directly
-  const handleCalendarClick = (date: Date | undefined) => {
+  // Handle calendar date selection
+  const handleCalendarDateSelect = (date: Date | undefined) => {
     setCallbackDate(date);
-    // Don't auto-close on single click
-  };
-  
-  // Handle date double-click specifically
-  const handleCalendarDayDoubleClick = () => {
-    if (callbackDate) {
-      setCalendarOpen(false);
-    }
+    // Don't auto-close on selection, user must confirm with the button
   };
 
   // Form with defaultValues from saved contact info if available
@@ -557,28 +526,26 @@ const ContactModal = () => {
                       <Calendar
                         mode="single"
                         selected={callbackDate}
-                        onSelect={handleCalendarClick}
-                        onDayClick={(day: Date, modifiers: any) => {
-                          // Capture click events to set up double-click later
-                          if (!modifiers.disabled) {
-                            setCallbackDate(day);
-                          }
-                        }}
+                        onSelect={handleCalendarDateSelect}
                         disabled={(date: Date) => 
                           date < new Date(new Date().setHours(0, 0, 0, 0))
                         }
                         initialFocus
                         className="calendar-with-double-click"
                       />
-                      <div 
-                        className="p-2 border-t border-gray-100"
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && callbackDate) {
-                            e.preventDefault();
-                            closeCalendarPopover();
-                          }
-                        }}
-                      ></div>
+                      <div className="p-2 border-t border-gray-100 flex justify-end">
+                        {callbackDate && (
+                          <button
+                            type="button"
+                            className="bg-black text-white rounded-md px-3 py-1 text-sm"
+                            onClick={() => {
+                              setCalendarOpen(false);
+                            }}
+                          >
+                            Confirm
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </PopoverContent>
                 </Popover>
