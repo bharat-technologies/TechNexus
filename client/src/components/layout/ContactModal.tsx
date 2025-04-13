@@ -115,6 +115,15 @@ const ContactModal = () => {
   // Function to close the calendar popover
   const closeCalendarPopover = () => {
     setCalendarOpen(false);
+    
+    // Show a small toast notification to confirm date selection
+    if (callbackDate) {
+      toast({
+        title: "Date selected",
+        description: `Selected: ${format(callbackDate, 'PPP')}`,
+        variant: "default",
+      });
+    }
   };
 
   // Load saved contact info when component mounts
@@ -128,8 +137,52 @@ const ContactModal = () => {
   // Handle calendar date selection
   const handleCalendarDateSelect = (date: Date | undefined) => {
     setCallbackDate(date);
-    // Don't auto-close on selection, user must confirm with the button
+    // Don't auto-close on selection, user must double-click to confirm
   };
+  
+  // Handle double-click on calendar days
+  useEffect(() => {
+    // Keep track of click count and last clicked time
+    let clickCount = 0;
+    let lastClickTime = 0;
+    const DOUBLE_CLICK_TIMEOUT = 300; // ms
+    
+    const handleCalendarClick = (e: MouseEvent) => {
+      // Only handle clicks within the calendar component
+      if (calendarRef.current?.contains(e.target as Node)) {
+        const target = e.target as HTMLElement;
+        
+        // Check if we're clicking on a day button (has data-day attribute)
+        if (target.tagName === 'BUTTON' && target.hasAttribute('data-day')) {
+          const currentTime = new Date().getTime();
+          
+          // Check if this is a double click (two clicks within timeout period)
+          if (currentTime - lastClickTime < DOUBLE_CLICK_TIMEOUT) {
+            // This is a double-click
+            clickCount = 0;
+            lastClickTime = 0;
+            
+            // Only close if we have a date selected
+            if (callbackDate) {
+              closeCalendarPopover();
+            }
+          } else {
+            // This is a first click
+            clickCount = 1;
+            lastClickTime = currentTime;
+          }
+        }
+      }
+    };
+    
+    // Add click listener
+    document.addEventListener('click', handleCalendarClick);
+    
+    // Cleanup
+    return () => {
+      document.removeEventListener('click', handleCalendarClick);
+    };
+  }, [callbackDate]);
 
   // Form with defaultValues from saved contact info if available
   const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm<ContactFormValues>({
@@ -533,18 +586,10 @@ const ContactModal = () => {
                         initialFocus
                         className="calendar-with-double-click"
                       />
-                      <div className="p-2 border-t border-gray-100 flex justify-end">
-                        {callbackDate && (
-                          <button
-                            type="button"
-                            className="bg-black text-white rounded-md px-3 py-1 text-sm"
-                            onClick={() => {
-                              setCalendarOpen(false);
-                            }}
-                          >
-                            Confirm
-                          </button>
-                        )}
+                      <div className="p-2 border-t border-gray-100">
+                        <div className="text-xs text-gray-500 text-center">
+                          {callbackDate ? "Double-click on the selected date to confirm" : "Select a date"}
+                        </div>
                       </div>
                     </div>
                   </PopoverContent>

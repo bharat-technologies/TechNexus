@@ -7,10 +7,24 @@
   background-color: black !important;
   color: white !important;
   font-weight: bold;
+  position: relative;
+}
+
+.calendar-with-double-click button[data-selected="true"]::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .calendar-with-double-click button:hover {
   background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 /* Specialization hover colors */
