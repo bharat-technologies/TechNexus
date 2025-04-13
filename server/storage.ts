@@ -5,11 +5,13 @@ import {
   contactSubmissions, type ContactFormData, type ContactSubmission,
   newsletterSubscriptions,
   contentSections, contentItems, navigationItems, heroSections, galleryItems, contentVersions,
+  passwordResetTokens,
   type ContentSection, type ContentItem, type InsertContentItem,
   type NavigationItem, type InsertNavigationItem,
   type HeroSection, type InsertHeroSection,
   type GalleryItem, type InsertGalleryItem,
-  type ContentVersion, type InsertContentVersion
+  type ContentVersion, type InsertContentVersion,
+  type PasswordResetToken, type InsertPasswordResetToken
 } from "@shared/schema";
 import { eq, and, isNull, desc } from 'drizzle-orm';
 import 'dotenv/config';
@@ -22,7 +24,14 @@ const db = drizzle(client);
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  updateUser(id: number, data: Partial<User>): Promise<User | undefined>;
+  
+  // Password reset operations
+  createPasswordResetToken(userId: number): Promise<PasswordResetToken>;
+  getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined>;
+  invalidatePasswordResetToken(token: string): Promise<boolean>;
   
   // Contact form operations
   createContactSubmission(data: ContactFormData): Promise<ContactSubmission>;
