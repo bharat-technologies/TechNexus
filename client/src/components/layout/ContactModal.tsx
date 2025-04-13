@@ -137,7 +137,7 @@ const ContactModal = () => {
 
   return (
     <Dialog open={contactModal !== null} onOpenChange={() => closeContactModal()}>
-      <DialogContent className="sm:max-w-[800px] lg:max-w-[900px] p-6">
+      <DialogContent className="sm:max-w-[700px] lg:max-w-[750px] p-6">
         {selectedOption === 'main' && (
           <>
             <DialogHeader className="text-center">
@@ -300,53 +300,53 @@ const ContactModal = () => {
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
-            <DialogHeader className="mt-8 pl-4">
+            <DialogHeader className="mt-6 pl-4 mb-3">
               <DialogTitle className="text-left">Request Call Back</DialogTitle>
               <DialogDescription className="text-left">
                 Fill out the form below and our team will call you at your preferred time.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 px-4">
               <div>
-                <label htmlFor="name" className="block mb-2 font-medium">Your Name</label>
+                <label htmlFor="name" className="block mb-1 font-medium">Your Name</label>
                 <input 
                   type="text" 
                   id="name"
-                  className={`w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
+                  className={`w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="John Doe"
                   {...register('name')}
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
               </div>
               <div>
-                <label htmlFor="email" className="block mb-2 font-medium">Your Email</label>
+                <label htmlFor="email" className="block mb-1 font-medium">Your Email</label>
                 <input 
                   type="email" 
                   id="email"
-                  className={`w-full px-4 py-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
+                  className={`w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="john@example.com"
                   {...register('email')}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
               </div>
               <div>
-                <label htmlFor="subject" className="block mb-2 font-medium">Phone Number</label>
+                <label htmlFor="subject" className="block mb-1 font-medium">Phone Number</label>
                 <input 
                   type="tel" 
                   id="subject"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" 
                   placeholder="+91 98765 43210"
                   {...register('subject')}
                 />
               </div>
               {/* Date Picker */}
-              <div className="space-y-2">
-                <label className="block mb-2 font-medium">Preferred Date</label>
+              <div className="space-y-1">
+                <label className="block mb-1 font-medium">Preferred Date</label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <button
                       type="button"
-                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
+                      className={`w-full px-3 py-2 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
                     >
                       {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
                     </button>
@@ -366,10 +366,10 @@ const ContactModal = () => {
               </div>
 
               {/* Time Selector */}
-              <div className="space-y-2">
-                <label className="block mb-2 font-medium">Preferred Time</label>
+              <div className="space-y-1">
+                <label className="block mb-1 font-medium">Preferred Time</label>
                 <Select value={selectedTime} onValueChange={setSelectedTime}>
-                  <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                  <SelectTrigger className="w-full px-3 py-2 border border-gray-300 rounded-lg">
                     <SelectValue placeholder="Select time" />
                   </SelectTrigger>
                   <SelectContent>
@@ -387,10 +387,10 @@ const ContactModal = () => {
               </div>
 
               {/* Timezone Selector */}
-              <div className="space-y-2">
-                <label className="block mb-2 font-medium">Timezone</label>
+              <div className="space-y-1">
+                <label className="block mb-1 font-medium">Timezone</label>
                 <Select value={selectedTimezone} onValueChange={setSelectedTimezone}>
-                  <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                  <SelectTrigger className="w-full px-3 py-2 border border-gray-300 rounded-lg">
                     <SelectValue placeholder="Select timezone" />
                   </SelectTrigger>
                   <SelectContent>
@@ -406,11 +406,11 @@ const ContactModal = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block mb-2 font-medium">Request Details</label>
+                <label htmlFor="message" className="block mb-1 font-medium">Request Details</label>
                 <textarea 
                   id="message"
-                  rows={4}
-                  className={`w-full px-4 py-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
+                  rows={3}
+                  className={`w-full px-3 py-2 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
                   placeholder="Please provide details about what you'd like to discuss..."
                   {...register('message')}
                 ></textarea>
