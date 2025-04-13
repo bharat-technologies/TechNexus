@@ -10,7 +10,7 @@ import {
 import { z } from "zod";
 import { generateAgentResponse } from "./services/openai";
 import { sql } from "drizzle-orm";
-import { requireAuth, loginUser, createUser, initializeAdminUser } from "./auth";
+import { requireAuth, loginUser, createUser, hashPassword, initializeAdminUser } from "./auth";
 import session from "express-session";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -91,6 +91,222 @@ export async function registerRoutes(app: Express): Promise<Server> {
       success: true,
       authenticated: isAuthenticated
     });
+  });
+  
+  // Get current user profile
+  app.get('/api/auth/profile', requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId!;
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+      
+      // Return user data without password
+      const { password, ...userData } = user;
+      res.json({
+        success: true,
+        user: userData
+      });
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error fetching user profile'
+      });
+    }
+  });
+  
+  // Update user email
+  app.post('/api/auth/update-email', requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId!;
+      const { email } = z.object({
+        email: z.string().email()
+      }).parse(req.body);
+      
+      // Update user email
+      const updatedUser = await storage.updateUser(userId, { email });
+      
+      if (!updatedUser) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+      
+      res.json({
+        success: true,
+        message: 'Email updated successfully'
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid email format'
+        });
+      }
+      
+      console.error('Error updating email:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error updating email'
+      });
+    }
+  });
+  
+  // Change password (requires current password)
+  app.post('/api/auth/change-password', requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId!;
+      const { currentPassword, newPassword } = z.object({
+        currentPassword: z.string().min(1),
+        newPassword: z.string().min(6)
+      }).parse(req.body);
+      
+      // Get user
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+      
+      // Verify current password
+      const verifyResult = await loginUser(user.username, currentPassword);
+      if (!verifyResult.success) {
+        return res.status(400).json({
+          success: false,
+          message: 'Current password is incorrect'
+        });
+      }
+      
+      // Hash the new password
+      const hashedPassword = await createUser.hashPassword(newPassword);
+      
+      // Update user password
+      const updatedUser = await storage.updateUser(userId, { password: hashedPassword });
+      
+      res.json({
+        success: true,
+        message: 'Password changed successfully'
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid password format - new password must be at least 6 characters'
+        });
+      }
+      
+      console.error('Error changing password:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error changing password'
+      });
+    }
+  });
+  
+  // Request password reset (generates token)
+  app.post('/api/auth/request-reset', async (req, res) => {
+    try {
+      const { email } = z.object({
+        email: z.string().email()
+      }).parse(req.body);
+      
+      // Find user by email
+      const user = await storage.getUserByEmail(email);
+      if (!user) {
+        // Don't reveal whether email exists for security
+        return res.json({
+          success: true,
+          message: 'If a user with this email exists, a password reset link has been sent'
+        });
+      }
+      
+      // Generate reset token
+      const resetToken = await storage.createPasswordResetToken(user.id);
+      
+      // In a real application, we would send an email with the reset token
+      // For now, return the token in the response (for testing purposes)
+      res.json({
+        success: true,
+        message: 'Password reset instructions sent to your email',
+        resetToken: resetToken.token // This would be removed in production
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid email format'
+        });
+      }
+      
+      console.error('Error requesting password reset:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error processing password reset request'
+      });
+    }
+  });
+  
+  // Reset password using token
+  app.post('/api/auth/reset-password', async (req, res) => {
+    try {
+      const { token, newPassword } = z.object({
+        token: z.string().min(1),
+        newPassword: z.string().min(6)
+      }).parse(req.body);
+      
+      // Get token from database
+      const resetToken = await storage.getPasswordResetToken(token);
+      if (!resetToken) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid or expired reset token'
+        });
+      }
+      
+      // Check if token is expired
+      if (resetToken.expiresAt < new Date() || resetToken.isUsed) {
+        return res.status(400).json({
+          success: false,
+          message: 'Reset token has expired or already been used'
+        });
+      }
+      
+      // Hash the new password
+      const hashedPassword = await createUser.hashPassword(newPassword);
+      
+      // Update user password
+      const updatedUser = await storage.updateUser(resetToken.userId, { password: hashedPassword });
+      
+      // Invalidate the token
+      await storage.invalidatePasswordResetToken(token);
+      
+      res.json({
+        success: true,
+        message: 'Password has been reset successfully'
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid request format - new password must be at least 6 characters'
+        });
+      }
+      
+      console.error('Error resetting password:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error resetting password'
+      });
+    }
   });
   
   // API routes with /api prefix
@@ -250,16 +466,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Content Management API
   
-  // Auth middleware for admin routes
-  const requireAuth = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.session || !req.session.userId) {
-      return res.status(401).json({
-        success: false,
-        message: 'Authentication required'
-      });
-    }
-    next();
-  };
+  // Auth middleware for admin routes is imported from ./auth
 
   // Content Sections
   app.get('/api/cms/content-sections', async (req, res) => {
