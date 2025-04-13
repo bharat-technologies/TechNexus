@@ -7,6 +7,10 @@ import { useToast } from '@/hooks/use-toast';
 import { useAgentAI } from '@/contexts/AgentAIContext';
 import { useContact } from '@/contexts/ContactContext';
 import ContactOptions from '@/components/shared/ContactOptions';
+import { format } from 'date-fns';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -20,7 +24,10 @@ const contactSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
   email: z.string().email({ message: 'Please enter a valid email address' }),
   subject: z.string().optional(),
-  message: z.string().min(10, { message: 'Message must be at least 10 characters' })
+  message: z.string().min(10, { message: 'Message must be at least 10 characters' }),
+  callbackDate: z.date().optional(),
+  callbackTime: z.string().optional(),
+  timezone: z.string().optional()
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -32,6 +39,7 @@ const ContactModal = () => {
   const { toast } = useToast();
   const { setIsOpen, setIsMinimized } = useAgentAI();
   const [selectedOption, setSelectedOption] = useState<'main' | 'email-form' | 'call-details' | 'callback-form'>('main');
+  const [callbackDate, setCallbackDate] = useState<Date | undefined>(undefined);
   
   // Reset the selection when the modal closes
   useEffect(() => {
@@ -41,6 +49,9 @@ const ContactModal = () => {
     }
   }, [contactModal]);
   
+  const [selectedTime, setSelectedTime] = useState<string>("09:00");
+  const [selectedTimezone, setSelectedTimezone] = useState<string>("IST");
+
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -54,13 +65,35 @@ const ContactModal = () => {
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
     try {
-      await apiRequest('POST', '/api/contact', data);
-      toast({
-        title: 'Message sent!',
-        description: 'We will get back to you soon.',
-        variant: 'default',
-      });
+      // If it's a callback form submission, include the date, time and timezone
+      if (selectedOption === 'callback-form') {
+        const callbackData = {
+          ...data,
+          callbackDate: callbackDate,
+          callbackTime: selectedTime,
+          timezone: selectedTimezone,
+          // Change the message to include the callback details
+          message: `Callback requested for ${callbackDate ? format(callbackDate, 'PPP') : 'Not specified'} at ${selectedTime} ${selectedTimezone}.\n\nDetails: ${data.message}`
+        };
+        await apiRequest('POST', '/api/contact', callbackData);
+        toast({
+          title: 'Call back requested!',
+          description: 'We will call you at your preferred time.',
+          variant: 'default',
+        });
+      } else {
+        // Regular form submission
+        await apiRequest('POST', '/api/contact', data);
+        toast({
+          title: 'Message sent!',
+          description: 'We will get back to you soon.',
+          variant: 'default',
+        });
+      }
       reset();
+      setCallbackDate(undefined);
+      setSelectedTime("09:00");
+      setSelectedTimezone("IST");
       closeContactModal();
     } catch (error) {
       toast({
@@ -306,13 +339,79 @@ const ContactModal = () => {
                   {...register('subject')}
                 />
               </div>
+              {/* Date Picker */}
+              <div className="space-y-2">
+                <label className="block mb-2 font-medium">Preferred Date</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-black ${!callbackDate && 'text-gray-500'}`}
+                    >
+                      {callbackDate ? format(callbackDate, 'PPP') : "Select date"}
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={callbackDate}
+                      onSelect={setCallbackDate}
+                      disabled={(date) => 
+                        date < new Date(new Date().setHours(0, 0, 0, 0))
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              {/* Time Selector */}
+              <div className="space-y-2">
+                <label className="block mb-2 font-medium">Preferred Time</label>
+                <Select value={selectedTime} onValueChange={setSelectedTime}>
+                  <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="09:00">9:00 AM</SelectItem>
+                    <SelectItem value="10:00">10:00 AM</SelectItem>
+                    <SelectItem value="11:00">11:00 AM</SelectItem>
+                    <SelectItem value="12:00">12:00 PM</SelectItem>
+                    <SelectItem value="13:00">1:00 PM</SelectItem>
+                    <SelectItem value="14:00">2:00 PM</SelectItem>
+                    <SelectItem value="15:00">3:00 PM</SelectItem>
+                    <SelectItem value="16:00">4:00 PM</SelectItem>
+                    <SelectItem value="17:00">5:00 PM</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Timezone Selector */}
+              <div className="space-y-2">
+                <label className="block mb-2 font-medium">Timezone</label>
+                <Select value={selectedTimezone} onValueChange={setSelectedTimezone}>
+                  <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    <SelectValue placeholder="Select timezone" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="IST">Indian Standard Time (IST)</SelectItem>
+                    <SelectItem value="EST">Eastern Standard Time (EST)</SelectItem>
+                    <SelectItem value="CST">Central Standard Time (CST)</SelectItem>
+                    <SelectItem value="MST">Mountain Standard Time (MST)</SelectItem>
+                    <SelectItem value="PST">Pacific Standard Time (PST)</SelectItem>
+                    <SelectItem value="GMT">Greenwich Mean Time (GMT)</SelectItem>
+                    <SelectItem value="CET">Central European Time (CET)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div>
-                <label htmlFor="message" className="block mb-2 font-medium">Preferred Time & Request Details</label>
+                <label htmlFor="message" className="block mb-2 font-medium">Request Details</label>
                 <textarea 
                   id="message"
                   rows={4}
                   className={`w-full px-4 py-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-black`} 
-                  placeholder="Please call me back tomorrow between 10 AM and 12 PM. I'm interested in discussing..."
+                  placeholder="Please provide details about what you'd like to discuss..."
                   {...register('message')}
                 ></textarea>
                 {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
