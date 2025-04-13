@@ -58,8 +58,21 @@ export default function DatabaseAdminPage() {
   const [isAddColumnDialogOpen, setIsAddColumnDialogOpen] = useState(false);
   const [isEditRowDialogOpen, setIsEditRowDialogOpen] = useState(false);
   const [isAddRowDialogOpen, setIsAddRowDialogOpen] = useState(false);
+  const [isDropTableDialogOpen, setIsDropTableDialogOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<Record<string, any> | null>(null);
   const [primaryKeyColumn, setPrimaryKeyColumn] = useState<string | null>(null);
+  const [newColumn, setNewColumn] = useState<{
+    name: string;
+    type: string;
+    isNullable: boolean;
+    isUnique: boolean;
+    defaultValue?: string;
+  }>({
+    name: '',
+    type: 'text',
+    isNullable: true,
+    isUnique: false
+  });
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -313,10 +326,49 @@ export default function DatabaseAdminPage() {
         description: "New column has been added successfully",
       });
       setIsAddColumnDialogOpen(false);
+      setNewColumn({
+        name: '',
+        type: 'text',
+        isNullable: true,
+        isUnique: false
+      });
     },
     onError: (error) => {
       toast({
         title: "Failed to add column",
+        description: error instanceof Error ? error.message : "Unknown error occurred",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  // Handle dropping a table
+  const dropTableMutation = useMutation({
+    mutationFn: async (tableName: string) => {
+      // We'll use the SQL query endpoint to drop the table
+      const response = await apiRequest("POST", "/api/db/execute-query", { 
+        query: `DROP TABLE IF EXISTS "${tableName}";` 
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to drop table');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/db/tables'] });
+      toast({
+        title: "Table dropped",
+        description: "Table has been dropped successfully",
+      });
+      setIsDropTableDialogOpen(false);
+      setSelectedTable(null);
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to drop table",
         description: error instanceof Error ? error.message : "Unknown error occurred",
         variant: "destructive"
       });
@@ -450,6 +502,10 @@ export default function DatabaseAdminPage() {
                   <Button variant="outline" size="sm" onClick={() => setIsAddColumnDialogOpen(true)}>
                     <PlusCircle className="h-4 w-4 mr-2" />
                     Add Column
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => setIsDropTableDialogOpen(true)}>
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Drop Table
                   </Button>
                   <Button variant="outline" size="sm" onClick={() => setSelectedTable(null)}>
                     <X className="h-4 w-4 mr-2" />
