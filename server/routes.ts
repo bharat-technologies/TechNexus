@@ -920,6 +920,217 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Create a new table
+  app.post('/api/db/create-table', requireAuth, async (req, res) => {
+    try {
+      const { tableName, columns } = z.object({
+        tableName: z.string().min(1).regex(/^[a-zA-Z0-9_]+$/, 'Table name can only contain letters, numbers, and underscores'),
+        columns: z.array(z.object({
+          name: z.string().min(1).regex(/^[a-zA-Z0-9_]+$/, 'Column name can only contain letters, numbers, and underscores'),
+          type: z.string().min(1),
+          isPrimary: z.boolean().optional(),
+          isNullable: z.boolean().optional(),
+          defaultValue: z.string().optional(),
+          isUnique: z.boolean().optional()
+        })).min(1)
+      }).parse(req.body);
+      
+      // Build CREATE TABLE SQL
+      let sql = `CREATE TABLE "${tableName}" (\n`;
+      const columnDefs = columns.map((column) => {
+        let def = `  "${column.name}" ${column.type}`;
+        
+        if (column.isPrimary) {
+          def += ' PRIMARY KEY';
+        }
+        
+        if (column.isUnique) {
+          def += ' UNIQUE';
+        }
+        
+        if (column.isNullable === false) {
+          def += ' NOT NULL';
+        }
+        
+        if (column.defaultValue) {
+          def += ` DEFAULT ${column.defaultValue}`;
+        }
+        
+        return def;
+      });
+      
+      sql += columnDefs.join(',\n');
+      sql += '\n)';
+      
+      await pool.query({text: sql});
+      
+      res.json({
+        success: true,
+        message: `Table "${tableName}" created successfully`
+      });
+    } catch (error: any) {
+      console.error('Error creating table:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error creating table: ${error.message}` 
+      });
+    }
+  });
+  
+  // Add a column to an existing table
+  app.post('/api/db/add-column', requireAuth, async (req, res) => {
+    try {
+      const { tableName, column } = z.object({
+        tableName: z.string().min(1),
+        column: z.object({
+          name: z.string().min(1).regex(/^[a-zA-Z0-9_]+$/, 'Column name can only contain letters, numbers, and underscores'),
+          type: z.string().min(1),
+          isNullable: z.boolean().optional(),
+          defaultValue: z.string().optional(),
+          isUnique: z.boolean().optional()
+        })
+      }).parse(req.body);
+      
+      // Build ALTER TABLE SQL
+      let sql = `ALTER TABLE "${tableName}" ADD COLUMN "${column.name}" ${column.type}`;
+      
+      if (column.isUnique) {
+        sql += ' UNIQUE';
+      }
+      
+      if (column.isNullable === false) {
+        sql += ' NOT NULL';
+      }
+      
+      if (column.defaultValue) {
+        sql += ` DEFAULT ${column.defaultValue}`;
+      }
+      
+      await pool.query({text: sql});
+      
+      res.json({
+        success: true,
+        message: `Column "${column.name}" added to table "${tableName}" successfully`
+      });
+    } catch (error: any) {
+      console.error('Error adding column:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error adding column: ${error.message}` 
+      });
+    }
+  });
+  
+  // Update a row in a table
+  app.post('/api/db/update-row', requireAuth, async (req, res) => {
+    try {
+      const { tableName, rowData, primaryKey, primaryKeyValue } = z.object({
+        tableName: z.string().min(1),
+        rowData: z.record(z.string(), z.any()),
+        primaryKey: z.string().min(1),
+        primaryKeyValue: z.any()
+      }).parse(req.body);
+      
+      // Build UPDATE SQL
+      const setValues = Object.entries(rowData)
+        .filter(([key]) => key !== primaryKey) // Don't update primary key
+        .map(([key, value]) => `"${key}" = $${Object.keys(rowData).indexOf(key) + 2}`);
+      
+      if (setValues.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: 'No values to update'
+        });
+      }
+      
+      const sql = `UPDATE "${tableName}" SET ${setValues.join(', ')} WHERE "${primaryKey}" = $1`;
+      
+      // Prepare values array
+      const values = [primaryKeyValue];
+      Object.entries(rowData)
+        .filter(([key]) => key !== primaryKey)
+        .forEach(([, value]) => values.push(value));
+      
+      await pool.query({
+        text: sql,
+        values
+      });
+      
+      res.json({
+        success: true,
+        message: `Row updated successfully in table "${tableName}"`
+      });
+    } catch (error: any) {
+      console.error('Error updating row:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error updating row: ${error.message}` 
+      });
+    }
+  });
+  
+  // Delete a row from a table
+  app.delete('/api/db/delete-row', requireAuth, async (req, res) => {
+    try {
+      const { tableName, primaryKey, primaryKeyValue } = z.object({
+        tableName: z.string().min(1),
+        primaryKey: z.string().min(1),
+        primaryKeyValue: z.any()
+      }).parse(req.body);
+      
+      const sql = `DELETE FROM "${tableName}" WHERE "${primaryKey}" = $1`;
+      
+      await pool.query({
+        text: sql,
+        values: [primaryKeyValue]
+      });
+      
+      res.json({
+        success: true,
+        message: `Row deleted successfully from table "${tableName}"`
+      });
+    } catch (error: any) {
+      console.error('Error deleting row:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error deleting row: ${error.message}` 
+      });
+    }
+  });
+  
+  // Insert a new row into a table
+  app.post('/api/db/insert-row', requireAuth, async (req, res) => {
+    try {
+      const { tableName, rowData } = z.object({
+        tableName: z.string().min(1),
+        rowData: z.record(z.string(), z.any())
+      }).parse(req.body);
+      
+      const columns = Object.keys(rowData).map(key => `"${key}"`).join(', ');
+      const placeholders = Object.keys(rowData).map((_, index) => `$${index + 1}`).join(', ');
+      const values = Object.values(rowData);
+      
+      const sql = `INSERT INTO "${tableName}" (${columns}) VALUES (${placeholders}) RETURNING *`;
+      
+      const result = await pool.query({
+        text: sql,
+        values
+      });
+      
+      res.json({
+        success: true,
+        message: `Row inserted successfully into table "${tableName}"`,
+        data: result.rows[0]
+      });
+    } catch (error: any) {
+      console.error('Error inserting row:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: `Error inserting row: ${error.message}` 
+      });
+    }
+  });
+  
   const httpServer = createServer(app);
 
   return httpServer;
